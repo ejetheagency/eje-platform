@@ -462,12 +462,12 @@
     <div class="ws">
       <button class="ws-btn" id="wsBtn" type="button" aria-haspopup="true" aria-expanded="false">
         <span class="ws-dot" id="wsDot"></span>
-        <span class="ws-txt"><span class="ws-name" id="wsName">UnaBase</span><span class="ws-lab">Cuenta activa</span></span>
+        <span class="ws-txt"><span class="ws-name" id="wsName">EJE Productoras</span><span class="ws-lab">Cuenta activa</span></span>
         <span class="ws-cv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></span>
       </button>
       <div class="ws-menu" id="wsMenu">
         <div class="ws-sep">Cuentas de cliente</div>
-        <button class="ws-opt" data-ws="UnaBase" data-client="unabase_default" data-acct="#c6902a" data-kind="Scarlett"><span class="d" style="background:#c6902a"></span><span class="n">UnaBase</span><span class="k">Scarlett</span></button>
+        <button class="ws-opt" data-ws="EJE Productoras" data-client="unabase_default" data-acct="#c6902a" data-kind="Base de datos"><span class="d" style="background:#c6902a"></span><span class="n">EJE Productoras</span><span class="k">Base de datos</span></button>
         <div class="ws-sep">Interno</div>
         <button class="ws-opt" data-ws="EJE Outreach" data-client="eje" data-acct="#2da2bb" data-kind="Emiliano"><span class="d" style="background:#2da2bb"></span><span class="n">EJE Outreach</span><span class="k">Emiliano</span></button>
         <button class="ws-opt" data-ws="EJE Websites" data-client="eje_web" data-acct="#3f8cff" data-kind="Emiliano"><span class="d" style="background:#3f8cff"></span><span class="n">EJE Websites</span><span class="k">Emiliano</span></button>
@@ -495,7 +495,7 @@
     <!-- HOME -->
     <section class="view on" id="view-home">
       <div class="h-greet" id="greet">Buen día, Scarlett.</div>
-      <div class="h-sub" id="greetSub">UnaBase · 15 decisores en cola hoy</div>
+      <div class="h-sub" id="greetSub">EJE · cargando…</div>
 
       <div class="autopilot"><span class="d"></span>Autopiloto · reporte de hoy: <b>enriquecido (3 pasadas)</b> → publicado ✓ · calidad <b>92</b></div>
 
@@ -569,7 +569,7 @@
     <section class="view" id="view-ajustes">
       <div class="page-h">Ajustes</div><div class="page-sub">Cuenta y preferencias.</div>
       <div class="set-list">
-        <div class="set-row"><div><div class="set-t">Cuenta activa</div><div class="set-d" id="set-acct">UnaBase · firma Scarlett</div></div></div>
+        <div class="set-row"><div><div class="set-t">Cuenta activa</div><div class="set-d" id="set-acct">EJE Productoras</div></div></div>
         <div class="set-row"><div><div class="set-t">Tema</div><div class="set-d">Claro u oscuro (también arriba a la derecha)</div></div><button class="btn" type="button" onclick="document.getElementById('themeBtn').click()">Cambiar</button></div>
         <div class="set-row"><div><div class="set-t">Sesión</div><div class="set-d">Cerrar sesión de la plataforma</div></div><button class="btn" type="button" onclick="window.__ejeSignOut&&window.__ejeSignOut()">Cerrar sesión</button></div>
       </div>
@@ -1444,7 +1444,7 @@
     if(EJE_CLIENT==='unabase_default') fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){
       var a=ejeActiveBatch(m);
       var el=document.getElementById('greetSub');
-      if(a&&el) el.textContent='UnaBase · '+a.lead_count+' decisores en cola hoy';
+      if(a&&el) el.textContent='EJE Productoras · '+a.lead_count+' decisores en cola hoy';
     }).catch(function(){});
 
     // progressive: REAL Home time-series (weekly conversations, envíos, streak, record) — read-only
