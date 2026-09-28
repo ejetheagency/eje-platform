@@ -467,7 +467,7 @@
       </button>
       <div class="ws-menu" id="wsMenu">
         <div class="ws-sep">Cuentas de cliente</div>
-        <button class="ws-opt" data-ws="EJE Productoras" data-client="unabase_default" data-acct="#c6902a" data-kind="Base de datos"><span class="d" style="background:#c6902a"></span><span class="n">EJE Productoras</span><span class="k">Base de datos</span></button>
+        <button class="ws-opt" data-ws="EJE Productoras" data-client="eje_productoras" data-acct="#c6902a" data-kind="Base de datos"><span class="d" style="background:#c6902a"></span><span class="n">EJE Productoras</span><span class="k">Base de datos</span></button>
         <div class="ws-sep">Interno</div>
         <button class="ws-opt" data-ws="EJE Outreach" data-client="eje" data-acct="#2da2bb" data-kind="Emiliano"><span class="d" style="background:#2da2bb"></span><span class="n">EJE Outreach</span><span class="k">Emiliano</span></button>
         <button class="ws-opt" data-ws="EJE Websites" data-client="eje_web" data-acct="#3f8cff" data-kind="Emiliano"><span class="d" style="background:#3f8cff"></span><span class="n">EJE Websites</span><span class="k">Emiliano</span></button>
@@ -623,7 +623,7 @@
   // ── workspace switcher (switches the active client_id + reloads; default-safe) ──
   (function(){
     var btn=document.getElementById('wsBtn'), menu=document.getElementById('wsMenu');
-    function activeClient(){try{return localStorage.getItem('eje_ws')||'unabase_default';}catch(e){return 'unabase_default';}}
+    function activeClient(){try{return localStorage.getItem('eje_ws')||'eje_productoras';}catch(e){return 'eje_productoras';}}
     // EJE Outreach + EJE Websites workspaces are private to Emiliano's accounts — hide them from everyone else.
     var EJE_OWNERS=['ejofreeyzaguirre@gmail.com','contact@ejetheagency.com'];
     var EJE_PRIVATE=['eje_web','eje'];
@@ -631,7 +631,7 @@
       var email=(window.__ejeEmail||'').toLowerCase(), owner=EJE_OWNERS.indexOf(email)>=0;
       EJE_PRIVATE.forEach(function(c){ var opt=document.querySelector('.ws-opt[data-client="'+c+'"]'); if(opt) opt.style.display=owner?'':'none'; });
       // once we KNOW the email (post-auth) and it's NOT an owner, boot any stray session out of a private workspace
-      if(email && !owner && EJE_PRIVATE.indexOf(activeClient())>=0){ try{localStorage.setItem('eje_ws','unabase_default');}catch(e){} location.reload(); }
+      if(email && !owner && EJE_PRIVATE.indexOf(activeClient())>=0){ try{localStorage.setItem('eje_ws','eje_productoras');}catch(e){} location.reload(); }
     };
     window.__ejeApplyWsGate();
     btn.addEventListener('click',function(e){e.stopPropagation();var open=menu.classList.toggle('open');btn.setAttribute('aria-expanded',open);});
@@ -708,7 +708,7 @@
     // unknown domains so onerror cleanly drops to initials). Clearbit's API was shut down.
     function avImg(l){var d=decDom(l.website);return d?'<img class="av-logo" src="https://unavatar.io/'+encodeURIComponent(d)+'?fallback=false" alt="" loading="lazy" onerror="this.remove()">':'';}
     // ── WRITE layer (mirrors classic cockpit schema exactly; only fires when authenticated) ──
-    var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'unabase_default';}catch(e){return 'unabase_default';}})(), EJE_USER='scarlett';
+    var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje_productoras';}catch(e){return 'eje_productoras';}})(), EJE_USER='scarlett';
     function canWrite(){return window.__ejeAuthed===true && !!window.__ejeSB;}
     function sbStatusWrite(id,status){var sb=window.__ejeSB;return sb.from('status_history').insert({lead_id:id,user_name:EJE_USER,status:status,client_id:EJE_CLIENT}).then(function(){return sb.from('leads').update({status:status,updated_at:new Date().toISOString()}).eq('id',id).eq('client_id',EJE_CLIENT);});}
     function sbActionWrite(id,ch){var sb=window.__ejeSB;return sb.from('actions').delete().match({lead_id:id,channel:ch,user_name:EJE_USER,client_id:EJE_CLIENT}).then(function(){return sb.from('actions').insert({lead_id:id,user_name:EJE_USER,channel:ch,completed:true,client_id:EJE_CLIENT});});}
@@ -717,7 +717,7 @@
     // CRITICAL: messages_sent/actions/status_history/notes all have a FK to leads(id).
     // Must upsert the lead row BEFORE any child write, or the insert is rejected (409)
     // and progress silently vanishes. Mirrors the classic cockpit's sbUpsertLead.
-    function sbUpsertLead(id,l){var sb=window.__ejeSB;return sb.from('leads').upsert({id:id,company:l.companyName||'',contact_name:l.contactName||null,contact_email:l.contactEmail||null,contact_phone:l.contactPhone||null,country:l.country||null,score:Math.round(l.unabaseScore||0),source_date:l.source_date||new Date().toISOString().slice(0,10),lead_data:l,updated_at:new Date().toISOString(),client_id:EJE_CLIENT},{onConflict:'id'});}
+    function sbUpsertLead(id,l){var sb=window.__ejeSB;return sb.from('leads').upsert({id:id,company:l.companyName||'',contact_name:l.contactName||null,contact_email:l.contactEmail||null,contact_phone:l.contactPhone||null,country:l.country||null,score:Math.round(l.score||0),source_date:l.source_date||new Date().toISOString().slice(0,10),lead_data:l,updated_at:new Date().toISOString(),client_id:EJE_CLIENT},{onConflict:'id'});}
     function sbSetStatus(id,status){var sb=window.__ejeSB;return sb.from('leads').update({status:status,updated_at:new Date().toISOString()}).eq('id',id).eq('client_id',EJE_CLIENT);}
     function reRender(){ render(); if(typeof renderAccion==='function') renderAccion(); if(typeof renderHoy==='function') renderHoy(); }
     function markStatus(l,status,label,note){
@@ -742,7 +742,7 @@
     }
     // ── PAGINATED FETCH — PostgREST hard-caps every response at 1000 rows.
     // A single .limit(3000/9000) call SILENTLY returns only the first 1000, so
-    // with >1000 messages_sent rows (currently ~1558 for unabase_default) many
+    // with >1000 messages_sent rows (currently ~1558 for eje_productoras) many
     // leads' message history was truncated → the cadence under-counted touches
     // → already-done follow-ups kept re-appearing in Tareas (the "I mark it,
     // it comes back" bug). Fetch in 1000-row pages; retry a flaky page before
@@ -886,7 +886,7 @@
         (res[1]||[]).forEach(function(m){var d=String(m.lead_id||'').toLowerCase();var t=new Date(m.sent_at).getTime();if(d&&!isNaN(t)){(MSGS[d]=MSGS[d]||[]).push(t);}});
         var map={};
         (res[0]||[]).forEach(function(r){var d=String(r.id||'').toLowerCase();if(!d)return;var ld=r.lead_data||{};
-          map[d]={_key:d,companyName:r.company||ld.companyName||d,contactName:r.contact_name||ld.contactName||'',contactEmail:r.contact_email||ld.contactEmail||'',country:ld.country||'',unabaseScore:r.score||ld.unabaseScore||'',instagramHandle:ld.instagramHandle||'',instagramFollowers:ld.instagramFollowers||0,contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',website:ld.website||('https://'+d),pitchEmailES:ld.pitchEmailES||ld.emailCercana||'',companyBrief:ld.companyBrief||'',whyICP:ld.whyICP||'',_emailVerify:ld._emailVerify||'',instagramKind:ld.instagramKind||'',contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',_verifiedCredits:ld._verifiedCredits||ld.verifiedCredits||[],additionalContacts:ld.additionalContacts||[],companyEmail:ld.companyEmail||null,contactTitle:ld.contactTitle||'',source_date:r.source_date||ld.source_date||'',status:r.status||'none'};
+          map[d]={_key:d,companyName:r.company||ld.companyName||d,contactName:r.contact_name||ld.contactName||'',contactEmail:r.contact_email||ld.contactEmail||'',country:ld.country||'',score:r.score||ld.score||'',instagramHandle:ld.instagramHandle||'',instagramFollowers:ld.instagramFollowers||0,contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',website:ld.website||('https://'+d),pitchEmailES:ld.pitchEmailES||ld.emailCercana||'',companyBrief:ld.companyBrief||'',whyICP:ld.whyICP||'',_emailVerify:ld._emailVerify||'',instagramKind:ld.instagramKind||'',contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',_verifiedCredits:ld._verifiedCredits||ld.verifiedCredits||[],additionalContacts:ld.additionalContacts||[],companyEmail:ld.companyEmail||null,contactTitle:ld.contactTitle||'',source_date:r.source_date||ld.source_date||'',status:r.status||'none'};
         });
         if(DATA&&DATA.leads){DATA.leads.forEach(function(l){var d=decDom(l.website);if(!d)return;map[d]=Object.assign({},map[d]||{},l,{_key:d,_today:true});});}
         BYKEY=map; UNIVERSE=Object.keys(map).map(function(k){return map[k];});
@@ -964,7 +964,7 @@
       if(!uni.length){ body.innerHTML='<div class="tq-empty">Cargando cola…</div>'; return; }
       // EJE: Tareas is ONLY follow-ups for already-contacted leads. First touches live in Hoy (their send day), never here.
       var allItems=uni.map(function(l){return {l:l,c:cadOf(l)};}).filter(function(x){return x.c&&['first','due','soon','upcoming','replied','loom'].indexOf(x.c.kind)>=0 && !(ISEJE&&x.c.kind==='first');});
-      var dormant=allItems.filter(function(x){return x.c.dormant;}).sort(function(a,b){return (b.l.unabaseScore||0)-(a.l.unabaseScore||0);});
+      var dormant=allItems.filter(function(x){return x.c.dormant;}).sort(function(a,b){return (b.l.score||0)-(a.l.score||0);});
       var items=allItems.filter(function(x){return !x.c.dormant;});
       var urgent=items.filter(function(x){return x.c.kind==='due'&&x.c.overdue>2*36e5;}).sort(function(a,b){return b.c.overdue-a.c.overdue;});
       var soon=items.filter(function(x){return x.c.kind==='soon'||(x.c.kind==='due'&&x.c.overdue<=2*36e5);});
@@ -1022,7 +1022,7 @@
       // EJE: Hoy is a DAILY REPORT (leads whose send date is today), highest priority first. Older days live in Historial.
       var rep=DATA.leads.slice(), dstr=DATA.date;
       if(ISEJE){ var td=ejeTodayET(); rep=rep.filter(function(l){return (l.source_date||'')===td;}); dstr=td; }
-      rep.sort(function(a,b){return (b.unabaseScore||0)-(a.unabaseScore||0);});
+      rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
       var sent=rep.filter(function(l){return statusOf(l)!=='none';}).length;
       var sub=document.getElementById('hoy-sub'); if(sub) sub.textContent=(ISEJE?'Reporte de hoy · '+esc(dstr):'Reporte del '+esc(dstr))+' · '+rep.length+' decisores · '+sent+'/'+rep.length+' contactados';
       var ct=document.getElementById('hoy-ct'); if(ct) ct.textContent=rep.length;
@@ -1032,7 +1032,7 @@
           +'<span class="dec-main"><span class="dec-co">'+esc(l.companyName)+'</span>'
           +'<span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
           +'<span class="dec-ch">'+ch+'</span>'+(l.website?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')+statusChip(l)
-          +'<span class="dec-score">'+esc(l.unabaseScore||'')+'</span></button>';
+          +'<span class="dec-score">'+esc(l.score||'')+'</span></button>';
       }).join('')||'<div class="tq-empty">Sin reporte para hoy. Los leads de días anteriores están en Historial.</div>';
       body.querySelectorAll('.dec-row').forEach(function(r){r.addEventListener('click',function(){var i=+r.dataset.hi;openCardNav(rep[i],rep,i,'hoy');});});
       body.querySelectorAll('.dec-ext').forEach(function(x){x.addEventListener('click',function(e){e.stopPropagation();window.open(x.dataset.url,'_blank','noopener');});});
@@ -1169,7 +1169,7 @@
       var pairs=src.filter(function(l){ if(!q)return true;
         var hay=norm2((l.companyName||'')+' '+(l.contactName||'')+' '+(l.contactTitle||'')+' '+(l.country||'')+' '+(l.contactEmail||'')+' '+(l.companyEmail||'')+' '+(l.website||l.domain||'')+' '+(l.instagramHandle||'')+' '+(l.companyBrief||'')+' '+((l.additionalContacts||[]).map(function(c){return (c.name||c.contactName||'')+' '+(c.email||c.contactEmail||'');}).join(' ')));
         return hay.indexOf(q)>=0; });
-      pairs.sort(function(a,b){return (b.unabaseScore||0)-(a.unabaseScore||0);});
+      pairs.sort(function(a,b){return (b.score||0)-(a.score||0);});
       subEl.textContent=(q?pairs.length+' de '+src.length:src.length+' decisores')+(DATA?' · lote '+esc(DATA.date):'');
       listEl.innerHTML=pairs.map(function(l){var d=l._key||decDom(l.website);
         var ch=ISEJE?chLabel((cadOf(l)||{}).channel||'email'):(l.website?'sitio':(l.instagramHandle?'IG':'email'));
@@ -1179,7 +1179,7 @@
           +'<span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
           +'<span class="dec-ch">'+ch+'</span>'+(l.website?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')
           +statusChip(l)
-          +'<span class="dec-score">'+esc(l.unabaseScore||'')+'</span></button>';
+          +'<span class="dec-score">'+esc(l.score||'')+'</span></button>';
       }).join('')||'<div class="tq-empty">Sin resultados.</div>';
       listEl.querySelectorAll('.dec-row').forEach(function(r,i){r.addEventListener('click',function(){var l=BYKEY[r.dataset.key]||pairs[i];if(l)openCardNav(l,pairs,i,'decisores');});});
       listEl.querySelectorAll('.dec-ext').forEach(function(x){x.addEventListener('click',function(e){e.stopPropagation();window.open(x.dataset.url,'_blank','noopener');});});
@@ -1212,7 +1212,7 @@
         +'<div class="card"><div class="c-head">'
         +'<div class="c-av">'+esc(initials(l.companyName))+avImg(l)+'</div>'
         +'<div><div class="c-name">'+esc(l.companyName)+' '+statusChip(l)+'</div><div class="c-sub">'+flag(l.country)+' '+esc(l.country)+' · '+esc(l.contactName||'—')+(l.contactTitle?', '+esc(l.contactTitle):'')+'</div></div>'
-        +'<div class="c-score"><div class="v">'+esc(l.unabaseScore||'—')+'</div><div class="l">Score</div></div>'
+        +'<div class="c-score"><div class="v">'+esc(l.score||'—')+'</div><div class="l">Score</div></div>'
         +'</div><div class="c-body"><div class="c-rail">'
         +rrow('Decisor',esc(l.contactName||'—'))
         +rrow('Email',l.contactEmail?'<a class="link" href="mailto:'+esc(l.contactEmail)+'">'+esc(l.contactEmail)+'</a>':'—')
@@ -1366,7 +1366,7 @@
     }
     function renderHistorial(){
       var body=document.getElementById('hist-body'); if(!body)return;
-      if(EJE_CLIENT!=='unabase_default'){ return renderHistorialEje(body); }
+      if(EJE_CLIENT!=='eje_productoras'){ return renderHistorialEje(body); }
       // Ensure Supabase statuses are loaded (needed to know who responded) even if Historial is the first tab opened.
       if(typeof loadStatus==='function' && !renderHistorial._statusLoaded){ renderHistorial._statusLoaded=true; loadStatus().then(function(){ HISTCNT={}; renderHistorial(); }).catch(function(){}); }
       function paint(){
@@ -1397,7 +1397,7 @@
     }
     function load(){
       // Non-UnaBase workspaces (e.g. eje_web) have no report manifest — load purely from Supabase.
-      if(EJE_CLIENT!=='unabase_default'){
+      if(EJE_CLIENT!=='eje_productoras'){
         loadStatus().then(function(){ return loadUniverse(); }).then(function(){
           DATA={date:new Date().toISOString().slice(0,10),leads:(UNIVERSE||[]).slice()};
           var _n=(UNIVERSE||[]).length;
@@ -1441,7 +1441,7 @@
     try{ var lv=localStorage.getItem('eje_view'); if(lv==='decisores'||lv==='tareas'||lv==='hoy') ensure(); }catch(e){}
 
     // progressive: reflect the REAL active-batch size on Home (after paint, non-blocking) — UnaBase only
-    if(EJE_CLIENT==='unabase_default') fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){
+    if(EJE_CLIENT==='eje_productoras') fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){
       var a=ejeActiveBatch(m);
       var el=document.getElementById('greetSub');
       if(a&&el) el.textContent='EJE Productoras · '+a.lead_count+' decisores en cola hoy';
