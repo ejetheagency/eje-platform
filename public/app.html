@@ -654,8 +654,9 @@
 
   // ── auth gate: Supabase + Google (RLS-ready). Demo bypass until Google provider is enabled. ──
   (function(){
-    var SB_URL='https://ogdsuztzhmnnjolilsuo.supabase.co';
-    var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9nZHN1enR6aG1ubmpvbGlsc3VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDI0MDMsImV4cCI6MjA5MTc3ODQwM30.9iKhJJWd_zg6WfdxTR9ojK4DVLR3e-bLdPXY-0uDp7Q';
+    // STAGING BRANCH ONLY — points at the eje-platform-staging Supabase project. Never merge to main.
+    var SB_URL='https://oooljqecvqmspdunonal.supabase.co';
+    var SB_KEY='sb_publishable_zq3BJ0oxKh5nHESj-liEvQ_KJ3goz_L';
     var loginEl=document.getElementById('login'), errEl=document.getElementById('loginErr');
     var sb=null; try{ if(window.supabase) sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,detectSessionInUrl:true}}); }catch(e){}
     window.__ejeSB=sb; // shared read-only client for status hydration
