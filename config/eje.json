@@ -12,5 +12,13 @@
     "channels": ["email", "instagram", "linkedin"],
     "template_rotation": ["A_video", "B_delegation"]
   },
-  "gate": { "min_score": 80, "require_named_decisor": true, "require_channel": true, "require_valid_email": true }
+  "gate": { "min_score": 80, "require_named_decisor": true, "require_channel": true, "require_valid_email": true },
+  "signals": {
+    "_note": "Which 'best-lead' quality signals matter for THIS client. weight = hard (block) | important (score boost) | soft (nice) | ignore. Productoras would set ig_followers to important + a min; tech pipelines lean on funding/traction instead.",
+    "ig_followers":      { "weight": "soft", "note": "presence helps, but some tech/B2B founders have low IG; never hard-block" },
+    "active_ig":         { "weight": "soft" },
+    "named_decision_maker": { "weight": "hard" },
+    "verified_email":    { "weight": "hard" },
+    "funding_or_traction": { "weight": "soft", "note": "for tech startups this can matter more than social presence" }
+  }
 }
