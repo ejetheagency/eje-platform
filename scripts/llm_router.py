@@ -16,7 +16,7 @@
 #   python3 scripts/llm_router.py --status     # show which providers are active + ledger totals
 #   python3 scripts/llm_router.py --test        # run a tiny prompt on the cheapest active provider
 
-import os, sys, json, hashlib, time, urllib.request
+import os, sys, json, hashlib, time, urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE_DIR = os.path.join(ROOT, "cache", "llm")
@@ -89,7 +89,14 @@ def route(prompt, tier="cheap", client="eje", use_cache=True):
         os.makedirs(CACHE_DIR, exist_ok=True)
         cf = os.path.join(CACHE_DIR, _cache_key(provider["model"], prompt)+".txt")
         if os.path.exists(cf): return open(cf).read()
-    out = _call_openai_compat(provider, _env(provider["env"]), prompt)
+    out = None
+    for attempt in range(5):                      # free tiers rate-limit; back off and retry on 429
+        try:
+            out = _call_openai_compat(provider, _env(provider["env"]), prompt); break
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < 4:
+                time.sleep(3 * (attempt + 1)); continue
+            raise
     if use_cache: open(cf, "w").write(out)
     _log(provider, prompt, out, client)
     return out
