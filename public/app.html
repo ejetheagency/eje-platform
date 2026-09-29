@@ -470,7 +470,6 @@
         <button class="ws-opt" data-ws="EJE Productoras" data-client="eje_productoras" data-acct="#c6902a" data-kind="Base de datos"><span class="d" style="background:#c6902a"></span><span class="n">EJE Productoras</span><span class="k">Base de datos</span></button>
         <div class="ws-sep">Interno</div>
         <button class="ws-opt" data-ws="EJE Outreach" data-client="eje" data-acct="#2da2bb" data-kind="Emiliano"><span class="d" style="background:#2da2bb"></span><span class="n">EJE Outreach</span><span class="k">Emiliano</span></button>
-        <button class="ws-opt" data-ws="EJE Websites" data-client="eje_web" data-acct="#3f8cff" data-kind="Emiliano"><span class="d" style="background:#3f8cff"></span><span class="n">EJE Websites</span><span class="k">Emiliano</span></button>
       </div>
     </div>
 
@@ -626,7 +625,7 @@
     function activeClient(){try{return localStorage.getItem('eje_ws')||'eje_productoras';}catch(e){return 'eje_productoras';}}
     // EJE Outreach + EJE Websites workspaces are private to Emiliano's accounts — hide them from everyone else.
     var EJE_OWNERS=['ejofreeyzaguirre@gmail.com','contact@ejetheagency.com'];
-    var EJE_PRIVATE=['eje_web','eje'];
+    var EJE_PRIVATE=['eje'];
     window.__ejeApplyWsGate=function(){
       var email=(window.__ejeEmail||'').toLowerCase(), owner=EJE_OWNERS.indexOf(email)>=0;
       EJE_PRIVATE.forEach(function(c){ var opt=document.querySelector('.ws-opt[data-client="'+c+'"]'); if(opt) opt.style.display=owner?'':'none'; });
@@ -1318,7 +1317,7 @@
         var c={rep:rep,meet:meet};HISTCNT[b.file]=c;return c;
       }).catch(function(){return null;});
     }
-    // Day-by-day report history for non-default workspaces (eje_web) — grouped from Supabase leads.
+    // Day-by-day report history for non-default workspaces, grouped from Supabase leads.
     function ejeHistDetail(items, el){
       var resp=[], sent=0;
       items.forEach(function(l){ var s=statusOf(l); if(s==='replied'||s==='loom_sent'||s==='meeting') resp.push({l:l,st:s}); if(s!=='none') sent++; });
@@ -1395,7 +1394,7 @@
       fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){MANIFEST=m;paint();}).catch(function(){body.innerHTML='<div class="tq-empty">No se pudo cargar.</div>';});
     }
     function load(){
-      // Non-default workspaces (e.g. eje_web) have no report manifest — load purely from Supabase.
+      // Non-default workspaces have no report manifest, load purely from Supabase.
       if(EJE_CLIENT!=='eje_productoras'){
         loadStatus().then(function(){ return loadUniverse(); }).then(function(){
           DATA={date:new Date().toISOString().slice(0,10),leads:(UNIVERSE||[]).slice()};
