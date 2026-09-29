@@ -462,12 +462,12 @@
     <div class="ws">
       <button class="ws-btn" id="wsBtn" type="button" aria-haspopup="true" aria-expanded="false">
         <span class="ws-dot" id="wsDot"></span>
-        <span class="ws-txt"><span class="ws-name" id="wsName">UnaBase</span><span class="ws-lab">Cuenta activa</span></span>
+        <span class="ws-txt"><span class="ws-name" id="wsName">EJE Productoras</span><span class="ws-lab">Cuenta activa</span></span>
         <span class="ws-cv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></span>
       </button>
       <div class="ws-menu" id="wsMenu">
         <div class="ws-sep">Cuentas de cliente</div>
-        <button class="ws-opt" data-ws="UnaBase" data-client="unabase_default" data-acct="#c6902a" data-kind="Scarlett"><span class="d" style="background:#c6902a"></span><span class="n">UnaBase</span><span class="k">Scarlett</span></button>
+        <button class="ws-opt" data-ws="EJE Productoras" data-client="eje_productoras" data-acct="#c6902a" data-kind="Base de datos"><span class="d" style="background:#c6902a"></span><span class="n">EJE Productoras</span><span class="k">Base de datos</span></button>
         <div class="ws-sep">Interno</div>
         <button class="ws-opt" data-ws="EJE Outreach" data-client="eje" data-acct="#2da2bb" data-kind="Emiliano"><span class="d" style="background:#2da2bb"></span><span class="n">EJE Outreach</span><span class="k">Emiliano</span></button>
         <button class="ws-opt" data-ws="EJE Websites" data-client="eje_web" data-acct="#3f8cff" data-kind="Emiliano"><span class="d" style="background:#3f8cff"></span><span class="n">EJE Websites</span><span class="k">Emiliano</span></button>
@@ -495,7 +495,7 @@
     <!-- HOME -->
     <section class="view on" id="view-home">
       <div class="h-greet" id="greet">Buen día, Scarlett.</div>
-      <div class="h-sub" id="greetSub">UnaBase · 15 decisores en cola hoy</div>
+      <div class="h-sub" id="greetSub">EJE · cargando…</div>
 
       <div class="autopilot"><span class="d"></span>Autopiloto · reporte de hoy: <b>enriquecido (3 pasadas)</b> → publicado ✓ · calidad <b>92</b></div>
 
@@ -569,7 +569,7 @@
     <section class="view" id="view-ajustes">
       <div class="page-h">Ajustes</div><div class="page-sub">Cuenta y preferencias.</div>
       <div class="set-list">
-        <div class="set-row"><div><div class="set-t">Cuenta activa</div><div class="set-d" id="set-acct">UnaBase · firma Scarlett</div></div></div>
+        <div class="set-row"><div><div class="set-t">Cuenta activa</div><div class="set-d" id="set-acct">EJE Productoras</div></div></div>
         <div class="set-row"><div><div class="set-t">Tema</div><div class="set-d">Claro u oscuro (también arriba a la derecha)</div></div><button class="btn" type="button" onclick="document.getElementById('themeBtn').click()">Cambiar</button></div>
         <div class="set-row"><div><div class="set-t">Sesión</div><div class="set-d">Cerrar sesión de la plataforma</div></div><button class="btn" type="button" onclick="window.__ejeSignOut&&window.__ejeSignOut()">Cerrar sesión</button></div>
       </div>
@@ -623,7 +623,7 @@
   // ── workspace switcher (switches the active client_id + reloads; default-safe) ──
   (function(){
     var btn=document.getElementById('wsBtn'), menu=document.getElementById('wsMenu');
-    function activeClient(){try{return localStorage.getItem('eje_ws')||'unabase_default';}catch(e){return 'unabase_default';}}
+    function activeClient(){try{return localStorage.getItem('eje_ws')||'eje_productoras';}catch(e){return 'eje_productoras';}}
     // EJE Outreach + EJE Websites workspaces are private to Emiliano's accounts — hide them from everyone else.
     var EJE_OWNERS=['ejofreeyzaguirre@gmail.com','contact@ejetheagency.com'];
     var EJE_PRIVATE=['eje_web','eje'];
@@ -631,7 +631,7 @@
       var email=(window.__ejeEmail||'').toLowerCase(), owner=EJE_OWNERS.indexOf(email)>=0;
       EJE_PRIVATE.forEach(function(c){ var opt=document.querySelector('.ws-opt[data-client="'+c+'"]'); if(opt) opt.style.display=owner?'':'none'; });
       // once we KNOW the email (post-auth) and it's NOT an owner, boot any stray session out of a private workspace
-      if(email && !owner && EJE_PRIVATE.indexOf(activeClient())>=0){ try{localStorage.setItem('eje_ws','unabase_default');}catch(e){} location.reload(); }
+      if(email && !owner && EJE_PRIVATE.indexOf(activeClient())>=0){ try{localStorage.setItem('eje_ws','eje_productoras');}catch(e){} location.reload(); }
     };
     window.__ejeApplyWsGate();
     btn.addEventListener('click',function(e){e.stopPropagation();var open=menu.classList.toggle('open');btn.setAttribute('aria-expanded',open);});
@@ -707,7 +707,7 @@
     // unknown domains so onerror cleanly drops to initials). Clearbit's API was shut down.
     function avImg(l){var d=decDom(l.website);return d?'<img class="av-logo" src="https://unavatar.io/'+encodeURIComponent(d)+'?fallback=false" alt="" loading="lazy" onerror="this.remove()">':'';}
     // ── WRITE layer (mirrors classic cockpit schema exactly; only fires when authenticated) ──
-    var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'unabase_default';}catch(e){return 'unabase_default';}})(), EJE_USER='scarlett';
+    var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje_productoras';}catch(e){return 'eje_productoras';}})(), EJE_USER='scarlett';
     function canWrite(){return window.__ejeAuthed===true && !!window.__ejeSB;}
     function sbStatusWrite(id,status){var sb=window.__ejeSB;return sb.from('status_history').insert({lead_id:id,user_name:EJE_USER,status:status,client_id:EJE_CLIENT}).then(function(){return sb.from('leads').update({status:status,updated_at:new Date().toISOString()}).eq('id',id).eq('client_id',EJE_CLIENT);});}
     function sbActionWrite(id,ch){var sb=window.__ejeSB;return sb.from('actions').delete().match({lead_id:id,channel:ch,user_name:EJE_USER,client_id:EJE_CLIENT}).then(function(){return sb.from('actions').insert({lead_id:id,user_name:EJE_USER,channel:ch,completed:true,client_id:EJE_CLIENT});});}
@@ -716,7 +716,7 @@
     // CRITICAL: messages_sent/actions/status_history/notes all have a FK to leads(id).
     // Must upsert the lead row BEFORE any child write, or the insert is rejected (409)
     // and progress silently vanishes. Mirrors the classic cockpit's sbUpsertLead.
-    function sbUpsertLead(id,l){var sb=window.__ejeSB;return sb.from('leads').upsert({id:id,company:l.companyName||'',contact_name:l.contactName||null,contact_email:l.contactEmail||null,contact_phone:l.contactPhone||null,country:l.country||null,score:Math.round(l.unabaseScore||0),source_date:l.source_date||new Date().toISOString().slice(0,10),lead_data:l,updated_at:new Date().toISOString(),client_id:EJE_CLIENT},{onConflict:'id'});}
+    function sbUpsertLead(id,l){var sb=window.__ejeSB;return sb.from('leads').upsert({id:id,company:l.companyName||'',contact_name:l.contactName||null,contact_email:l.contactEmail||null,contact_phone:l.contactPhone||null,country:l.country||null,score:Math.round(l.score||0),source_date:l.source_date||new Date().toISOString().slice(0,10),lead_data:l,updated_at:new Date().toISOString(),client_id:EJE_CLIENT},{onConflict:'id'});}
     function sbSetStatus(id,status){var sb=window.__ejeSB;return sb.from('leads').update({status:status,updated_at:new Date().toISOString()}).eq('id',id).eq('client_id',EJE_CLIENT);}
     function reRender(){ render(); if(typeof renderAccion==='function') renderAccion(); if(typeof renderHoy==='function') renderHoy(); }
     function markStatus(l,status,label,note){
@@ -741,7 +741,7 @@
     }
     // ── PAGINATED FETCH — PostgREST hard-caps every response at 1000 rows.
     // A single .limit(3000/9000) call SILENTLY returns only the first 1000, so
-    // with >1000 messages_sent rows (currently ~1558 for unabase_default) many
+    // with >1000 messages_sent rows (currently ~1558 for eje_productoras) many
     // leads' message history was truncated → the cadence under-counted touches
     // → already-done follow-ups kept re-appearing in Tareas (the "I mark it,
     // it comes back" bug). Fetch in 1000-row pages; retry a flaky page before
@@ -792,7 +792,7 @@
     function chChip(ch){ return ch==='ig'?'ig':ch==='li'?'li':ch==='wa'?'green':''; }
     function resolveCh(ch,l){ var li=l.contactLinkedIn||l.linkedin; var wa=l.contactPhone||l.whatsapp||l.apolloCompanyPhone;
       // EJE rule: 2nd touch is IG or LinkedIn, NEVER email. Fallback chain IG -> LinkedIn -> WhatsApp (sanctioned
-      // exception) -> email only as true last resort. Scoped to ISEJE so Scarlett's UnaBase cadence is untouched.
+      // exception) -> email only as true last resort. Scoped to ISEJE so the EJE Productoras cadence is untouched.
       if(ch==='ig'&&!l.instagramHandle) return li?'li':((ISEJE&&wa)?'wa':'email');   // no IG -> LinkedIn, else (EJE) WhatsApp, else email
       if(ch==='li'&&!li) return (ISEJE&&wa)?'wa':'email';
       if(ch==='wa'&&!wa) return 'email'; return ch; }
@@ -830,12 +830,12 @@
     function sendSlot(country){var tz=COUNTRY_TZ[country];if(!tz)return null;var now=new Date();var diff=_tzOff('America/Santiago',now)-_tzOff(tz,now);return {chile:_fmt12(8*60+diff),local:_fmt12(8*60),same:diff===0};}
     // Follow-up copy (ported verbatim from checkpoint/03-email-copy/WINNING-COPY.md)
     function followupCopy(l){ var n=firstName(l)||'equipo', e=l.companyName||'tu productora';
-      return '¡Hola, '+n+'! ¿Cómo va todo?\n\nSolo quería saber si pudiste ver mi correo anterior y si te parece bien agendar la llamada que te comentaba. Me encantaría contarte más sobre UnaBase porque creo que a '+e+' le vendría muy bien. La diseñamos específicamente para la industria creativa y ordena muchísimo los presupuestos cuando hay varios proyectos a la vez.\n\n¿Te parece si coordinamos una reunión corta por Meet, sin ningún compromiso, para resolver cualquier duda? Contame cómo lo ves.\n\nSaludos,\nScarlett Lillo'; }
+      return '¡Hola, '+n+'! ¿Cómo va todo?\n\nSolo quería saber si pudiste ver mi correo anterior y si te parece bien agendar la llamada que te comentaba. Me encantaría contarte más sobre nuestro sistema porque creo que a '+e+' le vendría muy bien. La diseñamos específicamente para la industria creativa y ordena muchísimo los presupuestos cuando hay varios proyectos a la vez.\n\n¿Te parece si coordinamos una reunión corta por Meet, sin ningún compromiso, para resolver cualquier duda? Contame cómo lo ves.\n\nSaludos,\nScarlett Lillo'; }
     // EJE 2nd-touch EMAIL (operator copy 2026-09-16). Short nudge referencing the first email.
     function ejeFollowEmail(l){ var n=firstName(l)||''; return 'Hola '+n+', aquí Emiliano de EJE. Quedé esperando tu mensaje. ¿Qué pensaste de la propuesta que te envié? Cualquier cosa, te puedo reenviar un resumen por WhatsApp o por aquí mismo.\n\nUn saludo,\nEmiliano'; }
     function ejeFollowEmailSubject(l){ var n=firstName(l)||''; return n+', no recibí tu feedback'; }
     function repliedCopy(l){ var n=firstName(l)||'', e=l.companyName||'tu productora';
-      return 'Hola '+n+', qué bueno tener tu respuesta. Con gusto te cuento en más detalle cómo funciona UnaBase y en qué se diferencia. Y si te sirve, coordinamos una reunión corta con nuestro equipo, sin ningún compromiso, para que veas cómo trabajamos y resuelvas cualquier duda con calma. Vos preguntás lo que quieras y te mostramos cómo lo aplicaríamos a '+e+'. ¿Te viene bien una llamada de 20 minutos esta semana? Me decís qué día y lo agendamos.\n\nScarlett'; }
+      return 'Hola '+n+', qué bueno tener tu respuesta. Con gusto te cuento en más detalle cómo funciona nuestro sistema y en qué se diferencia. Y si te sirve, coordinamos una reunión corta con nuestro equipo, sin ningún compromiso, para que veas cómo trabajamos y resuelvas cualquier duda con calma. Vos preguntás lo que quieras y te mostramos cómo lo aplicaríamos a '+e+'. ¿Te viene bien una llamada de 20 minutos esta semana? Me decís qué día y lo agendamos.\n\nScarlett'; }
     function loomNudgeCopy(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
       return 'Hola '+n+', ¿pudiste ver el video? Si te hace sentido, coordinamos una llamada corta de 15 min, sin compromiso, y lo vemos aplicado a '+e+'. Te dejo un par de horarios: [día/hora] o [día/hora]. ¿Cuál te acomoda? Si prefieres, escríbeme por WhatsApp: https://wa.me/17867846899\n\nEmiliano'; }
     function draftFor(l,c){
@@ -846,12 +846,12 @@
       return {text:ISEJE?ejeFollowEmail(l):followupCopy(l),label:c.stageLabel+' · email de seguimiento',mark:' · borrador editable'};
     }
     // Locked IG DM copy (plural voice, references prior email) — ported from classic cockpit.
-    function igDM(l){ return 'Hola, ¿cómo están?\nLes escribimos un mail hace unos días desde UnaBase y queríamos asegurarnos de que no se perdiera 🙌\nSi les hace sentido, se los contamos por acá y coordinamos una llamada corta.\nScarlett'; }
+    function igDM(l){ return 'Hola, ¿cómo están?\nLes escribimos un mail hace unos días y queríamos asegurarnos de que no se perdiera 🙌\nSi les hace sentido, se los contamos por acá y coordinamos una llamada corta.\nScarlett'; }
     // EJE workspace. IG 2nd touch = soft opener, no link (better IG engagement).
     function ejeFollowDM(l){ var n=firstName(l)||''; return 'Hola '+n+'! Te escribí un correo hace unos días desde EJE. Quedé esperando tu respuesta. ¿Quieres que te haga un resumen por aquí?'; }
     // LinkedIn 2nd touch = fuller version WITH the Loom (fewer/scarcer touches, put value up front). Operator copy, 2026-09-16.
     function ejeLinkedInDM(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
-      return 'Hola '+n+', te escribí un correo hace unos días desde EJE. Trabajo con UnaBase ayudando a founders a llegar a su prospecto ideal con un paso a paso accionable y contactos verificados. Te dejo un video que explica brevemente la dinámica. Si te interesa, nos juntamos un momento a revisar cómo se vería para '+e+'.\nUn saludo,\nEmiliano\n\nhttps://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
+      return 'Hola '+n+', te escribí un correo hace unos días desde EJE. Trabajo con LockPro ayudando a founders a llegar a su prospecto ideal con un paso a paso accionable y contactos verificados. Te dejo un video que explica brevemente la dinámica. Si te interesa, nos juntamos un momento a revisar cómo se vería para '+e+'.\nUn saludo,\nEmiliano\n\nhttps://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
     // Short LinkedIn CONNECTION-REQUEST note (free, ~300-char cap). Use for lower-priority leads; save InMail for top faith.
     function ejeLinkedInConnectNote(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
       return 'Hola '+n+', te escribí un correo hace unos días desde EJE. Ayudo a founders a llegar a su prospecto ideal con contactos verificados. Te dejo un video corto; si te interesa, vemos cómo se vería para '+e+': https://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
@@ -885,7 +885,7 @@
         (res[1]||[]).forEach(function(m){var d=String(m.lead_id||'').toLowerCase();var t=new Date(m.sent_at).getTime();if(d&&!isNaN(t)){(MSGS[d]=MSGS[d]||[]).push(t);}});
         var map={};
         (res[0]||[]).forEach(function(r){var d=String(r.id||'').toLowerCase();if(!d)return;var ld=r.lead_data||{};
-          map[d]={_key:d,companyName:r.company||ld.companyName||d,contactName:r.contact_name||ld.contactName||'',contactEmail:r.contact_email||ld.contactEmail||'',country:ld.country||'',unabaseScore:r.score||ld.unabaseScore||'',instagramHandle:ld.instagramHandle||'',instagramFollowers:ld.instagramFollowers||0,contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',website:ld.website||('https://'+d),pitchEmailES:ld.pitchEmailES||ld.emailCercana||'',companyBrief:ld.companyBrief||'',whyICP:ld.whyICP||'',_emailVerify:ld._emailVerify||'',instagramKind:ld.instagramKind||'',contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',_verifiedCredits:ld._verifiedCredits||ld.verifiedCredits||[],additionalContacts:ld.additionalContacts||[],companyEmail:ld.companyEmail||null,contactTitle:ld.contactTitle||'',source_date:r.source_date||ld.source_date||'',status:r.status||'none'};
+          map[d]={_key:d,companyName:r.company||ld.companyName||d,contactName:r.contact_name||ld.contactName||'',contactEmail:r.contact_email||ld.contactEmail||'',country:ld.country||'',score:r.score||ld.score||'',instagramHandle:ld.instagramHandle||'',instagramFollowers:ld.instagramFollowers||0,contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',website:ld.website||('https://'+d),pitchEmailES:ld.pitchEmailES||ld.emailCercana||'',companyBrief:ld.companyBrief||'',whyICP:ld.whyICP||'',_emailVerify:ld._emailVerify||'',instagramKind:ld.instagramKind||'',contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',_verifiedCredits:ld._verifiedCredits||ld.verifiedCredits||[],additionalContacts:ld.additionalContacts||[],companyEmail:ld.companyEmail||null,contactTitle:ld.contactTitle||'',source_date:r.source_date||ld.source_date||'',status:r.status||'none'};
         });
         if(DATA&&DATA.leads){DATA.leads.forEach(function(l){var d=decDom(l.website);if(!d)return;map[d]=Object.assign({},map[d]||{},l,{_key:d,_today:true});});}
         BYKEY=map; UNIVERSE=Object.keys(map).map(function(k){return map[k];});
@@ -963,7 +963,7 @@
       if(!uni.length){ body.innerHTML='<div class="tq-empty">Cargando cola…</div>'; return; }
       // EJE: Tareas is ONLY follow-ups for already-contacted leads. First touches live in Hoy (their send day), never here.
       var allItems=uni.map(function(l){return {l:l,c:cadOf(l)};}).filter(function(x){return x.c&&['first','due','soon','upcoming','replied','loom'].indexOf(x.c.kind)>=0 && !(ISEJE&&x.c.kind==='first');});
-      var dormant=allItems.filter(function(x){return x.c.dormant;}).sort(function(a,b){return (b.l.unabaseScore||0)-(a.l.unabaseScore||0);});
+      var dormant=allItems.filter(function(x){return x.c.dormant;}).sort(function(a,b){return (b.l.score||0)-(a.l.score||0);});
       var items=allItems.filter(function(x){return !x.c.dormant;});
       var urgent=items.filter(function(x){return x.c.kind==='due'&&x.c.overdue>2*36e5;}).sort(function(a,b){return b.c.overdue-a.c.overdue;});
       var soon=items.filter(function(x){return x.c.kind==='soon'||(x.c.kind==='due'&&x.c.overdue<=2*36e5);});
@@ -1021,7 +1021,7 @@
       // EJE: Hoy is a DAILY REPORT (leads whose send date is today), highest priority first. Older days live in Historial.
       var rep=DATA.leads.slice(), dstr=DATA.date;
       if(ISEJE){ var td=ejeTodayET(); rep=rep.filter(function(l){return (l.source_date||'')===td;}); dstr=td; }
-      rep.sort(function(a,b){return (b.unabaseScore||0)-(a.unabaseScore||0);});
+      rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
       var sent=rep.filter(function(l){return statusOf(l)!=='none';}).length;
       var sub=document.getElementById('hoy-sub'); if(sub) sub.textContent=(ISEJE?'Reporte de hoy · '+esc(dstr):'Reporte del '+esc(dstr))+' · '+rep.length+' decisores · '+sent+'/'+rep.length+' contactados';
       var ct=document.getElementById('hoy-ct'); if(ct) ct.textContent=rep.length;
@@ -1031,7 +1031,7 @@
           +'<span class="dec-main"><span class="dec-co">'+esc(l.companyName)+'</span>'
           +'<span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
           +'<span class="dec-ch">'+ch+'</span>'+(l.website?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')+statusChip(l)
-          +'<span class="dec-score">'+esc(l.unabaseScore||'')+'</span></button>';
+          +'<span class="dec-score">'+esc(l.score||'')+'</span></button>';
       }).join('')||'<div class="tq-empty">Sin reporte para hoy. Los leads de días anteriores están en Historial.</div>';
       body.querySelectorAll('.dec-row').forEach(function(r){r.addEventListener('click',function(){var i=+r.dataset.hi;openCardNav(rep[i],rep,i,'hoy');});});
       body.querySelectorAll('.dec-ext').forEach(function(x){x.addEventListener('click',function(e){e.stopPropagation();window.open(x.dataset.url,'_blank','noopener');});});
@@ -1168,7 +1168,7 @@
       var pairs=src.filter(function(l){ if(!q)return true;
         var hay=norm2((l.companyName||'')+' '+(l.contactName||'')+' '+(l.contactTitle||'')+' '+(l.country||'')+' '+(l.contactEmail||'')+' '+(l.companyEmail||'')+' '+(l.website||l.domain||'')+' '+(l.instagramHandle||'')+' '+(l.companyBrief||'')+' '+((l.additionalContacts||[]).map(function(c){return (c.name||c.contactName||'')+' '+(c.email||c.contactEmail||'');}).join(' ')));
         return hay.indexOf(q)>=0; });
-      pairs.sort(function(a,b){return (b.unabaseScore||0)-(a.unabaseScore||0);});
+      pairs.sort(function(a,b){return (b.score||0)-(a.score||0);});
       subEl.textContent=(q?pairs.length+' de '+src.length:src.length+' decisores')+(DATA?' · lote '+esc(DATA.date):'');
       listEl.innerHTML=pairs.map(function(l){var d=l._key||decDom(l.website);
         var ch=ISEJE?chLabel((cadOf(l)||{}).channel||'email'):(l.website?'sitio':(l.instagramHandle?'IG':'email'));
@@ -1178,7 +1178,7 @@
           +'<span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
           +'<span class="dec-ch">'+ch+'</span>'+(l.website?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')
           +statusChip(l)
-          +'<span class="dec-score">'+esc(l.unabaseScore||'')+'</span></button>';
+          +'<span class="dec-score">'+esc(l.score||'')+'</span></button>';
       }).join('')||'<div class="tq-empty">Sin resultados.</div>';
       listEl.querySelectorAll('.dec-row').forEach(function(r,i){r.addEventListener('click',function(){var l=BYKEY[r.dataset.key]||pairs[i];if(l)openCardNav(l,pairs,i,'decisores');});});
       listEl.querySelectorAll('.dec-ext').forEach(function(x){x.addEventListener('click',function(e){e.stopPropagation();window.open(x.dataset.url,'_blank','noopener');});});
@@ -1211,7 +1211,7 @@
         +'<div class="card"><div class="c-head">'
         +'<div class="c-av">'+esc(initials(l.companyName))+avImg(l)+'</div>'
         +'<div><div class="c-name">'+esc(l.companyName)+' '+statusChip(l)+'</div><div class="c-sub">'+flag(l.country)+' '+esc(l.country)+' · '+esc(l.contactName||'—')+(l.contactTitle?', '+esc(l.contactTitle):'')+'</div></div>'
-        +'<div class="c-score"><div class="v">'+esc(l.unabaseScore||'—')+'</div><div class="l">Score</div></div>'
+        +'<div class="c-score"><div class="v">'+esc(l.score||'—')+'</div><div class="l">Score</div></div>'
         +'</div><div class="c-body"><div class="c-rail">'
         +rrow('Decisor',esc(l.contactName||'—'))
         +rrow('Email',l.contactEmail?'<a class="link" href="mailto:'+esc(l.contactEmail)+'">'+esc(l.contactEmail)+'</a>':'—')
@@ -1318,7 +1318,7 @@
         var c={rep:rep,meet:meet};HISTCNT[b.file]=c;return c;
       }).catch(function(){return null;});
     }
-    // Day-by-day report history for non-UnaBase workspaces (eje_web) — grouped from Supabase leads.
+    // Day-by-day report history for non-default workspaces (eje_web) — grouped from Supabase leads.
     function ejeHistDetail(items, el){
       var resp=[], sent=0;
       items.forEach(function(l){ var s=statusOf(l); if(s==='replied'||s==='loom_sent'||s==='meeting') resp.push({l:l,st:s}); if(s!=='none') sent++; });
@@ -1365,7 +1365,7 @@
     }
     function renderHistorial(){
       var body=document.getElementById('hist-body'); if(!body)return;
-      if(EJE_CLIENT!=='unabase_default'){ return renderHistorialEje(body); }
+      if(EJE_CLIENT!=='eje_productoras'){ return renderHistorialEje(body); }
       // Ensure Supabase statuses are loaded (needed to know who responded) even if Historial is the first tab opened.
       if(typeof loadStatus==='function' && !renderHistorial._statusLoaded){ renderHistorial._statusLoaded=true; loadStatus().then(function(){ HISTCNT={}; renderHistorial(); }).catch(function(){}); }
       function paint(){
@@ -1395,8 +1395,8 @@
       fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){MANIFEST=m;paint();}).catch(function(){body.innerHTML='<div class="tq-empty">No se pudo cargar.</div>';});
     }
     function load(){
-      // Non-UnaBase workspaces (e.g. eje_web) have no report manifest — load purely from Supabase.
-      if(EJE_CLIENT!=='unabase_default'){
+      // Non-default workspaces (e.g. eje_web) have no report manifest — load purely from Supabase.
+      if(EJE_CLIENT!=='eje_productoras'){
         loadStatus().then(function(){ return loadUniverse(); }).then(function(){
           DATA={date:new Date().toISOString().slice(0,10),leads:(UNIVERSE||[]).slice()};
           var _n=(UNIVERSE||[]).length;
@@ -1439,11 +1439,11 @@
     // if the app restored to Decisores or Tareas on load, fetch too
     try{ var lv=localStorage.getItem('eje_view'); if(lv==='decisores'||lv==='tareas'||lv==='hoy') ensure(); }catch(e){}
 
-    // progressive: reflect the REAL active-batch size on Home (after paint, non-blocking) — UnaBase only
-    if(EJE_CLIENT==='unabase_default') fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){
+    // progressive: reflect the REAL active-batch size on Home (after paint, non-blocking) — EJE Productoras only
+    if(EJE_CLIENT==='eje_productoras') fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){
       var a=ejeActiveBatch(m);
       var el=document.getElementById('greetSub');
-      if(a&&el) el.textContent='UnaBase · '+a.lead_count+' decisores en cola hoy';
+      if(a&&el) el.textContent='EJE Productoras · '+a.lead_count+' decisores en cola hoy';
     }).catch(function(){});
 
     // progressive: REAL Home time-series (weekly conversations, envíos, streak, record) — read-only
