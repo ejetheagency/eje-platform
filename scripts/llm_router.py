@@ -27,8 +27,8 @@ PROVIDERS = [
     # --- CHEAP LANE (bulk extraction / classification) ---
     {"name":"groq",     "tier":"cheap",   "env":"GROQ_API_KEY",     "base":"https://api.groq.com/openai/v1",
      "model":"llama-3.3-70b-versatile", "price":0.79, "free":True},
-    {"name":"gemini",   "tier":"cheap",   "env":"GEMINI_API_KEY",   "base":"https://generativelanguage.googleapis.com/v1beta/openai",
-     "model":"gemini-2.0-flash", "price":0.40, "free":True},
+    {"name":"gemini",   "tier":"cheap",   "env":"GEMINI_API_KEY",   "base":"https://generativelanguage.googleapis.com/v1beta",
+     "model":"gemini-flash-lite-latest", "price":0.10, "free":True},
     {"name":"deepseek", "tier":"cheap",   "env":"DEEPSEEK_API_KEY", "base":"https://api.deepseek.com",
      "model":"deepseek-chat", "price":1.10, "free":False},
     # --- PREMIUM LANE (rare judgment only) ---
@@ -64,6 +64,11 @@ def _log(provider, prompt, out, client):
     open(LEDGER, "a").write(json.dumps(rec)+"\n")
 
 def _call_openai_compat(provider, key, prompt):
+    if provider["name"]=="gemini":  # gemini native generateContent (most reliable for AI-Studio keys)
+        req = urllib.request.Request(provider["base"]+"/models/"+provider["model"]+":generateContent?key="+key,
+            data=json.dumps({"contents":[{"parts":[{"text":prompt}]}],"generationConfig":{"temperature":0}}).encode(),
+            headers={"Content-Type":"application/json"}, method="POST")
+        r=json.load(urllib.request.urlopen(req, timeout=60)); return r["candidates"][0]["content"]["parts"][0]["text"]
     if provider["name"]=="anthropic":  # anthropic has its own dialect
         req = urllib.request.Request(provider["base"]+"/messages",
             data=json.dumps({"model":provider["model"],"max_tokens":1024,
