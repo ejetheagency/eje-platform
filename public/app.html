@@ -467,7 +467,6 @@
       </button>
       <div class="ws-menu" id="wsMenu">
         <div class="ws-sep">Cuentas de cliente</div>
-        <button class="ws-opt" data-ws="EJE Productoras" data-client="eje_productoras" data-acct="#c6902a" data-kind="Base de datos"><span class="d" style="background:#c6902a"></span><span class="n">EJE Productoras</span><span class="k">Base de datos</span></button>
         <div class="ws-sep">Interno</div>
         <button class="ws-opt" data-ws="EJE Outreach" data-client="eje" data-acct="#2da2bb" data-kind="Emiliano"><span class="d" style="background:#2da2bb"></span><span class="n">EJE Outreach</span><span class="k">Emiliano</span></button>
       </div>
@@ -622,7 +621,7 @@
   // ── workspace switcher (switches the active client_id + reloads; default-safe) ──
   (function(){
     var btn=document.getElementById('wsBtn'), menu=document.getElementById('wsMenu');
-    function activeClient(){try{return localStorage.getItem('eje_ws')||'eje_productoras';}catch(e){return 'eje_productoras';}}
+    function activeClient(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}}
     // EJE Outreach + EJE Websites workspaces are private to Emiliano's accounts — hide them from everyone else.
     var EJE_OWNERS=['ejofreeyzaguirre@gmail.com','contact@ejetheagency.com'];
     var EJE_PRIVATE=['eje'];
@@ -630,7 +629,7 @@
       var email=(window.__ejeEmail||'').toLowerCase(), owner=EJE_OWNERS.indexOf(email)>=0;
       EJE_PRIVATE.forEach(function(c){ var opt=document.querySelector('.ws-opt[data-client="'+c+'"]'); if(opt) opt.style.display=owner?'':'none'; });
       // once we KNOW the email (post-auth) and it's NOT an owner, boot any stray session out of a private workspace
-      if(email && !owner && EJE_PRIVATE.indexOf(activeClient())>=0){ try{localStorage.setItem('eje_ws','eje_productoras');}catch(e){} location.reload(); }
+      if(email && !owner && EJE_PRIVATE.indexOf(activeClient())>=0){ try{localStorage.setItem('eje_ws','eje');}catch(e){} location.reload(); }
     };
     window.__ejeApplyWsGate();
     btn.addEventListener('click',function(e){e.stopPropagation();var open=menu.classList.toggle('open');btn.setAttribute('aria-expanded',open);});
@@ -706,7 +705,7 @@
     // unknown domains so onerror cleanly drops to initials). Clearbit's API was shut down.
     function avImg(l){var d=decDom(l.website);return d?'<img class="av-logo" src="https://unavatar.io/'+encodeURIComponent(d)+'?fallback=false" alt="" loading="lazy" onerror="this.remove()">':'';}
     // ── WRITE layer (mirrors classic cockpit schema exactly; only fires when authenticated) ──
-    var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje_productoras';}catch(e){return 'eje_productoras';}})(), EJE_USER='scarlett';
+    var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})(), EJE_USER='scarlett';
     function canWrite(){return window.__ejeAuthed===true && !!window.__ejeSB;}
     function sbStatusWrite(id,status){var sb=window.__ejeSB;return sb.from('status_history').insert({lead_id:id,user_name:EJE_USER,status:status,client_id:EJE_CLIENT}).then(function(){return sb.from('leads').update({status:status,updated_at:new Date().toISOString()}).eq('id',id).eq('client_id',EJE_CLIENT);});}
     function sbActionWrite(id,ch){var sb=window.__ejeSB;return sb.from('actions').delete().match({lead_id:id,channel:ch,user_name:EJE_USER,client_id:EJE_CLIENT}).then(function(){return sb.from('actions').insert({lead_id:id,user_name:EJE_USER,channel:ch,completed:true,client_id:EJE_CLIENT});});}
