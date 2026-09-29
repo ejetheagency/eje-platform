@@ -496,7 +496,7 @@
 
     <!-- HOME -->
     <section class="view on" id="view-home">
-      <div class="h-greet" id="greet">Buen día, Scarlett.</div>
+      <div class="h-greet" id="greet">Buen día.</div>
       <div class="h-sub" id="greetSub">EJE · cargando…</div>
 
       <div class="autopilot"><span class="d"></span>Autopiloto · reporte de hoy: <b>enriquecido (3 pasadas)</b> → publicado ✓ · calidad <b>92</b></div>
@@ -672,7 +672,7 @@
         .then(function(r){ if(r&&r.error){errEl.textContent='Google aún no está habilitado en el proyecto. Usá la demo por ahora.';errEl.style.display='block';} })
         .catch(function(){ errEl.textContent='Google aún no está habilitado. Usá la demo por ahora.';errEl.style.display='block'; });
     });
-    window.__ejeSignOut=function(){ if(sb){sb.auth.signOut().then(showLogin,showLogin);} else showLogin(); };
+    window.__ejeSignOut=function(){ try{localStorage.removeItem('eje_dec_cache');localStorage.removeItem('eje_ws');}catch(e){} if(sb){sb.auth.signOut().then(showLogin,showLogin);} else showLogin(); };
     // Email + password sign-in (clients + test users). Google stays for the owner accounts.
     var eBtn=document.getElementById('emailBtn');
     if(eBtn) eBtn.addEventListener('click',function(){
@@ -693,8 +693,10 @@
         if((r&&r.error)||!mems.length){ window.__ejeAuthed=false; errEl.textContent='Tu cuenta todavía no tiene acceso. Pedile a EJE que la habilite.'; errEl.style.display='block'; try{sb.auth.signOut();}catch(e){} showLogin(); return; }
         window.__ejeAuthed=true; window.__ejeEmail=((session.user&&session.user.email)||'').toLowerCase();
         window.__ejeIsAdmin=mems.some(function(m){return m.role==='eje_admin';});
-        if(!window.__ejeIsAdmin){ var c=mems[0].client_id, curws=null; try{curws=localStorage.getItem('eje_ws');}catch(e){}
-          if(curws!==c){ try{localStorage.setItem('eje_ws',c);}catch(e){} location.reload(); return; } }
+        // pin the workspace to THIS user's canonical one (admin -> eje, client -> their client_id),
+        // overriding any leftover from a prior login, and clear stale cached data so no residuals bleed through.
+        var want=window.__ejeIsAdmin?'eje':mems[0].client_id, curws=null; try{curws=localStorage.getItem('eje_ws');}catch(e){}
+        if(curws!==want){ try{localStorage.setItem('eje_ws',want); localStorage.removeItem('eje_dec_cache');}catch(e){} location.reload(); return; }
         if(window.__ejeApplyWsGate)window.__ejeApplyWsGate(); showApp();
       }).catch(function(){ window.__ejeAuthed=false; errEl.textContent='No se pudo verificar el acceso. Reintentá.'; errEl.style.display='block'; showLogin(); });
     }
@@ -727,7 +729,7 @@
     // unknown domains so onerror cleanly drops to initials). Clearbit's API was shut down.
     function avImg(l){var d=decDom(l.website);return d?'<img class="av-logo" src="https://unavatar.io/'+encodeURIComponent(d)+'?fallback=false" alt="" loading="lazy" onerror="this.remove()">':'';}
     // ── WRITE layer (mirrors classic cockpit schema exactly; only fires when authenticated) ──
-    var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})(), EJE_USER='scarlett';
+    var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})(), EJE_USER='emiliano';
     function canWrite(){return window.__ejeAuthed===true && !!window.__ejeSB;}
     function sbStatusWrite(id,status){var sb=window.__ejeSB;return sb.from('status_history').insert({lead_id:id,user_name:EJE_USER,status:status,client_id:EJE_CLIENT}).then(function(){return sb.from('leads').update({status:status,updated_at:new Date().toISOString()}).eq('id',id).eq('client_id',EJE_CLIENT);});}
     function sbActionWrite(id,ch){var sb=window.__ejeSB;return sb.from('actions').delete().match({lead_id:id,channel:ch,user_name:EJE_USER,client_id:EJE_CLIENT}).then(function(){return sb.from('actions').insert({lead_id:id,user_name:EJE_USER,channel:ch,completed:true,client_id:EJE_CLIENT});});}
@@ -850,12 +852,12 @@
     function sendSlot(country){var tz=COUNTRY_TZ[country];if(!tz)return null;var now=new Date();var diff=_tzOff('America/Santiago',now)-_tzOff(tz,now);return {chile:_fmt12(8*60+diff),local:_fmt12(8*60),same:diff===0};}
     // Follow-up copy (ported verbatim from checkpoint/03-email-copy/WINNING-COPY.md)
     function followupCopy(l){ var n=firstName(l)||'equipo', e=l.companyName||'tu productora';
-      return '¡Hola, '+n+'! ¿Cómo va todo?\n\nSolo quería saber si pudiste ver mi correo anterior y si te parece bien agendar la llamada que te comentaba. Me encantaría contarte más sobre nuestro sistema porque creo que a '+e+' le vendría muy bien. La diseñamos específicamente para la industria creativa y ordena muchísimo los presupuestos cuando hay varios proyectos a la vez.\n\n¿Te parece si coordinamos una reunión corta por Meet, sin ningún compromiso, para resolver cualquier duda? Contame cómo lo ves.\n\nSaludos,\nScarlett Lillo'; }
+      return '¡Hola, '+n+'! ¿Cómo va todo?\n\nSolo quería saber si pudiste ver mi correo anterior y si te parece bien agendar la llamada que te comentaba. Me encantaría contarte más sobre nuestro sistema porque creo que a '+e+' le vendría muy bien. La diseñamos específicamente para la industria creativa y ordena muchísimo los presupuestos cuando hay varios proyectos a la vez.\n\n¿Te parece si coordinamos una reunión corta por Meet, sin ningún compromiso, para resolver cualquier duda? Contame cómo lo ves.\n\nSaludos,\nEmiliano'; }
     // EJE 2nd-touch EMAIL (operator copy 2026-09-16). Short nudge referencing the first email.
     function ejeFollowEmail(l){ var n=firstName(l)||''; return 'Hola '+n+', aquí Emiliano de EJE. Quedé esperando tu mensaje. ¿Qué pensaste de la propuesta que te envié? Cualquier cosa, te puedo reenviar un resumen por WhatsApp o por aquí mismo.\n\nUn saludo,\nEmiliano'; }
     function ejeFollowEmailSubject(l){ var n=firstName(l)||''; return n+', no recibí tu feedback'; }
     function repliedCopy(l){ var n=firstName(l)||'', e=l.companyName||'tu productora';
-      return 'Hola '+n+', qué bueno tener tu respuesta. Con gusto te cuento en más detalle cómo funciona nuestro sistema y en qué se diferencia. Y si te sirve, coordinamos una reunión corta con nuestro equipo, sin ningún compromiso, para que veas cómo trabajamos y resuelvas cualquier duda con calma. Vos preguntás lo que quieras y te mostramos cómo lo aplicaríamos a '+e+'. ¿Te viene bien una llamada de 20 minutos esta semana? Me decís qué día y lo agendamos.\n\nScarlett'; }
+      return 'Hola '+n+', qué bueno tener tu respuesta. Con gusto te cuento en más detalle cómo funciona nuestro sistema y en qué se diferencia. Y si te sirve, coordinamos una reunión corta con nuestro equipo, sin ningún compromiso, para que veas cómo trabajamos y resuelvas cualquier duda con calma. Vos preguntás lo que quieras y te mostramos cómo lo aplicaríamos a '+e+'. ¿Te viene bien una llamada de 20 minutos esta semana? Me decís qué día y lo agendamos.\n\nEmiliano'; }
     function loomNudgeCopy(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
       return 'Hola '+n+', ¿pudiste ver el video? Si te hace sentido, coordinamos una llamada corta de 15 min, sin compromiso, y lo vemos aplicado a '+e+'. Te dejo un par de horarios: [día/hora] o [día/hora]. ¿Cuál te acomoda? Si prefieres, escríbeme por WhatsApp: https://wa.me/17867846899\n\nEmiliano'; }
     function draftFor(l,c){
@@ -866,7 +868,7 @@
       return {text:ISEJE?ejeFollowEmail(l):followupCopy(l),label:c.stageLabel+' · email de seguimiento',mark:' · borrador editable'};
     }
     // Locked IG DM copy (plural voice, references prior email) — ported from classic cockpit.
-    function igDM(l){ return 'Hola, ¿cómo están?\nLes escribimos un mail hace unos días y queríamos asegurarnos de que no se perdiera 🙌\nSi les hace sentido, se los contamos por acá y coordinamos una llamada corta.\nScarlett'; }
+    function igDM(l){ return 'Hola, ¿cómo están?\nLes escribimos un mail hace unos días y queríamos asegurarnos de que no se perdiera 🙌\nSi les hace sentido, se los contamos por acá y coordinamos una llamada corta.\nEmiliano'; }
     // EJE workspace. IG 2nd touch = soft opener, no link (better IG engagement).
     function ejeFollowDM(l){ var n=firstName(l)||''; return 'Hola '+n+'! Te escribí un correo hace unos días desde EJE. Quedé esperando tu respuesta. ¿Quieres que te haga un resumen por aquí?'; }
     // LinkedIn 2nd touch = fuller version WITH the Loom (fewer/scarcer touches, put value up front). Operator copy, 2026-09-16.
