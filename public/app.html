@@ -466,7 +466,7 @@
     <div class="ws">
       <button class="ws-btn" id="wsBtn" type="button" aria-haspopup="true" aria-expanded="false">
         <span class="ws-dot" id="wsDot"></span>
-        <span class="ws-txt"><span class="ws-name" id="wsName">EJE Productoras</span><span class="ws-lab">Cuenta activa</span></span>
+        <span class="ws-txt"><span class="ws-name" id="wsName">EJE</span><span class="ws-lab">Cuenta activa</span></span>
         <span class="ws-cv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></span>
       </button>
       <div class="ws-menu" id="wsMenu">
@@ -697,6 +697,8 @@
         // overriding any leftover from a prior login, and clear stale cached data so no residuals bleed through.
         var want=window.__ejeIsAdmin?'eje':mems[0].client_id, curws=null; try{curws=localStorage.getItem('eje_ws');}catch(e){}
         if(curws!==want){ try{localStorage.setItem('eje_ws',want); localStorage.removeItem('eje_dec_cache');}catch(e){} location.reload(); return; }
+        // label the active workspace from its real name (covers client workspaces with no hardcoded switcher entry)
+        try{ sb.from('clients').select('name').eq('id',want).then(function(cr){ var nm=(cr&&cr.data&&cr.data[0]&&cr.data[0].name)||''; var wn=document.getElementById('wsName'); if(nm&&wn)wn.textContent=nm; }); }catch(e){}
         if(window.__ejeApplyWsGate)window.__ejeApplyWsGate(); showApp();
       }).catch(function(){ window.__ejeAuthed=false; errEl.textContent='No se pudo verificar el acceso. Reintentá.'; errEl.style.display='block'; showLogin(); });
     }
