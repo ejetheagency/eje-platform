@@ -1,0 +1,16 @@
+{
+  "client_id": "eje",
+  "name": "EJE Outreach",
+  "active": true,
+  "outbox": { "kind": "gmail_imap", "env_file": "~/claude/eje-leads/.env", "env_prefix": "EJE_WORK", "user_name": "emiliano" },
+  "icp": {
+    "target": "Boutique creative / branding / design / video-production studios, founder-led, 5-40 people",
+    "industries": ["branding", "design", "creative", "video production", "digital"],
+    "geos": ["Mexico", "Colombia", "Spain"],
+    "geo_mix": { "Mexico": 5, "Colombia": 2, "Spain": 3 },
+    "batch_size": 10,
+    "channels": ["email", "instagram", "linkedin"],
+    "template_rotation": ["A_video", "B_delegation"]
+  },
+  "gate": { "min_score": 80, "require_named_decisor": true, "require_channel": true, "require_valid_email": true }
+}
