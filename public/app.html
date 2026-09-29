@@ -793,7 +793,7 @@
     function chChip(ch){ return ch==='ig'?'ig':ch==='li'?'li':ch==='wa'?'green':''; }
     function resolveCh(ch,l){ var li=l.contactLinkedIn||l.linkedin; var wa=l.contactPhone||l.whatsapp||l.apolloCompanyPhone;
       // EJE rule: 2nd touch is IG or LinkedIn, NEVER email. Fallback chain IG -> LinkedIn -> WhatsApp (sanctioned
-      // exception) -> email only as true last resort. Scoped to ISEJE so Scarlett's UnaBase cadence is untouched.
+      // exception) -> email only as true last resort. Scoped to ISEJE so the EJE Productoras cadence is untouched.
       if(ch==='ig'&&!l.instagramHandle) return li?'li':((ISEJE&&wa)?'wa':'email');   // no IG -> LinkedIn, else (EJE) WhatsApp, else email
       if(ch==='li'&&!li) return (ISEJE&&wa)?'wa':'email';
       if(ch==='wa'&&!wa) return 'email'; return ch; }
@@ -1319,7 +1319,7 @@
         var c={rep:rep,meet:meet};HISTCNT[b.file]=c;return c;
       }).catch(function(){return null;});
     }
-    // Day-by-day report history for non-UnaBase workspaces (eje_web) — grouped from Supabase leads.
+    // Day-by-day report history for non-default workspaces (eje_web) — grouped from Supabase leads.
     function ejeHistDetail(items, el){
       var resp=[], sent=0;
       items.forEach(function(l){ var s=statusOf(l); if(s==='replied'||s==='loom_sent'||s==='meeting') resp.push({l:l,st:s}); if(s!=='none') sent++; });
@@ -1396,7 +1396,7 @@
       fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){MANIFEST=m;paint();}).catch(function(){body.innerHTML='<div class="tq-empty">No se pudo cargar.</div>';});
     }
     function load(){
-      // Non-UnaBase workspaces (e.g. eje_web) have no report manifest — load purely from Supabase.
+      // Non-default workspaces (e.g. eje_web) have no report manifest — load purely from Supabase.
       if(EJE_CLIENT!=='eje_productoras'){
         loadStatus().then(function(){ return loadUniverse(); }).then(function(){
           DATA={date:new Date().toISOString().slice(0,10),leads:(UNIVERSE||[]).slice()};
@@ -1440,7 +1440,7 @@
     // if the app restored to Decisores or Tareas on load, fetch too
     try{ var lv=localStorage.getItem('eje_view'); if(lv==='decisores'||lv==='tareas'||lv==='hoy') ensure(); }catch(e){}
 
-    // progressive: reflect the REAL active-batch size on Home (after paint, non-blocking) — UnaBase only
+    // progressive: reflect the REAL active-batch size on Home (after paint, non-blocking) — EJE Productoras only
     if(EJE_CLIENT==='eje_productoras') fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){
       var a=ejeActiveBatch(m);
       var el=document.getElementById('greetSub');
