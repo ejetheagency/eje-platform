@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EJE CRM</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --surface:#ffffff; --surface2:#fbfbfc; --ink:#14161b; --ink2:#3d434d; --muted:#727a88;
+    --line:#e7e9ee; --accent:#15171c; --accent2:#2b2f37; --good:#0f9d6e; --warn:#d97c0b; --track:#eceef2;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media(prefers-color-scheme:dark){:root{--bg:#0b0c0f;--surface:#14161b;--surface2:#101217;--ink:#f1f2f4;--ink2:#c3c8d0;--muted:#8f97a4;--line:#242832;--accent:#f1f2f4;--accent2:#c9cdd4;--good:#2fbd8a;--warn:#f0a63c;--track:#20242c;}}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer}
+  .hidden{display:none !important}
+
+  /* login */
+  .login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .login .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:34px 30px;width:100%;max-width:380px;box-shadow:0 20px 60px -30px rgba(0,0,0,.35)}
+  .brand{font-weight:800;letter-spacing:-.02em;font-size:26px}
+  .brand span{color:var(--muted)}
+  .login h1{font-size:16px;font-weight:600;margin:18px 0 4px}
+  .login p{font-size:13px;color:var(--muted);margin-bottom:20px}
+  label{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+  input{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink);font-size:14px;font-family:inherit}
+  input:focus{outline:none;border-color:var(--accent)}
+  .btn{width:100%;margin-top:20px;padding:12px;border:none;border-radius:10px;background:var(--accent);color:var(--surface);font-size:14px;font-weight:600}
+  .err{color:#dc2626;font-size:12.5px;margin-top:12px;min-height:16px}
+
+  /* app */
+  .top{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:12px 20px;flex-wrap:wrap}
+  .top .brand{font-size:20px}
+  .ws{font-size:13px;font-weight:600;color:var(--ink);background:var(--surface2);border:1px solid var(--line);border-radius:9px;padding:7px 11px}
+  .spacer{flex:1}
+  .who{font-size:12.5px;color:var(--muted)}
+  .lo{font-size:12.5px;color:var(--ink2);background:none;border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+  main{max-width:1000px;margin:0 auto;padding:22px 18px 80px}
+  .row2{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+  @media(max-width:820px){.row2{grid-template-columns:1fr}}
+
+  .sec{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:2px 0 12px;display:flex;justify-content:space-between}
+  .lead{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:15px 16px;margin-bottom:11px}
+  .lead .l1{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .lead .co{font-size:15.5px;font-weight:650;letter-spacing:-.01em}
+  .lead .dm{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .lead .l2{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;align-items:center}
+  .pill{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:var(--track);color:var(--ink2)}
+  .pill.contacted{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+  .pill.replied,.pill.meeting{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+  .chip{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:3px 8px}
+  .empty{font-size:13px;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:13px;padding:30px;text-align:center}
+
+  .assist{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;position:sticky;top:70px}
+  .assist h3{font-size:14px;font-weight:650}
+  .assist p{font-size:12px;color:var(--muted);margin:6px 0 12px;line-height:1.55}
+  textarea{width:100%;min-height:110px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink);font-size:13.5px;font-family:inherit;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--accent)}
+  .assist .btn{margin-top:12px}
+  .aout{margin-top:14px;font-size:12.5px;color:var(--ink2);background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:12px;line-height:1.6;white-space:pre-wrap;display:none}
+</style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login" id="loginView">
+    <div class="card">
+      <div class="brand">EJE<span>.</span></div>
+      <h1>Entra a tu CRM</h1>
+      <p>Tu espacio de trabajo y tus conversaciones del día.</p>
+      <label>Correo</label>
+      <input id="email" type="email" autocomplete="username" placeholder="tu@correo.com" />
+      <label>Contraseña</label>
+      <input id="pw" type="password" autocomplete="current-password" placeholder="••••••••" />
+      <button class="btn" id="btnLogin">Entrar</button>
+      <div class="err" id="loginErr"></div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="appView" class="hidden">
+    <div class="top">
+      <div class="brand">EJE<span>.</span></div>
+      <span class="ws" id="wsName">,</span>
+      <div class="spacer"></div>
+      <span class="who" id="who"></span>
+      <button class="lo" id="btnLogout">Salir</button>
+    </div>
+    <main>
+      <div class="row2">
+        <div>
+          <div class="sec"><span>Leads</span><span id="leadCount"></span></div>
+          <div id="leads"></div>
+        </div>
+        <div>
+          <div class="assist">
+            <h3>Asistente de seguimiento</h3>
+            <p>Cuéntame qué pasó con un lead (pega un hilo, escribe una nota o dicta). Lo estructuro y lo registro por ti.</p>
+            <textarea id="assistText" placeholder="Hablé con Carla de Nébula Studio, le interesa pero pidió precios..."></textarea>
+            <button class="btn" id="btnAssist">Registrar lead</button>
+            <div class="aout" id="assistOut"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+  var SB_URL="https://ogdsuztzhmnnjolilsuo.supabase.co";
+  var SB_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9nZHN1enR6aG1ubmpvbGlsc3VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDI0MDMsImV4cCI6MjA5MTc3ODQwM30.9iKhJJWd_zg6WfdxTR9ojK4DVLR3e-bLdPXY-0uDp7Q";
+  var API="/api";
+  var $=function(id){return document.getElementById(id);};
+  var TOKEN=localStorage.getItem("crm_token")||null;
+  var ME=null, WS=null;
+
+  function show(view){ $("loginView").classList.toggle("hidden", view!=="login"); $("appView").classList.toggle("hidden", view!=="app"); }
+
+  async function api(path, opts){
+    opts=opts||{};
+    opts.headers=Object.assign({}, opts.headers||{}, {Authorization:"Bearer "+TOKEN, "Content-Type":"application/json"});
+    var r=await fetch(API+path, opts);
+    if(r.status===401){ logout(); throw new Error("401"); }
+    return r;
+  }
+
+  async function login(email, pw){
+    $("loginErr").textContent="";
+    var r=await fetch(SB_URL+"/auth/v1/token?grant_type=password",
+      {method:"POST", headers:{apikey:SB_ANON,"Content-Type":"application/json"}, body:JSON.stringify({email:email,password:pw})});
+    if(!r.ok){ $("loginErr").textContent="Correo o contraseña incorrectos."; return; }
+    var j=await r.json(); TOKEN=j.access_token; localStorage.setItem("crm_token", TOKEN); boot();
+  }
+
+  function logout(){ TOKEN=null; localStorage.removeItem("crm_token"); ME=null; WS=null; show("login"); }
+
+  async function boot(){
+    try{
+      var r=await api("/me"); if(!r.ok) throw new Error("me");
+      ME=await r.json();
+      if(!ME.workspaces || !ME.workspaces.length){ $("loginErr").textContent="Tu cuenta aún no tiene un espacio asignado."; logout(); return; }
+      WS=ME.workspaces[0].id;
+      $("wsName").textContent=ME.workspaces[0].name;
+      $("who").textContent=ME.user.email + (ME.isAdmin?" · admin":"");
+      show("app");
+      loadLeads();
+    }catch(e){ show("login"); }
+  }
+
+  async function loadLeads(){
+    $("leads").innerHTML="<div class='empty'>Cargando,</div>";
+    try{
+      var r=await api("/leads?client_id="+encodeURIComponent(WS));
+      var d=await r.json();
+      $("leadCount").textContent=d.count+" en total";
+      if(!d.leads.length){ $("leads").innerHTML="<div class='empty'>Aún no hay leads en este espacio.</div>"; return; }
+      $("leads").innerHTML=d.leads.slice(0,60).map(renderLead).join("");
+    }catch(e){ $("leads").innerHTML="<div class='empty'>No se pudieron cargar los leads.</div>"; }
+  }
+
+  function esc(s){return (s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  function renderLead(l){
+    var ld=l.lead_data||{};
+    var chips=[];
+    if(ld.instagramHandle) chips.push("<span class='chip'>IG @"+esc(ld.instagramHandle)+"</span>");
+    if(l.contact_email) chips.push("<span class='chip'>"+esc(l.contact_email)+"</span>");
+    if(l.country) chips.push("<span class='chip'>"+esc(l.country)+"</span>");
+    return "<div class='lead'><div class='l1'><div><div class='co'>"+esc(l.company||l.id)+"</div>"+
+      "<div class='dm'>"+esc(l.contact_name||",")+"</div></div>"+
+      "<span class='pill "+esc(l.status)+"'>"+esc(l.status)+"</span></div>"+
+      "<div class='l2'>"+chips.join("")+"</div></div>";
+  }
+
+  async function runAssistant(){
+    var text=$("assistText").value.trim(); if(!text) return;
+    var out=$("assistOut"); out.style.display="block"; out.textContent="Procesando,";
+    try{
+      var r=await api("/assistant",{method:"POST", body:JSON.stringify({client_id:WS, text:text, apply:true})});
+      var d=await r.json();
+      if(!r.ok){ out.textContent="Error: "+(d.error||"no se pudo procesar"); return; }
+      var s=d.structured||{};
+      out.textContent="Registrado: "+(s.company||"(sin nombre)")+" · "+(s.stage||"")+"\n"+
+        (s.summary||"")+"\n\nPróximo paso: "+(s.next_action||"");
+      $("assistText").value="";
+      loadLeads();
+    }catch(e){ out.textContent="No se pudo registrar."; }
+  }
+
+  // wire
+  $("btnLogin").addEventListener("click", function(){ login($("email").value.trim(), $("pw").value); });
+  $("pw").addEventListener("keydown", function(e){ if(e.key==="Enter") login($("email").value.trim(), $("pw").value); });
+  $("btnLogout").addEventListener("click", logout);
+  $("btnAssist").addEventListener("click", runAssistant);
+
+  if(TOKEN) boot(); else show("login");
+})();
+</script>
+</body>
+</html>

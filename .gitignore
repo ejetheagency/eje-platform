@@ -2,3 +2,10 @@ node_modules
 .env
 .env.local
 .vercel
+
+# Claude Code personal settings (do not commit)
+.claude/settings.local.json
+
+# Phase 0 DB snapshots (client data, restore points, not for git)
+backups/
+CREDENTIALS.local.md
