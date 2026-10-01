@@ -206,6 +206,30 @@ touches>=3) return {kind:'stop'}`. So after ~1 week every lead that didn't reply
 already defines "Mensual" for n>=5; the stop-at-3 short-circuits it) OR a sanctioned Plan A revival sweep. This
 is the biggest lever on EJE's own pipeline volume and applies to clients. See [[project-second-chance-top-tier-campaign]].
 
+## Tareas → "Recomendaciones" category (DO NOT BUILD YET — queued, operator 2026-10-01)
+A new category inside Tareas that tells the user **what to do to raise the probability of a reply**, plus a
+chart showing how much they raised it this week. Grounded in real inbox data: `~/claude/eje-brand/BRIEF-CADENCIA.md`
+(127 real IG threads, 2 weeks). The core, measured finding: **people come back from INSISTING in the SAME channel,
+not from channel-hopping.** Both real reactivations (Menta/Laura, Hobby/Felipe) happened by repeating on Instagram,
+zero by switching channel. So the recommendations push same-channel follow-ups (esp. IG) before any channel jump.
+
+What it surfaces (each = a concrete, dumb-proof action on a specific lead):
+- **2-3 toques en el MISMO canal antes de saltar** (IG first). Today the cadence jumps at the first silence; that is
+  exactly backwards vs the data. (Overlaps the "Cadence gap to fix" section — this is its user-facing surface.)
+- **2º toque en AUDIO (nota de voz IG) cuando el contacto NUNCA habló**; en TEXTO citando sus palabras cuando sí
+  habló. (Cold → audio breaks the ice; warm → text that quotes them. Not the reverse.)
+- **Todo toque OFRECE hacer algo** (resumen, audio, llamada); ninguno pide que el contacto produzca. If a touch
+  promises a summary, the next system step must BE the summary (never a qualifying question — that killed Javier/Feelingbrand).
+- **Prohibido**: "quedé esperando tu respuesta" (37 dead threads) y cualquier apertura sin nombre de pila verificado (28/70, 0 replies).
+- **Marcar como "migrado" todo hilo con teléfono/WhatsApp** y dejar de contar su silencio como enfriamiento (6 hot leads were mis-marked cold).
+
+The chart (branded dataviz, per the data-viz standard): "**Esta semana subiste la probabilidad de respuesta un X%**",
+driven mainly by same-channel IG follow-ups completed. Purposeful, not decoration: shows the user their insistence is
+working. Operator will supply example follow-up copy + the intended goal after 1-2 follow-ups, to seed the templates.
+Note: this is category-level guidance derived from aggregate EJE data today; per-client it should learn from that
+client's own response-intelligence over time ([[feedback-the-edge-is-data-and-results-not-enrichment]]). Keep it FAST
+(precompute weekly, don't recompute per view — [[feedback-design-for-1000-clients-fast]]). Ties to [[reference-ig-voicememo-close]].
+
 ## Hoy must look DIFFERENT from Decisores — dumb-proof (operator, 2026-10-01, CONFIRMED next build)
 Today both render the same list, so a new user can't tell the tabs apart = red flag / not dumb-proof. Fix: Hoy becomes
 a **grid of premium square cards** ("X conversaciones por iniciar hoy", logo + decisor + channel + prominent
@@ -218,6 +242,69 @@ the approved flip-card Hoy (see UI v2 direction) and is the NEXT build toward a 
   so an admin can't reach 2uplatam/eje_productoras from the dropdown).
 - **Tareas must surface "today/soon" tasks, not hide them behind an empty "Urgentes" (overdue) panel** — the queue
   reads as empty when 10 IG DMs are due today. "Due today" != "overdue".
+
+## URGENT STANDARD (2026-10-01): the demo is a LIVE PLATFORM PROFILE — never a PDF again
+When a prospect asks for a demo we provision a LIMITED live profile ON the platform, not a PDF. A PDF makes them
+think the product = "a file I get on WhatsApp every morning" -> confusing -> kills the sale. The demo profile:
+- Their OWN workspace, seeded with THEIR enriched leads; data we can't give free is BLOCKED/BLURRED (quality gate).
+- FREE/limited tier: N free cheap-LLM enrichments; blurred/locked actions (unlock DM, unlock channels, assistant)
+  they can SEE but must pay to use; Clara (assistant) usable.
+- Their own login + password (sent once). Or open a pre-authed PREVIEW LINK live in the meeting; or "log in with
+  these credentials and see how YOUR profile would look — limited, but this is what you'd see every day" (go to
+  Tareas, glimpse how good it is). Huge selling point vs a PDF.
+- A BUY link unlocks everything (card + subscription) -> role demo->member, all features on; the SAME profile becomes theirs.
+This is [[project-demo-as-product]] made URGENT + the PRIMARY sales motion. **Two burner demo profiles needed for
+tomorrow's meetings: NanoVideos (Cristóbal Ross — enriched data ready) + Somos Hobby (need their ICP/leads).**
+
+## The simple PROVISIONING path (operator-run, primitive first)
+Operator tells the system: "Cristóbal Ross @ NanoVideos needs an account; here's their ideal client." Behind a few
+signals + a few logs the system spins up the demo: source -> quality-gate -> enrich (BLOCK paid data for the free
+sample) -> seed workspace -> issue login. Primitive now (a few signals/logs); productized later.
+
+## The enrichment BUILDING — agent departments working 24/7, VISUALIZED (the beast + the moat)
+The "why we're not a $60 CRM." A real structure you can SEE working in real time: DEPARTMENTS of agents exchanging
+info via cheap-LLM calls; the strongest candidates ESCALATE to the big players (Apollo, Hunter, + premium LLMs
+Fable/Opus/Codex) only when warranted (cost-governed). ~20 clients' enrichment on the cloud via APIs, day & night,
+NEVER stops. A visual "building of workers" (live agent activity + logs) the operator can inspect/enter.
+[[project-eje-operating-model-agent-departments]] + the self-escalating parallel enrichment waterfall.
+
+## Clara — the in-product assistant (name locked; was "Vera" placeholder)
+Clara is deeply knowledgeable of the system + tools and GUIDES the user everywhere ("here you do X; ask Clara
+anything"). "Tell Clara your new client" / send a VOICE MEMO -> cheap-LLM transcribe + structure. Give the client so
+many tools it proves we're a new category. Clara is a core selling point, not a bolt-on.
+
+## Mobile-first, ALWAYS — re-audit now
+Many use it on the PHONE. Every view must be verified + correct on mobile; re-check the phone version now (recent
+redesigns may have broken it). [[feedback-mobile-first-landing]]
+
+## Seguimiento intelligence (grounded; future build)
+A cheap LLM constantly enriches everything on Seguimiento. A company with no logo = no intelligence happening there
+yet; the live system fixes that automatically (Seguimiento becomes the always-on intelligence surface).
+
+## Geo-match standard (operator, 2026-10-01): LATAM clients get LATAM leads — NOT US
+A LATAM client (Colombia, Chile, MX, etc.) is sourced LEADS in their own region, not the US — it's not what they
+want. US leads only for US clients (or when a client explicitly sells to the US). Enforce in sourcing + the gate.
+(Caught on the Somos Hobby demo: 2 US leads removed, kept 10 Colombian.)
+
+## Monetization model — the answer to "free vs paid vs demo" (reasoned 2026-10-01)
+The confusion = conflating DEMO with a FREE TIER. They are different:
+- **DEMO = a TIMED, personalized TRIAL (not a tier).** Their real leads (proves value) + money-actions locked + a
+  visible countdown (e.g. 7 days). Expires -> "tu demo terminó, suscríbete". Kills both fears: no zombie accounts
+  (it expires) AND strong buy urgency (clock + visibly-locked value). We're not Spotify *because* the free door is
+  time-boxed, and the expensive data is ALWAYS behind the paywall.
+- **NO perpetual free tier yet.** A forever-free account = cron+LLM+Apollo cost forever with no revenue. The demo IS
+  the free taste. Add a perpetual free tier only at scale, and even then keep the money-data gated so it never hurts us.
+- **What free/demo SHOWS (feels premium, ~$0 via cheap LLM):** company + decisor identified, brief, buy-signal,
+  IG/website, Clara answering, the daily "today" cards with real leads. Rich intelligence.
+- **What's LOCKED (expensive + the money-moment):** the DIRECT/personal email (Apollo/Hunter data), one-click DM/send
+  actions, full lead volume (e.g. 3/day vs full), Clara's full power. Shown but BLURRED with "🔒 Desbloquear correo
+  directo / Desbloquear envío" -> buy flow. They see value exists -> want it.
+- **Tiers after buying:** operator = full drafting + ready-to-send + daily; paid client = their daily "today";
+  (future free = cheap-LLM intel only, locked money-features).
+- **Cost control / overnight crons:** the Cost Governor caps free/demo to cheap-LLM only (~$0.001/lead); the big
+  players (Apollo/Hunter/premium LLM) fire ONLY for paying clients (or a tiny verified sample in a demo, then locked).
+  The nightly enrichment cron spends REAL money ONLY on paying clients. Per-client cost ledger + spend calc so free
+  users never hurt us and paid users stay profitable. This is the "building" with the cost-governed escalation.
 
 ## Status
 - **S1 backend spine: DONE + verified on prod (2026-10-01).**
