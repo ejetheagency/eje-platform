@@ -41,6 +41,22 @@ module.exports = async (req, res) => {
     if (c[0]) { name = c[0].name; icp = c[0].icp_config || {}; }
   } catch (e) {}
 
+  // Give Clara the client's Seguimiento (their relationships + notes) so she can answer about specific leads.
+  let segText = "(todavía no hay leads en Seguimiento)";
+  try {
+    const tl = (await db.select("tracked_leads", `client_id=eq.${encodeURIComponent(client_id)}&select=id,company,decisor_name,stage&order=updated_at.desc&limit=30`))
+      .filter((x) => x.company !== "__VERIFY_DELETE_ME__");
+    if (tl.length) {
+      const notes = await db.select("tracked_lead_notes", `client_id=eq.${encodeURIComponent(client_id)}&select=tracked_lead_id,note_text,created_at&order=created_at.desc`);
+      const byLead = {};
+      notes.forEach((n) => { (byLead[n.tracked_lead_id] = byLead[n.tracked_lead_id] || []).push(n); });
+      segText = tl.map((l) => {
+        const ns = (byLead[l.id] || []).slice(0, 4).map((n) => "· " + String(n.note_text || "").replace(/\s+/g, " ").slice(0, 220)).join(" ");
+        return "— " + l.company + (l.decisor_name ? (" (" + l.decisor_name + ")") : "") + " [etapa: " + l.stage + "]" + (ns ? (" notas: " + ns) : " (sin notas)");
+      }).join("\n").slice(0, 4500);
+    }
+  } catch (e) {}
+
   const view = (b.context && b.context.view) || "(desconocida)";
   const summary = (b.context && b.context.summary) || "(sin datos)";
   const icpText = icp && icp.icp ? icp.icp : "(ICP aún no configurado)";
@@ -52,7 +68,9 @@ module.exports = async (req, res) => {
     "\n- Cliente ideal (ICP): " + icpText +
     "\n- Pestaña actual: " + view +
     "\n- Estado real de sus datos: " + summary +
-    "\n\nPodés (a) responder/guiar, o (b) REGISTRAR en Seguimiento lo que el usuario te cuenta de un prospecto; vos SÍ podés, el servidor lo inserta de verdad.\n" +
+    "\n\nSEGUIMIENTO del cliente (sus relaciones reales, con sus notas; USALO para responder sobre un lead específico):\n" + segText +
+    "\n\nPodés (a) responder/guiar/RESUMIR usando los datos de arriba, o (b) REGISTRAR en Seguimiento un prospecto NUEVO que el usuario te cuenta (eso sí lo inserta el servidor de verdad).\n" +
+    "Si te piden resumir o contar sobre un lead que YA está en Seguimiento (ej: 'resumime las notas de Fernando'), LEÉ sus notas de arriba y poné el resumen en tu reply. NO es un 'log' y NO cambia nada: solo respondés. NUNCA digas que hiciste/actualizaste/guardaste algo si solo leíste.\n" +
     "Respondé SOLO con JSON válido, sin markdown:\n" +
     '{"intent":"answer"|"log",' +
     '"reply":"<1-2 frases cortas, en el español LOCAL del usuario (chileno/colombiano según el cliente), cálida y directa>",' +
