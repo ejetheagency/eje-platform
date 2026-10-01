@@ -206,6 +206,13 @@ touches>=3) return {kind:'stop'}`. So after ~1 week every lead that didn't reply
 already defines "Mensual" for n>=5; the stop-at-3 short-circuits it) OR a sanctioned Plan A revival sweep. This
 is the biggest lever on EJE's own pipeline volume and applies to clients. See [[project-second-chance-top-tier-campaign]].
 
+## Hoy must look DIFFERENT from Decisores — dumb-proof (operator, 2026-10-01, CONFIRMED next build)
+Today both render the same list, so a new user can't tell the tabs apart = red flag / not dumb-proof. Fix: Hoy becomes
+a **grid of premium square cards** ("X conversaciones por iniciar hoy", logo + decisor + channel + prominent
+**Contactar** action, action-first, one screen). Decisores stays a compact searchable **list** (browse/update the
+whole database). The visual split alone teaches "Hoy = what I do today" vs "Decisores = my contact database". This is
+the approved flip-card Hoy (see UI v2 direction) and is the NEXT build toward a working beta.
+
 ## Immediate UI fixes queued (grounded 2026-10-01)
 - **Admin workspace switcher must list ALL /api/me workspaces** (currently only the hardcoded `eje` ws-opt shows,
   so an admin can't reach 2uplatam/eje_productoras from the dropdown).

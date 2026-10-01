@@ -237,6 +237,24 @@
   .dec-av,.c-av{position:relative;overflow:hidden}
   .av-logo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:3px}
   @media (max-width:520px){.dec-ch{display:none}}
+
+  /* Hoy = daily ACTION grid — deliberately distinct from the Decisores list so the tabs read differently */
+  .hoy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));gap:13px;margin-top:16px}
+  .hoy-card{display:flex;flex-direction:column;gap:9px;background:var(--canvas);border:1px solid var(--line-2);border-radius:16px;padding:15px 15px 13px;cursor:pointer;text-align:left;box-shadow:var(--sh-sm);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;min-height:152px;font-family:inherit}
+  .hoy-card:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--line-3)}
+  .hoy-card.done{opacity:.6}
+  .hc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .hc-logo{width:46px;height:46px;border-radius:13px;font-size:17px;position:relative;overflow:hidden}
+  .hc-score{font-size:14px;font-weight:800;color:var(--ok);font-variant-numeric:tabular-nums;line-height:1}
+  .hc-score small{display:block;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .hc-co{font-size:15px;font-weight:700;letter-spacing:-.02em;line-height:1.18;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .hc-dec{font-size:12.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hc-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:4px}
+  .hc-ch{font-size:10.5px;font-weight:700;letter-spacing:.02em;color:var(--cool);background:color-mix(in srgb,var(--cool) 13%,transparent);border-radius:7px;padding:4px 9px;white-space:nowrap}
+  .hc-cta{font-size:12px;font-weight:700;color:var(--bg);background:var(--primary);border-radius:9px;padding:7px 12px;white-space:nowrap}
+  .hoy-card.done .hc-ch{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
+  .hoy-card.done .hc-cta{background:var(--sunken);color:var(--ink-2)}
+  @media(max-width:520px){.hoy-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.hc-co{font-size:14px}}
   .dc-back{background:none;border:none;color:var(--ink-2);font-size:13px;font-weight:600;padding:4px 0;margin-bottom:12px;display:inline-flex;align-items:center;gap:5px}
   .dc-back:hover{color:var(--ink)}
   .card{border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:var(--sh);background:var(--canvas)}
@@ -538,7 +556,7 @@
     <!-- HOY (today's dispatched report ONLY) -->
     <section class="view" id="view-hoy">
       <div class="page-h">Hoy</div><div class="page-sub" id="hoy-sub">Reporte de hoy.</div>
-      <div class="dec-list" id="hoy-list"></div>
+      <div class="hoy-grid" id="hoy-list"></div>
     </section>
 
     <!-- TAREAS (real action queue from active batch + live status) -->
@@ -1108,19 +1126,25 @@
       var rep=DATA.leads.slice(), dstr=DATA.date;
       if(ISEJE){ var td=ejeTodayET(); rep=rep.filter(function(l){return (l.source_date||'')===td;}); dstr=td; }
       rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
-      var sent=rep.filter(function(l){return statusOf(l)!=='none';}).length;
-      var sub=document.getElementById('hoy-sub'); if(sub) sub.textContent=(ISEJE?'Reporte de hoy · '+esc(dstr):'Reporte del '+esc(dstr))+' · '+rep.length+' decisores · '+sent+'/'+rep.length+' contactados';
+      var sent=rep.filter(function(l){return statusOf(l)!=='none';}).length, pend=rep.length-sent;
+      var sub=document.getElementById('hoy-sub');
+      if(sub) sub.innerHTML=(rep.length? ('<b>'+pend+'</b> '+(pend===1?'conversación por iniciar':'conversaciones por iniciar')+' hoy · '+sent+'/'+rep.length+' ya contactadas · '+esc(dstr)) : 'Sin reporte para hoy.');
       var ct=document.getElementById('hoy-ct'); if(ct) ct.textContent=rep.length;
-      body.innerHTML=rep.map(function(l,i){var ch=ISEJE?chLabel((cadOf(l)||{}).channel||'email'):(l.website?'sitio':(l.instagramHandle?'IG':'email'));
-        return '<button class="dec-row" data-hi="'+i+'">'
-          +'<span class="dec-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</span>'
-          +'<span class="dec-main"><span class="dec-co">'+esc(l.companyName)+'</span>'
-          +'<span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
-          +'<span class="dec-ch">'+ch+'</span>'+(l.website?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')+statusChip(l)
-          +'<span class="dec-score">'+esc(l.score||'')+'</span></button>';
-      }).join('')||'<div class="tq-empty">Sin reporte para hoy. Los leads de días anteriores están en Historial.</div>';
-      body.querySelectorAll('.dec-row').forEach(function(r){r.addEventListener('click',function(){var i=+r.dataset.hi;openCardNav(rep[i],rep,i,'hoy');});});
-      body.querySelectorAll('.dec-ext').forEach(function(x){x.addEventListener('click',function(e){e.stopPropagation();window.open(x.dataset.url,'_blank','noopener');});});
+      if(!rep.length){ body.className=''; body.innerHTML='<div class="tq-empty">Sin reporte para hoy. Los leads de días anteriores están en Historial.</div>'; return; }
+      body.className='hoy-grid';
+      // Hoy renders as premium ACTION cards (grid), distinct from the Decisores list. Tap a card to open + Contactar.
+      body.innerHTML=rep.map(function(l,i){
+        var ch=ISEJE?chLabel((cadOf(l)||{}).channel||'email'):(l.website?'Sitio':(l.instagramHandle?'IG':'Email'));
+        var done=statusOf(l)!=='none';
+        return '<button class="hoy-card'+(done?' done':'')+'" data-hi="'+i+'">'
+          +'<div class="hc-top"><span class="dec-av hc-logo" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</span>'
+          +'<span class="hc-score">'+esc(l.score||'')+'<small>fit</small></span></div>'
+          +'<div class="hc-co">'+esc(l.companyName)+'</div>'
+          +'<div class="hc-dec">'+flag(l.country)+' '+esc(l.contactName||'—')+'</div>'
+          +'<div class="hc-foot"><span class="hc-ch">'+ch+'</span><span class="hc-cta">'+(done?'Ver ':'Contactar ')+'→</span></div>'
+          +'</button>';
+      }).join('');
+      body.querySelectorAll('.hoy-card').forEach(function(r){r.addEventListener('click',function(){var i=+r.dataset.hi;openCardNav(rep[i],rep,i,'hoy');});});
     }
     // ══ SEGUIMIENTO — manual lead tracker (ISEJE only). Isolated tables tracked_leads / tracked_lead_notes.
     // Reminders computed live at render (no cron). Never touches the outreach pipeline. See docs/SEGUIMIENTO-PLAN.md. ══
