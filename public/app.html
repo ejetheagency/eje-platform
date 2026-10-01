@@ -117,6 +117,9 @@
   .clara-in{flex:1;border:1px solid var(--line-2);border-radius:11px;padding:10px 12px;background:var(--canvas);color:var(--ink);font-family:inherit;font-size:13.5px;resize:none;max-height:90px;line-height:1.4}
   .clara-in:focus{outline:none;border-color:var(--cool)}
   .clara-send{background:var(--cool);color:#fff;border:none;border-radius:11px;padding:0 15px;font-size:17px;font-weight:700;cursor:pointer}
+  .seg-clara-btn{font-family:inherit;font-size:11.5px;font-weight:700;color:var(--cool);background:color-mix(in srgb,var(--cool) 12%,transparent);border:none;border-radius:8px;padding:5px 10px;cursor:pointer;white-space:nowrap}
+  .seg-clara-btn:hover{background:color-mix(in srgb,var(--cool) 20%,transparent)}
+  .seg-clara-out{font-size:13px;line-height:1.55;color:var(--ink);background:color-mix(in srgb,var(--cool) 8%,var(--canvas));border:1px solid color-mix(in srgb,var(--cool) 22%,var(--line-2));border-radius:11px;padding:12px 14px;margin:10px 0 2px}
   .shell{display:grid;grid-template-columns:var(--sidebar) 1fr;min-height:calc(100vh - 56px)}
   .side{border-right:1px solid var(--line);background:var(--panel);padding:14px 12px;display:flex;flex-direction:column;gap:2px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
 
@@ -1435,11 +1438,15 @@
        +'<div class="c-body"><div class="c-rail">'+rail+'</div><div class="c-main">'
        +'<div class="seg-block" style="border-top:none;padding-top:0"><div class="seg-block-h">Etapa</div><div style="display:flex;flex-wrap:wrap;gap:7px">'+stageBtns+'</div></div>'
        +'<div class="seg-block"><div class="seg-block-h">Nueva nota</div><textarea id="seg-note-in" class="seg-ta" rows="3" placeholder="¿Qué pasó? ¿Cuál es el próximo paso?"></textarea><button class="btn pri" id="seg-note-add" style="margin-top:9px">Agregar nota</button></div>'
-       +'<div class="seg-block"><div class="seg-block-h">Historial · '+notes.length+'</div>'+tl+'</div>'
+       +'<div class="seg-block"><div class="seg-block-h" style="display:flex;align-items:center;justify-content:space-between;gap:10px">Historial · '+notes.length+(notes.length?'<button class="seg-clara-btn" id="seg-clara-sum" type="button">✨ Resumir con Clara</button>':'')+'</div><div id="seg-clara-out" class="seg-clara-out" style="display:none"></div>'+tl+'</div>'
        +'</div></div></div>';
       document.getElementById('seg-back').addEventListener('click',renderSeguimiento);
       w.querySelectorAll('.seg-stage').forEach(function(b){b.addEventListener('click',function(){segSetStage(l,b.dataset.s);});});
       document.getElementById('seg-note-add').addEventListener('click',function(){var t=document.getElementById('seg-note-in').value.trim();if(t)segAddNote(l,t);});
+      var _sc=document.getElementById('seg-clara-sum');
+      if(_sc)_sc.addEventListener('click',function(){var out=document.getElementById('seg-clara-out');out.style.display='block';out.textContent='Clara está resumiendo…';
+        fetch('/api/clara',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(window.__ejeToken||'')},body:JSON.stringify({client_id:EJE_CLIENT,action:'summarize_lead',tracked_lead_id:l.id})})
+          .then(function(r){return r.ok?r.json():null;}).then(function(d){out.textContent=(d&&d.reply)||'No pude resumir ahora.';}).catch(function(){out.textContent='No pude conectar.';});});
     }
     function segSetStage(l,s){ if(s===l.stage||!window.__ejeSB){if(!window.__ejeSB)toast('Sin conexión');return;}
       var now=new Date().toISOString();

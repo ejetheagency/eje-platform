@@ -32,8 +32,24 @@ module.exports = async (req, res) => {
 
   const b = await readBody(req);
   const { client_id, message } = b;
-  if (!client_id || !message || !String(message).trim()) return fail(res, 400, "client_id and message required");
+  if (!client_id) return fail(res, 400, "client_id required");
   if (!canAccess(ctx, client_id)) return fail(res, 403, "forbidden");
+
+  // PREDETERMINED ACTION — summarize a Seguimiento lead's notes (reliable, no free-form ambiguity).
+  if (b.action === "summarize_lead" && b.tracked_lead_id) {
+    try {
+      const t = await db.select("tracked_leads", `client_id=eq.${encodeURIComponent(client_id)}&id=eq.${encodeURIComponent(b.tracked_lead_id)}&select=company,decisor_name,stage`);
+      if (!t[0]) return send(res, 200, { reply: "No encontré ese lead." });
+      const notes = await db.select("tracked_lead_notes", `client_id=eq.${encodeURIComponent(client_id)}&tracked_lead_id=eq.${encodeURIComponent(b.tracked_lead_id)}&select=note_text,created_at&order=created_at.asc`);
+      const notesText = notes.map((n) => "(" + String(n.created_at).slice(0, 10) + ") " + String(n.note_text || "").replace(/\s+/g, " ")).join("\n") || "(sin notas)";
+      const p = "Resumí en 2 o 3 frases cortas, en español neutro y directo (sin guiones largos, sin repetir), qué está pasando con este lead y cuál es el próximo paso concreto. " +
+        "Lead: " + (t[0].company || "") + (t[0].decisor_name ? (" (" + t[0].decisor_name + ")") : "") + " · etapa actual: " + t[0].stage + ".\nNotas (cronológicas):\n" + notesText;
+      const reply = String(await route(p) || "").trim() || "Sin novedades para resumir.";
+      return send(res, 200, { reply, action: "summarize_lead" });
+    } catch (e) { return fail(res, 502, "clara summarize error: " + e.message); }
+  }
+
+  if (!message || !String(message).trim()) return fail(res, 400, "message required");
 
   let name = client_id, icp = {};
   try {
