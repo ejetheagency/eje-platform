@@ -256,23 +256,42 @@
   .hoy-card.done .hc-cta{background:var(--sunken);color:var(--ink-2)}
   @media(max-width:520px){.hoy-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.hc-co{font-size:14px}}
 
-  /* Tareas = scannable buckets (counts at a glance, click to expand) — no endless scroll */
-  .tk-wrap{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-  .tk-sec{border:1px solid var(--line-2);border-radius:14px;background:var(--canvas);overflow:hidden}
-  .tk-sec.open{box-shadow:var(--sh-sm)}
-  .tk-h{width:100%;display:flex;align-items:center;gap:11px;padding:14px 16px;background:none;border:none;cursor:pointer;font-family:inherit;text-align:left}
-  .tk-h:hover{background:var(--panel)}
-  .tk-ic{font-size:15px;line-height:1}
-  .tk-lbl{font-size:14.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-  .tk-n{margin-left:7px;font-size:12px;font-weight:800;color:var(--ink-2);background:var(--sunken);border-radius:100px;padding:2px 10px;font-variant-numeric:tabular-nums;min-width:26px;text-align:center}
-  .tk-n.hl{color:var(--info);background:color-mix(in srgb,var(--info) 13%,transparent)}
-  .tk-n.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
-  .tk-n.warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 13%,transparent)}
-  .tk-cv{margin-left:auto;color:var(--ink-3);transition:transform .15s ease;font-size:12px}
-  .tk-sec.open .tk-cv{transform:rotate(180deg)}
-  .tk-body{border-top:1px solid var(--line);display:none}
-  .tk-sec.open .tk-body{display:block}
-  .tk-body .tq-empty{padding:16px 18px}
+  /* Tareas = horizontal grid of big ACTION boxes; each opens into its own mode (list / swipe / prep) */
+  .tk-boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:16px}
+  .tk-box{display:flex;flex-direction:column;align-items:flex-start;background:var(--canvas);border:1px solid var(--line-2);border-radius:18px;padding:20px;cursor:pointer;text-align:left;font-family:inherit;box-shadow:var(--sh-sm);transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease;min-height:156px}
+  .tk-box:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--line-3)}
+  .tk-box-ic{font-size:25px;line-height:1;margin-bottom:10px}
+  .tk-box-n{font-size:36px;font-weight:850;letter-spacing:-.03em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tk-box-n.hl{color:var(--info)}.tk-box-n.ok{color:var(--ok)}.tk-box-n.warn{color:var(--warn)}
+  .tk-box-l{font-size:15.5px;font-weight:750;color:var(--ink);margin-top:9px;letter-spacing:-.01em}
+  .tk-box-s{font-size:12px;color:var(--ink-3);margin-top:2px}
+  .tk-hoy{background:linear-gradient(140deg,color-mix(in srgb,var(--info) 10%,var(--canvas)),var(--canvas))}
+  .tk-mode-bar{margin-top:10px}
+  .tk-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:650;color:var(--ink-2);background:var(--sunken);border:1px solid var(--line-2);border-radius:9px;padding:7px 13px;cursor:pointer;font-family:inherit}
+  .tk-back:hover{color:var(--ink);border-color:var(--line-3)}
+  .tk-mode-h{font-size:18px;font-weight:800;letter-spacing:-.02em;margin:14px 0 12px}
+  .tk-prep{background:color-mix(in srgb,var(--info) 7%,var(--canvas));border:1px solid var(--line-2);border-radius:14px;padding:16px 18px;font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-bottom:14px}
+  .tk-prep b{color:var(--ink)}
+  .tk-list-wrap{border:1px solid var(--line-2);border-radius:14px;overflow:hidden}
+  /* swipe executor (Tinder-style) */
+  .sw-stage{position:relative;max-width:440px;margin:6px auto 0;touch-action:pan-y}
+  .sw-card{background:var(--canvas);border:1px solid var(--line-2);border-radius:22px;box-shadow:var(--sh-lg);padding:26px 24px 22px;display:flex;flex-direction:column;align-items:center;text-align:center;user-select:none;cursor:grab}
+  .sw-card:active{cursor:grabbing}
+  .sw-prog{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+  .sw-logo{width:72px;height:72px;border-radius:20px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:26px;color:#fff}
+  .sw-co{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-top:14px;color:var(--ink)}
+  .sw-dec{font-size:14px;color:var(--ink-2);margin-top:3px}
+  .sw-next{font-size:13px;color:var(--ink-2);margin-top:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+  .sw-ch{font-size:11px;font-weight:700;color:var(--cool);background:color-mix(in srgb,var(--cool) 13%,transparent);border-radius:7px;padding:3px 9px}
+  .sw-actions{display:flex;gap:11px;margin-top:22px;width:100%}
+  .sw-btn{flex:1;font-family:inherit;font-size:14px;font-weight:700;border-radius:12px;padding:13px;cursor:pointer;border:1px solid var(--line-2)}
+  .sw-btn.skip{background:var(--canvas);color:var(--ink-2)}
+  .sw-btn.skip:hover{border-color:var(--line-3);color:var(--ink)}
+  .sw-btn.go{background:var(--primary);color:var(--bg);border-color:var(--primary)}
+  .sw-hint{text-align:center;font-size:11.5px;color:var(--ink-3);margin-top:12px}
+  .sw-done{text-align:center;padding:38px 18px 10px;font-size:42px}
+  .sw-done .t{font-size:19px;font-weight:800;color:var(--ink);margin:8px 0 4px;letter-spacing:-.02em}
+  .sw-done .s{font-size:13.5px;color:var(--ink-2)}
   .dc-back{background:none;border:none;color:var(--ink-2);font-size:13px;font-weight:600;padding:4px 0;margin-bottom:12px;display:inline-flex;align-items:center;gap:5px}
   .dc-back:hover{color:var(--ink)}
   .card{border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:var(--sh);background:var(--canvas)}
@@ -1102,28 +1121,66 @@
       var resp=replied.concat(loom);
       var sub=document.getElementById('tareas-sub'); if(sub) sub.innerHTML='<b>'+todos.length+'</b> para hoy · '+doneToday+' completadas hoy · '+items.length+' en ciclo';
       var _tct=document.querySelector('.nav-item[data-view="tareas"] .ct'); if(_tct) _tct.textContent=todos.length;
-      // Scannable buckets: each header shows the COUNT; click to expand the people. "Para hoy" open by default.
-      function tkSec(id,ic,lbl,arr,ncls,open,empty){
-        return '<div class="tk-sec'+(open?' open':'')+'" data-sec="'+id+'"><button class="tk-h" type="button"><span class="tk-ic">'+ic+'</span><span class="tk-lbl">'+lbl+'</span><span class="tk-n '+(ncls||'')+'">'+arr.length+'</span><span class="tk-cv">⌄</span></button>'
-          +'<div class="tk-body">'+(arr.length?acHead()+arr.map(acRow).join(''):'<div class="tq-empty">'+empty+'</div>')+'</div></div>';
+      // Tareas = horizontal grid of big ACTION boxes; click one to open its mode. Everything visible at once.
+      function wireList(scope, arr){ var leads=arr.map(function(x){return x.l;});
+        scope.querySelectorAll('.ac-tr:not(.head)').forEach(function(r){ r.addEventListener('click',function(){
+          var l=BYKEY[r.dataset.key]||leads.filter(function(y){return (y._key||decDom(y.website))===r.dataset.key;})[0];
+          if(l) openCardNav(l,leads,leads.indexOf(l),'tareas');
+        }); }); }
+      function listHTML(arr,empty){ return arr.length?('<div class="tk-list-wrap">'+acHead()+arr.map(acRow).join('')+'</div>'):'<div class="tq-empty" style="padding:30px 18px">'+empty+'</div>'; }
+      // Swipe executor — one task at a time, swipe left to skip / right to contact (buttons too). Like Tinder for tasks.
+      function renderSwipe(host,arr,done){
+        if(!arr.length){ host.innerHTML='<div class="sw-done">🎉<div class="t">Nada para hoy</div><div class="s">No tenés tareas pendientes. Volvé mañana.</div></div>'; return; }
+        var idx=0;
+        function finish(){ host.innerHTML='<div class="sw-done">🎉<div class="t">¡Completaste tus tareas de hoy!</div><div class="s">Buen trabajo. Mañana hay más.</div></div><div class="sw-actions" style="max-width:300px;margin:6px auto 0"><button class="sw-btn go" type="button" id="sw-done-back">Volver</button></div>'; var b=document.getElementById('sw-done-back'); if(b)b.addEventListener('click',done); }
+        function go(){ var x=arr[idx],leads=arr.map(function(y){return y.l;}); openCardNav(x.l,leads,idx,'tareas'); idx++; show(); }
+        function skip(){ idx++; show(); }
+        function show(){
+          if(idx>=arr.length){ finish(); return; }
+          var x=arr[idx],l=x.l,c=x.c;
+          host.innerHTML='<div class="sw-stage"><div class="sw-card">'
+            +'<div class="sw-prog">'+(idx+1)+' / '+arr.length+'</div>'
+            +'<div class="sw-logo" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</div>'
+            +'<div class="sw-co">'+esc(l.companyName)+'</div>'
+            +'<div class="sw-dec">'+flag(l.country)+' '+esc(l.contactName||'—')+'</div>'
+            +'<div class="sw-next"><span class="sw-ch">'+chLabel(c.channel||'email')+'</span> '+esc(c.next||'')+'</div>'
+            +'<div class="sw-actions"><button class="sw-btn skip" type="button">Saltar</button><button class="sw-btn go" type="button">Contactar →</button></div>'
+            +'</div></div><div class="sw-hint">Deslizá: ← saltar · contactar →</div>';
+          host.querySelector('.sw-btn.skip').addEventListener('click',skip);
+          host.querySelector('.sw-btn.go').addEventListener('click',go);
+          var el=host.querySelector('.sw-card'),sx=0,drag=false,dx=0;
+          el.addEventListener('pointerdown',function(e){ if(e.target.closest('.sw-btn'))return; drag=true;sx=e.clientX;dx=0;el.style.transition='none';try{el.setPointerCapture(e.pointerId);}catch(_){} });
+          el.addEventListener('pointermove',function(e){ if(!drag)return; dx=e.clientX-sx; el.style.transform='translateX('+dx+'px) rotate('+(dx/28)+'deg)'; el.style.opacity=String(Math.max(0,1-Math.abs(dx)/440)); });
+          el.addEventListener('pointerup',function(){ if(!drag)return; drag=false; el.style.transition='transform .2s ease,opacity .2s ease';
+            if(dx>110){ el.style.transform='translateX(520px) rotate(16deg)'; el.style.opacity='0'; setTimeout(go,150); }
+            else if(dx<-110){ el.style.transform='translateX(-520px) rotate(-16deg)'; el.style.opacity='0'; setTimeout(skip,150); }
+            else { el.style.transform=''; el.style.opacity='1'; } dx=0;
+          });
+        }
+        show();
       }
-      var html='<div class="tk-wrap">'
-        +tkSec('hoy','📋','Para hoy',todos,'hl',true,'Todo al día. Nada pendiente hoy. 🎉')
-        +tkSec('resp','💬','Respondieron',resp,'ok',false,'Nadie ha respondido todavía.')
-        +tkSec('cola','🗓️','En cola',cola,'',false,'Nada en cola por ahora.')
-        +(dormant.length?tkSec('dorm','😴','Dormidos · revivir',dormant,'warn',false,''):'')
-        +'</div>';
-      body.innerHTML=html;
-      body.querySelectorAll('.tk-h').forEach(function(h){h.addEventListener('click',function(){h.closest('.tk-sec').classList.toggle('open');});});
-      function bindRows(scope){ (scope||body).querySelectorAll('.ac-tr:not(.head)').forEach(function(r){ if(r._b)return; r._b=1; r.addEventListener('click',function(){
-        var rows=[].slice.call(body.querySelectorAll('.ac-tr:not(.head)')),seen={},q=[];
-        rows.forEach(function(x){var k=x.dataset.key;if(k&&!seen[k]){seen[k]=1;var ll=BYKEY[k]||uni.filter(function(y){return (y._key||decDom(y.website))===k;})[0];if(ll)q.push(ll);}});
-        var l=BYKEY[r.dataset.key]||uni.filter(function(x){return (x._key||decDom(x.website))===r.dataset.key;})[0];
-        if(l)openCardNav(l,q,q.indexOf(l),'tareas');
-      }); }); }
-      bindRows();
-      body.querySelectorAll('.ac-card[data-scroll]').forEach(function(c){c.addEventListener('click',function(){var t=document.getElementById(c.dataset.scroll);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
-      body.querySelectorAll('.ac-more-row[data-exp]').forEach(function(exp){exp.addEventListener('click',function(){var which=exp.dataset.exp;var list=which==='dormant'?dormant:urgent;var shown=which==='dormant'?8:6;var p=exp.closest('.ac-panel');exp.remove();p.insertAdjacentHTML('beforeend',list.slice(shown).map(acRow).join(''));bindRows(p);});});
+      var BUCKETS={resp:resp,hoy:todos,cola:cola,dorm:dormant};
+      function boxEl(mode,ic,n,ncls,lbl,s2){ return '<button class="tk-box tk-'+mode+'" data-mode="'+mode+'"><div class="tk-box-ic">'+ic+'</div><div class="tk-box-n '+(ncls||'')+'">'+n+'</div><div class="tk-box-l">'+lbl+'</div><div class="tk-box-s">'+s2+'</div></button>'; }
+      body.innerHTML='<div class="tk-boxes" id="tk-boxes">'
+        +boxEl('resp','💬',resp.length,'ok','Conversaciones','respondieron · esta semana')
+        +boxEl('hoy','⚡',todos.length,'hl','Tareas para hoy','deslizá para ejecutar →')
+        +boxEl('cola','🗓️',cola.length,'','En cola','prepárate para lo que viene')
+        +(dormant.length?boxEl('dorm','😴',dormant.length,'warn','Dormidos','para revivir'):'')
+        +'</div><div class="tk-mode" id="tk-mode" style="display:none"></div>';
+      var boxesEl=document.getElementById('tk-boxes'), modeEl=document.getElementById('tk-mode');
+      function back(){ modeEl.style.display='none'; modeEl.innerHTML=''; boxesEl.style.display=''; }
+      function openMode(m){
+        boxesEl.style.display='none'; modeEl.style.display='block';
+        var arr=BUCKETS[m]||[];
+        var head='<div class="tk-mode-bar"><button class="tk-back" type="button">← Tareas</button></div>';
+        if(m==='hoy'){ modeEl.innerHTML=head+'<div class="tk-mode-h">⚡ Tareas para hoy</div><div id="sw-host"></div>'; renderSwipe(document.getElementById('sw-host'),arr,back); }
+        else if(m==='cola'){ var msg='Prepárate para lo que viene. Tenés <b>'+arr.length+'</b> '+(arr.length===1?'tarea':'tareas')+' en cola para los próximos días. Revisá tus borradores y programá cada envío a la mejor hora para el destinatario, antes de que venzan.';
+          modeEl.innerHTML=head+'<div class="tk-mode-h">🗓️ En cola</div><div class="tk-prep">'+msg+'</div>'+listHTML(arr,'Nada en cola por ahora. 🎉'); wireList(modeEl,arr); }
+        else { var t=m==='resp'?'💬 Conversaciones · respondieron':'😴 Dormidos · para revivir'; var e=m==='resp'?'Nadie ha respondido todavía.':'Sin dormidos.';
+          modeEl.innerHTML=head+'<div class="tk-mode-h">'+t+'</div>'+listHTML(arr,e); wireList(modeEl,arr); }
+        modeEl.querySelector('.tk-back').addEventListener('click',back);
+      }
+      boxesEl.querySelectorAll('.tk-box').forEach(function(b){b.addEventListener('click',function(){openMode(b.dataset.mode);});});
     }
     function renderTareas(){ renderAccion(); }
     // ── HOY: today's dispatched report ONLY (the active batch, not the full cadence) ──
