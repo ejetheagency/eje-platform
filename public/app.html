@@ -1847,7 +1847,17 @@
     var typing=add('clara','Clara está escribiendo…','clara typing');
     var client=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})();
     fetch('/api/clara',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(window.__ejeToken||'')},body:JSON.stringify({client_id:client,message:msg,context:{view:curView(),summary:summary()},history:history})})
-      .then(function(r){return r.ok?r.json():null;}).then(function(d){typing.remove();var rep=(d&&d.reply)||'Perdón, no pude responder ahora. Probá de nuevo.';add('clara',rep);history.push({role:'clara',text:rep});})
+      .then(function(r){return r.ok?r.json():null;}).then(function(d){
+        typing.remove();var rep=(d&&d.reply)||'Perdón, no pude responder ahora. Probá de nuevo.';add('clara',rep);history.push({role:'clara',text:rep});
+        // Live update: if Clara wrote (logged a lead / added a note), reflect it in Seguimiento without a page reload.
+        if(d&&(d.logged||d.note_added)){ try{
+          var segView=document.getElementById('view-seguimiento'), onSeg=segView&&segView.classList.contains('on');
+          var dw=document.getElementById('seg-detail-wrap'), detailOpen=onSeg&&dw&&dw.style.display!=='none'&&d.tracked_lead_id;
+          if(detailOpen&&typeof segLoad==='function'&&typeof segOpen==='function'){ segLoad().then(function(){segOpen(d.tracked_lead_id);}); }
+          else if(onSeg&&typeof renderSeguimiento==='function'){ renderSeguimiento(); }
+          else if(typeof segLoad==='function'){ segLoad(); }
+        }catch(e){} }
+      })
       .catch(function(){typing.remove();add('clara','No pude conectar. Reintentá.');});
   }
   document.getElementById('claraSend').addEventListener('click',send);
