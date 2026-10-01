@@ -178,6 +178,36 @@ Non-negotiables for every lead card in-product (and in any demo). A card that fa
 - **Links never overlap or wrap mid-word.** Don't render the full URL/email as wrapping text; truncate to one line
   with ellipsis (clickable, title on hover). Fixed 2026-10-01: `.c-rail/.tab-panel .v .link` now nowrap+ellipsis.
 
+## Reliability crons — TIERED (grounded 2026-10-01, operator) — the core of the service
+The product's promise is an ACCURATE daily task queue. That only holds if a scheduled job keeps it true;
+doing it by hand drifts (proven: EJE's own `eje` workspace stopped logging 09-30 while sends continued, so
+Tareas looked empty though 10 IG DMs were actually due). Two tiers:
+- **Premium (EJE's own account + premium clients): email + task cron.** Reads the client's mailbox (IMAP),
+  reconciles real sends -> platform (first-touch AND follow-ups), advances the cadence, flags double-send
+  risk, recomputes due tasks. This is the full `reconcile-sends.py` loop, extended + scheduled.
+- **Normal clients: task-check cron (DB-only).** No mailbox access needed. Recomputes the cadence/due tasks
+  from existing data, advances stages, fires daily nudges. Lighter, universal, cheap. **This IS the service**
+  for the base tier — the client always opens the app to a correct "what to do today."
+- **Build:** extend `scripts/reconcile-sends.py` (also match follow-up subjects "feedback"/"no recibí tu
+  feedback"; widen scope beyond status=none so a lead advances touch-by-touch; write clean `sent_at`), then
+  SCHEDULE it. Home for the Python reconcile = the existing Railway daily automation ([[project-automation-deployed]]);
+  the DB-only task-check can be a Vercel Cron -> `/api/cron/task-check`. Per-client config in `clients.icp_config`
+  (which tier, whether email creds exist). This is S3 made concrete.
+
+## Cadence gap to fix (grounded 2026-10-01): ISEJE has NO re-touch, 57% of pipeline dead-ends
+`cadNext`/`cadOf` in app.html: EJE cadence = 1er email -> IG DM (+2d) -> 2º email (+5d), then `if(ISEJE &&
+touches>=3) return {kind:'stop'}`. So after ~1 week every lead that didn't reply STOPS forever. Live check on
+`eje` (2026-10-01): due 0 · soon 10 · upcoming 42 · **stop 91** · first 2 · replied 11 · loom 3 · meeting 1.
+91/160 (57%) are permanently stopped. Fix: add a monthly re-touch (touch 5+, 30d) for ISEJE too (the cadence
+already defines "Mensual" for n>=5; the stop-at-3 short-circuits it) OR a sanctioned Plan A revival sweep. This
+is the biggest lever on EJE's own pipeline volume and applies to clients. See [[project-second-chance-top-tier-campaign]].
+
+## Immediate UI fixes queued (grounded 2026-10-01)
+- **Admin workspace switcher must list ALL /api/me workspaces** (currently only the hardcoded `eje` ws-opt shows,
+  so an admin can't reach 2uplatam/eje_productoras from the dropdown).
+- **Tareas must surface "today/soon" tasks, not hide them behind an empty "Urgentes" (overdue) panel** — the queue
+  reads as empty when 10 IG DMs are due today. "Due today" != "overdue".
+
 ## Status
 - **S1 backend spine: DONE + verified on prod (2026-10-01).**
   - API layer BUILT + DEPLOYED (`/api/health` live, service key in Vercel). Endpoints: me, leads, metrics,
@@ -195,10 +225,13 @@ Non-negotiables for every lead card in-product (and in any demo). A card that fa
     one-click primary (button ALREADY in app.html ~line 666, just enable the Supabase provider + a Google OAuth app);
     password = universal fallback (already proven in crm.html). Email provider ON, `site_url=.../app.html`,
     `uri_allow_list` set. FULL cutover (no browser secrets, reads via /api) executed INCREMENTALLY view-by-view.
-- **S1 remaining = the UI cutover (next build):** (a) add magic-link form to the existing `#login` overlay
-  (signInWithOtp, shouldCreateUser:false); (b) replace the hardcoded ALLOWED email allowlist (app.html ~672)
-  with membership-driven `/api/me`; (c) drive the workspace switcher from `/api/me` workspaces, not hardcoded
-  ws-opts + localStorage; (d) route CLIENT data reads through `/api/leads` with the user token (critical: no RLS
-  yet, so direct anon reads do NOT isolate a client). RLS = defense-in-depth, add after.
+- **UI cutover increment 1 SHIPPED to prod (2026-10-01):** email/password + Google login; membership-driven
+  auth via `/api/me` (hardcoded allowlist removed); per-tenant cache + purge-on-account-switch; real logos
+  (stored lead_data.logo) + premium monogram fallback; contact-link truncation. Operator login set
+  (contact@ejetheagency.com, admin). **Live at https://app.ejetheagency.com** (custom domain + SSL, Supabase
+  auth re-pointed; unabase-app.vercel.app 307-redirects). Reconcile run once (10 today-sends logged).
+- **Cutover remaining:** (a) admin workspace switcher from `/api/me` (only hardcoded `eje` shows now);
+  (b) route CLIENT reads through `/api/leads` with the token (no RLS yet, so direct anon reads don't isolate);
+  (c) role-driven demo gating (Hoy + blurred teasers + capped assistant + expiry). RLS = defense-in-depth after.
 - S2: current `app.html` is the evolve-from baseline (auth gate + Seguimiento CRM + decision cards already exist).
   S3: engine scripts exist, not scheduled; deliverability layer to add. S4: brains exist (scripts), not wired.

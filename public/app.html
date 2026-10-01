@@ -695,6 +695,27 @@
     if(pwBtn) pwBtn.addEventListener('click',pwLogin);
     if(pwIn) pwIn.addEventListener('keydown',function(e){ if(e.key==='Enter') pwLogin(); });
 
+    // Build the workspace switcher from the user's ACTUAL workspaces (/api/me), not hardcoded opts,
+    // so an admin can reach every workspace and a client sees only theirs.
+    window.__ejeRenderWs=function(ws, activeId){
+      var menu=document.getElementById('wsMenu'); if(!menu||!ws||!ws.length) return;
+      var COLORS={eje:'#2da2bb','2uplatam':'#c79a3a',eje_productoras:'#7b6bf5'};
+      function colorFor(id){ if(COLORS[id])return COLORS[id]; var h=0;for(var i=0;i<id.length;i++)h=(h*31+id.charCodeAt(i))>>>0; return 'hsl('+(h%360)+',55%,50%)'; }
+      var html='<div class="ws-sep">Espacios</div>';
+      ws.forEach(function(w){ var c=colorFor(w.id), nm=w.name||w.id;
+        html+='<button class="ws-opt" data-client="'+w.id+'" data-acct="'+c+'" data-ws="'+nm+'"><span class="d" style="background:'+c+'"></span><span class="n">'+nm+'</span></button>'; });
+      menu.innerHTML=html;
+      var active=ws.filter(function(w){return w.id===activeId;})[0]||ws[0]; var ac=colorFor(active.id);
+      var wn=document.getElementById('wsName'); if(wn) wn.textContent=active.name||active.id;
+      var wd=document.getElementById('wsDot'); if(wd) wd.style.background=ac;
+      document.documentElement.style.setProperty('--acct',ac);
+      menu.querySelectorAll('.ws-opt').forEach(function(o){ o.addEventListener('click',function(){
+        if(o.dataset.client===activeId){menu.classList.remove('open');return;}
+        try{localStorage.setItem('eje_ws',o.dataset.client);}catch(e){}
+        location.reload();
+      }); });
+    };
+
     // AUTHORIZATION is membership-driven: /api/me returns the workspaces this user may open.
     // Authorized == has >=1 workspace. Admins get all clients; a client gets only theirs.
     function handleSession(session){
@@ -719,15 +740,11 @@
             try{localStorage.setItem('eje_ws', ids[0]);}catch(e){}
             location.reload(); return;
           }
-          // label the active workspace from membership (the switcher has no hardcoded entry for client workspaces)
+          // build the switcher from the user's real workspaces + label the active one
           var activeId=(ids.indexOf(cur)>=0?cur:ids[0]);
-          var activeWs=me.workspaces.filter(function(w){ return w.id===activeId; })[0];
-          if(activeWs){ var wn=document.getElementById('wsName'); if(wn) wn.textContent=activeWs.name; }
-          // greet from the active workspace (never a stale hardcoded name)
+          if(window.__ejeRenderWs) window.__ejeRenderWs(me.workspaces, activeId);
           var gr=document.getElementById('greet');
-          if(gr){ var gopt=document.querySelector('.ws-opt[data-client="'+activeId+'"]'); gr.textContent=(gopt&&gopt.dataset.kind)?('Buen día, '+gopt.dataset.kind+'.'):'Buen día.'; }
-          // non-admins: hide any hardcoded workspace options that are not theirs
-          if(!me.isAdmin){ document.querySelectorAll('.ws-opt').forEach(function(o){ if(ids.indexOf(o.dataset.client)<0) o.style.display='none'; }); }
+          if(gr){ gr.textContent=(activeId==='eje')?'Buen día, Emiliano.':'Buen día.'; }
           if(window.__ejeApplyWsGate)window.__ejeApplyWsGate();
           showApp();
         })
