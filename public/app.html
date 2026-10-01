@@ -242,7 +242,7 @@
   .hoy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));gap:13px;margin-top:16px}
   .hoy-card{display:flex;flex-direction:column;gap:9px;background:var(--canvas);border:1px solid var(--line-2);border-radius:16px;padding:15px 15px 13px;cursor:pointer;text-align:left;box-shadow:var(--sh-sm);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;min-height:152px;font-family:inherit}
   .hoy-card:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--line-3)}
-  .hoy-card.done{opacity:.6}
+  .hoy-card.done{background:var(--panel);border-color:var(--line)}
   .hc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
   .hc-logo{width:46px;height:46px;border-radius:13px;font-size:17px;position:relative;overflow:hidden}
   .hc-score{font-size:14px;font-weight:800;color:var(--ok);font-variant-numeric:tabular-nums;line-height:1}
@@ -1141,7 +1141,7 @@
           +'<span class="hc-score">'+esc(l.score||'')+'<small>fit</small></span></div>'
           +'<div class="hc-co">'+esc(l.companyName)+'</div>'
           +'<div class="hc-dec">'+flag(l.country)+' '+esc(l.contactName||'—')+'</div>'
-          +'<div class="hc-foot"><span class="hc-ch">'+ch+'</span><span class="hc-cta">'+(done?'Ver ':'Contactar ')+'→</span></div>'
+          +'<div class="hc-foot"><span class="hc-ch">'+(done?'✓ Contactado':ch)+'</span><span class="hc-cta">'+(done?'Ver ':'Contactar ')+'→</span></div>'
           +'</button>';
       }).join('');
       body.querySelectorAll('.hoy-card').forEach(function(r){r.addEventListener('click',function(){var i=+r.dataset.hi;openCardNav(rep[i],rep,i,'hoy');});});
