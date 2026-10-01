@@ -315,6 +315,23 @@
   .sw-done{text-align:center;padding:38px 18px 10px;font-size:42px}
   .sw-done .t{font-size:19px;font-weight:800;color:var(--ink);margin:8px 0 4px;letter-spacing:-.02em}
   .sw-done .s{font-size:13.5px;color:var(--ink-2)}
+
+  /* Resultados — elegant branded charts (conversation-generation, on our tokens; inspired, not copied) */
+  .rz-head{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:22px 0 2px}
+  .rz-wrap{display:grid;grid-template-columns:1.45fr 1fr;gap:14px;margin-top:12px}
+  @media(max-width:760px){.rz-wrap{grid-template-columns:1fr}}
+  .rz-card{background:var(--canvas);border:1px solid var(--line-2);border-radius:16px;padding:18px 18px 15px;box-shadow:var(--sh-sm)}
+  .rz-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .rz-t{font-size:13.5px;font-weight:750;color:var(--ink);letter-spacing:-.01em}
+  .rz-sub{font-size:11px;color:var(--ink-3);margin-top:2px}
+  .rz-big{font-size:27px;font-weight:850;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1;text-align:right}
+  .rz-big .u{font-size:12px;font-weight:650;color:var(--ink-3);letter-spacing:0}
+  svg.rz-chart{display:block;width:100%;height:auto}
+  .rz-fn-row{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+  .rz-fn-row:last-child{margin-bottom:0}
+  .rz-fn-lbl{font-size:12px;color:var(--ink-2);min-width:104px}
+  .rz-fn-bar{flex:1;height:28px;border-radius:8px;background:var(--sunken);overflow:hidden}
+  .rz-fn-fill{height:100%;border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-size:12.5px;font-weight:800;color:#fff;min-width:28px;transition:width .5s cubic-bezier(.2,.7,.2,1)}
   .dc-back{background:none;border:none;color:var(--ink-2);font-size:13px;font-weight:600;padding:4px 0;margin-bottom:12px;display:inline-flex;align-items:center;gap:5px}
   .dc-back:hover{color:var(--ink)}
   .card{border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:var(--sh);background:var(--canvas)}
@@ -609,6 +626,9 @@
         <div class="gr"><span class="gt">Camino a tu récord</span><span class="gc">11 / <b>14</b></span></div>
         <div class="bar"><span style="width:78%"></span></div>
       </div>
+
+      <div class="rz-head">Tu generación de conversaciones</div>
+      <div class="rz-wrap" id="rz-host"></div>
 
       <button class="cta" data-view="hoy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Ver reporte de hoy</button>
     </section>
@@ -1717,6 +1737,26 @@
         var bBar=document.querySelector('#view-home .best .bar>span'), bGc=document.querySelector('#view-home .best .gc');
         if(bBar&&record) bBar.style.width=Math.min(100,Math.round(convTW/record*100))+'%';
         if(bGc) bGc.innerHTML=convTW+' / <b>'+(record||convTW)+'</b>';
+        // Resultados — conversation-generation charts (branded, elegant, our tokens)
+        var rzHost=document.getElementById('rz-host');
+        if(rzHost){
+          var weeks=[]; for(var wi=7;wi>=0;wi--){ weeks.push(new Date(tw.getTime()-wi*7*864e5)); }
+          var series=weeks.map(function(ws){ var we=new Date(ws.getTime()+7*864e5); return sh.filter(function(d){return d>=ws&&d<we;}).length; });
+          var alcances=msgs.length, convAll=sh.length, reuniones=(res[1]||[]).filter(function(r){return r.status==='meeting';}).length;
+          function areaChart(vals){ var W=320,H=112,pad=5,n=vals.length,mx=Math.max(1,Math.max.apply(null,vals));
+            function X(i){return pad+i*(W-2*pad)/((n-1)||1);} function Y(v){return H-pad-(v/mx)*(H-2*pad-4);}
+            var pts=vals.map(function(v,i){return X(i).toFixed(1)+','+Y(v).toFixed(1);});
+            var line='M'+pts.join(' L'), area=line+' L'+X(n-1).toFixed(1)+','+(H-pad)+' L'+X(0).toFixed(1)+','+(H-pad)+' Z';
+            return '<svg class="rz-chart" viewBox="0 0 '+W+' '+H+'"><defs><linearGradient id="rzg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--cool)" stop-opacity=".26"/><stop offset="1" stop-color="var(--cool)" stop-opacity="0"/></linearGradient></defs>'
+              +'<path d="'+area+'" fill="url(#rzg)"/><path d="'+line+'" fill="none" stroke="var(--cool)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>'
+              +'<circle cx="'+X(n-1).toFixed(1)+'" cy="'+Y(vals[n-1]).toFixed(1)+'" r="4" fill="var(--cool)" stroke="var(--canvas)" stroke-width="2"/></svg>'; }
+          var fmax=Math.max(1,alcances);
+          function fnRow(lbl,v,c){ return '<div class="rz-fn-row"><span class="rz-fn-lbl">'+lbl+'</span><div class="rz-fn-bar"><div class="rz-fn-fill" style="width:'+Math.max(7,Math.round(v/fmax*100))+'%;background:'+c+'">'+v+'</div></div></div>'; }
+          rzHost.innerHTML=
+            '<div class="rz-card"><div class="rz-h"><div><div class="rz-t">Conversaciones generadas</div><div class="rz-sub">últimas 8 semanas</div></div><div class="rz-big">'+convTW+'<div class="u">esta semana</div></div></div>'+areaChart(series)+'</div>'
+           +'<div class="rz-card"><div class="rz-h"><div><div class="rz-t">Embudo de generación</div><div class="rz-sub">histórico</div></div></div>'
+             +fnRow('Alcances',alcances,'var(--info)')+fnRow('Conversaciones',convAll,'var(--cool)')+fnRow('Reuniones',reuniones,'var(--ok)')+'</div>';
+        }
       }).catch(function(){});
     })();
   })();
