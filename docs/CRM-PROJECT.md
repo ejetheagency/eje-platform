@@ -328,8 +328,16 @@ The confusion = conflating DEMO with a FREE TIER. They are different:
   (stored lead_data.logo) + premium monogram fallback; contact-link truncation. Operator login set
   (contact@ejetheagency.com, admin). **Live at https://app.ejetheagency.com** (custom domain + SSL, Supabase
   auth re-pointed; unabase-app.vercel.app 307-redirects). Reconcile run once (10 today-sends logged).
+- **RLS TENANT ISOLATION ENFORCED (2026-10-01).** The hole is closed: RLS was ON but every policy was
+  `USING true` (wide open). Replaced with tenant-scoped policies on all 7 data tables + `clients` + `memberships`,
+  keyed on `auth.uid()` via SECURITY DEFINER helpers `auth_is_admin()` / `auth_client_ids()` (mirror
+  `api/_lib/auth.js canAccess`: any admin membership = sees all; member = own client only). SQL recorded in
+  `db/rls-2026-10-01-tenant-isolation.sql`. Verified on prod: a somoshobby member reads 0 `eje` rows (was 160),
+  cross-tenant write rejected (42501), operator-admin still sees all, `/api/*` unaffected (service_role bypasses).
+  This works because the frontend `__ejeSB` carries the user JWT (signInWithPassword + persistSession), so direct
+  reads/writes are now governed. Routing reads/writes through `/api` is therefore no longer a SECURITY need —
+  it's now only a scale/metrics/attribution improvement (demoted in priority).
 - **Cutover remaining:** (a) admin workspace switcher from `/api/me` (only hardcoded `eje` shows now);
-  (b) route CLIENT reads through `/api/leads` with the token (no RLS yet, so direct anon reads don't isolate);
-  (c) role-driven demo gating (Hoy + blurred teasers + capped assistant + expiry). RLS = defense-in-depth after.
+  (b) role-driven demo gating (Hoy + blurred teasers + capped assistant + expiry).
 - S2: current `app.html` is the evolve-from baseline (auth gate + Seguimiento CRM + decision cards already exist).
   S3: engine scripts exist, not scheduled; deliverability layer to add. S4: brains exist (scripts), not wired.
