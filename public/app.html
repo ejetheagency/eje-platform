@@ -677,7 +677,8 @@
         .then(function(r){ if(r&&r.error){errEl.textContent='Google aún no está habilitado en el proyecto. Usá la demo por ahora.';errEl.style.display='block';} })
         .catch(function(){ errEl.textContent='Google aún no está habilitado. Usá la demo por ahora.';errEl.style.display='block'; });
     });
-    window.__ejeSignOut=function(){ if(sb){sb.auth.signOut().then(showLogin,showLogin);} else showLogin(); };
+    function purgeDataCaches(){ try{ Object.keys(localStorage).forEach(function(k){ if(k.indexOf('eje_dec_cache')===0) localStorage.removeItem(k); }); localStorage.removeItem('eje_dec_cache'); }catch(e){} }
+    window.__ejeSignOut=function(){ purgeDataCaches(); try{localStorage.removeItem('eje_uid');}catch(e){} if(sb){sb.auth.signOut().then(showLogin,showLogin);} else showLogin(); };
 
     // Password sign-in (Fernando + anyone without Google). Google button is wired above.
     var pwBtn=document.getElementById('pwBtn'), emIn=document.getElementById('loginEmail'), pwIn=document.getElementById('loginPw');
@@ -709,6 +710,8 @@
           }
           window.__ejeAuthed=true; window.__ejeEmail=em; window.__ejeToken=session.access_token;
           window.__ejeIsAdmin=!!me.isAdmin; window.__ejeWorkspaces=me.workspaces;
+          // purge cached data from a previous account to stop cross-login bleed
+          try{ if(localStorage.getItem('eje_uid')!==session.user.id){ purgeDataCaches(); localStorage.setItem('eje_uid', session.user.id); } }catch(e){}
           var ids=me.workspaces.map(function(w){ return w.id; });
           var cur=null; try{cur=localStorage.getItem('eje_ws');}catch(e){}
           // a client (non-admin) is pinned to their own workspace; reload once so the data layer re-reads it
@@ -720,6 +723,9 @@
           var activeId=(ids.indexOf(cur)>=0?cur:ids[0]);
           var activeWs=me.workspaces.filter(function(w){ return w.id===activeId; })[0];
           if(activeWs){ var wn=document.getElementById('wsName'); if(wn) wn.textContent=activeWs.name; }
+          // greet from the active workspace (never a stale hardcoded name)
+          var gr=document.getElementById('greet');
+          if(gr){ var gopt=document.querySelector('.ws-opt[data-client="'+activeId+'"]'); gr.textContent=(gopt&&gopt.dataset.kind)?('Buen día, '+gopt.dataset.kind+'.'):'Buen día.'; }
           // non-admins: hide any hardcoded workspace options that are not theirs
           if(!me.isAdmin){ document.querySelectorAll('.ws-opt').forEach(function(o){ if(ids.indexOf(o.dataset.client)<0) o.style.display='none'; }); }
           if(window.__ejeApplyWsGate)window.__ejeApplyWsGate();
@@ -1465,10 +1471,10 @@
       fetch('./reports-manifest.json'+cb).then(function(r){return r.json();}).then(function(m){
         var active=ejeActiveBatch(m);   // date-scheduled active batch (today's report), not the literal active_batch_id
         if(!active) throw 0;
-        try{var c=localStorage.getItem('eje_dec_cache'); if(c){var cd=JSON.parse(c); if(cd&&cd.date===active.source_date){DATA=cd; render(); if(typeof renderHoy==='function') renderHoy();}else{localStorage.removeItem('eje_dec_cache');}}}catch(e){}
+        try{var _ck='eje_dec_cache_'+EJE_CLIENT; var c=localStorage.getItem(_ck); if(c){var cd=JSON.parse(c); if(cd&&cd.date===active.source_date){DATA=cd; render(); if(typeof renderHoy==='function') renderHoy();}else{localStorage.removeItem(_ck);}}}catch(e){}
         return fetch('./'+active.file+cb).then(function(r){return r.json();}).then(function(leads){
           DATA={date:active.source_date,leads:leads};
-          try{localStorage.setItem('eje_dec_cache',JSON.stringify(DATA));}catch(e){}
+          try{localStorage.setItem('eje_dec_cache_'+EJE_CLIENT,JSON.stringify(DATA));}catch(e){}
           render(); if(typeof renderHoy==='function') renderHoy();
           loadStatus().then(function(){ render(); if(typeof renderHoy==='function') renderHoy(); return loadUniverse(); }).then(function(){ render(); if(typeof renderHoy==='function') renderHoy(); if(typeof renderAccion==='function') renderAccion(); loadReportLeads(); });
         });
