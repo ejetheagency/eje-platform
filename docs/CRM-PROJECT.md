@@ -65,8 +65,76 @@ layer is client value, proof & the business model. Added as S5.
   performance, plus the conversion coaching (IG voice-memo close, the human close) surfaced inline. "My brain in a system."
 - **Billing + plan tiers + Pro add-on:** in-app subscription (Stripe), base vs Pro, usage/credits, so it scales
   as a product (the Phase-5 monetization, now first-class).
+- **Per-seat pricing (idea, 2026-10-01 operator, NOT now):** base subscription includes the owner; each ADDITIONAL
+  user invited into a client's org = **+$10/mo/seat**. Natural upsell, memberships already model multi-seat; just
+  needs seat-count metering + Stripe line item. Park until billing is built.
 - **Table stakes:** multi-seat per client (memberships already support it; add assignment + per-rep activity),
   and a MOBILE-FIRST surface (clients act from their phone via IG/WhatsApp).
+
+## UI v2 direction + gamified rewards (2026-09-30, operator)
+Reference bar = **Attio + Folk**, but IDENTITY = a **PROSPECTION SYSTEM obsessed with INITIATING conversations
+effectively**, NOT a pipeline tracker (it has CRM qualities, that is not its identity). Elevate-on-hover /
+"worth clicking" feel throughout. Per section:
+- **Hoy = grid of small SQUARE premium contact cards** (logo + little profile), whole report on ONE screen (no
+  scroll); a card **FLIPS on open** to reveal all info + the **Contactar** action. Premium color. Framed "X conversaciones por iniciar".
+- **Tareas = horizontal + sectioned** (by origin/stage/urgency), whole picture at once, no vertical scroll; buckets + drill-in.
+- **Decisores** = leave strong; it is the "go update states" menu, fine as-is.
+- **Seguimiento + Vera** (assistant name = placeholder) good; add **proactive update-nudges per card**
+  ("lo último que nos contaste fue X, ¿pasó algo? dile a Vera o actualízalo").
+- **Plantillas must CALL to action** = the **social-media part**: a browsable feed of the most effective templates
+  (yours + other clients', with response rates); **add WhatsApp** channel.
+- **GAMIFIED REWARDS (coins):** earn coins for action, **WEIGHTED TO OUTCOMES** (response > send, meeting > response,
+  close highest; daily-goal + streak bonuses) so it rewards EFFECTIVENESS not spam. Redeem monthly for **extra
+  leads/decisores** (self-reinforcing fuel), a free gadget/perk, or a premium unlock. Persistent coin balance +
+  earn micro-animation + a **Recompensas** surface. Drives daily action, excitement, retention = renewal lever.
+
+## Design direction + current-CRM audit (2026-09-30, operator-set)
+**Direction:** white/light, modern (like mockup B / Atlas), EVOLVED from the current `app.html` (familiar, not a
+reskin shock). **Rule: every section earns its place with ONE clear purpose; simple by default, complex only
+where it must be.** Build so a stranger can self-serve, so it converts without the operator selling.
+
+**Current `app.html` sections (1490 lines, views: home/hoy/tareas/decisores/seguimiento/historial/ajustes):**
+- **Inicio (Home)** KEEP + wire to real data. Already a proof+nudge dashboard (KPI tiles, streaks, goals, autopilot
+  line). Feed it `/api/metrics` instead of static numbers. This IS the S5 Results layer. Purpose: "tus números + qué hacer hoy."
+- **Hoy** KEEP. Daily decisores to contact, one click. The heartbeat.
+- **Tareas** KEEP. Follow-ups due.
+- **Decisores** KEEP + add activity timeline (`/api/activity`) to the card. Searchable decisor database.
+- **Seguimiento** KEEP + elevate. Manual leads + home of the LIVE assistant (`/api/assistant`, now wired).
+- **Historial** MERGE -> CUT. Report-era framing; move who-responded/results-over-time into Inicio/Resultados; drop the batch list.
+- **Ajustes** EXPAND HARD. Today just account/theme/logout. Becomes the SELF-SERVE hub: sector/ICP, geos, channels,
+  team seats, plan/billing. This is what lets it convert without sales.
+
+**ADD (new sections, each one purpose):**
+- **Plantillas** (operator's flagship idea): templates per channel (IG/email/LinkedIn), TUNED BY THE ASSISTANT on
+  request ("hazlo más humano"); each template accrues its OWN response rate; and CROSS-CLIENT INTELLIGENCE, suggest
+  templates other same-sector clients use with their response % ("estudios como el tuyo usan esta, 31%"). Moat + renewal reason.
+- **Agenda** (near-future, simple v1): one timeline of the whole operation, meetings booked, scheduled sends,
+  follow-up dates, so the CRM is aware of the client's operation. Park it; not now.
+
+**Target = 7 sections:** Inicio/Resultados · Hoy · Tareas · Decisores · Seguimiento · Plantillas · Ajustes (+ Agenda later).
+
+## Demo-as-product: self-expiring demo workspaces (the SALES mechanism) — 2026-10-01, operator
+**Problem:** sending demo PDFs is confusing. An unqualified prospect can think "the product = a guy who emails me
+PDFs of leads daily," which undersells the system and can kill the sale (operator may not always be there to explain).
+**Fix: the demo IS the product.** Give each prospect a LIVE, time-boxed demo workspace inside the real UI, seeded
+with THEIR OWN enriched decisores (the premium per-prospect cards we already prove we can build).
+
+**Mechanic (reuses the whole tenancy spine — a demo is just a role + an expiry):**
+- **Self-expiring demo tenant.** A real `client_id` + a `demo` membership carrying `expires_at` (~24-72h). After
+  expiry, login shows "demo terminada, suscríbete" (enforced at `/api/me` + every endpoint: reject/limit if expired).
+- **Lives inside the real system** (same `app.html`, same `/api`), NOT a separate HTML. It looks legit because it IS the product.
+- **Hoy unlocked** = they see their daily decision cards (their real enriched leads). The "aha."
+- **Other sections = glimpse + paywall.** Clicking Tareas/Decisores/Seguimiento/Plantillas shows an attractive
+  BLURRED preview + "Disponible con tu suscripción" (FOMO: they see how much more there is).
+- **Limited assistant.** The agent is visible and answerable ~2 questions (capped by role), so they feel the "an agent works for you" layer.
+- **Pay-to-unlock.** Banner/CTA → (future) Stripe link → on payment, role flips `demo`→`member`, everything unlocks.
+- **Burner provisioning.** One command spins up a demo for a prospect: create client + `demo` membership (expires_at)
+  + load their enriched leads + issue a login (Google/password). Operator-run, seconds.
+
+**Role model (one UI, role-driven):** `admin` (you)=see-all + spin up demos · `member` (Fernando, paid)=full workspace ·
+`demo` (prospect)=Hoy + blurred teasers + capped assistant + countdown + unlock CTA. The SAME cutover built for
+Fernando powers demos — build once. Replaces the PDF as the primary demo; PDF = optional leave-behind.
+Ties to [[project-eje-crm-lead-library-model]], S5 monetization (Stripe), and the proven per-prospect enrichment.
 
 ## Fernando / 2upLatam beta (the near-term proof, ~Oct 7)
 Runs on S1 + a first cut of S2: his own login (auth/RLS), his workspace with seeded Ecuador leads as daily
@@ -81,6 +149,15 @@ Reviewed a volume-cold-email playbook (scrape -> verify -> LLM icebreaker -> seq
   Dropcontact, on top of our Hunter/Apollo) until one hits, to raise decisor direct-email coverage AND capture
   MOBILE numbers (feeds WhatsApp + the get-on-a-call motion, our best channel). Build into `enrich-deterministic.py`;
   ~pennies/lead; own it, do NOT buy Clay/leads.io as platforms.
+- **ENRICHMENT = self-escalating PARALLEL waterfall (the "beast").** Never a straight line that stops at the first
+  miss. Each contact escalates through avenues that FAN OUT in parallel and get cheaper-LLM help on messy pages:
+  Apollo people/match (verified + personal-email reveal) -> Hunter domain-search (pattern + named people, cracks
+  SMEs) -> site/subpage parse (/contacto /nosotros /equipo) -> **cheap-LLM extraction of fetched page text** ->
+  IG/FB bio -> LinkedIn -> NEW SOURCE POOLS (chambers, sector directories, press, job boards). Proven 2026-09-30
+  on the 3 client demos: Apollo cracked big corporates (Nano 7/8), was thin on MX pymes (GrupoDúo 2/9) exactly as
+  briefed, and the deep Hunter+site pass recovers the pyme gaps. **Bottlenecks are the roadmap:** each avenue that
+  keeps failing for a segment tells us the next tool/source to add. This is the enrichment "department"
+  ([[project-eje-operating-model-agent-departments]], [[feedback-exhaustive-enrichment-loop]], [[feedback-reverse-engineer-new-source-pools]]).
 - **ALREADY DOING (the video validates us):** no Apollo / no saturated lists (precise WebSearch + structured
   pools); per-prospect LLM personalization from their own site (the cheap-lane brief writer).
 - **DO NOT adopt as core: volume spray from burner domains.** His numbers = ~1.4% reply / ~0.4% meeting = the
@@ -91,6 +168,37 @@ Reviewed a volume-cold-email playbook (scrape -> verify -> LLM icebreaker -> seq
   Email Bison) for a client who explicitly wants a volume-email channel, gated behind the deliverability layer.
   Cost: $40-100/mo + domains/inboxes (~$1-3 each) + warm-up. Only if that client's model is volume.
 
+## Card / enrichment display STANDARDS (locked 2026-10-01, operator QA on the 2upLatam beta)
+Non-negotiables for every lead card in-product (and in any demo). A card that fails these is not shippable:
+- **Logo on (almost) every card.** Pull from the website domain; if none, fall back to the **Instagram handle**
+  (unavatar.io/instagram/<handle>); only then degrade to initials. Most pymes are IG-first, so IG is the primary source.
+- **No dead links, ever.** Every clickable link (website + Instagram) must resolve LIVE. Link-liveness is an
+  in-product standard, not just a report gate: validate on enrich, drop/null anything that 404s or won't connect
+  (caught on beta: blossomspaibarra.com dead -> website nulled). Soft-404/parking pages count as dead.
+- **Links never overlap or wrap mid-word.** Don't render the full URL/email as wrapping text; truncate to one line
+  with ellipsis (clickable, title on hover). Fixed 2026-10-01: `.c-rail/.tab-panel .v .link` now nowrap+ellipsis.
+
 ## Status
-- S1: tenant tables + clients LIVE on prod; prod DDL access secured (PAT). API layer scaffolded (`api/`). RLS + auth cutover = weekend.
-- S2: current `app.html` is the evolve-from baseline (Seguimiento CRM + decision cards shipped). S3: engine scripts exist, not scheduled; deliverability layer to add. S4: brains exist (scripts), not wired.
+- **S1 backend spine: DONE + verified on prod (2026-10-01).**
+  - API layer BUILT + DEPLOYED (`/api/health` live, service key in Vercel). Endpoints: me, leads, metrics,
+    activity, mark-sent, notes, status, tracked-leads, assistant, classify. Tenant isolation enforced in
+    API code (token -> memberships -> scope to clientIds), works pre-RLS.
+  - `clients` live: eje, eje_productoras, 2uplatam. `icp_config` is a COLUMN on `clients` (not a table).
+  - **2upLatam beta provisioned:** 19 Ecuador seed leads loaded (client_id=2uplatam, status:new, approved,
+    score 8-9, owner/IG/WhatsApp/hook in lead_data). Fernando auth user `2ea2c849...` (contactar@2uplatam.com,
+    email_confirm) + membership (2uplatam, member).
+  - **Membership model cleaned (was a trap):** the only admin membership was `admin@eje.test`, NOT the real
+    operator emails. Fixed: ejofreeyzaguirre@gmail.com + contact@ejetheagency.com + emilianoeyzaguirre1@gmail.com
+    all now `eje` admin (see-all). Scarlett excluded (UnaBase = former client).
+  - **Auth DECISION (2026-10-01, revised): Google sign-in + email/password** — the real-CRM pattern (HubSpot/
+    Pipedrive/Attio), NOT magic-link-only (that was overstated; passwordless-only is a consumer pattern). Google =
+    one-click primary (button ALREADY in app.html ~line 666, just enable the Supabase provider + a Google OAuth app);
+    password = universal fallback (already proven in crm.html). Email provider ON, `site_url=.../app.html`,
+    `uri_allow_list` set. FULL cutover (no browser secrets, reads via /api) executed INCREMENTALLY view-by-view.
+- **S1 remaining = the UI cutover (next build):** (a) add magic-link form to the existing `#login` overlay
+  (signInWithOtp, shouldCreateUser:false); (b) replace the hardcoded ALLOWED email allowlist (app.html ~672)
+  with membership-driven `/api/me`; (c) drive the workspace switcher from `/api/me` workspaces, not hardcoded
+  ws-opts + localStorage; (d) route CLIENT data reads through `/api/leads` with the user token (critical: no RLS
+  yet, so direct anon reads do NOT isolate a client). RLS = defense-in-depth, add after.
+- S2: current `app.html` is the evolve-from baseline (auth gate + Seguimiento CRM + decision cards already exist).
+  S3: engine scripts exist, not scheduled; deliverability layer to add. S4: brains exist (scripts), not wired.

@@ -253,7 +253,7 @@
   .c-rail .row{margin-bottom:13px}
   .c-rail .k{font-size:10px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3)}
   .c-rail .v{font-size:13.5px;margin-top:3px;font-weight:500;word-break:break-word}
-  .c-rail .v .link{color:var(--info)}
+  .c-rail .v .link{color:var(--info);display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}
   .c-main{padding:17px 20px}
   .tabs{display:flex;gap:3px;margin-bottom:15px;background:var(--sunken);padding:3px;border-radius:10px;width:fit-content;max-width:100%;overflow-x:auto}
   .tab{font-size:12px;font-weight:600;padding:6px 12px;border-radius:8px;color:var(--ink-2);white-space:nowrap;background:none;border:none;cursor:pointer}
@@ -261,7 +261,7 @@
   .tab-panel .row{margin-bottom:11px}
   .tab-panel .k{font-size:10px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3)}
   .tab-panel .v{font-size:13.5px;margin-top:3px;font-weight:500}
-  .tab-panel .v .link{color:var(--info)}
+  .tab-panel .v .link{color:var(--info);display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}
   .draft{border:1px solid var(--line);border-radius:12px;background:var(--sunken);overflow:hidden}
   .draft-h{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);padding:11px 14px 0}
   .draft-b{margin:0;padding:9px 14px 14px;font-family:var(--sans);font-size:13px;color:var(--ink-2);white-space:pre-wrap;line-height:1.6}
@@ -760,7 +760,7 @@
     function statusChip(l){var s=statusOf(l);return '<span class="dec-status '+(STCLASS[s]||'st-none')+'">'+(STLABEL[s]||'Nuevo')+'</span>';}
     // Company logos via unavatar.io (aggregates real logos; ?fallback=false => 404 for
     // unknown domains so onerror cleanly drops to initials). Clearbit's API was shut down.
-    function avImg(l){var d=decDom(l.website);return d?'<img class="av-logo" src="https://unavatar.io/'+encodeURIComponent(d)+'?fallback=false" alt="" loading="lazy" onerror="this.remove()">':'';}
+    function avImg(l){var d=decDom(l.website);var ig=((l.instagramHandle||l.instagram||'')+'').replace(/^@/,'').trim();var src=d?('https://unavatar.io/'+encodeURIComponent(d)+'?fallback=false'):(ig?('https://unavatar.io/instagram/'+encodeURIComponent(ig)+'?fallback=false'):'');return src?'<img class="av-logo" src="'+src+'" alt="" loading="lazy" onerror="this.remove()">':'';}
     // ── WRITE layer (mirrors classic cockpit schema exactly; only fires when authenticated) ──
     var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})(), EJE_USER='scarlett';
     function canWrite(){return window.__ejeAuthed===true && !!window.__ejeSB;}
