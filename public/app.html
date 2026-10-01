@@ -484,8 +484,8 @@
 
     <button class="nav-item on" data-view="home"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Home</button>
     <button class="nav-item" data-view="hoy"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15l2.5 2.5L15 13"/></svg>Hoy<span class="ct" id="hoy-ct"></span></button>
-    <button class="nav-item" data-view="tareas"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Tareas<span class="ct">8</span></button>
-    <button class="nav-item" data-view="decisores"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>Decisores<span class="ct">15</span></button>
+    <button class="nav-item" data-view="tareas"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Tareas<span class="ct"></span></button>
+    <button class="nav-item" data-view="decisores"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>Decisores<span class="ct"></span></button>
     <button class="nav-item" data-view="seguimiento" id="nav-seg" style="display:none"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Seguimiento<span class="ct" id="seg-ct"></span></button>
     <button class="nav-item" data-view="historial"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>Historial</button>
 
@@ -524,7 +524,7 @@
       </div>
 
       <div class="goal">
-        <div class="gr"><span class="gt">Meta de hoy</span><span class="gc"><b>9</b> / 15 · ¡te faltan 6!</span></div>
+        <div class="gr"><span class="gt">Meta de hoy</span><span class="gc"><b>0</b> / 15</span></div>
         <div class="bar"><span style="width:60%"></span></div>
       </div>
       <div class="goal best">
@@ -1492,7 +1492,8 @@
     document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();focusSearch();}});
     var cmdEl=document.querySelector('.cmd'); if(cmdEl) cmdEl.addEventListener('click',focusSearch);
     // if the app restored to Decisores or Tareas on load, fetch too
-    try{ var lv=localStorage.getItem('eje_view'); if(lv==='decisores'||lv==='tareas'||lv==='hoy') ensure(); }catch(e){}
+    // load data on boot regardless of the landing view, so Home shows real counts (not the hardcoded placeholders)
+    try{ ensure(); }catch(e){}
 
     // progressive: reflect the REAL active-batch size on Home (after paint, non-blocking) — EJE Productoras only
     if(EJE_CLIENT==='eje_productoras') fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){
