@@ -788,7 +788,10 @@
     function monoStyle(n){var a=monoHash(n)%360;return 'background:linear-gradient(135deg,hsl('+a+',58%,56%),hsl('+((a+32)%360)+',58%,44%));color:#fff';}
     // Logos are RESOLVED + STORED at enrich time (lead_data.logo, a data URI) so they always render with no runtime
     // dependency (unavatar/favicon are unreliable/blocked). No stored logo -> the monogram gradient shows through.
-    function avImg(l){return (l&&l.logo)?'<img class="av-logo" src="'+l.logo+'" alt="" loading="lazy">':'';}
+    // Logo order: stored lead_data.logo (resolved at enrich, e.g. IG-only leads) -> unavatar by website domain
+    // (aggregates real brand logos for any site; the gate ensures every lead HAS a website/logo source) -> monogram.
+    function avImg(l){ if(l&&l.logo) return '<img class="av-logo" src="'+l.logo+'" alt="" loading="lazy">';
+      var d=decDom(l&&l.website); return d?'<img class="av-logo" src="https://unavatar.io/'+encodeURIComponent(d)+'?fallback=false" alt="" loading="lazy" onerror="this.remove()">':''; }
     // ── WRITE layer (mirrors classic cockpit schema exactly; only fires when authenticated) ──
     var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})(), EJE_USER='scarlett';
     function canWrite(){return window.__ejeAuthed===true && !!window.__ejeSB;}

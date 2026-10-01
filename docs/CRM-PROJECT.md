@@ -170,8 +170,12 @@ Reviewed a volume-cold-email playbook (scrape -> verify -> LLM icebreaker -> seq
 
 ## Card / enrichment display STANDARDS (locked 2026-10-01, operator QA on the 2upLatam beta)
 Non-negotiables for every lead card in-product (and in any demo). A card that fails these is not shippable:
-- **Logo on (almost) every card.** Pull from the website domain; if none, fall back to the **Instagram handle**
-  (unavatar.io/instagram/<handle>); only then degrade to initials. Most pymes are IG-first, so IG is the primary source.
+- **LOGO IS A HARD GATE (operator, 2026-10-01).** A lead does not enter any client's system without a resolvable
+  logo. Source order: stored `lead_data.logo` (resolved at enrich) -> **unavatar.io/<website-domain>** (works for any
+  site; this is why the enrich gate must require a website/logo source) -> premium brand-gradient monogram ONLY as the
+  explicit last resort for genuinely logo-less leads (e.g. IG-only pymes with no site). Never a blank/empty tile.
+  Regression caught 2026-10-01: switching avImg to stored-only dropped the unavatar runtime source and blanked all
+  160 EJE leads' logos -> restored. Enforce logo-presence in `enrichment-gate.py` as a blocker.
 - **No dead links, ever.** Every clickable link (website + Instagram) must resolve LIVE. Link-liveness is an
   in-product standard, not just a report gate: validate on enrich, drop/null anything that 404s or won't connect
   (caught on beta: blossomspaibarra.com dead -> website nulled). Soft-404/parking pages count as dead.
