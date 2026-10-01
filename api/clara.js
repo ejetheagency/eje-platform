@@ -162,5 +162,5 @@ module.exports = async (req, res) => {
     }
   }
 
-  return send(res, 200, { reply, logged: false });
+  return send(res, 200, { reply, logged: false, _dbg: { intent: out.intent, hasLead: !!out.lead, note: !!(out.lead && out.lead.note_text), company: out.lead && out.lead.company, tlCount: tl.length } });
 };
