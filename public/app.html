@@ -99,7 +99,9 @@
   .clara-fab:hover{transform:translateY(-2px)}
   .clara-fab .cf-dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
   @media(max-width:760px){.clara-fab{bottom:86px}}
-  .clara-panel{position:fixed;bottom:22px;right:22px;z-index:51;width:368px;max-width:calc(100vw - 28px);height:540px;max-height:calc(100vh - 110px);background:var(--surface);border:1px solid var(--line-2);border-radius:18px;box-shadow:var(--sh-lg);display:none;flex-direction:column;overflow:hidden}
+  .clara-scrim{position:fixed;inset:0;z-index:60;background:rgba(8,10,14,.45);display:none}
+  .clara-scrim.open{display:block}
+  .clara-panel{position:fixed;bottom:22px;right:22px;z-index:61;width:368px;max-width:calc(100vw - 28px);height:540px;max-height:calc(100vh - 110px);background:var(--surface);border:1px solid var(--line-2);border-radius:18px;box-shadow:var(--sh-lg);display:none;flex-direction:column;overflow:hidden}
   .clara-panel.open{display:flex}
   @media(max-width:760px){.clara-panel{bottom:80px}}
   .clara-hd{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line)}
@@ -729,6 +731,7 @@
 
 <div id="toast"></div>
 
+<div class="clara-scrim" id="claraScrim"></div>
 <button class="clara-fab" id="claraFab" type="button"><span class="cf-dot"></span>Clara</button>
 <div class="clara-panel" id="claraPanel">
   <div class="clara-hd"><span class="av">C</span><div><div class="nm">Clara</div><div class="st">· tu asistente</div></div><button class="x" id="claraClose" type="button">✕</button></div>
@@ -1816,9 +1819,19 @@
   var history=[], greeted=false;
   function add(role,text,cls){var d=document.createElement('div');d.className='cm '+(cls||role);d.textContent=text;body.appendChild(d);body.scrollTop=body.scrollHeight;return d;}
   function curView(){var v=document.querySelector('.view.on');return v?v.id.replace('view-',''):'';}
-  function summary(){var h=document.getElementById('hoy-ct'),t=document.querySelector('.nav-item[data-view="tareas"] .ct'),d=document.querySelector('.nav-item[data-view="decisores"] .ct');return 'Hoy '+((h&&h.textContent)||'0')+' · Tareas '+((t&&t.textContent)||'0')+' · Decisores '+((d&&d.textContent)||'0');}
-  function openP(){panel.classList.add('open');if(!greeted){greeted=true;add('clara','¡Hola! Soy Clara, tu asistente. Te guío por el sistema, te digo a quién conviene contactar hoy, o registro un lead que me cuentes. ¿En qué te ayudo?');}input.focus();}
-  function closeP(){panel.classList.remove('open');}
+  function summary(){ // real state so Clara never guesses (hoy-sub/tareas-sub carry "X por iniciar · Y/Z contactadas")
+    var hoySub=document.getElementById('hoy-sub'),tareasSub=document.getElementById('tareas-sub');
+    var d=document.querySelector('.nav-item[data-view="decisores"] .ct'),seg=document.getElementById('seg-ct');
+    var parts=[];
+    if(hoySub&&hoySub.textContent.trim()) parts.push('Hoy ('+hoySub.textContent.trim()+')');
+    if(tareasSub&&tareasSub.textContent.trim()) parts.push('Tareas ('+tareasSub.textContent.trim()+')');
+    parts.push('Decisores en base: '+((d&&d.textContent)||'0'));
+    if(seg&&seg.textContent.trim()) parts.push('Seguimiento: '+seg.textContent.trim()+' necesitan atención');
+    return parts.join(' · ');}
+  var scrim=document.getElementById('claraScrim');
+  function openP(){panel.classList.add('open');if(scrim)scrim.classList.add('open');if(!greeted){greeted=true;add('clara','¡Hola! Soy Clara, tu asistente. Te guío por el sistema, te digo a quién conviene contactar hoy, o registro un lead que me cuentes. ¿En qué te ayudo?');}input.focus();}
+  function closeP(){panel.classList.remove('open');if(scrim)scrim.classList.remove('open');}
+  if(scrim)scrim.addEventListener('click',closeP);
   fab.addEventListener('click',function(){panel.classList.contains('open')?closeP():openP();});
   document.getElementById('claraClose').addEventListener('click',closeP);
   function send(){

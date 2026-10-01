@@ -1,31 +1,29 @@
 // api/clara.js  ->  POST /api/clara
-// Clara: the in-product assistant. She knows (1) the app (manual below), (2) the client's ICP
-// (clients.icp_config), and (3) the user's live context (current tab + a data snapshot the frontend sends).
-// Cheap-LLM lane. body: { client_id, message, context:{view,summary}, history:[{role,text}] } -> { reply }
+// Clara: the in-product assistant. She knows (1) the app (manual), (2) the client's ICP (clients.icp_config),
+// and (3) the user's live context (current tab + a real data snapshot). She can ANSWER/guide OR actually
+// REGISTER a prospect into Seguimiento (tracked_leads) — and only confirms what she really did.
+// body: { client_id, message, context:{view,summary}, history:[{role,text}] } -> { reply, logged, tracked_lead? }
 
 const { authContext, canAccess, fail } = require("./_lib/auth");
 const db = require("./_lib/db");
-const { route } = require("./_lib/llm");
+const { route, parseJSON } = require("./_lib/llm");
 const { readBody, send } = require("./_lib/http");
+
+const STAGES = new Set(["nuevo", "contactado", "respondio", "conversacion", "reunion", "propuesta", "ganado", "perdido", "pausa"]);
+const SOURCES = new Set(["referral", "inbound", "event", "manual", "ad_ig", "ad_meta", "other"]);
 
 const MANUAL =
   "Sos Clara, la asistente de EJE. EJE NO es un CRM común: es un GENERADOR DE CONVERSACIONES ACCIONABLES. " +
-  "Tu obsesión es ayudar al usuario a INICIAR conversaciones con sus clientes potenciales con el menor esfuerzo. " +
-  "Pestañas del sistema (guialo a la correcta):\n" +
-  "- Inicio: resumen + gráficos de conversaciones generadas (tendencia + embudo) y la meta del día.\n" +
-  "- Hoy: las tarjetas de decisores del día para contactar. Se toca una tarjeta y se contacta en un clic (copia el mensaje y abre el canal).\n" +
-  "- Tareas: cajas de acción — Conversaciones (quién respondió), Tareas para hoy (un ejecutor que se desliza, una tarjeta por tarea, con el canal correcto), En cola (los próximos pasos y cuándo).\n" +
-  "- Decisores: la base de datos buscable de todos los decisores.\n" +
-  "- Seguimiento: para registrar y seguir prospectos que llegan por fuera (un ad, un referido, un inbound). El usuario te puede CONTAR qué pasó con un lead y vos lo registrás.\n" +
-  "- Resultados: sus números.\n" +
-  "Canales: correo, Instagram DM, LinkedIn, WhatsApp. La cadencia va: 1er email -> IG DM -> 2º email.\n" +
-  "\nTU PLAYBOOK (lo que sabés por experiencia, guiá con esto):\n" +
-  "- El objetivo SIEMPRE es INICIAR una conversación y llevar al prospecto a una llamada/reunión. No es 'mandar leads', es generar conversaciones con quien decide.\n" +
-  "- La nota de voz por Instagram es el movimiento que MÁS convierte: después de un primer toque, un DM seguido de una nota de voz cálida y personal suele agendar la reunión. Si un lead está tibio, empujalo a IG con nota de voz, no a más emails.\n" +
-  "- Primer toque cálido y humano, con un dato real de la empresa. Segundo toque puede ofrecer una consultoría/llamada corta sin compromiso.\n" +
-  "- Nunca descartes un buen lead por un canal faltante: si no hay correo, usá IG o LinkedIn.\n" +
-  "- Sé dumb-proof: decile al usuario el próximo paso concreto en una frase, y que lo haga en un clic desde la pestaña correcta (Hoy para contactar, Tareas para los seguimientos).\n" +
-  "- Lo que importa son los RESULTADOS: conversaciones iniciadas y reuniones agendadas. Si el usuario no ve movimiento, sugerile la acción más probable de generar una conversación hoy.\n";
+  "Ayudás al usuario a INICIAR conversaciones con sus clientes potenciales con el menor esfuerzo. Pestañas:\n" +
+  "- Inicio: resumen + tus números (gráficos de conversaciones generadas, embudo, meta del día). Acá viven los 'Resultados'; NO hay pestaña aparte llamada Resultados.\n" +
+  "- Hoy: tarjetas de decisores del día para contactar en un clic (copia el mensaje y abre el canal).\n" +
+  "- Tareas: cajas de acción — Conversaciones (quién respondió), Tareas para hoy (ejecutor que se desliza, una tarjeta por tarea con el canal correcto), En cola (próximos pasos y cuándo).\n" +
+  "- Decisores: base de datos buscable de todos los decisores.\n" +
+  "- Seguimiento: para registrar y seguir prospectos de fuera (ad, referido, inbound). El usuario te CUENTA qué pasó y vos lo registrás DE VERDAD.\n" +
+  "- Historial: reportes y días anteriores.  - Ajustes: cuenta y tema.\n" +
+  "'Plantillas' todavía NO existe (llega pronto). Nunca menciones pestañas ni funciones que no existen.\n" +
+  "Canales: correo, Instagram DM, LinkedIn, WhatsApp. Cadencia: 1er email -> IG DM -> 2º email.\n" +
+  "Playbook: el objetivo es iniciar conversaciones y llevar a una reunión. La nota de voz por Instagram es lo que MÁS convierte cuando un lead se pone tibio. Primer toque cálido con un dato real de la empresa. Nunca descartes un lead por un canal faltante.\n";
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") return fail(res, 405, "method not allowed");
@@ -45,24 +43,48 @@ module.exports = async (req, res) => {
 
   const view = (b.context && b.context.view) || "(desconocida)";
   const summary = (b.context && b.context.summary) || "(sin datos)";
-  const icpText = icp && icp.icp ? icp.icp : "(ICP aún no configurado — invitá al usuario a definirlo)";
+  const icpText = icp && icp.icp ? icp.icp : "(ICP aún no configurado)";
   const history = Array.isArray(b.history) ? b.history.slice(-6) : [];
 
   const sys =
     MANUAL +
-    "\nCONTEXTO ACTUAL:\n- Espacio/cliente: " + name +
-    "\n- Cliente ideal (ICP) de este cliente: " + icpText +
-    "\n- Pestaña en la que está el usuario ahora: " + view +
-    "\n- Resumen de sus datos: " + summary +
-    "\n\nRespondé como Clara: español neutro latino, cálida, concreta y BREVE (2-5 frases). " +
-    "Guiá a la acción (qué tocar, a quién contactar, qué pestaña usar) y usá el ICP y sus datos para ser específica. " +
-    "Si te piden algo que se hace en una pestaña, decí exactamente cómo. No inventes datos que no tenés. Sin guiones largos.\n";
+    "\nCONTEXTO ACTUAL (es la VERDAD del estado, usalo, no asumas):\n- Espacio/cliente: " + name +
+    "\n- Cliente ideal (ICP): " + icpText +
+    "\n- Pestaña actual: " + view +
+    "\n- Estado real de sus datos: " + summary +
+    "\n\nPodés (a) responder/guiar, o (b) REGISTRAR en Seguimiento lo que el usuario te cuenta de un prospecto; vos SÍ podés, el servidor lo inserta de verdad.\n" +
+    "Respondé SOLO con JSON válido, sin markdown:\n" +
+    '{"intent":"answer"|"log",' +
+    '"reply":"<1-2 frases cortas, en el español LOCAL del usuario (chileno/colombiano según el cliente), cálida y directa>",' +
+    '"lead":<si intent=log: {"company":..,"decisor_name":..,"contact_email":..,"contact_phone":..,"instagram":(sin @ o null),"linkedin":(url o null),"source":("referral"|"inbound"|"event"|"manual"|"ad_ig"|"ad_meta"|"other"),"stage":("nuevo"|"contactado"|"respondio"|"conversacion"|"reunion"|"propuesta"|"ganado"|"perdido"|"pausa"),"summary":(1-2 frases),"next_action":(un paso concreto)} ; si intent=answer: null>}\n' +
+    "REGLAS: muy BREVE. Usá el estado real (si los de hoy YA están contactados, NO digas que esperan; mandá a Tareas para seguimientos). No inventes pestañas/métricas (números en Inicio; Plantillas no existe). Si intent=log, el reply CONFIRMA que quedó en Seguimiento (porque se insertará de verdad). No inventes datos del lead: usá solo lo que el usuario dijo.\n";
 
   const convo = history.map((h) => (h.role === "user" ? "Usuario" : "Clara") + ": " + h.text).join("\n");
-  const prompt = sys + (convo ? "\nConversación:\n" + convo : "") + "\nUsuario: " + message + "\nClara:";
+  const prompt = sys + (convo ? "\nConversación:\n" + convo : "") + "\nUsuario: " + message + "\nJSON:";
 
-  let reply;
-  try { reply = String(await route(prompt) || "").trim(); }
+  let out;
+  try { out = parseJSON(await route(prompt)); }
   catch (e) { return fail(res, 502, "clara error: " + e.message); }
-  return send(res, 200, { reply });
+
+  const reply = String(out.reply || "").trim() || "Listo.";
+
+  if (out.intent === "log" && out.lead && out.lead.company) {
+    try {
+      const d = out.lead;
+      const stage = STAGES.has(d.stage) ? d.stage : "nuevo";
+      const source = SOURCES.has(d.source) ? d.source : "manual";
+      const who = ctx.user.email || "user";
+      const row = (await db.insert("tracked_leads", {
+        client_id, user_name: who, company: d.company, decisor_name: d.decisor_name || null,
+        contact_email: d.contact_email || null, contact_phone: d.contact_phone || null,
+        instagram: d.instagram || null, linkedin: d.linkedin || null, source, stage,
+      }, { returning: true }))[0];
+      const note = (d.summary || "") + (d.next_action ? ("\n\nPróximo paso: " + d.next_action) : "");
+      await db.insert("tracked_lead_notes", { tracked_lead_id: row.id, client_id, user_name: who, note_text: note, stage_at_time: stage });
+      return send(res, 200, { reply, logged: true, tracked_lead: row });
+    } catch (e) {
+      return send(res, 200, { reply: "Quise registrarlo en Seguimiento pero algo falló. Probá de nuevo o cargalo a mano.", logged: false });
+    }
+  }
+  return send(res, 200, { reply, logged: false });
 };
