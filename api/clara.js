@@ -12,6 +12,10 @@ const { readBody, send } = require("./_lib/http");
 const STAGES = new Set(["nuevo", "contactado", "respondio", "conversacion", "reunion", "propuesta", "ganado", "perdido", "pausa"]);
 const SOURCES = new Set(["referral", "inbound", "event", "manual", "ad_ig", "ad_meta", "other"]);
 
+// Clara is BETA and INFO-ONLY for now: she answers/guides + summarizes (read-only). Note-writing is OFF
+// until it's smart enough (it echoed the raw message and could hit a stray lead). No writes = no mess for clients.
+const CLARA_WRITES = false;
+
 const MANUAL =
   "Sos Clara, la asistente de EJE. EJE NO es un CRM común: es un GENERADOR DE CONVERSACIONES ACCIONABLES. " +
   "Ayudás al usuario a INICIAR conversaciones con sus clientes potenciales con el menor esfuerzo. Pestañas:\n" +
@@ -114,7 +118,7 @@ module.exports = async (req, res) => {
   // ── DETERMINISTIC NOTE FAST-PATH (no LLM). The most common write: "agregale a X que ...", "anota en X: ...",
   //    or (card open) "agregá que ...". Reliable + instant + cheap. Only fires when a tracked lead is found.
   const NOTE_VERB = /^\s*(?:y\s+)?(?:le\s+)?(?:agr[eé]g|an[oó]t|sum[aá]|pon[eé]|ap[uú]nt|marc|actualiz|a[ñn]ad|agend|registr|recuerd|record|dej[aá])/i;
-  if (message && NOTE_VERB.test(message)) {
+  if (CLARA_WRITES && message && NOTE_VERB.test(message)) {
     const lead = leadInMessage(message) || activeLead;
     if (lead) {
       try {
@@ -155,6 +159,11 @@ module.exports = async (req, res) => {
   catch (e) { return send(res, 200, { reply: "Perdón, no te entendí bien. ¿Me lo repetís más corto?", logged: false }); }
 
   const reply = String(out.reply || "").trim() || "Listo.";
+
+  // BETA: note-writing is off for now — redirect to the manual control instead of guessing/echoing.
+  if (!CLARA_WRITES && (out.intent === "add_note" || out.intent === "log")) {
+    return send(res, 200, { reply: 'Por ahora estoy en beta y te doy info del sistema. Para guardar una nota, usá "Nueva nota" en la ficha del lead.', logged: false, beta: true });
+  }
 
   // ADD NOTE to an existing lead (LLM path; catches phrasings the fast-path missed). Resolve the lead
   // from the model's company, else the user's words, else the open card; model note or fall back to message.

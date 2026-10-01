@@ -98,6 +98,8 @@
   .clara-fab{position:fixed;bottom:22px;right:22px;z-index:50;display:none;align-items:center;gap:9px;background:var(--primary);color:var(--bg);border:none;border-radius:100px;padding:12px 18px;font-family:inherit;font-size:14px;font-weight:750;cursor:pointer;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);transition:transform .14s}
   .clara-fab:hover{transform:translateY(-2px)}
   .clara-fab .cf-dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+  .clara-beta{margin-left:6px;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.16);color:inherit;vertical-align:middle;opacity:.9}
+  .clara-hd .clara-beta{background:color-mix(in srgb,var(--info) 18%,transparent);color:var(--info)}
   @media(max-width:760px){.clara-fab{bottom:86px}}
   .clara-scrim{position:fixed;inset:0;z-index:60;background:rgba(8,10,14,.45);display:none}
   .clara-scrim.open{display:block}
@@ -735,9 +737,9 @@
 <div id="toast"></div>
 
 <div class="clara-scrim" id="claraScrim"></div>
-<button class="clara-fab" id="claraFab" type="button"><span class="cf-dot"></span>Clara</button>
+<button class="clara-fab" id="claraFab" type="button"><span class="cf-dot"></span>Clara<span class="clara-beta">beta</span></button>
 <div class="clara-panel" id="claraPanel">
-  <div class="clara-hd"><span class="av">C</span><div><div class="nm">Clara</div><div class="st">· tu asistente</div></div><button class="x" id="claraClose" type="button">✕</button></div>
+  <div class="clara-hd"><span class="av">C</span><div><div class="nm">Clara<span class="clara-beta">beta</span></div><div class="st">· tu asistente (info del sistema)</div></div><button class="x" id="claraClose" type="button">✕</button></div>
   <div class="clara-body" id="claraBody"></div>
   <div class="clara-foot"><textarea class="clara-in" id="claraIn" rows="1" placeholder="Preguntale a Clara…"></textarea><button class="clara-send" id="claraSend" type="button">↑</button></div>
 </div>
