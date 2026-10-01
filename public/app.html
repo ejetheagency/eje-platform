@@ -94,6 +94,27 @@
   .demo-banner .db-cta{margin-left:auto;font-family:inherit;font-size:12.5px;font-weight:750;color:#fff;background:var(--cool);border:none;border-radius:9px;padding:8px 14px;cursor:pointer;white-space:nowrap}
   .demo-banner .db-cta:hover{opacity:.92}
   @media(max-width:620px){.demo-banner{padding:9px 14px;font-size:12px;gap:9px}}
+  /* Clara — the in-product assistant */
+  .clara-fab{position:fixed;bottom:22px;right:22px;z-index:50;display:none;align-items:center;gap:9px;background:var(--primary);color:var(--bg);border:none;border-radius:100px;padding:12px 18px;font-family:inherit;font-size:14px;font-weight:750;cursor:pointer;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);transition:transform .14s}
+  .clara-fab:hover{transform:translateY(-2px)}
+  .clara-fab .cf-dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+  @media(max-width:760px){.clara-fab{bottom:86px}}
+  .clara-panel{position:fixed;bottom:22px;right:22px;z-index:51;width:368px;max-width:calc(100vw - 28px);height:540px;max-height:calc(100vh - 110px);background:var(--surface);border:1px solid var(--line-2);border-radius:18px;box-shadow:var(--sh-lg);display:none;flex-direction:column;overflow:hidden}
+  .clara-panel.open{display:flex}
+  @media(max-width:760px){.clara-panel{bottom:80px}}
+  .clara-hd{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line)}
+  .clara-hd .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(140deg,var(--cool),#8a7bf2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px}
+  .clara-hd .nm{font-weight:750;font-size:15px;letter-spacing:-.01em}.clara-hd .st{font-size:11px;color:var(--ok)}
+  .clara-hd .x{margin-left:auto;background:none;border:none;color:var(--ink-3);font-size:17px;cursor:pointer;line-height:1}
+  .clara-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:11px}
+  .cm{max-width:86%;font-size:13.5px;line-height:1.52;padding:10px 13px;border-radius:14px;white-space:pre-wrap}
+  .cm.user{align-self:flex-end;background:var(--primary);color:var(--bg);border-bottom-right-radius:5px}
+  .cm.clara{align-self:flex-start;background:var(--sunken);color:var(--ink);border-bottom-left-radius:5px}
+  .cm.typing{color:var(--ink-3)}
+  .clara-foot{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line)}
+  .clara-in{flex:1;border:1px solid var(--line-2);border-radius:11px;padding:10px 12px;background:var(--canvas);color:var(--ink);font-family:inherit;font-size:13.5px;resize:none;max-height:90px;line-height:1.4}
+  .clara-in:focus{outline:none;border-color:var(--cool)}
+  .clara-send{background:var(--cool);color:#fff;border:none;border-radius:11px;padding:0 15px;font-size:17px;font-weight:700;cursor:pointer}
   .shell{display:grid;grid-template-columns:var(--sidebar) 1fr;min-height:calc(100vh - 56px)}
   .side{border-right:1px solid var(--line);background:var(--panel);padding:14px 12px;display:flex;flex-direction:column;gap:2px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
 
@@ -707,6 +728,13 @@
 </nav>
 
 <div id="toast"></div>
+
+<button class="clara-fab" id="claraFab" type="button"><span class="cf-dot"></span>Clara</button>
+<div class="clara-panel" id="claraPanel">
+  <div class="clara-hd"><span class="av">C</span><div><div class="nm">Clara</div><div class="st">· tu asistente</div></div><button class="x" id="claraClose" type="button">✕</button></div>
+  <div class="clara-body" id="claraBody"></div>
+  <div class="clara-foot"><textarea class="clara-in" id="claraIn" rows="1" placeholder="Preguntale a Clara…"></textarea><button class="clara-send" id="claraSend" type="button">↑</button></div>
+</div>
 
 <script>
   // ── theme: follow OS, remember choice ──
@@ -1779,6 +1807,33 @@
       }).catch(function(){});
     })();
   })();
+</script>
+<script>
+/* Clara — in-product assistant. Sends the question + live context (tab + data) to /api/clara (cheap LLM). */
+(function(){
+  var fab=document.getElementById('claraFab'),panel=document.getElementById('claraPanel'),body=document.getElementById('claraBody'),input=document.getElementById('claraIn');
+  if(!fab||!panel) return;
+  var history=[], greeted=false;
+  function add(role,text,cls){var d=document.createElement('div');d.className='cm '+(cls||role);d.textContent=text;body.appendChild(d);body.scrollTop=body.scrollHeight;return d;}
+  function curView(){var v=document.querySelector('.view.on');return v?v.id.replace('view-',''):'';}
+  function summary(){var h=document.getElementById('hoy-ct'),t=document.querySelector('.nav-item[data-view="tareas"] .ct'),d=document.querySelector('.nav-item[data-view="decisores"] .ct');return 'Hoy '+((h&&h.textContent)||'0')+' · Tareas '+((t&&t.textContent)||'0')+' · Decisores '+((d&&d.textContent)||'0');}
+  function openP(){panel.classList.add('open');if(!greeted){greeted=true;add('clara','¡Hola! Soy Clara, tu asistente. Te guío por el sistema, te digo a quién conviene contactar hoy, o registro un lead que me cuentes. ¿En qué te ayudo?');}input.focus();}
+  function closeP(){panel.classList.remove('open');}
+  fab.addEventListener('click',function(){panel.classList.contains('open')?closeP():openP();});
+  document.getElementById('claraClose').addEventListener('click',closeP);
+  function send(){
+    var msg=(input.value||'').trim();if(!msg)return;input.value='';
+    add('user',msg);history.push({role:'user',text:msg});
+    var typing=add('clara','Clara está escribiendo…','clara typing');
+    var client=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})();
+    fetch('/api/clara',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(window.__ejeToken||'')},body:JSON.stringify({client_id:client,message:msg,context:{view:curView(),summary:summary()},history:history})})
+      .then(function(r){return r.ok?r.json():null;}).then(function(d){typing.remove();var rep=(d&&d.reply)||'Perdón, no pude responder ahora. Probá de nuevo.';add('clara',rep);history.push({role:'clara',text:rep});})
+      .catch(function(){typing.remove();add('clara','No pude conectar. Reintentá.');});
+  }
+  document.getElementById('claraSend').addEventListener('click',send);
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
+  setInterval(function(){if(window.__ejeAuthed){fab.style.display='flex';}else{fab.style.display='none';closeP();}},800);
+})();
 </script>
 </body>
 </html>
