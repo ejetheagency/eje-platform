@@ -75,6 +75,56 @@ module.exports = async (req, res) => {
     }
   } catch (e) {}
 
+  const who = ctx.user.email || "user";
+
+  // ── Deterministic lead recognition (the whole premise): match names against THIS client's own list,
+  //    in memory, so we recognize an existing lead and never duplicate — independent of the flaky LLM.
+  const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9áéíóúñü ]/gi, " ").replace(/\s+/g, " ").trim();
+  function resolveExisting(ref) {
+    const q = norm(ref); if (q.length < 3) return null;
+    for (const l of tl) { if (norm(l.company) === q || (l.decisor_name && norm(l.decisor_name) === q)) return l; }
+    for (const l of tl) { const co = norm(l.company); if (co.length >= 4 && (co.startsWith(q) || q.startsWith(co)) && Math.min(co.length, q.length) / Math.max(co.length, q.length) >= 0.6) return l; }
+    for (const l of tl) { const co = norm(l.company); if (co.length >= 4 && (q.includes(co) || co.includes(q)) && Math.min(co.length, q.length) >= 5 && Math.min(co.length, q.length) / Math.max(co.length, q.length) >= 0.7) return l; }
+    return null;
+  }
+  function leadInMessage(msg) {
+    const m = norm(msg); if (!m) return null;
+    let best = null, bestLen = 0;
+    for (const l of tl) {
+      const co = norm(l.company);
+      if (co.length >= 3 && m.includes(co) && co.length > bestLen) { best = l; bestLen = co.length; }
+      const dm = norm(l.decisor_name);
+      if (dm && dm.length >= 4 && m.includes(dm) && dm.length > bestLen) { best = l; bestLen = dm.length; }
+    }
+    return best;
+  }
+  const activeId = b.context && b.context.active_lead_id;
+  const activeLead = activeId ? tl.find((l) => l.id === activeId) : null;
+
+  async function appendNote(lead, noteText, newStage, replyText) {
+    const changesStage = STAGES.has(newStage) && newStage !== lead.stage;
+    const stageAt = changesStage ? newStage : lead.stage;
+    await db.insert("tracked_lead_notes", { tracked_lead_id: lead.id, client_id, user_name: who, note_text: String(noteText || "").trim() || "(nota)", stage_at_time: stageAt });
+    const patch = { updated_at: new Date().toISOString() };
+    if (changesStage) patch.stage = newStage;
+    await db.patch("tracked_leads", `id=eq.${encodeURIComponent(lead.id)}`, patch);
+    return { reply: replyText || ("Listo, lo anoté en " + lead.company + "."), logged: true, note_added: true, tracked_lead_id: lead.id };
+  }
+
+  // ── DETERMINISTIC NOTE FAST-PATH (no LLM). The most common write: "agregale a X que ...", "anota en X: ...",
+  //    or (card open) "agregá que ...". Reliable + instant + cheap. Only fires when a tracked lead is found.
+  const NOTE_VERB = /^\s*(?:y\s+)?(?:le\s+)?(?:agr[eé]g|an[oó]t|sum[aá]|pon[eé]|ap[uú]nt|marc|actualiz|a[ñn]ad|agend|registr|recuerd|record|dej[aá])/i;
+  if (message && NOTE_VERB.test(message)) {
+    const lead = leadInMessage(message) || activeLead;
+    if (lead) {
+      try {
+        let note = message.replace(/^\s*(?:y\s+)?(?:le\s+)?\S+\s+(?:a|en|para|sobre|de)\s+.+?\s*(?:que|:)\s+/i, "").trim();
+        if (!note || note.length < 3) note = message.replace(/^\s*(?:y\s+)?(?:le\s+)?\S+\s*(?:que|:)\s+/i, "").trim() || message;
+        return send(res, 200, await appendNote(lead, note, null, "Listo, lo anoté en " + lead.company + "."));
+      } catch (e) { return send(res, 200, { reply: "Quise anotarlo pero algo falló. Probá de nuevo.", logged: false }); }
+    }
+  }
+
   const view = (b.context && b.context.view) || "(desconocida)";
   const summary = (b.context && b.context.summary) || "(sin datos)";
   const icpText = icp && icp.icp ? icp.icp : "(ICP aún no configurado)";
@@ -102,56 +152,18 @@ module.exports = async (req, res) => {
 
   let out;
   try { out = parseJSON(await route(prompt)); }
-  catch (e) { return fail(res, 502, "clara error: " + e.message); }
+  catch (e) { return send(res, 200, { reply: "Perdón, no te entendí bien. ¿Me lo repetís más corto?", logged: false }); }
 
   const reply = String(out.reply || "").trim() || "Listo.";
-  const who = ctx.user.email || "user";
 
-  // Deterministic recognition (the whole premise): resolve what the user/model names to an EXISTING
-  // lead from THIS client's own list, in memory. If it already exists, we APPEND — never duplicate.
-  const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9áéíóúñü ]/gi, " ").replace(/\s+/g, " ").trim();
-  function resolveExisting(ref) {
-    const q = norm(ref); if (q.length < 3) return null;
-    for (const l of tl) { if (norm(l.company) === q || (l.decisor_name && norm(l.decisor_name) === q)) return l; } // exact
-    for (const l of tl) { const co = norm(l.company); if (co.length >= 4 && (co.startsWith(q) || q.startsWith(co)) && Math.min(co.length, q.length) / Math.max(co.length, q.length) >= 0.6) return l; }
-    for (const l of tl) { const co = norm(l.company); if (co.length >= 4 && (q.includes(co) || co.includes(q)) && Math.min(co.length, q.length) >= 5 && Math.min(co.length, q.length) / Math.max(co.length, q.length) >= 0.7) return l; }
-    return null;
-  }
-  // Scan the user's own words for a lead we already track — recognition straight from the message,
-  // so even if the model omits the lead object we still target the right existing lead.
-  function leadInMessage(msg) {
-    const m = norm(msg); if (!m) return null;
-    let best = null, bestLen = 0;
-    for (const l of tl) {
-      const co = norm(l.company);
-      if (co.length >= 3 && m.includes(co) && co.length > bestLen) { best = l; bestLen = co.length; }
-      const dm = norm(l.decisor_name);
-      if (dm && dm.length >= 4 && m.includes(dm) && dm.length > bestLen) { best = l; bestLen = dm.length; }
-    }
-    return best;
-  }
-  // The lead the user is literally looking at (Seguimiento card open) — strongest context signal.
-  const activeId = b.context && b.context.active_lead_id;
-  const activeLead = activeId ? tl.find((l) => l.id === activeId) : null;
-
-  async function appendNote(lead, noteText, newStage) {
-    const changesStage = STAGES.has(newStage) && newStage !== lead.stage;
-    const stageAt = changesStage ? newStage : lead.stage;
-    await db.insert("tracked_lead_notes", { tracked_lead_id: lead.id, client_id, user_name: who, note_text: String(noteText || "").trim() || "(nota)", stage_at_time: stageAt });
-    const patch = { updated_at: new Date().toISOString() };
-    if (changesStage) patch.stage = newStage;
-    await db.patch("tracked_leads", `id=eq.${encodeURIComponent(lead.id)}`, patch);
-    return { reply: reply || ("Listo, lo anoté en " + lead.company + "."), logged: true, note_added: true, tracked_lead_id: lead.id };
-  }
-
-  // ADD NOTE to an existing lead. Resilient to a fumbled model output: resolve the lead from the model's
-  // company, else from the user's own words, else the open card; use the model's note or fall back to the message.
+  // ADD NOTE to an existing lead (LLM path; catches phrasings the fast-path missed). Resolve the lead
+  // from the model's company, else the user's words, else the open card; model note or fall back to message.
   if (out.intent === "add_note") {
     try {
       const lead = resolveExisting(out.lead && out.lead.company) || leadInMessage(message) || activeLead;
       if (!lead) return send(res, 200, { reply: 'No encontré a "' + ((out.lead && out.lead.company) || "ese lead") + '" en Seguimiento. Si es nuevo, decime y lo registro.', logged: false });
       const noteText = (out.lead && out.lead.note_text) ? out.lead.note_text : message;
-      return send(res, 200, await appendNote(lead, noteText, out.lead && out.lead.stage));
+      return send(res, 200, await appendNote(lead, noteText, out.lead && out.lead.stage, reply));
     } catch (e) { return send(res, 200, { reply: "Quise agregar la nota pero algo falló. Probá de nuevo.", logged: false }); }
   }
 
@@ -162,7 +174,7 @@ module.exports = async (req, res) => {
       const d = out.lead;
       const existing = resolveExisting(d.company) || leadInMessage(message) || activeLead;
       const noteFromLog = (d.summary || "") + (d.next_action ? ("\n\nPróximo paso: " + d.next_action) : "");
-      if (existing) return send(res, 200, await appendNote(existing, noteFromLog || message || "Actualización.", d.stage));
+      if (existing) return send(res, 200, await appendNote(existing, noteFromLog || message || "Actualización.", d.stage, reply));
       const stage = STAGES.has(d.stage) ? d.stage : "nuevo";
       const source = SOURCES.has(d.source) ? d.source : "manual";
       const row = (await db.insert("tracked_leads", {

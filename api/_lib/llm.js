@@ -26,11 +26,21 @@ async function route(prompt) {
   throw new Error("gemini rate-limited after retries");
 }
 
-// Pull a JSON object out of an LLM reply (strip markdown fences, grab the outermost braces).
+// Pull a JSON object out of an LLM reply. Grabs the FIRST balanced {...} object (string-aware), so
+// trailing prose or a second object the model tacked on can't break the parse.
 function parseJSON(raw) {
-  let s = String(raw || "").trim().replace(/^```(json)?/gim, "").replace(/```$/gim, "").trim();
-  const m = s.match(/\{[\s\S]*\}/);
-  return JSON.parse(m ? m[0] : s);
+  const s = String(raw || "").trim().replace(/^```(json)?/gim, "").replace(/```$/gim, "").trim();
+  const i = s.indexOf("{");
+  if (i < 0) return JSON.parse(s);
+  let depth = 0, inStr = false, esc = false;
+  for (let j = i; j < s.length; j++) {
+    const c = s[j];
+    if (inStr) { if (esc) esc = false; else if (c === "\\") esc = true; else if (c === '"') inStr = false; }
+    else if (c === '"') inStr = true;
+    else if (c === "{") depth++;
+    else if (c === "}") { depth--; if (depth === 0) return JSON.parse(s.slice(i, j + 1)); }
+  }
+  return JSON.parse(s.slice(i));
 }
 
 module.exports = { route, parseJSON };
