@@ -117,6 +117,19 @@ module.exports = async (req, res) => {
     for (const l of tl) { const co = norm(l.company); if (co.length >= 4 && (q.includes(co) || co.includes(q)) && Math.min(co.length, q.length) >= 5 && Math.min(co.length, q.length) / Math.max(co.length, q.length) >= 0.7) return l; }
     return null;
   }
+  // Scan the user's own words for a lead we already track — recognition straight from the message,
+  // so even if the model omits the lead object we still target the right existing lead.
+  function leadInMessage(msg) {
+    const m = norm(msg); if (!m) return null;
+    let best = null, bestLen = 0;
+    for (const l of tl) {
+      const co = norm(l.company);
+      if (co.length >= 3 && m.includes(co) && co.length > bestLen) { best = l; bestLen = co.length; }
+      const dm = norm(l.decisor_name);
+      if (dm && dm.length >= 4 && m.includes(dm) && dm.length > bestLen) { best = l; bestLen = dm.length; }
+    }
+    return best;
+  }
   // The lead the user is literally looking at (Seguimiento card open) — strongest context signal.
   const activeId = b.context && b.context.active_lead_id;
   const activeLead = activeId ? tl.find((l) => l.id === activeId) : null;
@@ -131,12 +144,14 @@ module.exports = async (req, res) => {
     return { reply: reply || ("Listo, lo anoté en " + lead.company + "."), logged: true, note_added: true, tracked_lead_id: lead.id };
   }
 
-  // ADD NOTE to an existing lead (model classified add_note, or we're on that lead's card).
-  if (out.intent === "add_note" && out.lead && out.lead.note_text) {
+  // ADD NOTE to an existing lead. Resilient to a fumbled model output: resolve the lead from the model's
+  // company, else from the user's own words, else the open card; use the model's note or fall back to the message.
+  if (out.intent === "add_note") {
     try {
-      const lead = resolveExisting(out.lead.company) || activeLead;
-      if (!lead) return send(res, 200, { reply: 'No encontré a "' + (out.lead.company || "ese lead") + '" en Seguimiento. Si es nuevo, decime y lo registro.', logged: false });
-      return send(res, 200, await appendNote(lead, out.lead.note_text, out.lead.stage));
+      const lead = resolveExisting(out.lead && out.lead.company) || leadInMessage(message) || activeLead;
+      if (!lead) return send(res, 200, { reply: 'No encontré a "' + ((out.lead && out.lead.company) || "ese lead") + '" en Seguimiento. Si es nuevo, decime y lo registro.', logged: false });
+      const noteText = (out.lead && out.lead.note_text) ? out.lead.note_text : message;
+      return send(res, 200, await appendNote(lead, noteText, out.lead && out.lead.stage));
     } catch (e) { return send(res, 200, { reply: "Quise agregar la nota pero algo falló. Probá de nuevo.", logged: false }); }
   }
 
@@ -145,9 +160,9 @@ module.exports = async (req, res) => {
   if (out.intent === "log" && out.lead && out.lead.company) {
     try {
       const d = out.lead;
-      const existing = resolveExisting(d.company) || activeLead;
+      const existing = resolveExisting(d.company) || leadInMessage(message) || activeLead;
       const noteFromLog = (d.summary || "") + (d.next_action ? ("\n\nPróximo paso: " + d.next_action) : "");
-      if (existing) return send(res, 200, await appendNote(existing, noteFromLog || "Actualización.", d.stage));
+      if (existing) return send(res, 200, await appendNote(existing, noteFromLog || message || "Actualización.", d.stage));
       const stage = STAGES.has(d.stage) ? d.stage : "nuevo";
       const source = SOURCES.has(d.source) ? d.source : "manual";
       const row = (await db.insert("tracked_leads", {
@@ -162,5 +177,5 @@ module.exports = async (req, res) => {
     }
   }
 
-  return send(res, 200, { reply, logged: false, _dbg: { intent: out.intent, hasLead: !!out.lead, note: !!(out.lead && out.lead.note_text), company: out.lead && out.lead.company, tlCount: tl.length } });
+  return send(res, 200, { reply, logged: false });
 };
