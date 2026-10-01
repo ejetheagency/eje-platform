@@ -700,13 +700,15 @@
     window.__ejeRenderWs=function(ws, activeId){
       var menu=document.getElementById('wsMenu'); if(!menu||!ws||!ws.length) return;
       var COLORS={eje:'#2da2bb','2uplatam':'#c79a3a',eje_productoras:'#7b6bf5'};
+      var NAMES={eje:'EJE Outreach','2uplatam':'2upLatam',eje_productoras:'EJE Productoras'};
       function colorFor(id){ if(COLORS[id])return COLORS[id]; var h=0;for(var i=0;i<id.length;i++)h=(h*31+id.charCodeAt(i))>>>0; return 'hsl('+(h%360)+',55%,50%)'; }
+      function nameFor(id,n){ return NAMES[id]||n||id; }
       var html='<div class="ws-sep">Espacios</div>';
-      ws.forEach(function(w){ var c=colorFor(w.id), nm=w.name||w.id;
+      ws.forEach(function(w){ var c=colorFor(w.id), nm=nameFor(w.id,w.name);
         html+='<button class="ws-opt" data-client="'+w.id+'" data-acct="'+c+'" data-ws="'+nm+'"><span class="d" style="background:'+c+'"></span><span class="n">'+nm+'</span></button>'; });
       menu.innerHTML=html;
       var active=ws.filter(function(w){return w.id===activeId;})[0]||ws[0]; var ac=colorFor(active.id);
-      var wn=document.getElementById('wsName'); if(wn) wn.textContent=active.name||active.id;
+      var wn=document.getElementById('wsName'); if(wn) wn.textContent=nameFor(active.id,active.name);
       var wd=document.getElementById('wsDot'); if(wd) wd.style.background=ac;
       document.documentElement.style.setProperty('--acct',ac);
       menu.querySelectorAll('.ws-opt').forEach(function(o){ o.addEventListener('click',function(){
@@ -741,7 +743,9 @@
             location.reload(); return;
           }
           // build the switcher from the user's real workspaces + label the active one
-          var activeId=(ids.indexOf(cur)>=0?cur:ids[0]);
+          // active workspace must match EJE_CLIENT's default ('eje') so the label never disagrees with the data
+          var activeId=(ids.indexOf(cur)>=0)?cur:((ids.indexOf('eje')>=0)?'eje':ids[0]);
+          try{ if(cur!==activeId) localStorage.setItem('eje_ws', activeId); }catch(e){}
           if(window.__ejeRenderWs) window.__ejeRenderWs(me.workspaces, activeId);
           var gr=document.getElementById('greet');
           if(gr){ gr.textContent=(activeId==='eje')?'Buen día, Emiliano.':'Buen día.'; }
