@@ -760,7 +760,12 @@
     function statusChip(l){var s=statusOf(l);return '<span class="dec-status '+(STCLASS[s]||'st-none')+'">'+(STLABEL[s]||'Nuevo')+'</span>';}
     // Company logos via unavatar.io (aggregates real logos; ?fallback=false => 404 for
     // unknown domains so onerror cleanly drops to initials). Clearbit's API was shut down.
-    function avImg(l){var d=decDom(l.website);var ig=((l.instagramHandle||l.instagram||'')+'').replace(/^@/,'').trim();var src=d?('https://unavatar.io/'+encodeURIComponent(d)+'?fallback=false'):(ig?('https://unavatar.io/instagram/'+encodeURIComponent(ig)+'?fallback=false'):'');return src?'<img class="av-logo" src="'+src+'" alt="" loading="lazy" onerror="this.remove()">':'';}
+    // Premium monogram: deterministic brand gradient from the company name, so a logo-less card still looks finished.
+    function monoHash(s){var h=0;s=s||'?';for(var i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;}return h;}
+    function monoStyle(n){var a=monoHash(n)%360;return 'background:linear-gradient(135deg,hsl('+a+',58%,56%),hsl('+((a+32)%360)+',58%,44%));color:#fff';}
+    // Logos are RESOLVED + STORED at enrich time (lead_data.logo, a data URI) so they always render with no runtime
+    // dependency (unavatar/favicon are unreliable/blocked). No stored logo -> the monogram gradient shows through.
+    function avImg(l){return (l&&l.logo)?'<img class="av-logo" src="'+l.logo+'" alt="" loading="lazy">':'';}
     // ── WRITE layer (mirrors classic cockpit schema exactly; only fires when authenticated) ──
     var EJE_CLIENT=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})(), EJE_USER='scarlett';
     function canWrite(){return window.__ejeAuthed===true && !!window.__ejeSB;}
@@ -995,7 +1000,7 @@
       wa:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 21l2.2-5.1A8.5 8.5 0 1 1 21 11.5z"/></svg>',
       arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
     };
-    function avStack(list){ var a=list.slice(0,4).map(function(x){var l=x.l||x; return '<span class="av">'+esc(initials(l.companyName))+avImg(l)+'</span>';}).join('');
+    function avStack(list){ var a=list.slice(0,4).map(function(x){var l=x.l||x; return '<span class="av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</span>';}).join('');
       return '<div class="ac-avs">'+a+(list.length>4?'<span class="more">+'+(list.length-4)+'</span>':'')+'</div>'; }
     function acRow(x){ var l=x.l,c=x.c,d=l._key||decDom(l.website),pri=c.dormant?'baja':priOf(c);
       var waitCls=c.dormant?'mut':(c.overdue>=0?'red':(c.kind==='soon'?'amber':'mut'));
@@ -1082,7 +1087,7 @@
       var ct=document.getElementById('hoy-ct'); if(ct) ct.textContent=rep.length;
       body.innerHTML=rep.map(function(l,i){var ch=ISEJE?chLabel((cadOf(l)||{}).channel||'email'):(l.website?'sitio':(l.instagramHandle?'IG':'email'));
         return '<button class="dec-row" data-hi="'+i+'">'
-          +'<span class="dec-av">'+esc(initials(l.companyName))+avImg(l)+'</span>'
+          +'<span class="dec-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</span>'
           +'<span class="dec-main"><span class="dec-co">'+esc(l.companyName)+'</span>'
           +'<span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
           +'<span class="dec-ch">'+ch+'</span>'+(l.website?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')+statusChip(l)
@@ -1228,7 +1233,7 @@
       listEl.innerHTML=pairs.map(function(l){var d=l._key||decDom(l.website);
         var ch=ISEJE?chLabel((cadOf(l)||{}).channel||'email'):(l.website?'sitio':(l.instagramHandle?'IG':'email'));
         return '<button class="dec-row" data-key="'+esc(d)+'">'
-          +'<span class="dec-av">'+esc(initials(l.companyName))+avImg(l)+'</span>'
+          +'<span class="dec-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</span>'
           +'<span class="dec-main"><span class="dec-co">'+esc(l.companyName)+'</span>'
           +'<span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
           +'<span class="dec-ch">'+ch+'</span>'+(l.website?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')
@@ -1264,7 +1269,7 @@
       var addlHtml=addl.length?('<div style="margin-top:14px">'+addl.map(function(c){return '<div class="row"><div class="k">'+esc(c.title||'Contacto')+'</div><div class="v">'+esc(c.name||'—')+(c.email?' · <span class="link">'+esc(c.email)+'</span>':'')+'</div></div>';}).join('')+'</div>'):'';
       var html='<button class="dc-back">&larr; Decisores</button>'
         +'<div class="card"><div class="c-head">'
-        +'<div class="c-av">'+esc(initials(l.companyName))+avImg(l)+'</div>'
+        +'<div class="c-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</div>'
         +'<div><div class="c-name">'+esc(l.companyName)+' '+statusChip(l)+'</div><div class="c-sub">'+flag(l.country)+' '+esc(l.country)+' · '+esc(l.contactName||'—')+(l.contactTitle?', '+esc(l.contactTitle):'')+'</div></div>'
         +'<div class="c-score"><div class="v">'+esc(l.score||'—')+'</div><div class="l">Score</div></div>'
         +'</div><div class="c-body"><div class="c-rail">'
