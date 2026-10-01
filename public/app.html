@@ -732,21 +732,23 @@
             errEl.style.display='block'; try{sb.auth.signOut();}catch(e){} showLogin(); return;
           }
           window.__ejeAuthed=true; window.__ejeEmail=em; window.__ejeToken=session.access_token;
-          window.__ejeIsAdmin=!!me.isAdmin; window.__ejeWorkspaces=me.workspaces;
+          window.__ejeIsAdmin=!!me.isAdmin;
+          // A "library" client (e.g. eje_productoras) is a lead database/ASSET, not a profile you switch into.
+          // Keep it OUT of the workspace switcher; expose it separately for the admin Lead Library view.
+          var allWs=me.workspaces||[];
+          function isLib(w){ return !!(w.icp_config && w.icp_config.kind==='library'); }
+          window.__ejeWorkspaces=allWs.filter(function(w){ return !isLib(w); });
+          window.__ejeLibraries=allWs.filter(isLib);
           // purge cached data from a previous account to stop cross-login bleed
           try{ if(localStorage.getItem('eje_uid')!==session.user.id){ purgeDataCaches(); localStorage.setItem('eje_uid', session.user.id); } }catch(e){}
-          var ids=me.workspaces.map(function(w){ return w.id; });
+          var ids=window.__ejeWorkspaces.map(function(w){ return w.id; });
+          if(!ids.length){ window.__ejeAuthed=false; errEl.textContent='La cuenta '+em+' no tiene un espacio asignado.'; errEl.style.display='block'; try{sb.auth.signOut();}catch(e){} showLogin(); return; }
           var cur=null; try{cur=localStorage.getItem('eje_ws');}catch(e){}
-          // a client (non-admin) is pinned to their own workspace; reload once so the data layer re-reads it
-          if(!me.isAdmin && ids.indexOf(cur)<0){
-            try{localStorage.setItem('eje_ws', ids[0]);}catch(e){}
-            location.reload(); return;
-          }
-          // build the switcher from the user's real workspaces + label the active one
-          // active workspace must match EJE_CLIENT's default ('eje') so the label never disagrees with the data
+          // active workspace: a valid NON-library space; default to the operator's own 'eje'. Reload once if the
+          // stored space isn't valid (e.g. a leftover 'eje_productoras') so the data (EJE_CLIENT) matches the label.
           var activeId=(ids.indexOf(cur)>=0)?cur:((ids.indexOf('eje')>=0)?'eje':ids[0]);
-          try{ if(cur!==activeId) localStorage.setItem('eje_ws', activeId); }catch(e){}
-          if(window.__ejeRenderWs) window.__ejeRenderWs(me.workspaces, activeId);
+          if(cur!==activeId){ try{localStorage.setItem('eje_ws', activeId);}catch(e){} location.reload(); return; }
+          if(window.__ejeRenderWs) window.__ejeRenderWs(window.__ejeWorkspaces, activeId);
           var gr=document.getElementById('greet');
           if(gr){ gr.textContent=(activeId==='eje')?'Buen día, Emiliano.':'Buen día.'; }
           if(window.__ejeApplyWsGate)window.__ejeApplyWsGate();
