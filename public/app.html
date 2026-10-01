@@ -1425,7 +1425,8 @@
       });
     }
     (function segInit(){
-      if(ISEJE){ ['nav-seg','nav-seg-mob'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='';}); }
+      // Seguimiento is a first-class CRM feature for EVERY client workspace (tracked_leads are client-scoped via sbPageAll).
+      ['nav-seg','nav-seg-mob'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='';});
       var ab=document.getElementById('seg-add-btn'); if(ab) ab.addEventListener('click',segShowForm);
       document.querySelectorAll('[data-view="seguimiento"]').forEach(function(el){el.addEventListener('click',renderSeguimiento);});
     })();
