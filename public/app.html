@@ -255,6 +255,24 @@
   .hoy-card.done .hc-ch{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
   .hoy-card.done .hc-cta{background:var(--sunken);color:var(--ink-2)}
   @media(max-width:520px){.hoy-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.hc-co{font-size:14px}}
+
+  /* Tareas = scannable buckets (counts at a glance, click to expand) — no endless scroll */
+  .tk-wrap{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+  .tk-sec{border:1px solid var(--line-2);border-radius:14px;background:var(--canvas);overflow:hidden}
+  .tk-sec.open{box-shadow:var(--sh-sm)}
+  .tk-h{width:100%;display:flex;align-items:center;gap:11px;padding:14px 16px;background:none;border:none;cursor:pointer;font-family:inherit;text-align:left}
+  .tk-h:hover{background:var(--panel)}
+  .tk-ic{font-size:15px;line-height:1}
+  .tk-lbl{font-size:14.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+  .tk-n{margin-left:7px;font-size:12px;font-weight:800;color:var(--ink-2);background:var(--sunken);border-radius:100px;padding:2px 10px;font-variant-numeric:tabular-nums;min-width:26px;text-align:center}
+  .tk-n.hl{color:var(--info);background:color-mix(in srgb,var(--info) 13%,transparent)}
+  .tk-n.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
+  .tk-n.warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 13%,transparent)}
+  .tk-cv{margin-left:auto;color:var(--ink-3);transition:transform .15s ease;font-size:12px}
+  .tk-sec.open .tk-cv{transform:rotate(180deg)}
+  .tk-body{border-top:1px solid var(--line);display:none}
+  .tk-sec.open .tk-body{display:block}
+  .tk-body .tq-empty{padding:16px 18px}
   .dc-back{background:none;border:none;color:var(--ink-2);font-size:13px;font-weight:600;padding:4px 0;margin-bottom:12px;display:inline-flex;align-items:center;gap:5px}
   .dc-back:hover{color:var(--ink)}
   .card{border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:var(--sh);background:var(--canvas)}
@@ -1080,33 +1098,23 @@
       var t0=new Date();t0.setHours(0,0,0,0);var todayMs=t0.getTime(),doneToday=0;
       Object.keys(MSGS).forEach(function(d){MSGS[d].forEach(function(t){if(t>=todayMs)doneToday++;});});
       var todos=firsts.concat(urgent,soon).sort(function(a,b){var pa={alta:0,media:1,baja:2}[priOf(a.c)],pb={alta:0,media:1,baja:2}[priOf(b.c)];return pa-pb||(b.c.overdue-a.c.overdue);});
-      var sub=document.getElementById('tareas-sub'); if(sub) sub.textContent='Gestiona tus seguimientos y próximos pasos · '+items.length+' decisores en ciclo';
+      var cola=items.filter(function(x){return x.c.kind==='upcoming';}).sort(function(a,b){return (a.c.dueMs||0)-(b.c.dueMs||0);});
+      var resp=replied.concat(loom);
+      var sub=document.getElementById('tareas-sub'); if(sub) sub.innerHTML='<b>'+todos.length+'</b> para hoy · '+doneToday+' completadas hoy · '+items.length+' en ciclo';
       var _tct=document.querySelector('.nav-item[data-view="tareas"] .ct'); if(_tct) _tct.textContent=todos.length;
-      var html=''
-        +'<div class="ac-cards">'
-        +statCard('u','alert','Urgentes (&gt;2h)',urgent.length,'decisores esperando')
-        +statCard('s','clock','Próximas',soon.length,'por vencer pronto')
-        +statCard('t','inbox','Hoy',firsts.length+urgent.length+soon.length,'tareas para hoy')
-        +statCard('d','check','Completadas',doneToday,'toques enviados hoy')
-        +'</div>'
-        +'<div class="ac-sech">Por etapa del ciclo</div>'
-        +'<div class="ac-cards">'
-        +(ISEJE
-          ? stageCard('instagram','2º · IG / LinkedIn',s2)+stageCard('mail','3º · 2º email',s3)
-          : stageCard('instagram','2º · Instagram',s2)+stageCard('mail','3er · Email',s3)+stageCard('wa','4º · Alterno',s4,true)+stageCard('refresh','Ciclo mensual',sm))
+      // Scannable buckets: each header shows the COUNT; click to expand the people. "Para hoy" open by default.
+      function tkSec(id,ic,lbl,arr,ncls,open,empty){
+        return '<div class="tk-sec'+(open?' open':'')+'" data-sec="'+id+'"><button class="tk-h" type="button"><span class="tk-ic">'+ic+'</span><span class="tk-lbl">'+lbl+'</span><span class="tk-n '+(ncls||'')+'">'+arr.length+'</span><span class="tk-cv">⌄</span></button>'
+          +'<div class="tk-body">'+(arr.length?acHead()+arr.map(acRow).join(''):'<div class="tq-empty">'+empty+'</div>')+'</div></div>';
+      }
+      var html='<div class="tk-wrap">'
+        +tkSec('hoy','📋','Para hoy',todos,'hl',true,'Todo al día. Nada pendiente hoy. 🎉')
+        +tkSec('resp','💬','Respondieron',resp,'ok',false,'Nadie ha respondido todavía.')
+        +tkSec('cola','🗓️','En cola',cola,'',false,'Nada en cola por ahora.')
+        +(dormant.length?tkSec('dorm','😴','Dormidos · revivir',dormant,'warn',false,''):'')
         +'</div>';
-      if(replied.length){ html+='<div class="ac-panel" id="ac-replied"><div class="ac-panel-h blue">💬 Respondieron — ofrecé la llamada <span class="cnt">'+replied.length+'</span></div>'+acHead()+replied.map(acRow).join('')+'</div>'; }
-      if(loom.length){ html+='<div class="ac-panel" id="ac-loom"><div class="ac-panel-h blue">🎬 Loom enviado — seguí para agendar la llamada <span class="cnt">'+loom.length+'</span></div>'+acHead()+loom.map(acRow).join('')+'</div>'; }
-      html+='<div class="ac-panel" id="ac-urgent"><div class="ac-panel-h">🔴 Urgentes: más de 2 horas esperando <span class="cnt">'+urgent.length+'</span></div>'
-        + (urgent.length?acHead()+urgent.slice(0,6).map(acRow).join('')+(urgent.length>6?'<div class="ac-more-row" data-exp="urgent">Ver todos los urgentes ('+urgent.length+') ⌄</div>':''):'<div class="tq-empty" style="padding:14px 18px">Nada urgente ahora mismo. 🎉</div>')
-        +'</div>';
-      html+='<div class="ac-panel"><div class="ac-panel-h">📋 Todas las tareas de hoy <span class="cnt" style="color:var(--info);background:color-mix(in srgb,var(--info) 12%,transparent)">'+todos.length+'</span></div>'
-        + (todos.length?acHead()+todos.map(acRow).join(''):'<div class="tq-empty" style="padding:14px 18px">Todo al día. Nada pendiente hoy.</div>')
-        +'</div>';
-      if(dormant.length){ html+='<div class="ac-panel" id="ac-dormant"><div class="ac-panel-h" style="color:var(--warn)">😴 Dormidos · para revivir <span class="cnt" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,transparent)">'+dormant.length+'</span></div>'
-        +'<div style="padding:2px 18px 11px;color:var(--ink-3);font-size:12px">Contactados hace +30 días sin seguimiento — no urgentes. Retomá los de mejor score como campaña de reactivación (protocolo LAZARUS / Plan A).</div>'
-        +acHead()+dormant.slice(0,8).map(acRow).join('')+(dormant.length>8?'<div class="ac-more-row" style="color:var(--warn)" data-exp="dormant">Ver todos los dormidos ('+dormant.length+') ⌄</div>':'')+'</div>'; }
       body.innerHTML=html;
+      body.querySelectorAll('.tk-h').forEach(function(h){h.addEventListener('click',function(){h.closest('.tk-sec').classList.toggle('open');});});
       function bindRows(scope){ (scope||body).querySelectorAll('.ac-tr:not(.head)').forEach(function(r){ if(r._b)return; r._b=1; r.addEventListener('click',function(){
         var rows=[].slice.call(body.querySelectorAll('.ac-tr:not(.head)')),seen={},q=[];
         rows.forEach(function(x){var k=x.dataset.key;if(k&&!seen[k]){seen[k]=1;var ll=BYKEY[k]||uni.filter(function(y){return (y._key||decDom(y.website))===k;})[0];if(ll)q.push(ll);}});
