@@ -1360,6 +1360,7 @@
       var body=document.getElementById('seg-list'); if(!body) return;
       var lw=document.getElementById('seg-list-wrap'),dw=document.getElementById('seg-detail-wrap');
       if(lw)lw.style.display='block'; if(dw)dw.style.display='none';
+      try{window.__segActiveId=null;}catch(e){}
       body.innerHTML='<div class="tq-empty" style="padding:14px 4px">Cargando…</div>';
       segLoad().then(function(){
         var ls=SEG.leads.slice();
@@ -1421,6 +1422,7 @@
     }
     function segOpen(id){
       var l=SEG.leads.filter(function(x){return x.id===id;})[0]; if(!l)return;
+      try{window.__segActiveId=id;}catch(e){} // context for Clara: the lead the user is looking at
       var w=document.getElementById('seg-detail-wrap'); document.getElementById('seg-list-wrap').style.display='none'; w.style.display='block';
       var notes=SEG.notes[id]||[]; var att=segStale(l); var days=segDays(l);
       var stageBtns=SEG_STAGES.map(function(s){return '<button class="seg-stage'+(l.stage===s[0]?' on':'')+'" data-s="'+s[0]+'">'+s[1]+'</button>';}).join('');
@@ -1846,7 +1848,7 @@
     add('user',msg);history.push({role:'user',text:msg});
     var typing=add('clara','Clara está escribiendo…','clara typing');
     var client=(function(){try{return localStorage.getItem('eje_ws')||'eje';}catch(e){return 'eje';}})();
-    fetch('/api/clara',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(window.__ejeToken||'')},body:JSON.stringify({client_id:client,message:msg,context:{view:curView(),summary:summary()},history:history})})
+    fetch('/api/clara',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(window.__ejeToken||'')},body:JSON.stringify({client_id:client,message:msg,context:{view:curView(),summary:summary(),active_lead_id:(window.__segActiveId||null)},history:history})})
       .then(function(r){return r.ok?r.json():null;}).then(function(d){
         typing.remove();var rep=(d&&d.reply)||'Perdón, no pude responder ahora. Probá de nuevo.';add('clara',rep);history.push({role:'clara',text:rep});
         // Live update: if Clara wrote (logged a lead / added a note), reflect it in Seguimiento without a page reload.

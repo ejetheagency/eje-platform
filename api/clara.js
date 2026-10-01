@@ -58,9 +58,11 @@ module.exports = async (req, res) => {
   } catch (e) {}
 
   // Give Clara the client's Seguimiento (their relationships + notes) so she can answer about specific leads.
+  // tl is hoisted so the write path can recognize an EXISTING lead in-memory (no extra query) and never duplicate.
   let segText = "(todavía no hay leads en Seguimiento)";
+  let tl = [];
   try {
-    const tl = (await db.select("tracked_leads", `client_id=eq.${encodeURIComponent(client_id)}&select=id,company,decisor_name,stage&order=updated_at.desc&limit=30`))
+    tl = (await db.select("tracked_leads", `client_id=eq.${encodeURIComponent(client_id)}&select=id,company,decisor_name,stage&order=updated_at.desc&limit=30`))
       .filter((x) => x.company !== "__VERIFY_DELETE_ME__");
     if (tl.length) {
       const notes = await db.select("tracked_lead_notes", `client_id=eq.${encodeURIComponent(client_id)}&select=tracked_lead_id,note_text,created_at&order=created_at.desc`);
@@ -103,50 +105,60 @@ module.exports = async (req, res) => {
   catch (e) { return fail(res, 502, "clara error: " + e.message); }
 
   const reply = String(out.reply || "").trim() || "Listo.";
+  const who = ctx.user.email || "user";
 
+  // Deterministic recognition (the whole premise): resolve what the user/model names to an EXISTING
+  // lead from THIS client's own list, in memory. If it already exists, we APPEND — never duplicate.
+  const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9áéíóúñü ]/gi, " ").replace(/\s+/g, " ").trim();
+  function resolveExisting(ref) {
+    const q = norm(ref); if (q.length < 3) return null;
+    for (const l of tl) { if (norm(l.company) === q || (l.decisor_name && norm(l.decisor_name) === q)) return l; } // exact
+    for (const l of tl) { const co = norm(l.company); if (co.length >= 4 && (co.startsWith(q) || q.startsWith(co)) && Math.min(co.length, q.length) / Math.max(co.length, q.length) >= 0.6) return l; }
+    for (const l of tl) { const co = norm(l.company); if (co.length >= 4 && (q.includes(co) || co.includes(q)) && Math.min(co.length, q.length) >= 5 && Math.min(co.length, q.length) / Math.max(co.length, q.length) >= 0.7) return l; }
+    return null;
+  }
+  // The lead the user is literally looking at (Seguimiento card open) — strongest context signal.
+  const activeId = b.context && b.context.active_lead_id;
+  const activeLead = activeId ? tl.find((l) => l.id === activeId) : null;
+
+  async function appendNote(lead, noteText, newStage) {
+    const changesStage = STAGES.has(newStage) && newStage !== lead.stage;
+    const stageAt = changesStage ? newStage : lead.stage;
+    await db.insert("tracked_lead_notes", { tracked_lead_id: lead.id, client_id, user_name: who, note_text: String(noteText || "").trim() || "(nota)", stage_at_time: stageAt });
+    const patch = { updated_at: new Date().toISOString() };
+    if (changesStage) patch.stage = newStage;
+    await db.patch("tracked_leads", `id=eq.${encodeURIComponent(lead.id)}`, patch);
+    return { reply: reply || ("Listo, lo anoté en " + lead.company + "."), logged: true, note_added: true, tracked_lead_id: lead.id };
+  }
+
+  // ADD NOTE to an existing lead (model classified add_note, or we're on that lead's card).
+  if (out.intent === "add_note" && out.lead && out.lead.note_text) {
+    try {
+      const lead = resolveExisting(out.lead.company) || activeLead;
+      if (!lead) return send(res, 200, { reply: 'No encontré a "' + (out.lead.company || "ese lead") + '" en Seguimiento. Si es nuevo, decime y lo registro.', logged: false });
+      return send(res, 200, await appendNote(lead, out.lead.note_text, out.lead.stage));
+    } catch (e) { return send(res, 200, { reply: "Quise agregar la nota pero algo falló. Probá de nuevo.", logged: false }); }
+  }
+
+  // LOG a prospect. DEDUP: if a lead with that name already exists (or the card is open), APPEND to it
+  // instead of creating a duplicate — recognizing the existing lead is the whole point.
   if (out.intent === "log" && out.lead && out.lead.company) {
     try {
       const d = out.lead;
+      const existing = resolveExisting(d.company) || activeLead;
+      const noteFromLog = (d.summary || "") + (d.next_action ? ("\n\nPróximo paso: " + d.next_action) : "");
+      if (existing) return send(res, 200, await appendNote(existing, noteFromLog || "Actualización.", d.stage));
       const stage = STAGES.has(d.stage) ? d.stage : "nuevo";
       const source = SOURCES.has(d.source) ? d.source : "manual";
-      const who = ctx.user.email || "user";
       const row = (await db.insert("tracked_leads", {
         client_id, user_name: who, company: d.company, decisor_name: d.decisor_name || null,
         contact_email: d.contact_email || null, contact_phone: d.contact_phone || null,
         instagram: d.instagram || null, linkedin: d.linkedin || null, source, stage,
       }, { returning: true }))[0];
-      const note = (d.summary || "") + (d.next_action ? ("\n\nPróximo paso: " + d.next_action) : "");
-      await db.insert("tracked_lead_notes", { tracked_lead_id: row.id, client_id, user_name: who, note_text: note, stage_at_time: stage });
+      await db.insert("tracked_lead_notes", { tracked_lead_id: row.id, client_id, user_name: who, note_text: noteFromLog, stage_at_time: stage });
       return send(res, 200, { reply, logged: true, tracked_lead: row });
     } catch (e) {
       return send(res, 200, { reply: "Quise registrarlo en Seguimiento pero algo falló. Probá de nuevo o cargalo a mano.", logged: false });
-    }
-  }
-
-  if (out.intent === "add_note" && out.lead && out.lead.company && out.lead.note_text) {
-    try {
-      const term = String(out.lead.company).replace(/[%*,()]/g, "").trim();
-      const matches = await db.select(
-        "tracked_leads",
-        `client_id=eq.${encodeURIComponent(client_id)}&company=ilike.*${encodeURIComponent(term)}*&select=id,company,stage&order=updated_at.desc&limit=1`
-      );
-      if (!matches[0]) {
-        return send(res, 200, { reply: 'No encontré a "' + out.lead.company + '" en Seguimiento. Si es nuevo, decime y lo registro.', logged: false });
-      }
-      const lead = matches[0];
-      const who = ctx.user.email || "user";
-      const changesStage = STAGES.has(out.lead.stage) && out.lead.stage !== lead.stage;
-      const stageAt = changesStage ? out.lead.stage : lead.stage;
-      await db.insert("tracked_lead_notes", {
-        tracked_lead_id: lead.id, client_id, user_name: who,
-        note_text: String(out.lead.note_text), stage_at_time: stageAt,
-      });
-      const patch = { updated_at: new Date().toISOString() };
-      if (changesStage) patch.stage = out.lead.stage;
-      await db.patch("tracked_leads", `id=eq.${encodeURIComponent(lead.id)}`, patch);
-      return send(res, 200, { reply: reply || ("Listo, lo anoté en " + lead.company + "."), logged: true, note_added: true, tracked_lead_id: lead.id });
-    } catch (e) {
-      return send(res, 200, { reply: "Quise agregar la nota pero algo falló. Probá de nuevo.", logged: false });
     }
   }
 
