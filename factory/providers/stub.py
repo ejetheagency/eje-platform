@@ -5,7 +5,7 @@
 from factory.packages import budget, db
 
 PROVIDER = "stub_enricher"
-EST_USD = 0.001
+EST_USD = budget.price("stub")
 
 
 def enrich(company_id, client_id):

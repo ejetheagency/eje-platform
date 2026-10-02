@@ -1,7 +1,9 @@
 # factory/packages/budget.py
-# Treasury (ENRICHMENT_MASTER_PLAN §D8). Every PAID call goes through can_spend() first, and every
-# cost is logged to cost_ledger. Phase-1 version: kill switch + global monthly cap + per-provider
-# monthly cap (from provider_accounts). Plan-level per-client budgets come in a later phase.
+# Treasury (ENRICHMENT_MASTER_PLAN §D8). Every PAID provider call goes through can_spend() before
+# spending (free adapters, est $0, only log); every cost is logged to cost_ledger. Phase-1 version:
+# kill switch + global monthly cap + per-provider monthly cap (from provider_accounts). Per-call price
+# estimates live in config/prices.json (read via price()/prices()). Plan-level per-client budgets and
+# the full acquire/settle allocator (TREASURY.md) are a later phase.
 import os, json, datetime
 from urllib.parse import quote
 from factory.packages import db
@@ -16,6 +18,24 @@ _CFG_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file_
 def _cfg():
     with open(_CFG_PATH) as f:
         return json.load(f)
+
+
+_PRICES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "prices.json")
+_PRICES_CACHE = None
+
+
+def prices():
+    """Per-call cost estimates from config/prices.json (cached). Source of truth for provider adapters."""
+    global _PRICES_CACHE
+    if _PRICES_CACHE is None:
+        with open(_PRICES_PATH) as f:
+            _PRICES_CACHE = json.load(f)
+    return _PRICES_CACHE
+
+
+def price(key, default=0.0):
+    v = prices().get(key, default)
+    return float(v) if isinstance(v, (int, float)) else default
 
 
 def _month_start_iso():

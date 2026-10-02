@@ -13,7 +13,7 @@ def _run_one(cl):
     co = co[0] if co else {}
     ct = {}
     if cl.get("contact_id"):
-        r = db.select("contacts", "id=eq.%s&select=full_name,email,email_status,phone,instagram" % cl["contact_id"])
+        r = db.select("contacts", "id=eq.%s&select=full_name,email,email_status,email_verified_at,email_source,phone,instagram" % cl["contact_id"])
         ct = r[0] if r else {}
 
     gates = [
@@ -21,6 +21,9 @@ def _run_one(cl):
         ("web_presence",    bool(co.get("website") or co.get("domain") or co.get("instagram") or co.get("linkedin"))),
         ("decision_maker",  bool(ct.get("full_name"))),
         ("email_deliverable", bool(ct.get("email")) and ct.get("email_status") != "invalid"),
+        # A READY contact's email must have verification provenance: a verified-at timestamp OR a source.
+        # A contact with neither is not READY (STEP 1a).
+        ("email_verified",  bool(ct.get("email_verified_at") or ct.get("email_source"))),
         ("contact_channel", bool(ct.get("email") or ct.get("phone") or ct.get("instagram") or co.get("instagram") or co.get("linkedin"))),
     ]
     missing = [name for name, ok in gates if not ok]

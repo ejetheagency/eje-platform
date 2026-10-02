@@ -5,7 +5,7 @@ import re, urllib.request
 from factory.packages import db, budget
 
 PROVIDER = "site_enrich"
-EST_USD = 0.0
+EST_USD = budget.price("site_enrich")
 PAGES = ["", "/contact", "/contacto", "/about", "/nosotros", "/equipo", "/team", "/quienes-somos"]
 UA = {"User-Agent": "Mozilla/5.0 (compatible; EJEFactory/1.0)"}
 

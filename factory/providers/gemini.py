@@ -6,7 +6,7 @@ from factory.packages import db, budget  # importing db also loads .env into os.
 
 MODEL = "gemini-flash-lite-latest"
 PROVIDER = "gemini"
-EST_USD = 0.0002  # ~cost of one flash-lite call; refined by the ledger over time
+EST_USD = budget.price("gemini")
 _BASE = "https://generativelanguage.googleapis.com/v1beta"
 
 

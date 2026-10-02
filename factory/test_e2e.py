@@ -21,7 +21,8 @@ def main():
     co = db.insert("companies", {"dedupe_key": "TEST:e2e-" + s, "name": "Stripe", "domain": "stripe.com",
                                  "website": "https://stripe.com", "country": "US", "industry": "Payments"})[0]
     ct = db.insert("contacts", {"company_id": co["id"], "full_name": "Pat Collison",
-                                "email": "pat@stripe.com", "email_status": "verified", "is_decision_maker": True})[0]
+                                "email": "pat@stripe.com", "email_status": "verified",
+                                "email_source": "website", "is_decision_maker": True})[0]
     cl = db.insert("client_leads", {"client_id": "eje", "company_id": co["id"], "contact_id": ct["id"],
                                     "state": "DISCOVERED", "score": 92})[0]
     print("seeded DISCOVERED lead", cl["id"][:8])

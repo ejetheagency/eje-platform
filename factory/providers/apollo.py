@@ -5,7 +5,7 @@ import os, json, urllib.request, urllib.error
 from factory.packages import budget
 
 PROVIDER = "apollo"
-EST_USD = 0.02
+EST_USD = budget.price("apollo")
 SENIORITY = ["owner", "founder", "c_suite", "partner", "vp", "head", "director"]
 
 

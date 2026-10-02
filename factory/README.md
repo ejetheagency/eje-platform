@@ -50,7 +50,8 @@ python3 -m factory.workers.runner    # drain the job queue once
 ## How a lead flows
 `DISCOVERED -> T1_ENRICHING (site_enrich + gemini) -> SCORED -> GATE_CHECK (gates.py)
 -> READY -> DELIVERED`, with `GATE_CHECK -> T1_ENRICHING` re-enriching only the missing fields,
-and `-> PARKED` at max cycles. Every paid call is gated by `budget.can_spend` and logged to `cost_ledger`.
+and `-> PARKED` at max cycles. Every paid provider call is gated by `budget.can_spend` before spending
+(free adapters log at $0); costs go to `cost_ledger`, and per-call price estimates live in `config/prices.json`.
 
 ## Status
 Phase 1 DONE + proven. Departments standing: scheduler (D0), Tier-1 enrich (D2: site+gemini+signals+logo),

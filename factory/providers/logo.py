@@ -7,7 +7,7 @@ import urllib.request
 from factory.packages import db, budget
 
 PROVIDER = "logo"
-EST_USD = 0.0
+EST_USD = budget.price("logo")
 
 
 def _ok_image(url):

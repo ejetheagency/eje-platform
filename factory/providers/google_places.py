@@ -8,7 +8,7 @@ from factory.packages import db, budget
 PROVIDER = "google_places"
 URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 DETAILS = "https://maps.googleapis.com/maps/api/place/details/json"
-DETAILS_COST = 0.003  # Place Details (contact data) is a paid SKU, unlike basic text search
+DETAILS_COST = budget.price("google_places_details")
 
 
 def _dedupe_key(name, address, website):
@@ -48,6 +48,9 @@ def get_website(place_id, client_id=None):
     key = os.environ.get("GOOGLE_PLACES_API_KEY") or os.environ.get("GOOGLE_MAPS_API_KEY")
     if not key or not place_id:
         return {"ok": False}
+    ok, reason = budget.can_spend(client_id, PROVIDER, DETAILS_COST)  # gate before paid Place Details
+    if not ok:
+        return {"ok": False, "reason": reason}
     try:
         website, phone = _details(place_id, key)
     except Exception:

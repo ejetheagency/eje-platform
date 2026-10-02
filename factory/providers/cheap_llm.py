@@ -6,18 +6,18 @@
 import os, json, urllib.request
 from factory.packages import budget
 
-# (name, env_key, url, model, est_usd)
+# (name, env_key, url, model). Per-call price estimates live in config/prices.json (llm_cheap / llm_premium).
 CHEAP = [
-    ("groq",     "GROQ_API_KEY",     "https://api.groq.com/openai/v1/chat/completions", "llama-3.3-70b-versatile",  0.00005),
-    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions",      "gpt-oss-120b",             0.00005),
-    ("deepseek", "DEEPSEEK_API_KEY", "https://api.deepseek.com/chat/completions",        "deepseek-chat",            0.00014),
-    ("gemini",   "GEMINI_API_KEY",   None,                                               "gemini-flash-lite-latest", 0.0002),
+    ("groq",     "GROQ_API_KEY",     "https://api.groq.com/openai/v1/chat/completions", "llama-3.3-70b-versatile"),
+    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions",      "gpt-oss-120b"),
+    ("deepseek", "DEEPSEEK_API_KEY", "https://api.deepseek.com/chat/completions",        "deepseek-chat"),
+    ("gemini",   "GEMINI_API_KEY",   None,                                               "gemini-flash-lite-latest"),
 ]
 # Premium lane: quality first (for the Composer's high-value synthesis).
 PREMIUM = [
-    ("deepseek", "DEEPSEEK_API_KEY", "https://api.deepseek.com/chat/completions",   "deepseek-chat",     0.0004),
-    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions", "gpt-oss-120b",      0.0002),
-    ("gemini",   "GEMINI_API_KEY",   None,                                          "gemini-flash-latest", 0.001),
+    ("deepseek", "DEEPSEEK_API_KEY", "https://api.deepseek.com/chat/completions",   "deepseek-chat"),
+    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions", "gpt-oss-120b"),
+    ("gemini",   "GEMINI_API_KEY",   None,                                          "gemini-flash-latest"),
 ]
 _UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"
 
@@ -40,10 +40,17 @@ def _gemini(model, prompt):
 
 
 def generate(prompt, client_id=None, job_type="llm", premium=False):
+    lane = "llm_premium" if premium else "llm_cheap"
     ladder = PREMIUM if premium else CHEAP
+    lane_prices = budget.prices().get(lane, {})
     last = None
-    for name, envk, url, model, est in ladder:
+    for name, envk, url, model in ladder:
         if not os.environ.get(envk):
+            continue
+        est = float(lane_prices.get(name, 0.0002))  # price from config/prices.json
+        ok, reason = budget.can_spend(client_id, name, est)  # gate before spend (same call as hunter.py/apollo.py)
+        if not ok:
+            last = reason
             continue
         try:
             text = _gemini(model, prompt) if name == "gemini" else _openai_chat(url, os.environ[envk], model, prompt)

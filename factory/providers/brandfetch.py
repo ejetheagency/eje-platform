@@ -5,7 +5,7 @@ import os, json, urllib.request
 from factory.packages import db, budget
 
 PROVIDER = "brandfetch"
-EST_USD = 0.0  # free tier
+EST_USD = budget.price("brandfetch")
 API = "https://api.brandfetch.io/v2/brands/"
 
 

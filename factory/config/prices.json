@@ -1,0 +1,29 @@
+{
+  "_doc": "Per-call cost ESTIMATES in USD, one key per provider SKU. The adapters read these (via budget.price); the cost_ledger refines actuals over time. Edit here, never in code. Verify against each vendor's pricing page.",
+  "_sku": {
+    "hunter": "Hunter.io domain-search, 1 request",
+    "apollo": "Apollo mixed_people/search, 1 search",
+    "prospeo": "Prospeo email-finder, 1 verified email",
+    "serper": "Serper google search, 1 query (starter rate)",
+    "google_places_details": "Google Places (New) Place Details, 1 call with website+phone field mask (paid SKU; basic Text Search is free)",
+    "brandfetch": "Brandfetch Logo API, free tier",
+    "logo": "logo fetch (favicon/og:image), no external paid call",
+    "site_enrich": "self-hosted page fetch, no external paid call",
+    "stub": "no-op test provider",
+    "gemini": "Gemini flash-lite generateContent, 1 call (providers/gemini.py enrich lane)",
+    "llm_cheap": "cheap LLM lane (cheap_llm.py CHEAP ladder): cheapest-first per provider, 1 chat completion",
+    "llm_premium": "premium LLM lane (cheap_llm.py PREMIUM ladder): the Composer / Tier-3, 1 chat completion"
+  },
+  "hunter": 0.01,
+  "apollo": 0.02,
+  "prospeo": 0.02,
+  "serper": 0.001,
+  "google_places_details": 0.003,
+  "brandfetch": 0.0,
+  "logo": 0.0,
+  "site_enrich": 0.0,
+  "stub": 0.001,
+  "gemini": 0.0002,
+  "llm_cheap": { "groq": 0.00005, "cerebras": 0.00005, "deepseek": 0.00014, "gemini": 0.0002 },
+  "llm_premium": { "deepseek": 0.0004, "cerebras": 0.0002, "gemini": 0.001 }
+}

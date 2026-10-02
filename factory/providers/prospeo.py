@@ -4,7 +4,7 @@ import os, json, urllib.request, urllib.error
 from factory.packages import budget
 
 PROVIDER = "prospeo"
-EST_USD = 0.02
+EST_USD = budget.price("prospeo")
 
 
 def find_email(first_name, last_name, domain, client_id=None):

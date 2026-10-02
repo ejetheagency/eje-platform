@@ -6,7 +6,7 @@ import os, json, urllib.request
 from factory.packages import budget
 
 PROVIDER = "serper"
-EST_USD = 0.001
+EST_USD = budget.price("serper")
 URL = "https://google.serper.dev/search"
 
 

@@ -5,7 +5,7 @@ import os, json, urllib.request, urllib.error
 from factory.packages import budget
 
 PROVIDER = "hunter"
-EST_USD = 0.01
+EST_USD = budget.price("hunter")
 DECISION = ("founder", "co-founder", "ceo", "owner", "partner", "president", "director", "head", "chief",
             "gerente", "director general", "dueño", "socio", "fundador", "producer", "productor", "managing")
 
