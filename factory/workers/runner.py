@@ -3,20 +3,39 @@
 # map; add a department by adding a handler. run_once() does one job; drain() empties the queue; the real
 # deployment calls drain() on the scheduler's tick (or runs loop() as a long-lived worker).
 import time
-from factory.packages import queue, db
+from factory.packages import queue, db, lead_state
 from factory.providers import site_enrich, gemini, logo
 from factory.workers import gates
 
+_CL = "id,client_id,company_id,contact_id,cycle_count,state"
+
 
 def _h_enrich_t1(job):
-    out = {"site": site_enrich.enrich(job["company_id"])}
-    out["brief"] = gemini.brief(job["company_id"], job.get("client_id"))
+    clid, coid = job.get("client_lead_id"), job["company_id"]
+    if clid:
+        st = db.select("client_leads", "id=eq.%s&select=state" % clid)
+        if st and st[0]["state"] in ("DISCOVERED", "PARKED"):
+            lead_state.move(clid, "T1_ENRICHING")
+    out = {"site": site_enrich.enrich(coid), "brief": gemini.brief(coid, job.get("client_id")), "logo": logo.resolve(coid)}
+    if clid:
+        cur = db.select("client_leads", "id=eq.%s&select=state" % clid)
+        if cur and cur[0]["state"] == "T1_ENRICHING":
+            lead_state.move(clid, "SCORED")
+            queue.enqueue("gates", client_id=job.get("client_id"), company_id=coid, client_lead_id=clid)
     return out
 
 
 def _h_gates(job):
-    cl = db.select("client_leads", "id=eq.%s&select=id,client_id,company_id,contact_id,cycle_count" % job["client_lead_id"])
-    return gates._run_one(cl[0]) if cl else {"skip": "no lead"}
+    rows = db.select("client_leads", "id=eq.%s&select=%s" % (job["client_lead_id"], _CL))
+    if not rows:
+        return {"skip": "no lead"}
+    cl = rows[0]
+    if cl["state"] == "SCORED":
+        lead_state.move(cl["id"], "GATE_CHECK")
+        cl = db.select("client_leads", "id=eq.%s&select=%s" % (cl["id"], _CL))[0]
+    if cl["state"] != "GATE_CHECK":
+        return {"skip": "not in GATE_CHECK (%s)" % cl["state"]}
+    return gates._run_one(cl)
 
 
 def _h_logo(job):
