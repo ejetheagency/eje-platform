@@ -3,11 +3,12 @@
 #   python3 -m factory.run_nightly [--client <id>] [--max <N>]
 import sys, json
 from factory.workers import scheduler, runner, reports, admin, discovery
-from factory.packages import db
+from factory.packages import db, queue
 
 
 def run(client=None, max_leads=None):
     out = {"discovery": {}, "jobs": 0, "reports": {}}
+    out["reaped"] = queue.reap()  # re-queue any jobs orphaned by a dead worker before processing
     clients = [{"id": client}] if client else db.select("clients", "select=id")
     for c in clients:
         r = discovery.discover_for_client(c["id"], max_leads=max_leads or 25)

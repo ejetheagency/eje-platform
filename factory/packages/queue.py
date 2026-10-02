@@ -28,6 +28,14 @@ def fail(job_id, attempt, error):
     db.update("job_log", "id=eq.%s" % job_id, {"status": status, "error": str(error)[:400], "updated_at": _now()})
 
 
+def reap(minutes=10):
+    # Re-queue jobs orphaned by a dead worker (stuck in 'running'); dead-letter after MAX_ATTEMPTS.
+    try:
+        return db.rpc("reap_stale_jobs", {"p_minutes": minutes, "p_max_attempts": MAX_ATTEMPTS})
+    except Exception:
+        return None
+
+
 def depth(status="queued"):
     rows = db.select("job_log", "status=eq.%s&select=id" % status)
     return len(rows)

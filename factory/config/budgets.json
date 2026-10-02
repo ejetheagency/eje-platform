@@ -2,7 +2,7 @@
   "_comment": "Factory budgets + caps. Numbers are placeholders; the founder sets real values. A cap of 0 means 'no limit set' (allow). Switch to YAML when pyyaml + capacity.yaml land.",
   "kill_switch_paid_spend": false,
   "daily_global_spend_cap_usd": 0,
-  "monthly_global_spend_cap_usd": 0,
+  "monthly_global_spend_cap_usd": 200,
   "max_cost_ratio": 0.20,
   "forecast_window_days": 10,
   "plans": {
