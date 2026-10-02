@@ -50,7 +50,7 @@ def score_and_route(client_lead_id):
     if not rows:
         return {"skip": "no lead"}
     cl = rows[0]
-    co = (db.select("companies", "id=eq.%s&select=name,industry,brief,instagram,linkedin" % cl["company_id"]) or [{}])[0]
+    co = (db.select("companies", "id=eq.%s&select=name,industry,brief,instagram,linkedin,domain,website" % cl["company_id"]) or [{}])[0]
     ct = {}
     if cl.get("contact_id"):
         ct = (db.select("contacts", "id=eq.%s&select=full_name,email,phone" % cl["contact_id"]) or [{}])[0]
@@ -59,6 +59,13 @@ def score_and_route(client_lead_id):
     db.update("client_leads", "id=eq.%s" % cl["id"], {"score": sc})
     if cl["state"] != "SCORED":
         return {"score": sc, "route": "noop", "state": cl["state"]}
+    # already have a named decisor email -> gates; else if we have a domain, go find one (Tier-2); else judge by score
+    if ct.get("email") and ct.get("full_name"):
+        lead_state.move(cl["id"], "GATE_CHECK")
+        return {"score": sc, "route": "GATE_CHECK"}
+    if co.get("domain") or co.get("website"):
+        lead_state.move(cl["id"], "T2_ENRICHING")
+        return {"score": sc, "route": "T2_ENRICHING"}
     if sc < cfg["discard_floor"]:
         lead_state.move(cl["id"], "DISCARDED")
         return {"score": sc, "route": "DISCARDED"}

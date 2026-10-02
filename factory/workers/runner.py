@@ -5,7 +5,7 @@
 import time
 from factory.packages import queue, db, lead_state
 from factory.providers import site_enrich, gemini, logo, signal_spotter
-from factory.workers import gates, scoring
+from factory.workers import gates, scoring, tier2
 
 _CL = "id,client_id,company_id,contact_id,cycle_count,state"
 
@@ -22,11 +22,18 @@ def _h_enrich_t1(job):
         cur = db.select("client_leads", "id=eq.%s&select=state" % clid)
         if cur and cur[0]["state"] == "T1_ENRICHING":
             lead_state.move(clid, "SCORED")
-            routed = scoring.score_and_route(clid)  # SCORED -> GATE_CHECK (or DISCARDED if below floor)
+            routed = scoring.score_and_route(clid)  # SCORED -> GATE_CHECK | T2_ENRICHING | DISCARDED
             out["scoring"] = routed
-            if routed.get("route") == "GATE_CHECK":
-                queue.enqueue("gates", client_id=job.get("client_id"), company_id=coid, client_lead_id=clid)
+            nxt = {"GATE_CHECK": "gates", "T2_ENRICHING": "tier2"}.get(routed.get("route"))
+            if nxt:
+                queue.enqueue(nxt, client_id=job.get("client_id"), company_id=coid, client_lead_id=clid)
     return out
+
+
+def _h_tier2(job):
+    r = tier2.run(job["client_lead_id"])  # finds a named decisor + email, moves T2_ENRICHING -> GATE_CHECK
+    queue.enqueue("gates", client_id=job.get("client_id"), company_id=job["company_id"], client_lead_id=job["client_lead_id"])
+    return r
 
 
 def _h_gates(job):
@@ -48,6 +55,7 @@ def _h_logo(job):
 
 HANDLERS = {
     "enrich_t1": _h_enrich_t1,
+    "tier2": _h_tier2,
     "gates": _h_gates,
     "logo": _h_logo,
 }

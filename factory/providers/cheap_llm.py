@@ -8,15 +8,17 @@ from factory.packages import budget
 # (name, env_key, url, model, est_usd) — cheapest first.
 LADDER = [
     ("groq",     "GROQ_API_KEY",     "https://api.groq.com/openai/v1/chat/completions", "llama-3.3-70b-versatile", 0.00005),
-    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions",      "llama-3.3-70b",           0.00005),
+    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions",      "gpt-oss-120b",            0.00005),
+    ("deepseek", "DEEPSEEK_API_KEY", "https://api.deepseek.com/chat/completions",        "deepseek-chat",           0.00014),
     ("gemini",   "GEMINI_API_KEY",   None,                                               "gemini-flash-lite-latest", 0.0002),
 ]
+_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"
 
 
 def _openai_chat(url, key, model, prompt):
     body = json.dumps({"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0}).encode()
     req = urllib.request.Request(url, data=body, method="POST",
-                                 headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
+                                 headers={"Authorization": "Bearer " + key, "Content-Type": "application/json", "User-Agent": _UA})
     with urllib.request.urlopen(req, timeout=40) as r:
         j = json.loads(r.read().decode())
     return j["choices"][0]["message"]["content"].strip()
