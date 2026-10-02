@@ -46,7 +46,20 @@ def _h_gates(job):
         cl = db.select("client_leads", "id=eq.%s&select=%s" % (cl["id"], _CL))[0]
     if cl["state"] != "GATE_CHECK":
         return {"skip": "not in GATE_CHECK (%s)" % cl["state"]}
-    return gates._run_one(cl)
+    result = gates._run_one(cl)
+    if result.get("result") == "READY":  # pitch-ready: auto-compose the premium dossier + pitch
+        queue.enqueue("compose", client_id=cl.get("client_id"), company_id=cl["company_id"], client_lead_id=cl["id"])
+    return result
+
+
+def _h_compose(job):
+    import datetime
+    from factory.workers import composer
+    r = composer.compose(job["client_lead_id"])
+    if r.get("ok"):
+        db.update("client_leads", "id=eq.%s" % job["client_lead_id"],
+                  {"composed": r, "composed_at": datetime.datetime.now(datetime.timezone.utc).isoformat()})
+    return {"composed": bool(r.get("ok")), "provider": r.get("_provider")}
 
 
 def _h_logo(job):
@@ -57,6 +70,7 @@ HANDLERS = {
     "enrich_t1": _h_enrich_t1,
     "tier2": _h_tier2,
     "gates": _h_gates,
+    "compose": _h_compose,
     "logo": _h_logo,
 }
 

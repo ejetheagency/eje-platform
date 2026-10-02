@@ -12,7 +12,7 @@ def _today():
 def build(client_id, report_date=None):
     report_date = report_date or _today()
     leads = db.select("client_leads",
-                      "client_id=eq.%s&state=eq.READY&select=id,company_id,contact_id,score&order=score.desc&limit=200" % client_id)
+                      "client_id=eq.%s&state=eq.READY&select=id,company_id,contact_id,score,composed&order=score.desc&limit=200" % client_id)
     items = []
     for cl in leads:
         co = (db.select("companies", "id=eq.%s&select=name,domain,website,instagram,brief,logo_url" % cl["company_id"]) or [{}])[0]
@@ -20,12 +20,15 @@ def build(client_id, report_date=None):
         if cl.get("contact_id"):
             ct = (db.select("contacts", "id=eq.%s&select=full_name,title,email" % cl["contact_id"]) or [{}])[0]
         sigs = db.select("signals", "company_id=eq.%s&select=type,detail&limit=5" % cl["company_id"])
+        composed = cl.get("composed") or {}
         items.append({
             "client_lead_id": cl["id"], "score": cl.get("score"),
             "company": co.get("name"), "domain": co.get("domain"), "logo_url": co.get("logo_url"),
             "brief": co.get("brief"), "instagram": co.get("instagram"),
             "decisor": ct.get("full_name"), "title": ct.get("title"), "email": ct.get("email"),
             "why_now": [s["type"] for s in sigs],
+            "pitch": composed.get("pitch"), "dossier": composed.get("dossier"),
+            "channel": composed.get("channel"), "next_action": composed.get("next_action"),
         })
     payload = {
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
@@ -33,7 +36,8 @@ def build(client_id, report_date=None):
         "count": len(items),
         "stats": {"ready": len(items),
                   "with_email": sum(1 for i in items if i["email"]),
-                  "with_signal": sum(1 for i in items if i["why_now"])},
+                  "with_signal": sum(1 for i in items if i["why_now"]),
+                  "pitch_ready": sum(1 for i in items if i["pitch"])},
         "leads": items,
     }
     # upsert (one report per client per day)
