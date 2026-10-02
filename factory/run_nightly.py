@@ -6,7 +6,8 @@
 # Safe to run anytime: it's idempotent and no-ops cleanly when there's nothing to do.
 # Run:  python3 -m factory.run_nightly        (add --client <id> to scope the tick)
 import sys, json
-from factory.workers import scheduler, runner, reports, admin
+from factory.workers import scheduler, runner, reports, admin, discovery
+from factory.packages import db
 
 
 def main():
@@ -15,6 +16,16 @@ def main():
         client = sys.argv[sys.argv.index("--client") + 1]
 
     print("== EJE factory night shift ==")
+
+    # 0. Discovery per active client (no-op without GOOGLE_PLACES_API_KEY)
+    clients = [{"id": client}] if client else db.select("clients", "select=id")
+    disc = {}
+    for c in clients:
+        r = discovery.discover_for_client(c["id"])
+        if r.get("ok"):
+            disc[c["id"]] = r.get("created", 0)
+    print("0. discovery:", disc or "(no key / nothing new)")
+
     tick = scheduler.tick(client_id=client)
     print("1. scheduler:", tick)
 
