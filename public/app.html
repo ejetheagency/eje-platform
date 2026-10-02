@@ -1414,9 +1414,9 @@
     }
     // OPS (admin) — live factory + treasury snapshot (read-only via /api/ops).
     function opsStat(k,v,s){return '<div class="ops-stat"><div class="k">'+esc(k)+'</div><div class="v">'+esc(String(v))+'</div>'+(s?'<div class="s">'+esc(s)+'</div>':'')+'</div>';}
-    function renderOps(){
+    function _opsLoad(showLoading){
       var host=document.getElementById('ops-host'); if(!host) return;
-      host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Cargando…</div>';
+      if(showLoading) host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Cargando…</div>';
       fetch('/api/ops',{headers:{Authorization:'Bearer '+(window.__ejeToken||'')}})
         .then(function(r){return r.ok?r.json():null;}).then(function(d){
           var o=(d&&d.ops)||null; if(!o){host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Solo administradores.</div>';return;}
@@ -1427,6 +1427,16 @@
           var cli='<div class="ops-sec">Clientes</div><table class="ops-ctab"><tr><th>Cliente</th><th>READY</th><th>Entregados</th><th>Total</th></tr>'+(o.clients||[]).map(function(c){return '<tr><td>'+esc(c.client_id)+'</td><td class="rd">'+(c.ready||0)+'</td><td>'+(c.delivered||0)+'</td><td>'+(c.total||0)+'</td></tr>';}).join('')+'</table>';
           host.innerHTML=top+prov+pipe+cli;
         }).catch(function(){host.innerHTML='<div class="tq-empty" style="padding:14px 4px">No pude cargar Ops.</div>';});
+    }
+    function renderOps(){
+      _opsLoad(true);
+      // auto-refresh every 20s while the Ops view is open (truly live); stops when you leave it.
+      if(window.__opsTimer) clearInterval(window.__opsTimer);
+      window.__opsTimer=setInterval(function(){
+        var v=document.getElementById('view-ops');
+        if(!v||!v.classList.contains('on')){clearInterval(window.__opsTimer);window.__opsTimer=null;return;}
+        _opsLoad(false);
+      },20000);
     }
 
     // REPORTE — the factory's precomputed pitch-ready leads (read-only via /api/report).
