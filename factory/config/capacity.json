@@ -1,0 +1,16 @@
+{
+  "_comment": "Capacity + cost model assumptions. RECONSTRUCTED from the dream-team summary's cited numbers (10 clients ~$320, 100 ~$2570, 1000 ~$19300 at 25 ready leads/client/day). Replace with the real capacity.yaml when it lands. All per-ready-lead costs in USD; the founder sets real values.",
+  "leads_per_client_per_day": 25,
+  "days_per_month": 30,
+  "cost_per_ready_lead_usd": {
+    "tier1_llm": 0.004,
+    "search_crawl": 0.003,
+    "discovery_places": 0.001,
+    "email_cascade": 0.020,
+    "tier2_apis": 0.010,
+    "tier3_reasoning": 0.004,
+    "logos": 0.0
+  },
+  "dedup_reuse_rate": { "10": 0.0, "100": 0.18, "1000": 0.40 },
+  "free_tier_offset_small_scale_usd_per_month": 150
+}
