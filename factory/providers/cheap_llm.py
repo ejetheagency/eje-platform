@@ -1,44 +1,55 @@
 # factory/providers/cheap_llm.py
-# D2 cheap-LLM ROUTER: cheapest-first with automatic fallback + per-call metering. Only tries providers
-# whose API key is present, so it works today with Gemini alone and lights up Groq/Cerebras the moment
-# their keys are in env. Groq + Cerebras use the OpenAI-compatible chat API. No multi-account rotation.
+# LLM ROUTER with two lanes:
+#   generate(prompt)                -> CHEAP lane (bulk enrichment): cheapest-first, fallback. Gemini-flash-lite etc.
+#   generate(prompt, premium=True)  -> PREMIUM lane (the Composer / Tier-3 synthesis): best-quality-first.
+# Only tries providers whose API key is present. Groq/Cerebras/DeepSeek use the OpenAI-compatible chat API.
 import os, json, urllib.request
 from factory.packages import budget
 
-# (name, env_key, url, model, est_usd) — cheapest first.
-LADDER = [
-    ("groq",     "GROQ_API_KEY",     "https://api.groq.com/openai/v1/chat/completions", "llama-3.3-70b-versatile", 0.00005),
-    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions",      "gpt-oss-120b",            0.00005),
-    ("deepseek", "DEEPSEEK_API_KEY", "https://api.deepseek.com/chat/completions",        "deepseek-chat",           0.00014),
+# (name, env_key, url, model, est_usd)
+CHEAP = [
+    ("groq",     "GROQ_API_KEY",     "https://api.groq.com/openai/v1/chat/completions", "llama-3.3-70b-versatile",  0.00005),
+    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions",      "gpt-oss-120b",             0.00005),
+    ("deepseek", "DEEPSEEK_API_KEY", "https://api.deepseek.com/chat/completions",        "deepseek-chat",            0.00014),
     ("gemini",   "GEMINI_API_KEY",   None,                                               "gemini-flash-lite-latest", 0.0002),
+]
+# Premium lane: quality first (for the Composer's high-value synthesis).
+PREMIUM = [
+    ("deepseek", "DEEPSEEK_API_KEY", "https://api.deepseek.com/chat/completions",   "deepseek-chat",     0.0004),
+    ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1/chat/completions", "gpt-oss-120b",      0.0002),
+    ("gemini",   "GEMINI_API_KEY",   None,                                          "gemini-flash-latest", 0.001),
 ]
 _UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"
 
 
 def _openai_chat(url, key, model, prompt):
-    body = json.dumps({"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0}).encode()
+    body = json.dumps({"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0.3}).encode()
     req = urllib.request.Request(url, data=body, method="POST",
                                  headers={"Authorization": "Bearer " + key, "Content-Type": "application/json", "User-Agent": _UA})
-    with urllib.request.urlopen(req, timeout=40) as r:
-        j = json.loads(r.read().decode())
-    return j["choices"][0]["message"]["content"].strip()
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode())["choices"][0]["message"]["content"].strip()
 
 
-def generate(prompt, client_id=None, job_type="llm"):
-    """Return {provider, text}. Tries cheapest available provider first, falls back on error/rate-limit."""
+def _gemini(model, prompt):
+    key = os.environ["GEMINI_API_KEY"]
+    body = json.dumps({"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.3}}).encode()
+    url = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s" % (model, key)
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"}, method="POST")
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode())["candidates"][0]["content"]["parts"][0]["text"].strip()
+
+
+def generate(prompt, client_id=None, job_type="llm", premium=False):
+    ladder = PREMIUM if premium else CHEAP
     last = None
-    for name, envk, url, model, est in LADDER:
+    for name, envk, url, model, est in ladder:
         if not os.environ.get(envk):
             continue
         try:
-            if name == "gemini":
-                from factory.providers.gemini import _gen
-                text = _gen(prompt)
-            else:
-                text = _openai_chat(url, os.environ[envk], model, prompt)
+            text = _gemini(model, prompt) if name == "gemini" else _openai_chat(url, os.environ[envk], model, prompt)
             budget.log_cost(name, est, client_id=client_id, job_type=job_type, estimated=True)
             return {"provider": name, "text": text}
         except Exception as e:
             last = e
             continue
-    raise RuntimeError("no cheap-LLM provider available (last error: %s)" % last)
+    raise RuntimeError("no %s LLM provider available (last error: %s)" % ("premium" if premium else "cheap", last))
