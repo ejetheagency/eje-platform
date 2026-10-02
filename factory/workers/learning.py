@@ -47,6 +47,59 @@ def strategy_scores():
     return out
 
 
+def outreach_rollup(client_id=None):
+    """Per-playbook funnel + outcome intelligence for the outreach engine (OUTREACH_PLAYBOOKS.md §5).
+    Keyed on playbook_runs (robust to legacy leads whose engagement rows have no client_lead_id).
+    This is the response-intelligence moat: which playbook/channel actually earns replies."""
+    from collections import defaultdict, Counter
+    rq = "select=id,playbook_id,client_id,state"
+    if client_id:
+        rq += "&client_id=eq.%s" % client_id
+    runs = db.select_all("playbook_runs", rq)
+    run_ids = {r["id"] for r in runs}
+    evs = [e for e in db.select_all("engagement_events", "select=run_id,step_no,channel,event,outcome")
+           if e.get("run_id") in run_ids]
+
+    sends_by_run = defaultdict(list)
+    replied_runs = set()
+    channel_sends = Counter()
+    REPLY_OUTCOMES = {"replied", "soft_no", "reopened", "asked_for_material", "positive_reply"}
+    for e in evs:
+        if e.get("event") == "contacted" and e.get("step_no") is not None:
+            sends_by_run[e["run_id"]].append(e["step_no"])
+            if e.get("channel"):
+                channel_sends[e["channel"]] += 1
+        if e.get("outcome") in REPLY_OUTCOMES:
+            replied_runs.add(e["run_id"])
+
+    REPLY_STATES = {"replied", "reopened", "converted"}
+    by_pb = defaultdict(lambda: {"runs": 0, "reached_1": 0, "reached_2": 0, "reached_3": 0, "replied": 0, "converted": 0})
+    for r in runs:
+        a = by_pb[r["playbook_id"]]
+        a["runs"] += 1
+        maxstep = max(sends_by_run.get(r["id"]) or [0])
+        a["reached_1"] += 1 if maxstep >= 1 else 0
+        a["reached_2"] += 1 if maxstep >= 2 else 0
+        a["reached_3"] += 1 if maxstep >= 3 else 0
+        if r["state"] in REPLY_STATES or r["id"] in replied_runs:
+            a["replied"] += 1
+        if r["state"] == "converted":
+            a["converted"] += 1
+
+    out = []
+    for pb, a in by_pb.items():
+        row = dict(a, playbook_id=pb,
+                   reply_rate=round(a["replied"] / a["runs"] * 100, 1) if a["runs"] else 0.0)
+        out.append(row)
+    return {"client_id": client_id or "ALL",
+            "by_playbook": sorted(out, key=lambda x: -x["runs"]),
+            "channel_sends": dict(channel_sends)}
+
+
 if __name__ == "__main__":
     import json
-    print(json.dumps({"replies_per_100": replies_per_100(), "strategies": strategy_scores()}, indent=2))
+    print(json.dumps({
+        "replies_per_100": replies_per_100(),
+        "strategies": strategy_scores(),
+        "outreach_rollup": outreach_rollup(),
+    }, indent=2))

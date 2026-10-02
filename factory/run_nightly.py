@@ -17,6 +17,11 @@ def run(client=None, max_leads=None):
     scheduler.tick(client_id=client)
     drained = runner.drain_concurrent(workers=4)  # concurrent workers (atomic claim) = faster nightly runs
     out["jobs"] = len(drained)
+    try:  # capture inbound email replies for EJE's own outreach (agency inbox) -> engagement + learning
+        from factory.workers import reply_reconcile
+        out["replies_captured"] = reply_reconcile.reconcile_email(client="eje", apply=True).get("recorded", 0)
+    except Exception:
+        pass
     reps = reports.build_all() if not client else [reports.build(client)]
     out["reports"] = {r["client_id"]: r["count"] for r in reps}
     try:

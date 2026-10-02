@@ -3,6 +3,9 @@
   "discard_floor": 30,
   "tier2_threshold": 70,
   "explore_rate": 0.2,
+  "_nurture_comment": "Outreach playbook nurture caps (OUTREACH_PLAYBOOKS.md §6 rule 4). After the cap, the run PARKS.",
+  "nurture_max_touches": 3,
+  "nurture_interval_days": 21,
   "weights": {
     "email": 25,
     "decision_maker": 15,

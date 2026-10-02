@@ -66,12 +66,37 @@ def _h_logo(job):
     return logo.resolve(job["company_id"])
 
 
+def _h_provision_client(job):
+    # Runs when a client pays (the Stripe webhook enqueues this with the client_id). Provisioning =
+    # flip the client to active + build their FIRST prospection batch. Closes the payment->activation loop.
+    import datetime
+    from factory.workers import discovery
+    cid = job.get("client_id")
+    if not cid:
+        return {"skip": "no client_id on job"}
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    rows = db.select("clients", "id=eq.%s&select=icp_config" % cid)
+    if not rows:
+        return {"skip": "client %s not found" % cid}
+    cfg = rows[0].get("icp_config") or {}
+    if not cfg.get("activated_at"):
+        cfg["activated_at"] = now
+        db.update("clients", "id=eq.%s" % cid, {"icp_config": cfg})
+    disc = {}
+    try:
+        disc = discovery.discover_for_client(cid, max_leads=25)  # they paid -> spend is justified
+    except Exception as e:
+        disc = {"error": str(e)[:200]}
+    return {"client_id": cid, "activated_at": cfg.get("activated_at"), "discovery": disc}
+
+
 HANDLERS = {
     "enrich_t1": _h_enrich_t1,
     "tier2": _h_tier2,
     "gates": _h_gates,
     "compose": _h_compose,
     "logo": _h_logo,
+    "provision_client": _h_provision_client,
 }
 
 
