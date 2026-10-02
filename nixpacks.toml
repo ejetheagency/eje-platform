@@ -1,0 +1,6 @@
+# Railway build for the EJE factory night-shift service (Python, stdlib only).
+# Vercel ignores this file, so the app's Vercel deploy is unaffected.
+providers = ["python"]
+
+[start]
+cmd = "python3 -m factory.service"
