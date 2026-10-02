@@ -4,7 +4,7 @@
 # deployment calls drain() on the scheduler's tick (or runs loop() as a long-lived worker).
 import time
 from factory.packages import queue, db, lead_state
-from factory.providers import site_enrich, gemini, logo
+from factory.providers import site_enrich, gemini, logo, signal_spotter
 from factory.workers import gates, scoring
 
 _CL = "id,client_id,company_id,contact_id,cycle_count,state"
@@ -16,7 +16,8 @@ def _h_enrich_t1(job):
         st = db.select("client_leads", "id=eq.%s&select=state" % clid)
         if st and st[0]["state"] in ("DISCOVERED", "PARKED"):
             lead_state.move(clid, "T1_ENRICHING")
-    out = {"site": site_enrich.enrich(coid), "brief": gemini.brief(coid, job.get("client_id")), "logo": logo.resolve(coid)}
+    out = {"site": site_enrich.enrich(coid), "signals": signal_spotter.spot(coid),
+           "brief": gemini.brief(coid, job.get("client_id")), "logo": logo.resolve(coid)}
     if clid:
         cur = db.select("client_leads", "id=eq.%s&select=state" % clid)
         if cur and cur[0]["state"] == "T1_ENRICHING":
