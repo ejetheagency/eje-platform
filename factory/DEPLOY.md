@@ -2,13 +2,13 @@
 
 The factory is plain Python (stdlib only) + Supabase. Two processes:
 
-## 1. The night shift (daily cron)
-`python3 -m factory.run_nightly` — discovery → enqueue → drain → reports → ops snapshot. Idempotent, safe to
-run anytime. Schedule once per day per timezone (e.g. 01:00). Options:
-- **Railway cron service** (we already use Railway for the retired UnaBase engine): a new service with
-  `startCommand: python3 -m factory.run_nightly` on a cron schedule.
-- **Vercel Cron** → a thin `/api/cron/nightly` that shells the same logic (if we keep it serverless).
-- Reuse the existing Railway `approval-service` pattern (self-scheduling always-on).
+## 1. The night shift (deploy this)
+**`factory/service.py`** is the always-on service (self-schedules `run_nightly` daily, exposes `/` health +
+`/run` manual trigger). `factory/railway.json` has the deploy config. Start command: `python3 -m factory.service`.
+- **Railway (recommended, matches our existing pattern):** new service pointing at the `unabase-app` repo,
+  Nixpacks, start `python3 -m factory.service`, healthcheck `/`. Set `FACTORY_RUN_HOUR_UTC` (default 9 ≈ 06:00 Chile).
+- Run `python3 -m factory.run_nightly` directly for a one-off (idempotent, safe anytime).
+- `GET /run` on the deployed service triggers a run on demand (to test the deploy).
 
 ## 2. The worker (optional, for throughput)
 `python3 -m factory.workers.runner` drains the queue once; `runner.loop()` runs continuously. For low volume,
