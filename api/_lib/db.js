@@ -52,8 +52,19 @@ async function patch(table, query, body) {
   if (!r.ok) throw new Error(`patch ${table} ${r.status}: ${await r.text()}`);
 }
 
+async function rpc(fn, args) {
+  const r = await fetch(`${SB}/rest/v1/rpc/${fn}`, {
+    method: "POST",
+    headers: headers(),
+    body: JSON.stringify(args || {}),
+  });
+  if (!r.ok) throw new Error(`rpc ${fn} ${r.status}: ${await r.text()}`);
+  const t = await r.text();
+  return t ? JSON.parse(t) : null;
+}
+
 function configured() {
   return Boolean(SB && KEY);
 }
 
-module.exports = { select, insert, patch, headers, configured, SB };
+module.exports = { select, insert, patch, rpc, headers, configured, SB };

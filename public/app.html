@@ -294,6 +294,26 @@
   .rep-pitch{font-size:13px;line-height:1.5;color:var(--ink-2,#4a4a55);background:var(--sunken);border-radius:9px;padding:10px 11px;white-space:pre-wrap}
   .rep-send{margin-top:2px;background:var(--ink);color:var(--canvas);border:none;border-radius:9px;padding:9px 12px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
   .rep-send:hover{opacity:.92}.rep-send.done{background:var(--ok)}
+  /* Ops dashboard (admin) */
+  .ops-top{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+  .ops-stat{background:var(--canvas);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--sh-sm)}
+  .ops-stat .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .ops-stat .v{font-size:22px;font-weight:800;margin-top:3px}
+  .ops-stat .s{font-size:11px;color:var(--ink-3);margin-top:1px}
+  .ops-sec{font-size:13px;font-weight:750;margin:18px 0 8px}
+  .ops-prov{display:flex;flex-direction:column;gap:8px}
+  .ops-prow{display:grid;grid-template-columns:120px 1fr 110px;align-items:center;gap:10px;font-size:12.5px}
+  .ops-bar{height:8px;border-radius:5px;background:var(--sunken);overflow:hidden;position:relative}
+  .ops-bar i{position:absolute;inset:0 auto 0 0;border-radius:5px;background:var(--cool)}
+  .ops-bar i.warn{background:var(--am,#d4a017)}.ops-bar i.crit{background:var(--crit,#cf3f37)}
+  .ops-prow .amt{text-align:right;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .ops-pills{display:flex;flex-wrap:wrap;gap:7px}
+  .ops-pill{font-size:12px;font-weight:700;border-radius:7px;padding:4px 10px;background:var(--sunken)}
+  .ops-pill b{color:var(--cool)}
+  .ops-ctab{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  .ops-ctab td,.ops-ctab th{padding:8px 10px;border-top:1px solid var(--line);text-align:left}
+  .ops-ctab th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);border:none}
+  .ops-ctab .rd{font-weight:800;color:var(--ok)}
   .hoy-card{display:flex;flex-direction:column;gap:9px;background:var(--canvas);border:1px solid var(--line-2);border-radius:16px;padding:15px 15px 13px;cursor:pointer;text-align:left;box-shadow:var(--sh-sm);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;min-height:152px;font-family:inherit}
   .hoy-card:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--line-3)}
   .hoy-card.done{background:var(--panel);border-color:var(--line)}
@@ -639,6 +659,7 @@
     <button class="nav-item on" data-view="home"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Home</button>
     <button class="nav-item" data-view="hoy"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15l2.5 2.5L15 13"/></svg>Hoy<span class="ct" id="hoy-ct"></span></button>
     <button class="nav-item" data-view="reporte"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13l2 2 4-4"/></svg>Reporte<span class="ct" id="rep-ct"></span></button>
+    <button class="nav-item" id="nav-ops" data-view="ops" style="display:none"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg>Ops</button>
     <button class="nav-item" data-view="tareas"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Tareas<span class="ct"></span></button>
     <button class="nav-item" data-view="decisores"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>Decisores<span class="ct"></span></button>
     <button class="nav-item" data-view="seguimiento" id="nav-seg" style="display:none"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Seguimiento<span class="ct" id="seg-ct"></span></button>
@@ -703,6 +724,12 @@
     <section class="view" id="view-reporte">
       <div class="page-h">Reporte</div><div class="page-sub" id="rep-sub">Leads premium, verificados y listos para contactar.</div>
       <div id="rep-host"></div>
+    </section>
+
+    <!-- OPS (admin only): live factory + treasury snapshot -->
+    <section class="view" id="view-ops">
+      <div class="page-h">Ops</div><div class="page-sub">Salud de la fábrica y del gasto, en vivo.</div>
+      <div id="ops-host"></div>
     </section>
 
     <!-- TAREAS (real action queue from active batch + live status) -->
@@ -905,6 +932,7 @@
           }
           window.__ejeAuthed=true; window.__ejeEmail=em; window.__ejeToken=session.access_token;
           window.__ejeIsAdmin=!!me.isAdmin;
+          if(me.isAdmin){var _no=document.getElementById('nav-ops'); if(_no) _no.style.display='flex';}
           // A "library" client (e.g. eje_productoras) is a lead database/ASSET, not a profile you switch into.
           // Keep it OUT of the workspace switcher; expose it separately for the admin Lead Library view.
           var allWs=me.workspaces||[];
@@ -1384,6 +1412,23 @@
         Object.keys(SEG.notes).forEach(function(k){SEG.notes[k].sort(function(a,b){return new Date(b.created_at)-new Date(a.created_at);});});
       }).catch(function(){});
     }
+    // OPS (admin) — live factory + treasury snapshot (read-only via /api/ops).
+    function opsStat(k,v,s){return '<div class="ops-stat"><div class="k">'+esc(k)+'</div><div class="v">'+esc(String(v))+'</div>'+(s?'<div class="s">'+esc(s)+'</div>':'')+'</div>';}
+    function renderOps(){
+      var host=document.getElementById('ops-host'); if(!host) return;
+      host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Cargando…</div>';
+      fetch('/api/ops',{headers:{Authorization:'Bearer '+(window.__ejeToken||'')}})
+        .then(function(r){return r.ok?r.json():null;}).then(function(d){
+          var o=(d&&d.ops)||null; if(!o){host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Solo administradores.</div>';return;}
+          var ready=(o.clients||[]).reduce(function(a,c){return a+(c.ready||0);},0);
+          var top='<div class="ops-top">'+opsStat('Gasto hoy','$'+(o.spend_today||0))+opsStat('Gasto mes','$'+(o.spend_month||0),'tope global $200')+opsStat('Leads READY',ready,'listos para contactar')+opsStat('Pool',((o.pool&&o.pool.companies)||0)+' empresas',((o.pool&&o.pool.contacts)||0)+' contactos')+'</div>';
+          var prov='<div class="ops-sec">Proveedores (gasto del mes vs tope)</div><div class="ops-prov">'+(o.providers||[]).map(function(p){var cap=p.monthly_cap_usd,sp=p.spent_month||0;var pct=cap?Math.min(100,Math.round(sp/cap*100)):0;var cls=pct>=90?'crit':(pct>=70?'warn':'');return '<div class="ops-prow"><span>'+esc(p.provider)+'</span><span class="ops-bar">'+(cap?'<i class="'+cls+'" style="width:'+pct+'%"></i>':'')+'</span><span class="amt">$'+sp+(cap?(' / $'+cap):' · libre')+'</span></div>';}).join('')+'</div>';
+          var pipe='<div class="ops-sec">Pipeline</div><div class="ops-pills">'+(o.lead_states||[]).map(function(s){return '<span class="ops-pill">'+esc(s.state)+' <b>'+s.n+'</b></span>';}).join('')+(o.queue||[]).filter(function(q){return q.n>0;}).map(function(q){return '<span class="ops-pill">cola:'+esc(q.status)+' <b>'+q.n+'</b></span>';}).join('')+'</div>';
+          var cli='<div class="ops-sec">Clientes</div><table class="ops-ctab"><tr><th>Cliente</th><th>READY</th><th>Entregados</th><th>Total</th></tr>'+(o.clients||[]).map(function(c){return '<tr><td>'+esc(c.client_id)+'</td><td class="rd">'+(c.ready||0)+'</td><td>'+(c.delivered||0)+'</td><td>'+(c.total||0)+'</td></tr>';}).join('')+'</table>';
+          host.innerHTML=top+prov+pipe+cli;
+        }).catch(function(){host.innerHTML='<div class="tq-empty" style="padding:14px 4px">No pude cargar Ops.</div>';});
+    }
+
     // REPORTE — the factory's precomputed pitch-ready leads (read-only via /api/report).
     function repInit(n){var p=(n||'').trim().split(/\s+/);return (((p[0]||'')[0]||'')+((p[1]||'')[0]||'')).toUpperCase()||'·';}
     function repCard(l){
@@ -1525,6 +1570,7 @@
       var ab=document.getElementById('seg-add-btn'); if(ab) ab.addEventListener('click',segShowForm);
       document.querySelectorAll('[data-view="seguimiento"]').forEach(function(el){el.addEventListener('click',renderSeguimiento);});
       document.querySelectorAll('[data-view="reporte"]').forEach(function(el){el.addEventListener('click',renderReporte);});
+      document.querySelectorAll('[data-view="ops"]').forEach(function(el){el.addEventListener('click',renderOps);});
     })();
     function toast(m){var t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},1800);}
     function norm2(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
