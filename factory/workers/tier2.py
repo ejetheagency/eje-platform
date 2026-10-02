@@ -3,7 +3,7 @@
 # so the lead can pass gates -> READY. Cascade (cheapest/best first): Hunter domain-search now;
 # Apollo + Prospeo chain in as fallbacks. Moves T2_ENRICHING -> GATE_CHECK.
 from factory.packages import db, lead_state
-from factory.providers import hunter
+from factory.providers import hunter, site_decisor
 
 try:
     from factory.providers import apollo
@@ -46,7 +46,14 @@ def find_contact(company_id, client_id=None):
     if not dom:
         return {"ok": False, "reason": "no domain"}
 
-    # 1) Hunter: name + email in one call
+    # 0) FREE CHAIN FIRST (Pivot Engine): read the company's own site with a cheap LLM before any paid call.
+    sd = site_decisor.find(company_id, client_id)
+    if sd.get("ok") and sd.get("found") and sd.get("email"):
+        name = sd["name"]
+        cid = _upsert_contact(company_id, name, (name.split(" ")[0] if name else None), sd.get("role"), sd["email"], "site")
+        return {"ok": True, "found": True, "contact_id": cid, "email": sd["email"], "name": name, "via": "site"}
+
+    # 1) Hunter: name + email in one call (paid; only reached when the free site chain found nothing)
     r = hunter.find_decisor(dom, client_id)
     if r.get("ok") and r.get("found") and r.get("email"):
         name = ((r.get("first_name") or "") + " " + (r.get("last_name") or "")).strip()
