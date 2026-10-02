@@ -1,6 +1,10 @@
-# Railway build for the EJE factory night-shift service (Python, stdlib only).
+# Railway/Nixpacks build for the EJE factory night-shift service (Python, stdlib only).
+# Forced to the python provider so it never builds the repo as a static site / Node app.
 # Vercel ignores this file, so the app's Vercel deploy is unaffected.
 providers = ["python"]
+
+[phases.setup]
+nixPkgs = ["python311"]
 
 [start]
 cmd = "python3 -m factory.service"
