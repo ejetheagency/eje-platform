@@ -75,10 +75,7 @@ HANDLERS = {
 }
 
 
-def run_once(job_type=None):
-    job = queue.claim(job_type)
-    if not job:
-        return None
+def _process(job):
     h = HANDLERS.get(job["type"])
     try:
         if not h:
@@ -91,6 +88,11 @@ def run_once(job_type=None):
         return {"id": job["id"], "type": job["type"], "ok": False, "error": str(e)}
 
 
+def run_once(job_type=None):
+    job = queue.claim(job_type)
+    return _process(job) if job else None
+
+
 def drain(job_type=None, max_jobs=500):
     done = []
     for _ in range(max_jobs):
@@ -99,6 +101,43 @@ def drain(job_type=None, max_jobs=500):
             break
         done.append(r)
     return done
+
+
+def drain_concurrent(workers=4, job_type=None, max_jobs=2000):
+    # Many workers claim concurrently (claim_job uses FOR UPDATE SKIP LOCKED, so no double-grant). A worker
+    # exits only when the queue is empty AND no worker is still processing (so chained jobs aren't missed).
+    import threading
+    results, active = [], {"n": 0}
+    lock = threading.Lock()
+
+    def w():
+        while True:
+            with lock:
+                if len(results) >= max_jobs:
+                    return
+            job = queue.claim(job_type)
+            if job is None:
+                with lock:
+                    if active["n"] == 0:
+                        return
+                time.sleep(0.4)
+                continue
+            with lock:
+                active["n"] += 1
+            try:
+                r = _process(job)
+            finally:
+                with lock:
+                    active["n"] -= 1
+            with lock:
+                results.append(r)
+
+    ts = [threading.Thread(target=w, daemon=True) for _ in range(max(1, workers))]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    return results
 
 
 def loop(poll_seconds=5, job_type=None):

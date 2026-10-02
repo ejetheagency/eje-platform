@@ -14,7 +14,7 @@ def run(client=None, max_leads=None):
         if r.get("ok"):
             out["discovery"][c["id"]] = r.get("created", 0)
     scheduler.tick(client_id=client)
-    drained = runner.drain()
+    drained = runner.drain_concurrent(workers=4)  # concurrent workers (atomic claim) = faster nightly runs
     out["jobs"] = len(drained)
     reps = reports.build_all() if not client else [reports.build(client)]
     out["reports"] = {r["client_id"]: r["count"] for r in reps}
