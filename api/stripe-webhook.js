@@ -68,7 +68,9 @@ module.exports = async (req, res) => {
   }
 
   const s = (event.data && event.data.object) || {};
-  const clientId = (s.metadata && s.metadata.client_id) || null;
+  // client_id can arrive two ways: checkout metadata.client_id, OR (simplest) client_reference_id,
+  // which you set by appending ?client_reference_id=<client_id> to the payment link URL you send.
+  const clientId = (s.metadata && s.metadata.client_id) || s.client_reference_id || null;
   const row = {
     stripe_event_id: event.id || null,
     type: event.type,
