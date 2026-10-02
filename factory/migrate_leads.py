@@ -51,6 +51,14 @@ def state_for(status):
 
 
 def main():
+    # Guard: re-running on a non-empty pool creates duplicate email-less contacts. Truncate first for a clean run.
+    if not DRY and "--force" not in sys.argv:
+        existing = db.count("companies")
+        if existing:
+            print("REFUSING: pool already has %d companies. Truncate companies/contacts/client_leads first, "
+                  "or pass --force if you know what you're doing." % existing)
+            return
+
     leads = paged("leads", "id,company,contact_name,contact_email,contact_phone,country,industry,score,status,client_id,lead_data")
     print("fetched %d leads" % len(leads))
 
