@@ -1,0 +1,13 @@
+{
+  "_comment": "Factory budgets + caps. Numbers are placeholders; the founder sets real values. A cap of 0 means 'no limit set' (allow). Switch to YAML when pyyaml + capacity.yaml land.",
+  "kill_switch_paid_spend": false,
+  "daily_global_spend_cap_usd": 0,
+  "monthly_global_spend_cap_usd": 0,
+  "max_cost_ratio": 0.20,
+  "forecast_window_days": 10,
+  "plans": {
+    "trial":   { "tier1_daily_jobs": 50,   "tier2_monthly_credits": 0,   "tier3_monthly_calls": 0 },
+    "starter": { "tier1_daily_jobs": 500,  "tier2_monthly_credits": 200, "tier3_monthly_calls": 20 },
+    "pro":     { "tier1_daily_jobs": 2000, "tier2_monthly_credits": 800, "tier3_monthly_calls": 100 }
+  }
+}

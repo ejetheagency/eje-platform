@@ -9,3 +9,6 @@ node_modules
 # Phase 0 DB snapshots (client data, restore points, not for git)
 backups/
 CREDENTIALS.local.md
+
+__pycache__/
+*.pyc

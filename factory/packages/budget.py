@@ -1,0 +1,55 @@
+# factory/packages/budget.py
+# Treasury (ENRICHMENT_MASTER_PLAN §D8). Every PAID call goes through can_spend() first, and every
+# cost is logged to cost_ledger. Phase-1 version: kill switch + global monthly cap + per-provider
+# monthly cap (from provider_accounts). Plan-level per-client budgets come in a later phase.
+import os, json, datetime
+from factory.packages import db
+
+_CFG_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "budgets.json")
+
+
+def _cfg():
+    with open(_CFG_PATH) as f:
+        return json.load(f)
+
+
+def _month_start_iso():
+    now = datetime.datetime.now(datetime.timezone.utc)
+    return now.replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()
+
+
+def _spent(provider=None, client_id=None):
+    q = "select=usd_cost&created_at=gte.%s" % _month_start_iso()
+    if provider:
+        q += "&provider=eq.%s" % provider
+    if client_id:
+        q += "&client_id=eq.%s" % client_id
+    rows = db.select("cost_ledger", q)
+    return sum(float(r.get("usd_cost") or 0) for r in rows)
+
+
+def can_spend(client_id, provider, est_usd):
+    """Return (ok: bool, reason: str). A cap of 0/None = no limit set."""
+    cfg = _cfg()
+    if cfg.get("kill_switch_paid_spend"):
+        return (False, "kill switch on")
+    est = float(est_usd or 0)
+    gcap = float(cfg.get("monthly_global_spend_cap_usd") or 0)
+    if gcap and _spent() + est > gcap:
+        return (False, "global monthly cap $%.2f reached" % gcap)
+    pa = db.select("provider_accounts", "provider=eq.%s&select=credits_remaining,monthly_cap_usd" % provider)
+    if pa:
+        cap = pa[0].get("monthly_cap_usd")
+        if cap and _spent(provider=provider) + est > float(cap):
+            return (False, "%s monthly cap $%.2f reached" % (provider, float(cap)))
+        bal = pa[0].get("credits_remaining")
+        if bal is not None and float(bal) <= 0:
+            return (False, "%s out of credits" % provider)
+    return (True, "ok")
+
+
+def log_cost(provider, usd, client_id=None, company_id=None, job_type=None, credits=0, estimated=True):
+    db.insert("cost_ledger", {
+        "provider": provider, "client_id": client_id, "company_id": company_id,
+        "job_type": job_type, "credits_used": credits, "usd_cost": usd, "estimated": estimated,
+    }, returning=False)
