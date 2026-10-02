@@ -28,23 +28,29 @@ def _details(place_id, key):
     return res.get("website"), res.get("formatted_phone_number")
 
 
-def discover(query, limit=20, with_website=False):
+def discover(query, limit=20):
+    # FREE text search only (name/address/place_id). Website is fetched LAZILY via get_website() for the
+    # companies we actually keep, so the paid Details SKU is not billed on every scanned result.
     key = os.environ.get("GOOGLE_PLACES_API_KEY") or os.environ.get("GOOGLE_MAPS_API_KEY")
     if not key:
         return {"ok": False, "reason": "no GOOGLE_PLACES_API_KEY"}
     url = URL + "?" + urllib.parse.urlencode({"query": query, "key": key})
     with urllib.request.urlopen(url, timeout=20) as r:
         j = json.loads(r.read().decode())
-    found = []
-    for p in (j.get("results") or [])[:limit]:
-        website, phone = (None, None)
-        if with_website and p.get("place_id"):
-            try:
-                website, phone = _details(p["place_id"], key)
-                budget.log_cost(PROVIDER, DETAILS_COST, job_type="place_details", estimated=True)
-            except Exception:
-                pass
-        found.append({"name": p.get("name"), "address": p.get("formatted_address"), "website": website, "phone": phone,
-                      "place_id": p.get("place_id"),
-                      "dedupe_key": _dedupe_key(p.get("name"), p.get("formatted_address"), website)})
+    found = [{"name": p.get("name"), "address": p.get("formatted_address"), "place_id": p.get("place_id"),
+              "dedupe_key": _dedupe_key(p.get("name"), p.get("formatted_address"), None)}
+             for p in (j.get("results") or [])[:limit]]
     return {"ok": True, "found": len(found), "results": found}
+
+
+def get_website(place_id, client_id=None):
+    # Paid Place Details (website + phone). Call ONLY for companies we keep. Cost-logged.
+    key = os.environ.get("GOOGLE_PLACES_API_KEY") or os.environ.get("GOOGLE_MAPS_API_KEY")
+    if not key or not place_id:
+        return {"ok": False}
+    try:
+        website, phone = _details(place_id, key)
+    except Exception:
+        return {"ok": False}
+    budget.log_cost(PROVIDER, DETAILS_COST, client_id=client_id, job_type="place_details", estimated=True)
+    return {"ok": True, "website": website, "phone": phone}

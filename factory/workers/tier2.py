@@ -36,6 +36,12 @@ def find_contact(company_id, client_id=None):
     rows = db.select("companies", "id=eq.%s&select=domain,website,name" % company_id)
     if not rows:
         return {"ok": False, "reason": "no company"}
+    # REUSE (stop-on-success / enrich-once): if a verified decisor contact already exists for this company
+    # (from any prior run or ANY client), use it — no paid lookup. This is what makes repeat companies cost $0.
+    cached = db.select("contacts", "company_id=eq.%s&is_decision_maker=eq.true&email=not.is.null&select=id,full_name,email&limit=1" % company_id)
+    if cached:
+        c = cached[0]
+        return {"ok": True, "found": True, "contact_id": c["id"], "email": c["email"], "name": c.get("full_name"), "via": "cached"}
     dom = _domain(rows[0])
     if not dom:
         return {"ok": False, "reason": "no domain"}

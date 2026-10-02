@@ -1,6 +1,6 @@
 # 001 · Global Data Model (Phase 1 backbone)
 
-Date: 2026-10-01. Design only, **not yet applied**. DDL: `db/002-factory-schema.sql`.
+Date: 2026-10-01. APPLIED to prod 2026-10-01 (companies..job_log live, RLS on). DDL: `db/002-factory-schema.sql`.
 Implements `ENRICHMENT_MASTER_PLAN.md` §9 (data model) + §4 (lead state machine), plus the dream-team
 stack's needs (signals, email cost-cascade, findings board). Decision confirmed: design now, migrate in Phase 1.
 
