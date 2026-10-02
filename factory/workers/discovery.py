@@ -28,14 +28,21 @@ def discover_for_client(client_id, max_leads=25):
         return {"ok": False, "reason": "no discovery_queries/industry+geos in icp_config"}
     created, scanned = 0, 0
     for q in queries:
-        res = google_places.discover(q, limit=20, seed_companies=False)
+        res = google_places.discover(q, limit=20, with_website=True)
         if not res.get("ok"):
             return res  # e.g. no key
         for f in res["results"]:
             scanned += 1
             dk = urllib.parse.quote(f["dedupe_key"], safe="")
             ex = db.select("companies", "dedupe_key=eq.%s&select=id" % dk)
-            cid = ex[0]["id"] if ex else db.insert("companies", {"dedupe_key": f["dedupe_key"], "name": f["name"]})[0]["id"]
+            if ex:
+                cid = ex[0]["id"]
+            else:
+                dom = None
+                if f.get("website"):
+                    dom = f["website"].replace("https://", "").replace("http://", "").replace("www.", "").split("/")[0]
+                cid = db.insert("companies", {"dedupe_key": f["dedupe_key"], "name": f["name"],
+                                              "website": f.get("website"), "domain": dom})[0]["id"]
             link = db.select("client_leads", "client_id=eq.%s&company_id=eq.%s&select=id" % (client_id, cid))
             if not link:
                 db.insert("client_leads", {"client_id": client_id, "company_id": cid,

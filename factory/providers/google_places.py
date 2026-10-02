@@ -2,21 +2,33 @@
 # Discovery (D1) via Google Places Text Search. READY, needs GOOGLE_PLACES_API_KEY (or GOOGLE_MAPS_API_KEY).
 # Basic text search is free. Finds businesses per ICP query+location -> seeds `companies` (deduped).
 # Website comes later from enrichment. UNTESTED until a key is present.
-import os, json, urllib.request, urllib.parse
-from factory.packages import db
+import os, json, re, urllib.request, urllib.parse
+from factory.packages import db, budget
 
 PROVIDER = "google_places"
 URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+DETAILS = "https://maps.googleapis.com/maps/api/place/details/json"
+DETAILS_COST = 0.003  # Place Details (contact data) is a paid SKU, unlike basic text search
 
 
-def _dedupe_key(name, address):
-    import re
+def _dedupe_key(name, address, website):
+    if website:
+        dom = website.replace("https://", "").replace("http://", "").replace("www.", "").split("/")[0].lower()
+        if dom:
+            return dom  # a resolved domain is the strongest global dedupe key
     n = re.sub(r"[^a-z0-9]", "", (name or "").lower())
     a = re.sub(r"[^a-z0-9]", "", (address or "").lower())[:20]
     return "place:" + n + "|" + a
 
 
-def discover(query, limit=20, seed_companies=False):
+def _details(place_id, key):
+    url = DETAILS + "?" + urllib.parse.urlencode({"place_id": place_id, "fields": "website,formatted_phone_number", "key": key})
+    with urllib.request.urlopen(url, timeout=15) as r:
+        res = (json.loads(r.read().decode()).get("result") or {})
+    return res.get("website"), res.get("formatted_phone_number")
+
+
+def discover(query, limit=20, with_website=False):
     key = os.environ.get("GOOGLE_PLACES_API_KEY") or os.environ.get("GOOGLE_MAPS_API_KEY")
     if not key:
         return {"ok": False, "reason": "no GOOGLE_PLACES_API_KEY"}
@@ -25,13 +37,14 @@ def discover(query, limit=20, seed_companies=False):
         j = json.loads(r.read().decode())
     found = []
     for p in (j.get("results") or [])[:limit]:
-        found.append({"name": p.get("name"), "address": p.get("formatted_address"),
-                      "place_id": p.get("place_id"), "dedupe_key": _dedupe_key(p.get("name"), p.get("formatted_address"))})
-    seeded = 0
-    if seed_companies:
-        for f in found:
-            exists = db.select("companies", "dedupe_key=eq.%s&select=id" % urllib.parse.quote(f["dedupe_key"], safe=""))
-            if not exists:
-                db.insert("companies", {"dedupe_key": f["dedupe_key"], "name": f["name"]}, returning=False)
-                seeded += 1
-    return {"ok": True, "found": len(found), "seeded": seeded, "results": found}
+        website, phone = (None, None)
+        if with_website and p.get("place_id"):
+            try:
+                website, phone = _details(p["place_id"], key)
+                budget.log_cost(PROVIDER, DETAILS_COST, job_type="place_details", estimated=True)
+            except Exception:
+                pass
+        found.append({"name": p.get("name"), "address": p.get("formatted_address"), "website": website, "phone": phone,
+                      "place_id": p.get("place_id"),
+                      "dedupe_key": _dedupe_key(p.get("name"), p.get("formatted_address"), website)})
+    return {"ok": True, "found": len(found), "results": found}
