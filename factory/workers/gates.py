@@ -34,11 +34,10 @@ def _run_one(cl):
     if not missing:
         lead_state.move(cl["id"], "READY")
         return {"id": cl["id"], "result": "READY"}
-    if (cl.get("cycle_count") or 0) >= MAX_CYCLES:
-        lead_state.move(cl["id"], "PARKED")
-        return {"id": cl["id"], "result": "PARKED", "missing": missing}
-    lead_state.move(cl["id"], "T1_ENRICHING")  # re-enrich only the missing fields
-    return {"id": cl["id"], "result": "RE_ENRICH", "missing": missing}
+    # Enrichment isn't incremental yet, so re-running the same pivots can't fill the gap. PARK the lead (retried
+    # later when a new capability/strategy exists, per the Pivot Engine). Avoids the stuck-in-T1 loop.
+    lead_state.move(cl["id"], "PARKED")
+    return {"id": cl["id"], "result": "PARKED", "missing": missing}
 
 
 def run_pending(client_id=None, limit=100):
