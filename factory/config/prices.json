@@ -2,6 +2,8 @@
   "_doc": "Per-call cost ESTIMATES in USD, one key per provider SKU. The adapters read these (via budget.price); the cost_ledger refines actuals over time. Edit here, never in code. Verify against each vendor's pricing page.",
   "_sku": {
     "hunter": "Hunter.io domain-search, 1 request",
+    "hunter_verify": "Hunter.io Email Verifier, 1 verification request",
+    "millionverifier_verify": "MillionVerifier API v3, 1 email verification (prepaid credit)",
     "apollo": "Apollo mixed_people/search, 1 search",
     "prospeo": "Prospeo email-finder, 1 verified email",
     "serper": "Serper google search, 1 query (starter rate)",
@@ -15,6 +17,8 @@
     "llm_premium": "premium LLM lane (cheap_llm.py PREMIUM ladder): the Composer / Tier-3, 1 chat completion"
   },
   "hunter": 0.01,
+  "hunter_verify": 0.01,
+  "millionverifier_verify": 0.0005,
   "apollo": 0.02,
   "prospeo": 0.02,
   "serper": 0.001,

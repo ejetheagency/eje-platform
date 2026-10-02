@@ -27,8 +27,9 @@ def _upsert_contact(company_id, name, first, title, email, source):
     ex = db.select("contacts", "company_id=eq.%s&email=eq.%s&select=id" % (company_id, el)) if el else []
     if ex:
         return ex[0]["id"]
+    # email_status="found" (NOT "verified"): only the verify step may write "verified" (STEP 1.5).
     return db.insert("contacts", {"company_id": company_id, "full_name": name, "first_name": first,
-                                  "title": title, "email": email, "email_status": "verified",
+                                  "title": title, "email": email, "email_status": "found",
                                   "email_source": source, "is_decision_maker": True})[0]["id"]
 
 

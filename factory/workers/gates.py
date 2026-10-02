@@ -3,9 +3,23 @@
 # HARD blockers). Reads client_leads in GATE_CHECK, records pass/fail per gate + which fields are missing,
 # and routes: all pass -> READY; fail (worth it, under max cycles) -> back to T1 with the missing list;
 # fail at max cycles -> PARKED. LLM-for-ambiguous escalation (T3) is a later phase.
+import json, os
 from factory.packages import db, lead_state
 
 MAX_CYCLES = 3
+_TH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "thresholds.json")
+
+
+def _allow_catch_all(client_id):
+    # per-ICP override (clients.icp_config.allow_catch_all) else the thresholds default (false)
+    rows = db.select("clients", "id=eq.%s&select=icp_config" % client_id)
+    icp = (rows[0].get("icp_config") or {}) if rows else {}
+    if "allow_catch_all" in icp:
+        return bool(icp["allow_catch_all"])
+    try:
+        return bool(json.load(open(_TH)).get("allow_catch_all_default", False))
+    except Exception:
+        return False
 
 
 def _run_one(cl):
@@ -16,14 +30,15 @@ def _run_one(cl):
         r = db.select("contacts", "id=eq.%s&select=full_name,email,email_status,email_verified_at,email_source,phone,instagram" % cl["contact_id"])
         ct = r[0] if r else {}
 
+    allow_catch_all = _allow_catch_all(cl["client_id"])
     gates = [
         ("company_name",    bool(co.get("name"))),
         ("web_presence",    bool(co.get("website") or co.get("domain") or co.get("instagram") or co.get("linkedin"))),
         ("decision_maker",  bool(ct.get("full_name"))),
-        ("email_deliverable", bool(ct.get("email")) and ct.get("email_status") != "invalid"),
-        # A READY contact's email must have verification provenance: a verified-at timestamp OR a source.
-        # A contact with neither is not READY (STEP 1a).
-        ("email_verified",  bool(ct.get("email_verified_at") or ct.get("email_source"))),
+        ("email_deliverable", bool(ct.get("email")) and ct.get("email_status") not in ("invalid", "bounced")),
+        # The email must be VERIFIED by the verify step (email_verified_at set). A catch_all/risky email passes
+        # only if the ICP allows catch-all (config, default false). email_source alone no longer qualifies (STEP 1.5).
+        ("email_verified",  bool(ct.get("email_verified_at")) or (ct.get("email_status") == "catch_all" and allow_catch_all)),
         ("contact_channel", bool(ct.get("email") or ct.get("phone") or ct.get("instagram") or co.get("instagram") or co.get("linkedin"))),
     ]
     missing = [name for name, ok in gates if not ok]

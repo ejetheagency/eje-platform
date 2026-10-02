@@ -9,11 +9,18 @@ from factory.packages import db, queue
 def run(client=None, max_leads=None):
     out = {"discovery": {}, "jobs": 0, "reports": {}}
     out["reaped"] = queue.reap()  # re-queue any jobs orphaned by a dead worker before processing
-    clients = [{"id": client}] if client else db.select("clients", "select=id")
-    for c in clients:
-        r = discovery.discover_for_client(c["id"], max_leads=max_leads or 25)
-        if r.get("ok"):
-            out["discovery"][c["id"]] = r.get("created", 0)
+    out["pool_floor"] = scheduler.pool_floor(client_id=client)  # size discovery by the READY gap + log + alert
+    out["discovery"] = {p["client"]: p["jobs_enqueued"] for p in out["pool_floor"]}
+    # verifier credit alert (notify fires when the SMTP-verify credits run low)
+    try:
+        from factory.packages import notify
+        pa = db.select("provider_accounts", "provider=eq.millionverifier&select=credits_remaining")
+        cr = float(pa[0]["credits_remaining"]) if pa and pa[0].get("credits_remaining") is not None else None
+        out["mv_credits"] = cr
+        if cr is not None and cr < 100:
+            notify.notify("verifier credits low: %d" % int(cr), "MillionVerifier credits_remaining=%d (<100). Buy a credit pack; verification will fall back / pause when exhausted." % int(cr))
+    except Exception:
+        pass
     scheduler.tick(client_id=client)
     drained = runner.drain_concurrent(workers=4)  # concurrent workers (atomic claim) = faster nightly runs
     out["jobs"] = len(drained)

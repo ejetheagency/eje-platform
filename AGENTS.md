@@ -23,9 +23,9 @@ The `eje` workspace IS the system EJE sells. Its parts map to EJE's mechanic:
 - **Cadence** = the "ciclo de vida": 1er email → IG (if handle) → LinkedIn (if profile) → email. `ISEJE` scopes all EJE-only behavior so the productora (`unabase_default`) workspace is untouched.
 - EJE does **NOT auto-send** — the client's team sends via the guided one-click steps.
 
-**The authoritative EJE mechanic, real metrics, and voice live in `~/claude/eje-brand/BRAND.md` §1b. Read it before touching EJE copy or positioning.** Full pipeline state + ops in `~/claude/eje-leads/PIPELINE-CHECKPOINT.md`.
+**The authoritative EJE mechanic, real metrics, and voice live in `~/Codex/eje-brand/BRAND.md` §1b. Read it before touching EJE copy or positioning.** Full pipeline state + ops in `~/Codex/eje-leads/PIPELINE-CHECKPOINT.md`.
 
 ## Handy
-- Draft into a Gmail without the flaky claude.ai connector: `~/claude/eje-leads/scripts/eje-work-draft.py <batch.json>` (contact@ejetheagency.com) or `--personal`. Creds in `eje-leads/.env` (gitignored).
+- Draft into a Gmail without the flaky Codex.ai connector: `~/Codex/eje-leads/scripts/eje-work-draft.py <batch.json>` (contact@ejetheagency.com) or `--personal`. Creds in `eje-leads/.env` (gitignored).
 - Company email is **contact@ejetheagency.com** (no second "o").
 - No em dashes, ever. Client-facing Spanish = neutral LATAM tú, grammatically correct.

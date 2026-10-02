@@ -97,6 +97,13 @@ def forecast(provider):
             balance = max(0.0, float(pa[0]["monthly_cap_usd"]) - _spent(provider=provider))
     days_left = (balance / avg_daily) if (balance is not None and avg_daily > 0) else None
     alert = days_left is not None and days_left < window
+    if alert:
+        try:
+            from factory.packages import notify
+            notify.notify("treasury forecast: %s runway %.1fd" % (provider, days_left),
+                          "Buy more %s credits within %d days (balance $%.2f, ~$%.4f/day)." % (provider, window, balance or 0, avg_daily))
+        except Exception:
+            pass
     return {"provider": provider, "spent_7d": round(spent7, 4), "avg_daily": round(avg_daily, 4),
             "balance_usd": balance, "days_runway": (round(days_left, 1) if days_left is not None else None),
             "alert": alert, "message": ("Buy more %s credits within %d days" % (provider, window)) if alert else "ok"}

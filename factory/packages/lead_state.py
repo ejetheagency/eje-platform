@@ -18,7 +18,7 @@ ALLOWED = {
     "GATE_CHECK":   {"READY", "T1_ENRICHING", "T3_REASONING", "PARKED"},
     "T3_REASONING": {"GATE_CHECK"},
     "READY":        {"DELIVERED"},
-    "PARKED":       {"T1_ENRICHING"},   # retried only if a new strategy/provider appears
+    "PARKED":       {"T1_ENRICHING", "GATE_CHECK"},  # re-enrich OR re-gate (e.g. email just got verified)
     "DISCARDED":    set(),
     "DELIVERED":    set(),
 }

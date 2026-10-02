@@ -6,6 +6,21 @@
   "_nurture_comment": "Outreach playbook nurture caps (OUTREACH_PLAYBOOKS.md §6 rule 4). After the cap, the run PARKS.",
   "nurture_max_touches": 3,
   "nurture_interval_days": 21,
+  "_verify_comment": "Email-verify step (STEP 1.5). verify_ttl_days = never re-verify the same email within this window. allow_catch_all_default = whether a catch_all/risky email passes the READY gate (per-ICP override via clients.icp_config.allow_catch_all). verify.provider_order = SMTP-verifier vendors tried in order, skipping exhausted ones. min_corroborations/small_company_max = Gate A (corroboration) thresholds. always_smtp (per-ICP) forces Gate B.",
+  "verify_ttl_days": 90,
+  "allow_catch_all_default": false,
+  "verify": {
+    "provider_order": ["millionverifier", "hunter"],
+    "min_corroborations": 2,
+    "small_company_max": 5,
+    "always_smtp": false,
+    "reserve_credits": 50,
+    "lookahead_days": 3,
+    "night_credit_cap": 100
+  },
+  "_pool_floor_comment": "Scheduler pool-floor (STEP 1.5): target READY = ready_leads_per_day x ready_pool_days. Below target -> enqueue discovery+enrich to close the gap, within caps. default_ready_leads_per_day used when the ICP has none.",
+  "ready_pool_days": 7,
+  "default_ready_leads_per_day": 20,
   "weights": {
     "email": 25,
     "decision_maker": 15,

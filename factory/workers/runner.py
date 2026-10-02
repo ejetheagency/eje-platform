@@ -24,7 +24,7 @@ def _h_enrich_t1(job):
             lead_state.move(clid, "SCORED")
             routed = scoring.score_and_route(clid)  # SCORED -> GATE_CHECK | T2_ENRICHING | DISCARDED
             out["scoring"] = routed
-            nxt = {"GATE_CHECK": "gates", "T2_ENRICHING": "tier2"}.get(routed.get("route"))
+            nxt = {"GATE_CHECK": "verify", "T2_ENRICHING": "tier2"}.get(routed.get("route"))  # verify sits before gates
             if nxt:
                 queue.enqueue(nxt, client_id=job.get("client_id"), company_id=coid, client_lead_id=clid)
     return out
@@ -32,8 +32,84 @@ def _h_enrich_t1(job):
 
 def _h_tier2(job):
     r = tier2.run(job["client_lead_id"])  # finds a named decisor + email, moves T2_ENRICHING -> GATE_CHECK
-    queue.enqueue("gates", client_id=job.get("client_id"), company_id=job["company_id"], client_lead_id=job["client_lead_id"])
+    queue.enqueue("verify", client_id=job.get("client_id"), company_id=job["company_id"], client_lead_id=job["client_lead_id"])
     return r
+
+
+def _h_verify(job):
+    # Verify the chosen contact's email via Hunter (STEP 1.5), then enqueue gates. Only this step writes
+    # email_status="verified" + email_verified_at. Mapping: deliverable -> verified; accept_all/risky ->
+    # catch_all (gate passes only if ICP allows); undeliverable/invalid -> bounced (clear email, back to T1);
+    # unknown -> retry once next night, then catch_all. Never re-verify within verify_ttl_days.
+    import datetime, json as _json, os as _os
+    from factory.providers import verifier
+    clid = job["client_lead_id"]
+    rows = db.select("client_leads", "id=eq.%s&select=id,client_id,company_id,contact_id,state" % clid)
+    if not rows:
+        return {"skip": "no lead"}
+    cl = rows[0]
+
+    def _now():
+        return datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+    def go_gates():
+        queue.enqueue("gates", client_id=cl["client_id"], company_id=cl["company_id"], client_lead_id=clid)
+
+    def regate_if_parked():  # a fresh verification un-parks a lead so gates can promote it this same run
+        if cl.get("state") == "PARKED":
+            try:
+                lead_state.move(cl["id"], "GATE_CHECK")
+            except Exception:
+                pass
+
+    cid = cl.get("contact_id")
+    if not cid:
+        go_gates(); return {"skip": "no contact"}
+    ct = db.select("contacts", "id=eq.%s&select=email,email_status,email_verified_at,email_verify_attempts" % cid)
+    ct = ct[0] if ct else {}
+    email = ct.get("email")
+    if not email:
+        go_gates(); return {"skip": "no email"}
+    # Already resolved (verified, or decided catch_all / catch_all_suspected / bounced) -> don't spend another credit.
+    if ct.get("email_verified_at") or ct.get("email_status") in ("catch_all", "catch_all_suspected", "bounced"):
+        go_gates(); return {"skip": "resolved (%s)" % (ct.get("email_status") or "verified")}
+
+    v = verifier.verify(email, client_id=cl["client_id"])  # Gate B (SMTP): millionverifier -> hunter
+    if not v.get("ok"):
+        go_gates(); return {"verify_error": v.get("reason")}
+    status = (v.get("status") or "").lower()
+    result = (v.get("result") or "").lower()
+    patch = {"last_verified_at": _now(), "email_verify_method": "smtp"}
+    if result == "deliverable" or status == "valid":
+        patch.update({"email_verified_at": _now(), "email_status": "verified"})
+        db.update("contacts", "id=eq.%s" % cid, patch)
+        regate_if_parked()
+        go_gates()
+        return {"result": "verified"}
+    if result == "risky" or status == "accept_all":
+        patch["email_status"] = "catch_all"
+        db.update("contacts", "id=eq.%s" % cid, patch)
+        if gates._allow_catch_all(cl["client_id"]):  # catch_all only un-parks when the ICP allows it
+            regate_if_parked()
+        go_gates()
+        return {"result": "catch_all"}
+    if result == "undeliverable" or status in ("invalid", "disposable"):
+        patch.update({"email": None, "email_status": "bounced"})
+        db.update("contacts", "id=eq.%s" % cid, patch)
+        if cl["state"] == "GATE_CHECK":
+            lead_state.move(cl["id"], "T1_ENRICHING")
+            queue.enqueue("enrich_t1", client_id=cl["client_id"], company_id=cl["company_id"], client_lead_id=clid)
+        return {"result": "bounced"}
+    # unknown (incl. SMTP timeout): retry up to 2 attempts total, then catch_all_suspected (Gate A decides tomorrow)
+    attempts = (ct.get("email_verify_attempts") or 0) + 1
+    patch["email_verify_attempts"] = attempts
+    if attempts >= 2:
+        patch["email_status"] = "catch_all_suspected"
+        db.update("contacts", "id=eq.%s" % cid, patch); go_gates()
+        return {"result": "unknown->catch_all_suspected"}
+    patch["email_status"] = "unknown"
+    db.update("contacts", "id=eq.%s" % cid, patch)  # stays in GATE_CHECK; re-verified next night
+    return {"result": "unknown-retry (%d/2)" % attempts}
 
 
 def _h_gates(job):
@@ -93,6 +169,7 @@ def _h_provision_client(job):
 HANDLERS = {
     "enrich_t1": _h_enrich_t1,
     "tier2": _h_tier2,
+    "verify": _h_verify,
     "gates": _h_gates,
     "compose": _h_compose,
     "logo": _h_logo,
