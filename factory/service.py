@@ -1,46 +1,62 @@
-# factory/service.py  —  Always-on night-shift service (for Railway / any always-on host).
-# Self-schedules run_nightly once a day at FACTORY_RUN_HOUR_UTC, and exposes a tiny HTTP server so the
-# host's healthcheck passes and you can trigger a run manually (GET /run). stdlib only, no deps.
-# Start command:  python3 -m factory.service
+# factory/service.py  —  Always-on night-shift service (Railway). Self-schedules run_nightly daily, and
+# exposes a tiny HTTP API. /run is guarded by a secret and runs ASYNC (never blocks the health server).
+#   GET /                              -> health + state
+#   GET /run?key=SECRET[&client=X][&max=N] -> trigger a run in a background thread
 import os, json, time, threading, datetime
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import urlparse, parse_qs
 from factory import run_nightly
 
 PORT = int(os.environ.get("PORT", "8080"))
-RUN_HOUR_UTC = int(os.environ.get("FACTORY_RUN_HOUR_UTC", "9"))  # ~06:00 Chile; set per your window
-_state = {"last_run": None, "last_result": None, "run_hour_utc": RUN_HOUR_UTC}
+RUN_HOUR_UTC = int(os.environ.get("FACTORY_RUN_HOUR_UTC", "9"))
+RUN_SECRET = os.environ.get("FACTORY_RUN_SECRET", "")
+_state = {"last_run": None, "last_result": None, "running": False, "run_hour_utc": RUN_HOUR_UTC}
 _last_run_date = None
+_lock = threading.Lock()
 
 
-def _run():
-    global _last_run_date
-    _last_run_date = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
+def _run(client=None, max_leads=None):
+    with _lock:
+        if _state["running"]:
+            return
+        _state["running"] = True
     try:
-        run_nightly.main()
-        _state["last_result"] = "ok"
+        _state["last_result"] = run_nightly.run(client=client, max_leads=max_leads)
     except Exception as e:
         _state["last_result"] = "error: %s" % e
-    _state["last_run"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    finally:
+        _state["last_run"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        _state["running"] = False
 
 
 def _loop():
+    global _last_run_date
     while True:
         now = datetime.datetime.now(datetime.timezone.utc)
-        if now.hour == RUN_HOUR_UTC and _last_run_date != now.date().isoformat():
-            _run()
+        if now.hour == RUN_HOUR_UTC and _last_run_date != now.date().isoformat() and not _state["running"]:
+            _last_run_date = now.date().isoformat()
+            threading.Thread(target=_run, daemon=True).start()
         time.sleep(45)
 
 
 class H(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path.startswith("/run"):   # manual trigger (test the deploy)
-            _run()
-            return self._json({"ran": True, **_state})
+        u = urlparse(self.path)
+        qs = parse_qs(u.query)
+        if u.path.startswith("/run"):
+            if not RUN_SECRET or qs.get("key", [None])[0] != RUN_SECRET:
+                return self._json({"error": "forbidden"}, 403)
+            if _state["running"]:
+                return self._json({"started": False, "reason": "already running"})
+            client = qs.get("client", [None])[0]
+            mx = qs.get("max", [None])[0]
+            threading.Thread(target=_run, kwargs={"client": client, "max_leads": int(mx) if mx else None}, daemon=True).start()
+            return self._json({"started": True, "client": client, "max": mx})
         return self._json({"service": "eje-factory", **_state})
 
-    def _json(self, d):
-        b = json.dumps(d).encode()
-        self.send_response(200)
+    def _json(self, d, code=200):
+        b = json.dumps(d, default=str).encode()
+        self.send_response(code)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(b)))
         self.end_headers()
@@ -52,5 +68,5 @@ class H(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     threading.Thread(target=_loop, daemon=True).start()
-    print("eje-factory service on :%d, nightly at %02d:00 UTC" % (PORT, RUN_HOUR_UTC))
-    HTTPServer(("0.0.0.0", PORT), H).serve_forever()
+    print("eje-factory on :%d, nightly %02d:00 UTC" % (PORT, RUN_HOUR_UTC))
+    ThreadingHTTPServer(("0.0.0.0", PORT), H).serve_forever()
