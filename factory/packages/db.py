@@ -76,3 +76,29 @@ def delete(table, query):
 
 def rpc(fn, args=None):
     return _req("POST", "rpc/" + fn, args or {})
+
+
+def count(table, query=""):
+    """Exact row count via Content-Range (avoids the 1000-row select cap)."""
+    url = SB + "/rest/v1/" + table + "?" + ((query + "&") if query else "") + "select=id"
+    req = urllib.request.Request(url, method="GET", headers={**_H, "Prefer": "count=exact", "Range-Unit": "items", "Range": "0-0"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            cr = r.headers.get("Content-Range", "")  # e.g. "0-0/1128"
+            return int(cr.split("/")[-1]) if "/" in cr else 0
+    except urllib.error.HTTPError as e:
+        if e.code == 416:  # range not satisfiable = 0 rows
+            cr = e.headers.get("Content-Range", "")
+            return int(cr.split("/")[-1]) if "/" in cr and cr.split("/")[-1].isdigit() else 0
+        raise RuntimeError("count %s -> %d: %s" % (table, e.code, e.read().decode()[:200]))
+
+
+def select_all(table, query=""):
+    """Paginated select past the 1000-row cap (for workers that must scan a whole table)."""
+    out, off = [], 0
+    while True:
+        page = _req("GET", table + "?" + ((query + "&") if query else "") + "limit=1000&offset=%d" % off)
+        out += page
+        if len(page) < 1000:
+            return out
+        off += 1000
