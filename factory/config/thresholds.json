@@ -1,0 +1,16 @@
+{
+  "_comment": "Scoring + routing thresholds. Founder tunes these. score is 0-100.",
+  "discard_floor": 30,
+  "tier2_threshold": 70,
+  "explore_rate": 0.2,
+  "weights": {
+    "email": 25,
+    "decision_maker": 15,
+    "brief": 10,
+    "instagram": 10,
+    "linkedin": 5,
+    "phone": 5,
+    "signal": 8,
+    "fit": 12
+  }
+}

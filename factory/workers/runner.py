@@ -5,7 +5,7 @@
 import time
 from factory.packages import queue, db, lead_state
 from factory.providers import site_enrich, gemini, logo
-from factory.workers import gates
+from factory.workers import gates, scoring
 
 _CL = "id,client_id,company_id,contact_id,cycle_count,state"
 
@@ -21,7 +21,10 @@ def _h_enrich_t1(job):
         cur = db.select("client_leads", "id=eq.%s&select=state" % clid)
         if cur and cur[0]["state"] == "T1_ENRICHING":
             lead_state.move(clid, "SCORED")
-            queue.enqueue("gates", client_id=job.get("client_id"), company_id=coid, client_lead_id=clid)
+            routed = scoring.score_and_route(clid)  # SCORED -> GATE_CHECK (or DISCARDED if below floor)
+            out["scoring"] = routed
+            if routed.get("route") == "GATE_CHECK":
+                queue.enqueue("gates", client_id=job.get("client_id"), company_id=coid, client_lead_id=clid)
     return out
 
 
