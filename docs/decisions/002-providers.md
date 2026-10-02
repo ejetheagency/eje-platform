@@ -5,24 +5,29 @@ Date: 2026-10-01. Maps the dream-team tool stack onto the factory's provider-ada
 first and logs to `cost_ledger`. Cheapest-first; tools are downgraded if they don't lift replies
 (the north-star metric = positive replies per 100 delivered).
 
-## Built now (no new key, usable today)
+## Built + working now (no new key)
 | Adapter | Dept | Cost | Notes |
 |---|---|---|---|
-| `site_enrich.py` | D2 Tier-1 | $0 | Fetches the company's own site + contact subpages, regex-extracts email/IG/LinkedIn/phone → findings board. |
-| `gemini.py` | D2 Tier-1 | ~$0.0002 | Cheap-LLM factual brief. Uses the EXISTING `GEMINI_API_KEY`. (See caution #3.) |
-| `logo.py` | D7 Asset | $0 | Logo via unavatar (free) → `assets` + `companies.logo_url`. Monogram stays the render-time fallback. |
+| `site_enrich.py` | D2 Tier-1 | $0 | Site scrape → email/IG/LinkedIn/phone → findings board. |
+| `gemini.py` | D2 Tier-1 | ~$0.0002 | Cheap-LLM factual brief. Existing `GEMINI_API_KEY`. (Caution #3.) |
+| `cheap_llm.py` | D2 router | varies | Cheapest-first LLM router w/ fallback. Uses Gemini now; auto-lights Groq/Cerebras on key. |
+| `signal_spotter.py` | D1.5 | $0 | Free "why-now" signals (hiring/expansion) from the site → `signals`. The reply-lifter. v2 adds search. |
+| `logo.py` | D7 Asset | $0 | Logo via unavatar → `assets`. Monogram stays the render-time fallback. |
 
-## Ready to add (same contract, ONE file each) — need a key or a decision from you
-| Adapter | Dept | Rough cost | Status / what I need |
+## Built + READY, just add the key (code written, graceful no-op without; UNTESTED pending key)
+| Adapter | Dept | Rough cost | Key needed |
 |---|---|---|---|
-| `groq.py`, `cerebras.py` | D2 | free tier | Add as cheap-LLM providers next to Gemini (auto-switch on rate limit). Need: Groq + Cerebras API keys. |
-| `serper.py` | D1/D2 | ~$0.001/search | Google search. Need: Serper key. |
-| `crawl4ai.py` | D2 | $0 (self-host) | Open-source page reader. Need: confirm we self-host (a small worker host). |
-| `google_places.py` | D1 Discovery | free basic | Find businesses per ICP (great for local/sector). Need: Google Maps/Places key. |
-| `instagram_api.py` | D2/signals | free | Official IG API. CAUTION: only reads business/creator accounts you're connected to — limited for cold prospecting; we likely keep a careful IG-verify fallback. Decision needed. |
-| `brandfetch.py` | D7 Asset | free tier | Better logos than unavatar. Need: Brandfetch key. |
-| Email cascade: `reacher.py` → `icypeas.py` → `prospeo.py` → `hunter.py` → `apollo.py` | D4 | free → ~$0.005–0.02 | `contacts.email_status` advances free→pattern→verified; each PAID step gated by `can_spend`. Hunter/Apollo keys likely already in `eje-leads/.env`. Need: Icypeas + Prospeo keys; confirm Reacher hosting (AGPL + needs port 25). |
-| `signal_spotter.py` | D1.5 | ~$0 (search) | "Why-now" signals (hiring/new location/posting spike) → `signals`. The reply-lifter. Builds on serper/places. |
+| `cheap_llm.py` Groq + Cerebras lanes | D2 | free tier | `GROQ_API_KEY`, `CEREBRAS_API_KEY` |
+| `serper.py` | D1/D2 | ~$0.001/search | `SERPER_API_KEY` |
+| `google_places.py` | D1 Discovery | free basic | `GOOGLE_PLACES_API_KEY` |
+| `brandfetch.py` | D7 Asset | free tier | `BRANDFETCH_API_KEY` (falls back to unavatar without) |
+
+## Still to write (need a key AND/or a decision)
+| Adapter | Dept | Note |
+|---|---|---|
+| `crawl4ai.py` | D2 | Open-source page reader; confirm self-host. |
+| `instagram_api.py` | D2/signals | Official IG API limited for cold prospecting — decision: API vs keep IG-verify fallback. |
+| Email cascade: `reacher` → `icypeas` → `prospeo` → `hunter` → `apollo` | D4 | `contacts.email_status` advances free→verified, each PAID step gated by `can_spend`. Need Icypeas/Prospeo keys; confirm Hunter/Apollo; Reacher hosting (AGPL + port 25). |
 
 ## What I need from you (the queue)
 1. **API keys:** Groq, Cerebras, Serper, Google Places, Brandfetch, Icypeas, Prospeo. (Hunter/Apollo: confirm the ones in `eje-leads/.env` are current.) Always send the direct "get a key" link if handy.
