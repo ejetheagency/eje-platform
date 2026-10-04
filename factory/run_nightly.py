@@ -27,6 +27,11 @@ def run(client=None, max_leads=None):
     except Exception:
         pass
     scheduler.tick(client_id=client)
+    try:  # re-verify leads Gate A NAMED on a prior night when the verify cap was spent (so they reach READY now)
+        from factory.workers import reverify
+        out["reverified"] = reverify.sweep(client_id=client)
+    except Exception:
+        pass
     drained = runner.drain_concurrent(workers=4)  # concurrent workers (atomic claim) = faster nightly runs
     out["jobs"] = len(drained)
     try:  # capture inbound email replies for EJE's own outreach (agency inbox) -> engagement + learning
