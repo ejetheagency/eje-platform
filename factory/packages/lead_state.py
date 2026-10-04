@@ -14,7 +14,7 @@ ALLOWED = {
     "DISCOVERED":   {"T1_ENRICHING"},
     "T1_ENRICHING": {"SCORED"},
     "SCORED":       {"DISCARDED", "GATE_CHECK", "T2_ENRICHING"},
-    "T2_ENRICHING": {"GATE_CHECK"},
+    "T2_ENRICHING": {"GATE_CHECK", "DISCARDED"},   # DISCARDED = excluded chain/franchise caught at Gate A
     "GATE_CHECK":   {"READY", "T1_ENRICHING", "T3_REASONING", "PARKED"},
     "T3_REASONING": {"GATE_CHECK"},
     "READY":        {"DELIVERED"},
