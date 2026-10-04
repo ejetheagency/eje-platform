@@ -128,12 +128,15 @@ def _set_contact(company_id, name, role, email):
     return db.insert("contacts", body, returning=True)[0]["id"]
 
 
-def run(client_lead_id):
+def run(client_lead_id, dry_run=False):
+    # dry_run=True: run the exact wiring logic but write nothing (no facts/persons/corroborations/contact/enqueue),
+    # and return the evidence URLs. Used for the hand-check so nothing mutates production before review.
     rows = db.select("client_leads", "id=eq.%s&select=id,client_id,company_id,contact_id,state" % client_lead_id)
     if not rows:
         return {"skip": "no lead"}
     cl = rows[0]
-    co = (db.select("companies", "id=eq.%s&select=name,domain,website,country,city" % cl["company_id"]) or [{}])[0]
+    src = []  # evidence URLs collected for the hand-check
+    co = (db.select("companies", "id=eq.%s&select=name,domain,website,country" % cl["company_id"]) or [{}])[0]
     cfg = _cfg()
     min_corr = int(cfg.get("min_corroborations", 2))
     locale = _locale(co)
@@ -143,20 +146,26 @@ def run(client_lead_id):
     first_party_name = bool(sd.get("ok") and sd.get("found") and sd.get("name"))
     name, role, email = _clean(sd.get("name")) or None, _clean(sd.get("role")) or None, (sd.get("email") or "").strip() or None
     name_src = "pivot_1_site_team"
+    if first_party_name and co.get("website"):
+        src.append(co.get("website"))   # pivot 1: the company's own site
     if not name:
         # brand-like names (global brand / single generic word) must not be trusted from search alone.
         if _is_brandlike(co.get("name")):
-            return {"ok": True, "gate_a": False, "reason": "brand-like name; first-party source required"}
+            return {"ok": True, "gate_a": False, "reason": "brand-like name; first-party source required", "sources": [], "via": None}
         ns = _name_from_search(co.get("name"), co.get("domain"), locale, cl["client_id"])
         name, role, name_src = ns.get("name"), (role or ns.get("role")), "pivot_4_name_search"
+        if ns.get("url"):
+            src.append(ns["url"])        # pivot 4: the forward-search evidence URL
     if not name:
-        return {"ok": True, "gate_a": False, "reason": "no name found (site or search)"}
+        return {"ok": True, "gate_a": False, "reason": "no name found (site or search)", "sources": [], "via": None}
     pkey = _pkey(name, co.get("name"))
-    fp = _fact(cl["company_id"], "person_name", name, name_src, first_party_name, pkey, co.get("website"))
-    if role:
-        _fact(cl["company_id"], "role", role, name_src, first_party_name, pkey, co.get("website"))
-    if email:
-        _fact(cl["company_id"], "email", email, "pivot_1_site", True, pkey, co.get("website"))
+    fp = None
+    if not dry_run:
+        fp = _fact(cl["company_id"], "person_name", name, name_src, first_party_name, pkey, co.get("website"))
+        if role:
+            _fact(cl["company_id"], "role", role, name_src, first_party_name, pkey, co.get("website"))
+        if email:
+            _fact(cl["company_id"], "email", email, "pivot_1_site", True, pkey, co.get("website"))
 
     # pivot 20: independent search of the name + company (different origin from the site)
     independent = 0
@@ -167,11 +176,14 @@ def run(client_lead_id):
     urls = [x.get("link") for x in org][:6]
     corr = _corroborate(co.get("name"), co.get("domain"), locale, name, role, snippets, cl["client_id"])
     if corr.get("same_person_same_company"):
-        ind = _fact(cl["company_id"], "person_name", name, "pivot_20_name_search", False, pkey, urls[0] if urls else None, source_fid=fp)
-        db.insert("corroborations", {"company_id": cl["company_id"], "person_key": pkey, "fact_id": ind,
-                                     "confirms_fact_id": fp, "relation": "same_name",
-                                     "source_pivot": "pivot_19_corroborate", "confidence": 0.8,
-                                     "evidence_url": urls[0] if urls else None}, returning=False)
+        if urls:
+            src.append(urls[0])          # pivot 20/19: the independent corroboration URL
+        if not dry_run:
+            ind = _fact(cl["company_id"], "person_name", name, "pivot_20_name_search", False, pkey, urls[0] if urls else None, source_fid=fp)
+            db.insert("corroborations", {"company_id": cl["company_id"], "person_key": pkey, "fact_id": ind,
+                                         "confirms_fact_id": fp, "relation": "same_name",
+                                         "source_pivot": "pivot_19_corroborate", "confidence": 0.8,
+                                         "evidence_url": urls[0] if urls else None}, returning=False)
         independent += 1
         if corr.get("role_found") and not role_found:
             role_found = _clean(corr["role_found"])
@@ -186,23 +198,25 @@ def run(client_lead_id):
     gate_a = (total_sources >= min_corr) and bool(role_found) and first_party_ok and not contradiction
 
     # upsert persons candidate
-    ex = db.select("persons", "company_id=eq.%s&person_key=eq.%s&select=id" % (cl["company_id"], quote(pkey, safe="")))
-    prow = {"company_id": cl["company_id"], "person_key": pkey, "name": name, "role": role_found,
-            "first_party_count": 1 if first_party_name else 0, "independent_source_count": independent,
-            "corroboration_score": total_sources, "contradiction_count": 1 if contradiction else 0,
-            "email": email, "email_status": "found" if email else None, "discovered_via": name_src,
-            "gate_a_passed_at": _now() if gate_a else None, "updated_at": _now()}
-    if ex:
-        db.update("persons", "id=eq.%s" % ex[0]["id"], prow)
-    else:
-        db.insert("persons", prow, returning=False)
+    if not dry_run:
+        ex = db.select("persons", "company_id=eq.%s&person_key=eq.%s&select=id" % (cl["company_id"], quote(pkey, safe="")))
+        prow = {"company_id": cl["company_id"], "person_key": pkey, "name": name, "role": role_found,
+                "first_party_count": 1 if first_party_name else 0, "independent_source_count": independent,
+                "corroboration_score": total_sources, "contradiction_count": 1 if contradiction else 0,
+                "email": email, "email_status": "found" if email else None, "discovered_via": name_src,
+                "gate_a_passed_at": _now() if gate_a else None, "updated_at": _now()}
+        if ex:
+            db.update("persons", "id=eq.%s" % ex[0]["id"], prow)
+        else:
+            db.insert("persons", prow, returning=False)
 
-    if gate_a:
+    if gate_a and not dry_run:
         contact_id = _set_contact(cl["company_id"], name, role_found, email)
         db.update("client_leads", "id=eq.%s" % cl["id"], {"contact_id": contact_id})
         # an email-bearing lead routes to verify (Gate B if report-bound) which re-gates PARKED on a good result;
         # a name-only lead (no email yet) has its decision_maker now, and waits for an email pivot.
         if email:
             queue.enqueue("verify", client_id=cl["client_id"], company_id=cl["company_id"], client_lead_id=cl["id"])
-    return {"ok": True, "gate_a": gate_a, "name": name, "role": role_found, "email": bool(email),
-            "first_party": first_party_name, "sources": total_sources, "contradiction": contradiction}
+    return {"ok": True, "gate_a": gate_a, "name": name, "role": role_found, "email": email,
+            "first_party": first_party_name, "corroborations": total_sources, "contradiction": contradiction,
+            "via": name_src, "sources": src}

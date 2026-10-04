@@ -27,11 +27,22 @@ EJE's enrichment factory: an autonomous, cost-governed backend that runs nightly
 - Per-client USD cap exists; MillionVerifier CREDITS are still a global pool (not capped per client). night_credit_cap bounds the nightly total.
 - Email-pattern pivot (7/16/8) NOT built: named leads without an email are the next bottleneck (next build after Gate A wiring).
 
-## Pending build queue (operator-approved order)
-1. 12-lead scoped Gate A hand check -> operator review.
-2. Wire gate_a in front of tier2 -> run 2uplatam PARKED backlog -> other clients.
-3. Email-pattern pivot (infer from known domain email / MX; Gate B only when report-bound).
-4. ICP company gates for altavia-type ICPs (geo/size/location/exclusions).
+## 48-hour order (operator, 2026-10-04)
+1. 12-lead scoped Gate A hand-check -> operator reviews TODAY. (Done: `gate_a.run(.., dry_run=True)` added so the hand-check mutates nothing. A dry-run already caught + fixed a bug: the company select referenced a non-existent `companies.city` column, which would have broken Gate A for every client.)
+2. ON OPERATOR OK: wire `gate_a` in front of `tier2` before tomorrow's 09:00 UTC run. FREE LOOP FIRST; tier2 only when Gate A ends with no name OR no email candidate. Run the **2upLatam PARKED backlog first**.
+3. Email-pattern pivot (infer from a known domain email / MX provider, generate candidates, Gate B only when report-bound) so named-no-email leads reach READY. TARGET: live before **Tuesday night's run**, so Wednesday's launch has two nights of both Gate A + the pivot.
+4. Learning repair: WAITS until after Oct 7 (needs reply data, none exists yet). Plan below.
+5. (later) ICP-aware scoring; backend expiry-enforcement cron for Altavia (membership revocation on `demo_expires`).
+
+### Wednesday-morning deliverable (Fernando's first report)
+2upLatam READY count, named-via-Gate-A count, and channels per lead.
+
+### Learning-repair plan (post-Oct-7; do not lose) — fixes the verified autonomous-learning gap
+The factory's cross-agent learning is NOT implemented (see `docs/audits/altavia-factory-challenge-2026-10-04.md`, `[[feedback-factory-autonomous-learning-gap]]`). Repair, phased:
+1. **Shared store** `route_findings` (route, lesson, evidence_url, yield_metric, by_agent, ts) agents write after each run.
+2. **Route registry + selector**: discovery/enrichment become named routes (places, homepage-first, archive, interview-block); a selector reweights routes from logged yield WITHOUT human edits. Rollback: a flag pins the current fixed pipeline.
+3. **Instrument the 3 rates** per route per run: raw records/retrieval-sec, distinct public-ICP decisor/end-to-end-min, deliverable/processing-min. Makes the factory-vs-manual comparison answerable.
+4. **Measured rerun**: a fresh US cohort through the factory vs a matched manual run; success = factory >= manual on deliverable-ICP/end-to-end-min, or a documented reason. Needs the reply data that starts accumulating after Oct 7.
 
 ## Daily report format owed each morning
 Pool-floor line per client, 2uplatam READY, credits used, verified/soft/unknown, alerts, named-via-gate_a count, and the 12-lead hand check when run.
