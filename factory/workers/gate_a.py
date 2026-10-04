@@ -35,6 +35,29 @@ def _pkey(name, company):
     return ("%s|%s" % ((name or "").strip().lower(), (company or "").strip().lower()))[:200]
 
 
+# Global/recognizable brands: a search on the bare name resolves to the wrong (global) entity, so for these
+# we refuse a search-only name and demand a first-party source. Extend as false positives surface.
+_BRANDS = {"ledvance", "osram", "philips", "signify", "bosch", "siemens", "3m", "nestle", "coca-cola", "pepsi",
+           "samsung", "lg", "sony", "dell", "hp", "ibm", "oracle", "sap", "visa", "mastercard", "toyota", "nike"}
+_GEO = r"\b(ecuador|chile|peru|perú|colombia|mexico|méxico|argentina|uruguay|españa|spain|usa|canada|sa|s\.a\.|ltda|inc|llc|corp|group|grupo)\b"
+
+
+def _is_brandlike(name):
+    # True -> the name is a known global brand or a single generic token; a search-only name cannot be trusted.
+    n = (name or "").strip().lower()
+    if not n:
+        return True
+    core = re.sub(_GEO, "", n).strip()
+    toks = [t for t in re.split(r"\s+", core) if t]
+    if core in _BRANDS or any(t in _BRANDS for t in toks):
+        return True
+    return len(toks) <= 1
+
+
+def _locale(co):
+    return " ".join([p for p in [co.get("city"), co.get("country")] if p]).strip()
+
+
 def _fact(company_id, field, value, pivot, first_party, pkey, url=None, source_fid=None):
     r = db.insert("enrichment_findings", {
         "company_id": company_id, "field": field, "value": value, "source": pivot,
@@ -44,9 +67,11 @@ def _fact(company_id, field, value, pivot, first_party, pkey, url=None, source_f
     return r[0]["id"] if isinstance(r, list) else r["id"]
 
 
-def _name_from_search(company_name, domain, client_id):
-    # pivot 4 (forward): search the company for its owner/decisor, extract a candidate name + role via LLM.
-    q = '"%s" (fundador OR dueño OR "gerente general" OR director OR CEO OR socio)' % (company_name or "")
+def _name_from_search(company_name, domain, locale, client_id):
+    # pivot 4 (forward), DOMAIN-SCOPED: search the company pinned by its domain or city+country, not the bare
+    # name, so a global brand or namesake does not resolve to the wrong person. Extract via cheap LLM.
+    scope = domain or locale or ""
+    q = '"%s" %s (fundador OR dueño OR propietario OR "gerente general" OR director OR CEO OR socio)' % ((company_name or ""), scope)
     sr = serper.search(q, num=7, client_id=client_id)
     org = sr.get("organic") or sr.get("results") or []
     snips = [((x.get("title") or "") + " " + (x.get("snippet") or "")).strip() for x in org][:7]
@@ -54,10 +79,11 @@ def _name_from_search(company_name, domain, client_id):
     if not snips:
         return {}
     prompt = (
-        "From these web snippets about the company \"%s\", extract the NAME and ROLE of the owner, "
-        "founder, CEO, general manager or director IF a person is clearly named for THIS company. "
+        "From these web snippets, extract the NAME and ROLE of the owner, founder, CEO, general manager or "
+        'director ONLY IF a person is clearly named for THIS SPECIFIC company: "%s" (domain %s, located in %s). '
+        "Do NOT return a person from a different or global company that merely shares the name or brand. "
         'JSON only: {"name":"<full name or empty>","role":"<role or empty>"}.\n%s'
-    ) % (company_name, "\n".join("- " + s[:300] for s in snips))
+    ) % (company_name, domain or "unknown", locale or "unknown", "\n".join("- " + s[:300] for s in snips))
     try:
         out = cheap_llm.generate(prompt, client_id=client_id, job_type="name_search")
         txt = (out.get("text") or "")
@@ -66,19 +92,22 @@ def _name_from_search(company_name, domain, client_id):
     except Exception:
         d = {}
     nm = _clean(d.get("name"))
-    return {"name": nm, "role": _clean(d.get("role")), "url": urls[0] if urls else None} if nm else {}
+    dm_url = next((u for u in urls if domain and u and domain in u), None)  # prefer own-domain evidence
+    return {"name": nm, "role": _clean(d.get("role")), "url": dm_url or (urls[0] if urls else None)} if nm else {}
 
 
-def _corroborate(company_name, name, role, snippets, client_id):
-    # pivot 19: cheap LLM reads the search snippets and judges, backward, against the candidate.
+def _corroborate(company_name, domain, locale, name, role, snippets, client_id):
+    # pivot 19, DOMAIN-SCOPED: confirm the person belongs to THIS company by its domain or locale, not by name.
     prompt = (
         "You verify a business decision-maker from web search snippets. Answer ONLY compact JSON.\n"
-        'Company: "%s"\nCandidate person: "%s"\nCandidate role: "%s"\n\n'
+        'Company: "%s" (domain %s, located in %s)\nCandidate person: "%s"\nCandidate role: "%s"\n\n'
         "Snippets:\n%s\n\n"
         'Return: {"same_person_same_company": true|false, "same_role": true|false, '
         '"role_found": "<role or empty>", "contradiction": true|false}. '
-        "same_person_same_company is true ONLY if a snippet clearly ties this person to this company."
-    ) % (company_name, name, role or "", "\n".join("- " + s[:300] for s in snippets) or "(none)")
+        "same_person_same_company is true ONLY if a snippet ties this person to THIS company identified by its "
+        "domain or locale, NOT merely a person with the same or similar name at a different or global company."
+    ) % (company_name, domain or "unknown", locale or "unknown", name, role or "",
+         "\n".join("- " + s[:300] for s in snippets) or "(none)")
     try:
         out = cheap_llm.generate(prompt, client_id=client_id, job_type="corroborate")
         txt = (out.get("text") or "").strip()
@@ -104,17 +133,21 @@ def run(client_lead_id):
     if not rows:
         return {"skip": "no lead"}
     cl = rows[0]
-    co = (db.select("companies", "id=eq.%s&select=name,domain,website" % cl["company_id"]) or [{}])[0]
+    co = (db.select("companies", "id=eq.%s&select=name,domain,website,country,city" % cl["company_id"]) or [{}])[0]
     cfg = _cfg()
     min_corr = int(cfg.get("min_corroborations", 2))
+    locale = _locale(co)
 
-    # Find a NAME: pivot 1 first-party site read; if the site lists none, pivot 4 forward search.
+    # Find a NAME: pivot 1 first-party site read; if the site lists none, pivot 4 domain-scoped forward search.
     sd = site_decisor.find(cl["company_id"], cl["client_id"])
     first_party_name = bool(sd.get("ok") and sd.get("found") and sd.get("name"))
     name, role, email = _clean(sd.get("name")) or None, _clean(sd.get("role")) or None, (sd.get("email") or "").strip() or None
     name_src = "pivot_1_site_team"
     if not name:
-        ns = _name_from_search(co.get("name"), co.get("domain"), cl["client_id"])
+        # brand-like names (global brand / single generic word) must not be trusted from search alone.
+        if _is_brandlike(co.get("name")):
+            return {"ok": True, "gate_a": False, "reason": "brand-like name; first-party source required"}
+        ns = _name_from_search(co.get("name"), co.get("domain"), locale, cl["client_id"])
         name, role, name_src = ns.get("name"), (role or ns.get("role")), "pivot_4_name_search"
     if not name:
         return {"ok": True, "gate_a": False, "reason": "no name found (site or search)"}
@@ -132,7 +165,7 @@ def run(client_lead_id):
     org = sr.get("organic") or sr.get("results") or []
     snippets = [((x.get("title") or "") + " " + (x.get("snippet") or "")).strip() for x in org][:6]
     urls = [x.get("link") for x in org][:6]
-    corr = _corroborate(co.get("name"), name, role, snippets, cl["client_id"])
+    corr = _corroborate(co.get("name"), co.get("domain"), locale, name, role, snippets, cl["client_id"])
     if corr.get("same_person_same_company"):
         ind = _fact(cl["company_id"], "person_name", name, "pivot_20_name_search", False, pkey, urls[0] if urls else None, source_fid=fp)
         db.insert("corroborations", {"company_id": cl["company_id"], "person_key": pkey, "fact_id": ind,

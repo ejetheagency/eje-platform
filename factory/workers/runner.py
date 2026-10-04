@@ -74,6 +74,16 @@ def _h_verify(job):
     if ct.get("email_verified_at") or ct.get("email_status") in ("catch_all", "catch_all_suspected", "bounced"):
         go_gates(); return {"skip": "resolved (%s)" % (ct.get("email_status") or "verified")}
 
+    # night_credit_cap: HARD stop on paid SMTP verifications per UTC day (config verify.night_credit_cap).
+    _thp = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "config", "thresholds.json")
+    try:
+        _ncap = int((_json.load(open(_thp)).get("verify") or {}).get("night_credit_cap", 100))
+    except Exception:
+        _ncap = 100
+    _day = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+    if db.count("cost_ledger", "created_at=gte.%s&provider=in.(millionverifier,hunter)" % _day) >= _ncap:
+        go_gates(); return {"skip": "night_credit_cap reached (>=%d today), budget stop" % _ncap}  # not an error
+
     v = verifier.verify(email, client_id=cl["client_id"])  # Gate B (SMTP): millionverifier -> hunter
     if not v.get("ok"):
         go_gates(); return {"verify_error": v.get("reason")}
