@@ -20,7 +20,15 @@ WOULD_FIND = {
     "instagram": "pivot_1_site | pivot_9_ig_business_discovery",
     "linkedin":  "pivot_20_name_search | pivot_23_linkedin_snippet",
     "website":   "pivot_1_discovery",
+    # evidence/metadata columns (2026-10-04): captured as facts so the gates + review can use them.
+    "channel_type":     "operator_seed_evidence",
+    "location_evidence": "pivot_11_places_details | operator_seed_evidence",
+    "headcount_basis":   "pivot_17_linkedin_size | operator_seed_evidence",
 }
+
+# columns written as one enrichment_findings fact each (source_type=operator_seed)
+SEED_FIELDS = ("name", "role", "email", "phone", "instagram", "linkedin", "website",
+               "channel_type", "location_evidence", "headcount_basis")
 
 
 def _domain(website):
@@ -88,7 +96,7 @@ def import_seeds():
                 pkey = _person_key(row.get("name"), row.get("company"))
                 evid = [u.strip() for u in (row.get("evidence_urls") or "").replace(";", ",").split(",") if u.strip()]
                 # one fact per supplied field, tagged with the pivot that would have found it (the recipe)
-                for field in ("name", "role", "email", "phone", "instagram", "linkedin", "website"):
+                for field in SEED_FIELDS:
                     val = row.get(field)
                     if not val:
                         continue

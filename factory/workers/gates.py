@@ -22,24 +22,55 @@ def _allow_catch_all(client_id):
         return False
 
 
+def _soft_ok(cl, ct):
+    # VERIFIED_SOFT (PIVOT_ENGINE 4b): a catch-all email is acceptable when its identity is CORROBORATED,
+    # either by Gate A (a persons row with gate_a_passed_at) or because a human/operator published it for this
+    # person (operator_seed / corroboration source). Such a lead is usable in reports WITH a soft flag, so we
+    # do not hold Codex-style catch-all contacts on deliverability alone.
+    if (ct.get("email_source") or "") in ("operator_seed", "corroboration"):
+        return True
+    rows = db.select("persons", "company_id=eq.%s&gate_a_passed_at=not.is.null&select=id&limit=1" % cl["company_id"])
+    return bool(rows)
+
+
+def _channels_cfg(client_id):
+    # icp_config.channels = {min: 2, required: ["instagram"]}. Default: 2 channels minimum + Instagram required
+    # (the EJE/productora standard: no IG, never ships). An ICP where IG does not apply sets required: [].
+    rows = db.select("clients", "id=eq.%s&select=icp_config" % client_id)
+    ch = ((rows[0].get("icp_config") or {}) if rows else {}).get("channels") or {}
+    return int(ch.get("min", 2)), list(ch.get("required", ["instagram"]))
+
+
 def _run_one(cl):
     co = db.select("companies", "id=eq.%s&select=name,website,domain,instagram,linkedin" % cl["company_id"])
     co = co[0] if co else {}
     ct = {}
     if cl.get("contact_id"):
-        r = db.select("contacts", "id=eq.%s&select=full_name,email,email_status,email_verified_at,email_source,phone,instagram" % cl["contact_id"])
+        r = db.select("contacts", "id=eq.%s&select=full_name,email,email_status,email_verified_at,email_source,phone,instagram,linkedin_url" % cl["contact_id"])
         ct = r[0] if r else {}
 
     allow_catch_all = _allow_catch_all(cl["client_id"])
+    soft = ct.get("email_status") in ("catch_all", "catch_all_suspected") and (allow_catch_all or _soft_ok(cl, ct))
+    # channel bar: count the distinct outreach channels present (website is NOT a channel).
+    chans = set()
+    if ct.get("email") and ct.get("email_status") not in ("invalid", "bounced"):
+        chans.add("email")
+    if ct.get("phone"):
+        chans.add("phone")
+    if ct.get("instagram") or co.get("instagram"):
+        chans.add("instagram")
+    if ct.get("linkedin_url") or co.get("linkedin"):
+        chans.add("linkedin")
+    min_ch, req_ch = _channels_cfg(cl["client_id"])
     gates = [
         ("company_name",    bool(co.get("name"))),
         ("web_presence",    bool(co.get("website") or co.get("domain") or co.get("instagram") or co.get("linkedin"))),
         ("decision_maker",  bool(ct.get("full_name"))),
         ("email_deliverable", bool(ct.get("email")) and ct.get("email_status") not in ("invalid", "bounced")),
-        # The email must be VERIFIED by the verify step (email_verified_at set). A catch_all/risky email passes
-        # only if the ICP allows catch-all (config, default false). email_source alone no longer qualifies (STEP 1.5).
-        ("email_verified",  bool(ct.get("email_verified_at")) or (ct.get("email_status") == "catch_all" and allow_catch_all)),
-        ("contact_channel", bool(ct.get("email") or ct.get("phone") or ct.get("instagram") or co.get("instagram") or co.get("linkedin"))),
+        # VERIFIED (email_verified_at) or VERIFIED_SOFT (catch-all whose identity is corroborated) or ICP allows catch-all.
+        ("email_verified",  bool(ct.get("email_verified_at")) or soft),
+        # Channel bar: >= min distinct channels AND every required channel present (default: 2 + Instagram).
+        ("channels",        len(chans) >= min_ch and all(r in chans for r in req_ch)),
     ]
     missing = [name for name, ok in gates if not ok]
 

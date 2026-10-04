@@ -22,15 +22,19 @@ def _domain(co):
     return d
 
 
-def _upsert_contact(company_id, name, first, title, email, source):
+def _upsert_contact(company_id, name, first, title, email, source, phone=None):
     el = (email or "").lower()
     ex = db.select("contacts", "company_id=eq.%s&email=eq.%s&select=id" % (company_id, el)) if el else []
     if ex:
+        if phone:
+            db.update("contacts", "id=eq.%s" % ex[0]["id"], {"phone": phone})
         return ex[0]["id"]
     # email_status="found" (NOT "verified"): only the verify step may write "verified" (STEP 1.5).
-    return db.insert("contacts", {"company_id": company_id, "full_name": name, "first_name": first,
-                                  "title": title, "email": email, "email_status": "found",
-                                  "email_source": source, "is_decision_maker": True})[0]["id"]
+    body = {"company_id": company_id, "full_name": name, "first_name": first, "title": title,
+            "email": email, "email_status": "found", "email_source": source, "is_decision_maker": True}
+    if phone:
+        body["phone"] = phone
+    return db.insert("contacts", body)[0]["id"]
 
 
 def find_contact(company_id, client_id=None):
@@ -51,8 +55,8 @@ def find_contact(company_id, client_id=None):
     sd = site_decisor.find(company_id, client_id)
     if sd.get("ok") and sd.get("found") and sd.get("email"):
         name = sd["name"]
-        cid = _upsert_contact(company_id, name, (name.split(" ")[0] if name else None), sd.get("role"), sd["email"], "site")
-        return {"ok": True, "found": True, "contact_id": cid, "email": sd["email"], "name": name, "via": "site"}
+        cid = _upsert_contact(company_id, name, (name.split(" ")[0] if name else None), sd.get("role"), sd["email"], "site", phone=sd.get("phone"))
+        return {"ok": True, "found": True, "contact_id": cid, "email": sd["email"], "name": name, "via": sd.get("via") or "site"}
 
     # 1) Hunter: name + email in one call (paid; only reached when the free site chain found nothing)
     r = hunter.find_decisor(dom, client_id)
