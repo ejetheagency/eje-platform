@@ -954,13 +954,30 @@
           // demo framing: if the active workspace is a demo, show the "sample · unlock" banner
           var _aws=(window.__ejeWorkspaces||[]).filter(function(w){return w.id===activeId;})[0];
           var _dbn=document.getElementById('demoBanner');
-          if(_dbn){ var _ic=(_aws&&_aws.icp_config)||{}; var _isDemo=!!_ic.demo; window.__ejeDemo=_isDemo; _dbn.style.display=_isDemo?'flex':'none';
-            if(_isDemo){ var _dl=document.getElementById('demoBannerLabel');
-              document.querySelectorAll('[data-view="reporte"]').forEach(function(el){el.style.display='none';});  // demo view: hide Reporte tab (revisit tab strategy later)
-              var _exp=_ic.demo_expires?new Date(_ic.demo_expires+'T23:59:59'):null;
-              function _fmtDemo(){ var base=_ic.demo_label||'Versión demo'; if(_exp){ var d=Math.max(0,Math.ceil((_exp-new Date())/864e5)); base+=' · '+(d>0?('se desactiva en '+d+' día'+(d===1?'':'s')+' si no activás la suscripción'):'demo vencida'); } if(_dl)_dl.textContent=base; }
-              _fmtDemo(); if(_exp&&!window.__ejeDemoTick){ window.__ejeDemoTick=setInterval(_fmtDemo,3600e3); }
-              var _up=document.getElementById('demoUpgrade'); if(_up&&!_up._w){_up._w=1;_up.addEventListener('click',function(){ if(_ic.demo_pay_url){window.open(_ic.demo_pay_url,'_blank');} else {alert('Hablá con EJE para activar tu cuenta completa.');} });} } }
+          var _ic=(_aws&&_aws.icp_config)||{};
+          var _exp=_ic.demo_expires?new Date(_ic.demo_expires+'T23:59:59'):null;   // time-limited (trial OR full access)
+          var _trial=!!_ic.demo;                                                    // trial = limited UI; false = full access
+          window.__ejeDemo=_trial;
+          var _expired=!!(_exp && new Date()>_exp);
+          if(_dbn){
+            if(_trial||_exp){ _dbn.style.display='flex'; var _dl=document.getElementById('demoBannerLabel');
+              var _fmtB=function(){ var days=_exp?Math.max(0,Math.ceil((_exp-new Date())/864e5)):null; var base;
+                if(_expired) base='Tu acceso venció. Activá tu suscripción para continuar.';
+                else if(_trial) base=(_ic.demo_label||'Versión demo')+(days!=null?(' · se desactiva en '+days+' día'+(days===1?'':'s')+' si no activás la suscripción'):'');
+                else base='Acceso completo · activo hasta el '+(_ic.demo_expires||'')+(days!=null?(' · '+days+' día'+(days===1?'':'s')+' restante'+(days===1?'':'s')):'')+' · activá tu suscripción para mantenerlo';
+                if(_dl)_dl.textContent=base; };
+              _fmtB(); if(_exp&&!window.__ejeDemoTick){window.__ejeDemoTick=setInterval(_fmtB,3600e3);}
+              var _up=document.getElementById('demoUpgrade'); if(_up&&!_up._w){_up._w=1;_up.addEventListener('click',function(){ if(_ic.demo_pay_url){window.open(_ic.demo_pay_url,'_blank');} else {alert('Hablá con EJE para activar tu cuenta completa.');} });}
+              if(_trial) document.querySelectorAll('[data-view="reporte"]').forEach(function(el){el.style.display='none';});  // only a LIMITED trial hides Reporte
+            } else { _dbn.style.display='none'; }
+          }
+          if(_expired && !document.getElementById('expiredGate')){   // hard cutoff: block the app once access expires
+            var _og=document.createElement('div'); _og.id='expiredGate';
+            _og.style.cssText='position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center';
+            _og.innerHTML='<div style="max-width:360px"><div style="font-size:19px;font-weight:720;letter-spacing:-.02em">Tu acceso venció</div><div style="margin:10px 0 20px;font-size:14px;color:var(--ink-2)">Tu período de acceso a EJE terminó el '+(_ic.demo_expires||'')+'. Activá tu suscripción para seguir usando la plataforma.</div><button id="expiredCta" style="padding:12px 18px;border:none;border-radius:11px;background:var(--ink);color:var(--bg);font-size:14px;font-weight:650;font-family:inherit;cursor:pointer">Activar suscripción</button></div>';
+            document.body.appendChild(_og);
+            var _ec=_og.querySelector('#expiredCta'); if(_ec)_ec.addEventListener('click',function(){ if(_ic.demo_pay_url)window.open(_ic.demo_pay_url,'_blank'); else alert('Hablá con EJE para activar tu cuenta.'); });
+          }
           if(window.__ejeApplyWsGate)window.__ejeApplyWsGate();
           showApp();
         })

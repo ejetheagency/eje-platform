@@ -1,6 +1,6 @@
 # Client Profile: Altavia Staffing (José Andrés Villena)
 
-> **For the AI assistant reading this in the repo:** Demo client, one week, no payment. Configure, do not special-case. Everything here maps to the ICP schema in `docs/SELF_SERVE_ONBOARDING.md` and to `mode: broad`. The full targeting brief is in `docs/clients/ALTAVIA_BRIEF.md` and is authoritative where this file is short.
+> **For the AI assistant reading this in the repo:** Active client as of 2026-10-04 (post-call): FULL access, time-limited to 2026-10-11, section 6 spend cap kept. Configure, do not special-case. Everything here maps to the ICP schema in `docs/SELF_SERVE_ONBOARDING.md` and to `mode: broad`. The full targeting brief is in `docs/clients/ALTAVIA_BRIEF.md` and is authoritative where this file is short.
 
 ## 1. Who the client is
 
@@ -8,7 +8,14 @@
 - **Contact:** José Andrés Villena, decision-maker at Altavia (role title unverified publicly; treat as owner-level per operator). Spanish speaker, Chile timezone. Prefers email or short calls; very protective of his time.
 - **Relationship status (2026-10-03):** Cancelled the Monday meeting; signed with a competing agency for lead generation. Accepted a one-week free demo in exchange for feedback. Sunday 10:00 Santiago: 10-minute setup call. The demo is a comparison test against the agency he is paying.
 - **What success looks like for the demo:** he logs in Monday, sees 10 to 20 real US or Canadian small-business owners with a reason to talk to Altavia, completes 5 tasks a day, and gets at least one reply inside the week. Feedback Friday.
-- **Do not:** export or hand him the contact list as a document. The panel is the product; the list is the asset. Demo clients see leads in the app only.
+- **Do not:** export or hand him the contact list as a document. The panel is the product; the list is the asset. He sees leads in the app only.
+
+## 1b. Access after today's call (2026-10-04)
+
+- **Switched trial -> NORMAL/FULL access:** all buttons/actions work, full LinkedIn + Instagram data shown, Reporte tab restored (`icp_config.demo=false`, `client_type=active`, `access=full`). No trial limits.
+- **Time limit KEPT and ENFORCED:** access expires **2026-10-11**. Countdown shown in the top banner ("Acceso completo, activo hasta el 11 de octubre, N días restantes"), and a hard **expired-gate** blocks the app after that date. He loses access that day unless the subscription is activated. (Client-side enforcement now; the hardening follow-up is a backend cron that revokes the `memberships` row on expiry so it can't be bypassed.)
+- **Spend cap KEPT:** section 6 cap stays (`icp_config.spend_cap_usd = 10`).
+- **Week tracking (for Friday):** replies + positive replies tracked **per template and per industry**, plus **time spent per day**. Each lead is tagged `lead_data.template` + `lead_data.industry`. Replies/positives derive from `status_history`; time/day from the operator's action timestamps (messages_sent / actions / sent_actuals). Friday deliverable: replies, positive replies, time/day.
 
 ## 2. ICP (v1, from the operator's brief)
 
