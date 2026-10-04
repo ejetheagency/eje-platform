@@ -62,6 +62,11 @@ def can_spend(client_id, provider, est_usd):
     gcap = float(cfg.get("monthly_global_spend_cap_usd") or 0)
     if gcap and _spent() + est > gcap:
         return (False, "global monthly cap $%.2f reached" % gcap)
+    if client_id:  # per-client cap from clients.icp_config.spend_cap_usd (0/absent = no limit)
+        crow = db.select("clients", "id=eq.%s&select=icp_config" % client_id)
+        ccap = float(((crow[0].get("icp_config") or {}).get("spend_cap_usd") if crow else 0) or 0)
+        if ccap and _spent(client_id=client_id) + est > ccap:
+            return (False, "client %s cap $%.2f reached" % (client_id, ccap))
     pa = db.select("provider_accounts", "provider=eq.%s&select=credits_remaining,monthly_cap_usd" % provider)
     if pa:
         cap = pa[0].get("monthly_cap_usd")

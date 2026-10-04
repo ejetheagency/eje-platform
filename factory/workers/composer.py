@@ -8,6 +8,8 @@ from factory.providers import cheap_llm
 
 DEFAULT_VOICE = ("espanol neutro LATAM, calido y directo, sin guiones largos; ofrece hacer algo (un resumen, una idea), "
                  "no pide; cierre de esfuerzo cero (una pregunta que se responde en un toque)")
+DEFAULT_VOICE_EN = ("direct, warm US business English, no em dashes; lead with one real fact about the business, state "
+                    "the value in one line, offer to do something, end with a zero-effort capacity question")
 
 
 def _extract_json(s):
@@ -75,24 +77,46 @@ def compose(client_lead_id):
     if not f:
         return {"ok": False, "reason": "no lead"}
     icp = (f["client"].get("icp_config") or {})
-    voice = icp.get("voice") or DEFAULT_VOICE
-    decisor = f["ct"].get("full_name") or "el decisor"
-    prompt = (
-        "Sos el estratega de outreach de %s. Voz: %s.\n"
-        "REGLA DE ORO: usa SOLO los hechos verificados de abajo. Si un dato no esta, NO lo menciones. NUNCA inventes "
-        "nombres, cifras, premios ni clientes. Cada afirmacion del dossier debe apoyarse en un hecho listado.\n\n"
-        "HECHOS VERIFICADOS:\n%s\n\n"
-        "ICP del cliente: %s\n\n"
-        "Devolve SOLO JSON valido:\n"
-        "{\n"
-        '  "dossier": [3-4 bullets de inteligencia verificada y accionable sobre este lead],\n'
-        '  "pitch": "mensaje de primer contacto de 4-6 lineas: saluda a %s por su nombre, menciona la senal real '
-        'por-que-ahora, ofrece hacer algo concreto (no pidas), cierre de esfuerzo cero",\n'
-        '  "channel": "email|instagram|linkedin|whatsapp (elegi segun lo que tengamos del lead)",\n'
-        '  "next_action": "el proximo paso concreto para el operador",\n'
-        '  "citations": {"afirmacion_clave": "el hecho verificado que la respalda"}\n'
-        "}" % (f["client"].get("name") or "el cliente", voice, _facts_block(f), json.dumps(icp.get("icp") or "n/d"), decisor)
-    )
+    lang = (icp.get("language") or "es").lower()
+    if lang == "en":
+        voice = icp.get("voice") or DEFAULT_VOICE_EN
+        decisor = f["ct"].get("full_name") or "the decision-maker"
+        prompt = (
+            "You are the outreach strategist for %s. Voice: %s.\n"
+            "GOLDEN RULE: use ONLY the verified facts below. If a fact is not listed, do NOT mention it. NEVER invent "
+            "names, numbers, awards or clients. Every claim in the dossier must rest on a listed fact. No em dashes.\n\n"
+            "VERIFIED FACTS:\n%s\n\n"
+            "Client ICP: %s\n\n"
+            "Return ONLY valid JSON:\n"
+            "{\n"
+            '  "dossier": [3-4 bullets of verified, actionable intelligence about this lead],\n'
+            '  "pitch": "a 4-6 line first-touch message in ENGLISH: greet %s by name, cite the real why-now signal, '
+            'state the value in one line, offer to do something concrete (do not ask for much), end with a zero-effort '
+            'capacity question",\n'
+            '  "channel": "email|instagram|linkedin|whatsapp (choose from what we have)",\n'
+            '  "next_action": "the concrete next step for the operator",\n'
+            '  "citations": {"key_claim": "the verified fact that supports it"}\n'
+            "}" % (f["client"].get("name") or "the client", voice, _facts_block(f), json.dumps(icp.get("icp") or "n/a"), decisor)
+        )
+    else:
+        voice = icp.get("voice") or DEFAULT_VOICE
+        decisor = f["ct"].get("full_name") or "el decisor"
+        prompt = (
+            "Sos el estratega de outreach de %s. Voz: %s.\n"
+            "REGLA DE ORO: usa SOLO los hechos verificados de abajo. Si un dato no esta, NO lo menciones. NUNCA inventes "
+            "nombres, cifras, premios ni clientes. Cada afirmacion del dossier debe apoyarse en un hecho listado.\n\n"
+            "HECHOS VERIFICADOS:\n%s\n\n"
+            "ICP del cliente: %s\n\n"
+            "Devolve SOLO JSON valido:\n"
+            "{\n"
+            '  "dossier": [3-4 bullets de inteligencia verificada y accionable sobre este lead],\n'
+            '  "pitch": "mensaje de primer contacto de 4-6 lineas: saluda a %s por su nombre, menciona la senal real '
+            'por-que-ahora, ofrece hacer algo concreto (no pidas), cierre de esfuerzo cero",\n'
+            '  "channel": "email|instagram|linkedin|whatsapp (elegi segun lo que tengamos del lead)",\n'
+            '  "next_action": "el proximo paso concreto para el operador",\n'
+            '  "citations": {"afirmacion_clave": "el hecho verificado que la respalda"}\n'
+            "}" % (f["client"].get("name") or "el cliente", voice, _facts_block(f), json.dumps(icp.get("icp") or "n/d"), decisor)
+        )
     out = cheap_llm.generate(prompt, client_id=f["cl"]["client_id"], job_type="compose", premium=True)
     parsed = _extract_json(out["text"])
     parsed["_provider"] = out["provider"]
