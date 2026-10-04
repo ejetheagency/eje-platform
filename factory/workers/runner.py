@@ -166,6 +166,8 @@ def _h_gate_a(job):
             except Exception:
                 pass
         queue.enqueue("verify", client_id=job.get("client_id"), company_id=job["company_id"], client_lead_id=clid)
+    elif str(r.get("reason") or "").startswith("excluded"):
+        pass  # chain/franchise/global brand -> do NOT spend paid tier2 on it
     else:
         queue.enqueue("tier2", client_id=job.get("client_id"), company_id=job["company_id"], client_lead_id=clid)
     return r
