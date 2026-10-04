@@ -3,7 +3,7 @@
 # Companies are GLOBAL + deduped (enrich once, reuse across clients). READY, needs GOOGLE_PLACES_API_KEY.
 # Queries come from clients.icp_config.discovery_queries (list) or are derived from industry + geos.
 import urllib.parse
-from factory.packages import db
+from factory.packages import db, icp_filters
 from factory.providers import google_places
 
 
@@ -26,7 +26,7 @@ def discover_for_client(client_id, max_leads=25):
     queries = _queries(icp)
     if not queries:
         return {"ok": False, "reason": "no discovery_queries/industry+geos in icp_config"}
-    created, scanned, details_calls = 0, 0, 0
+    created, scanned, details_calls, excluded = 0, 0, 0, 0
     for q in queries:
         if created >= max_leads:
             break
@@ -47,6 +47,11 @@ def discover_for_client(client_id, max_leads=25):
                 det = google_places.get_website(f.get("place_id"), client_id)
                 details_calls += 1
                 website = det.get("website") if det.get("ok") else None
+                # Exclude chains / franchises / global brands BEFORE creating the lead, so they are never enriched.
+                _ch, _ = icp_filters.is_chain(f.get("name"), website)
+                if _ch:
+                    excluded += 1
+                    continue
                 dom = website.replace("https://", "").replace("http://", "").replace("www.", "").split("/")[0] if website else None
                 key2 = dom or f["dedupe_key"]
                 ex2 = db.select("companies", "dedupe_key=eq.%s&select=id" % urllib.parse.quote(key2, safe=""))
@@ -59,4 +64,4 @@ def discover_for_client(client_id, max_leads=25):
                 db.insert("client_leads", {"client_id": client_id, "company_id": cid,
                                            "state": "DISCOVERED", "source": "discovery_places"}, returning=False)
                 created += 1
-    return {"ok": True, "scanned": scanned, "created": created, "details_calls": details_calls}
+    return {"ok": True, "scanned": scanned, "created": created, "details_calls": details_calls, "excluded_chains": excluded}

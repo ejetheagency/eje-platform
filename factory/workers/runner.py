@@ -24,7 +24,7 @@ def _h_enrich_t1(job):
             lead_state.move(clid, "SCORED")
             routed = scoring.score_and_route(clid)  # SCORED -> GATE_CHECK | T2_ENRICHING | DISCARDED
             out["scoring"] = routed
-            nxt = {"GATE_CHECK": "verify", "T2_ENRICHING": "tier2"}.get(routed.get("route"))  # verify sits before gates
+            nxt = {"GATE_CHECK": "verify", "T2_ENRICHING": "gate_a"}.get(routed.get("route"))  # Gate A (free) before paid tier2
             if nxt:
                 queue.enqueue(nxt, client_id=job.get("client_id"), company_id=coid, client_lead_id=clid)
     return out
@@ -153,8 +153,22 @@ def _h_logo(job):
 
 
 def _h_gate_a(job):
+    # FREE loop first (Gate A corroboration, $0). Fall to PAID tier2 ONLY when Gate A ends with no name or no
+    # email candidate. On a corroborated name+email, move the lead to GATE_CHECK and run verify -> gates.
     from factory.workers import gate_a
-    return gate_a.run(job["client_lead_id"])
+    clid = job["client_lead_id"]
+    r = gate_a.run(clid)
+    if r.get("name") and r.get("email"):
+        st = db.select("client_leads", "id=eq.%s&select=state" % clid)
+        if st and st[0]["state"] in ("T2_ENRICHING", "SCORED", "PARKED"):
+            try:
+                lead_state.move(clid, "GATE_CHECK")
+            except Exception:
+                pass
+        queue.enqueue("verify", client_id=job.get("client_id"), company_id=job["company_id"], client_lead_id=clid)
+    else:
+        queue.enqueue("tier2", client_id=job.get("client_id"), company_id=job["company_id"], client_lead_id=clid)
+    return r
 
 
 def _h_provision_client(job):

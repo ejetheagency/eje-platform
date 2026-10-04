@@ -9,7 +9,7 @@
 # name + one independent corroboration clears even when the site lists no person.
 import os, re, json, datetime
 from urllib.parse import quote
-from factory.packages import db, queue
+from factory.packages import db, queue, icp_filters
 from factory.providers import site_decisor, serper, cheap_llm
 
 
@@ -32,26 +32,8 @@ def _now():
 
 
 def _pkey(name, company):
-    return ("%s|%s" % ((name or "").strip().lower(), (company or "").strip().lower()))[:200]
-
-
-# Global/recognizable brands: a search on the bare name resolves to the wrong (global) entity, so for these
-# we refuse a search-only name and demand a first-party source. Extend as false positives surface.
-_BRANDS = {"ledvance", "osram", "philips", "signify", "bosch", "siemens", "3m", "nestle", "coca-cola", "pepsi",
-           "samsung", "lg", "sony", "dell", "hp", "ibm", "oracle", "sap", "visa", "mastercard", "toyota", "nike"}
-_GEO = r"\b(ecuador|chile|peru|perú|colombia|mexico|méxico|argentina|uruguay|españa|spain|usa|canada|sa|s\.a\.|ltda|inc|llc|corp|group|grupo)\b"
-
-
-def _is_brandlike(name):
-    # True -> the name is a known global brand or a single generic token; a search-only name cannot be trusted.
-    n = (name or "").strip().lower()
-    if not n:
-        return True
-    core = re.sub(_GEO, "", n).strip()
-    toks = [t for t in re.split(r"\s+", core) if t]
-    if core in _BRANDS or any(t in _BRANDS for t in toks):
-        return True
-    return len(toks) <= 1
+    # match on the NORMALIZED person name (nicknames/accents/middle names folded) so variants agree.
+    return ("%s|%s" % (icp_filters.norm_name(name), (company or "").strip().lower()))[:200]
 
 
 def _locale(co):
@@ -105,7 +87,8 @@ def _corroborate(company_name, domain, locale, name, role, snippets, client_id):
         'Return: {"same_person_same_company": true|false, "same_role": true|false, '
         '"role_found": "<role or empty>", "contradiction": true|false}. '
         "same_person_same_company is true ONLY if a snippet ties this person to THIS company identified by its "
-        "domain or locale, NOT merely a person with the same or similar name at a different or global company."
+        "domain or locale, NOT merely a person with the same or similar name at a different or global company. "
+        "Treat nicknames (e.g. Sandy = Sandra), accents, and middle names or initials as the SAME person."
     ) % (company_name, domain or "unknown", locale or "unknown", name, role or "",
          "\n".join("- " + s[:300] for s in snippets) or "(none)")
     try:
@@ -141,6 +124,11 @@ def run(client_lead_id, dry_run=False):
     min_corr = int(cfg.get("min_corroborations", 2))
     locale = _locale(co)
 
+    # Exclude chains / franchises / global brands up front (multi-token names + site signals). Never enrich them.
+    _chain, _why = icp_filters.is_chain(co.get("name"), co.get("website") or co.get("domain"))
+    if _chain:
+        return {"ok": True, "gate_a": False, "reason": "excluded: chain/franchise/global brand (%s)" % _why, "sources": [], "via": None}
+
     # Find a NAME: pivot 1 first-party site read; if the site lists none, pivot 4 domain-scoped forward search.
     sd = site_decisor.find(cl["company_id"], cl["client_id"])
     first_party_name = bool(sd.get("ok") and sd.get("found") and sd.get("name"))
@@ -150,7 +138,7 @@ def run(client_lead_id, dry_run=False):
         src.append(co.get("website"))   # pivot 1: the company's own site
     if not name:
         # brand-like names (global brand / single generic word) must not be trusted from search alone.
-        if _is_brandlike(co.get("name")):
+        if icp_filters.is_brandlike(co.get("name")):
             return {"ok": True, "gate_a": False, "reason": "brand-like name; first-party source required", "sources": [], "via": None}
         ns = _name_from_search(co.get("name"), co.get("domain"), locale, cl["client_id"])
         name, role, name_src = ns.get("name"), (role or ns.get("role")), "pivot_4_name_search"
@@ -170,14 +158,13 @@ def run(client_lead_id, dry_run=False):
     # pivot 20: independent search of the name + company (different origin from the site)
     independent = 0
     role_found = role
-    sr = serper.search('"%s" %s' % (name, co.get("name") or ""), num=6, client_id=cl["client_id"])
-    org = sr.get("organic") or sr.get("results") or []
+    sr = serper.search('"%s" %s' % (name, co.get("name") or ""), num=8, client_id=cl["client_id"])
+    org = [x for x in (sr.get("organic") or sr.get("results") or []) if icp_filters.specific_source(x.get("link"))]
     snippets = [((x.get("title") or "") + " " + (x.get("snippet") or "")).strip() for x in org][:6]
     urls = [x.get("link") for x in org][:6]
     corr = _corroborate(co.get("name"), co.get("domain"), locale, name, role, snippets, cl["client_id"])
-    if corr.get("same_person_same_company"):
-        if urls:
-            src.append(urls[0])          # pivot 20/19: the independent corroboration URL
+    if corr.get("same_person_same_company") and urls:    # count ONLY when a SPECIFIC-profile source corroborates
+        src.append(urls[0])          # pivot 20/19: the independent corroboration URL (specific profile/page)
         if not dry_run:
             ind = _fact(cl["company_id"], "person_name", name, "pivot_20_name_search", False, pkey, urls[0] if urls else None, source_fid=fp)
             db.insert("corroborations", {"company_id": cl["company_id"], "person_key": pkey, "fact_id": ind,
@@ -213,10 +200,7 @@ def run(client_lead_id, dry_run=False):
     if gate_a and not dry_run:
         contact_id = _set_contact(cl["company_id"], name, role_found, email)
         db.update("client_leads", "id=eq.%s" % cl["id"], {"contact_id": contact_id})
-        # an email-bearing lead routes to verify (Gate B if report-bound) which re-gates PARKED on a good result;
-        # a name-only lead (no email yet) has its decision_maker now, and waits for an email pivot.
-        if email:
-            queue.enqueue("verify", client_id=cl["client_id"], company_id=cl["company_id"], client_lead_id=cl["id"])
+        # The handler (_h_gate_a) orchestrates the next step: verify when there's an email, else paid tier2.
     return {"ok": True, "gate_a": gate_a, "name": name, "role": role_found, "email": email,
             "first_party": first_party_name, "corroborations": total_sources, "contradiction": contradiction,
             "via": name_src, "sources": src}
