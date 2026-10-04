@@ -954,9 +954,12 @@
           // demo framing: if the active workspace is a demo, show the "sample · unlock" banner
           var _aws=(window.__ejeWorkspaces||[]).filter(function(w){return w.id===activeId;})[0];
           var _dbn=document.getElementById('demoBanner');
-          if(_dbn){ var _isDemo=!!(_aws&&_aws.icp_config&&_aws.icp_config.demo); window.__ejeDemo=_isDemo; _dbn.style.display=_isDemo?'flex':'none';
-            if(_isDemo){ var _dl=document.getElementById('demoBannerLabel'); if(_dl&&_aws.icp_config.demo_label)_dl.textContent=_aws.icp_config.demo_label;
-              var _up=document.getElementById('demoUpgrade'); if(_up&&!_up._w){_up._w=1;_up.addEventListener('click',function(){alert('Pronto: desbloqueá todo con tu suscripción (link de pago). Por ahora, hablá con EJE para activar tu cuenta completa.');});} } }
+          if(_dbn){ var _ic=(_aws&&_aws.icp_config)||{}; var _isDemo=!!_ic.demo; window.__ejeDemo=_isDemo; _dbn.style.display=_isDemo?'flex':'none';
+            if(_isDemo){ var _dl=document.getElementById('demoBannerLabel');
+              var _exp=_ic.demo_expires?new Date(_ic.demo_expires+'T23:59:59'):null;
+              function _fmtDemo(){ var base=_ic.demo_label||'Versión demo'; if(_exp){ var d=Math.max(0,Math.ceil((_exp-new Date())/864e5)); base+=' · '+(d>0?('se desactiva en '+d+' día'+(d===1?'':'s')+' si no activás la suscripción'):'demo vencida'); } if(_dl)_dl.textContent=base; }
+              _fmtDemo(); if(_exp&&!window.__ejeDemoTick){ window.__ejeDemoTick=setInterval(_fmtDemo,3600e3); }
+              var _up=document.getElementById('demoUpgrade'); if(_up&&!_up._w){_up._w=1;_up.addEventListener('click',function(){ if(_ic.demo_pay_url){window.open(_ic.demo_pay_url,'_blank');} else {alert('Hablá con EJE para activar tu cuenta completa.');} });} } }
           if(window.__ejeApplyWsGate)window.__ejeApplyWsGate();
           showApp();
         })
