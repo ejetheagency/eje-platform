@@ -7,7 +7,7 @@ EJE's enrichment factory: an autonomous, cost-governed backend that runs nightly
 ## Clients (discovery reads `clients.icp_config` only)
 - `2uplatam` — first paying client, go-live ~Oct 7. Stays on the LEGACY surface; do not migrate it. 21 READY as of 2026-10-03 (audit: `docs/audits/2uplatam-ready-2026-10-03.csv`).
 - `eje` — EJE's own outreach + product.
-- `altavia` — DEMO, one week, no payment. Bilingual LatAm VAs for US/CA small service businesses. Profile: `docs/clients/CLIENT_ALTAVIA.md`, brief: `docs/clients/ALTAVIA_BRIEF.md`. Demo setup call Sun 10:00 Santiago, starts Mon. Caps: $10 USD (per-client), demo. language=en.
+- `altavia` — DEMO, one week, no payment. Bilingual LatAm VAs for US/CA small service businesses. Profile: `docs/clients/CLIENT_ALTAVIA.md`, brief: `docs/clients/ALTAVIA_BRIEF.md`. Demo setup call Sun 10:00 Santiago, starts Mon. Caps: $10 USD (per-client), demo. language=en. **Status 2026-10-04: 5 READY** = 2 factory-found (RC Dental, Hill Heals Chiro) + 3 seeded from Codex's 10 contacts (Romy Jurado, Tristan Jagroop, Louis Berk; all deliverable + English pitch). 40 discovered, 36 PARKED (34 no-named-decisor: US sites rarely name the owner, which is the Gate-A / seed gap). Codex's other 7 contacts: 4 catch-all email + 3 ICP caveats, in the enrichment queue (see Codex analysis). Seed file: `seeds/altavia.csv`.
 
 ## Live on prod (origin/main @ 1b2b604; Railway auto-deployed, next run 09:00 UTC)
 - Verification is a pipeline step (`verify` worker): MillionVerifier primary, Hunter secondary. Only this step sets `email_verified_at`. SMTP ~82% unknown on small LatAm domains; reliable on US domains.
