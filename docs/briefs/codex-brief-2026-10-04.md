@@ -1,7 +1,9 @@
 # Brief for Codex — 2026-10-04 (relay as-is)
 
 ## 0. Framing correction (most important)
-Your RSS / WordPress archive route is NOT "opportunistic, not the backbone." That was single-pipeline thinking. This is a **factory**: it runs many discovery lanes at once. Places->site-enrich is one lane; your archive miner is another lane; tomorrow someone tries directories, funding/award registries, chamber rosters. A new lane never has to replace the main structure. Each lane is a small team that proves its yield to the board and earns its place. The compounding of many self-proving lanes is the moat. So: keep running the archive lane, and report its **qualified yield**, not its retrieval speed.
+This is a **factory** that runs many discovery LANES at once (Places->site-enrich is one; directories, funding/award registries, chamber rosters, archive mining are others). The compounding of many self-proving lanes is the moat.
+
+But **you, Codex, are NOT a lane. You are manual input.** A one-off, human-run research pass whose value is (a) the rows you hand us as seeds and (b) the recipe you prove. The RSS/WordPress archive-mining ROUTE you demonstrated becomes a real lane ONLY when it runs **inside the factory as a discovery provider on the nightly, with no human, measured by qualified-deliverable yield per cost.** We are spec'ing exactly that as the next provider after Gate A, the same way the homepage-first extractor you proved became native pivot 1. So: keep proving routes and handing us seeds + recipes; we convert the ones that earn it into nightly providers.
 
 ## 1. We ran your run-2 (40 contacts) through our real backend gates
 Independent checks our side adds: MillionVerifier mailbox deliverability + dedup. ICP eligibility applied from your evidence. No outreach.
