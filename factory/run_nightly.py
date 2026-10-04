@@ -9,6 +9,11 @@ from factory.packages import db, queue
 def run(client=None, max_leads=None):
     out = {"discovery": {}, "jobs": 0, "reports": {}}
     out["reaped"] = queue.reap()  # re-queue any jobs orphaned by a dead worker before processing
+    try:  # item 6: operator hand-enriched leads (seeds/<client>.csv) enter the NORMAL chain, nothing skips a gate
+        from factory.workers import seed_import
+        out["seeds"] = seed_import.import_seeds()
+    except Exception as e:
+        out["seeds"] = {"error": str(e)[:150]}
     out["pool_floor"] = scheduler.pool_floor(client_id=client)  # size discovery by the READY gap + log + alert
     out["discovery"] = {p["client"]: p["jobs_enqueued"] for p in out["pool_floor"]}
     # verifier credit alert (notify fires when the SMTP-verify credits run low)

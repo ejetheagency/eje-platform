@@ -16,7 +16,15 @@
     "always_smtp": false,
     "reserve_credits": 50,
     "lookahead_days": 3,
-    "night_credit_cap": 100
+    "night_credit_cap": 100,
+    "gate_a": {
+      "min_corroborations": 2,
+      "min_role_confidence": 0.6,
+      "small_company_max_employees": 10,
+      "large_company_min_employees": 500,
+      "max_backward_hops_per_person": 8,
+      "max_email_candidates_per_person": 3
+    }
   },
   "_pool_floor_comment": "Scheduler pool-floor (STEP 1.5): target READY = ready_leads_per_day x ready_pool_days. Below target -> enqueue discovery+enrich to close the gap, within caps. default_ready_leads_per_day used when the ICP has none.",
   "ready_pool_days": 7,

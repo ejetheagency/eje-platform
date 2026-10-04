@@ -142,6 +142,11 @@ def _h_logo(job):
     return logo.resolve(job["company_id"])
 
 
+def _h_gate_a(job):
+    from factory.workers import gate_a
+    return gate_a.run(job["client_lead_id"])
+
+
 def _h_provision_client(job):
     # Runs when a client pays (the Stripe webhook enqueues this with the client_id). Provisioning =
     # flip the client to active + build their FIRST prospection batch. Closes the payment->activation loop.
@@ -169,6 +174,7 @@ def _h_provision_client(job):
 HANDLERS = {
     "enrich_t1": _h_enrich_t1,
     "tier2": _h_tier2,
+    "gate_a": _h_gate_a,
     "verify": _h_verify,
     "gates": _h_gates,
     "compose": _h_compose,
