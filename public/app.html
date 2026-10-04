@@ -1379,6 +1379,8 @@
       // EJE: Hoy is a DAILY REPORT (leads whose send date is today), highest priority first. Older days live in Historial.
       var rep=DATA.leads.slice(), dstr=DATA.date;
       if(ISEJE){ var td=ejeTodayET(); rep=rep.filter(function(l){return (l.source_date||'')===td;}); dstr=td; }
+      // Dedup by canonical key (domain): a lead must never show twice, even if a send ever wrote a second row.
+      var _sk={}; rep=rep.filter(function(l){var k=decDom(l.website)||l.id||l.companyName; if(_sk[k])return false; _sk[k]=1; return true;});
       rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
       var sent=rep.filter(function(l){return statusOf(l)!=='none';}).length, pend=rep.length-sent;
       var sub=document.getElementById('hoy-sub');
@@ -1398,7 +1400,7 @@
           +'<div class="hc-foot"><span class="hc-ch">'+(done?'✓ Contactado':ch)+'</span><span class="hc-cta">'+(done?'Ver ':'Contactar ')+'→</span></div>'
           +'</button>';
       }).join('');
-      body.querySelectorAll('.hoy-card').forEach(function(r){r.addEventListener('click',function(){var i=+r.dataset.hi;openCardNav(rep[i],rep,i,'hoy');});});
+      body.querySelectorAll('.hoy-card').forEach(function(r){r.addEventListener('click',function(){var i=+r.dataset.hi;var ld=rep[i];if(!ld)return;openCardNav(ld,rep,i,'hoy');});});
     }
     // ══ SEGUIMIENTO — manual lead tracker (ISEJE only). Isolated tables tracked_leads / tracked_lead_notes.
     // Reminders computed live at render (no cron). Never touches the outreach pipeline. See docs/SEGUIMIENTO-PLAN.md. ══
