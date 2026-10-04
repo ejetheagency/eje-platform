@@ -956,6 +956,7 @@
           var _dbn=document.getElementById('demoBanner');
           if(_dbn){ var _ic=(_aws&&_aws.icp_config)||{}; var _isDemo=!!_ic.demo; window.__ejeDemo=_isDemo; _dbn.style.display=_isDemo?'flex':'none';
             if(_isDemo){ var _dl=document.getElementById('demoBannerLabel');
+              document.querySelectorAll('[data-view="reporte"]').forEach(function(el){el.style.display='none';});  // demo view: hide Reporte tab (revisit tab strategy later)
               var _exp=_ic.demo_expires?new Date(_ic.demo_expires+'T23:59:59'):null;
               function _fmtDemo(){ var base=_ic.demo_label||'Versión demo'; if(_exp){ var d=Math.max(0,Math.ceil((_exp-new Date())/864e5)); base+=' · '+(d>0?('se desactiva en '+d+' día'+(d===1?'':'s')+' si no activás la suscripción'):'demo vencida'); } if(_dl)_dl.textContent=base; }
               _fmtDemo(); if(_exp&&!window.__ejeDemoTick){ window.__ejeDemoTick=setInterval(_fmtDemo,3600e3); }
