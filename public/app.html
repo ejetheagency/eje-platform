@@ -1618,7 +1618,10 @@
     var _navQ=[], _navI=-1, _navBack='decisores';
     function openCardNav(l,queue,idx,backView){
       _navQ=queue||[]; _navI=(idx==null?-1:idx); _navBack=backView||'decisores';
-      if(cardWrap.style.display!=='block' && backView && backView!=='decisores'){
+      // ALWAYS activate the view that hosts the card overlay (Decisores). Previously gated on cardWrap not being
+      // 'block' — but leaving an open card via the nav (not the ← back button) left display:block, so the next
+      // open skipped the jump and rendered the card into a HIDDEN view = "sometimes it opens, sometimes not".
+      if(backView && backView!=='decisores'){
         var nv=document.querySelector('.nav-item[data-view="decisores"]')||document.querySelector('.mob-item[data-view="decisores"]'); if(nv) nv.click();
       }
       openCard(l);
@@ -1636,7 +1639,7 @@
       var credits=(l._verifiedCredits||l.verifiedCredits||[]);
       var addl=(l.additionalContacts||[]);
       var addlHtml=addl.length?('<div style="margin-top:14px">'+addl.map(function(c){return '<div class="row"><div class="k">'+esc(c.title||'Contacto')+'</div><div class="v">'+esc(c.name||'—')+(c.email?' · <span class="link">'+esc(c.email)+'</span>':'')+'</div></div>';}).join('')+'</div>'):'';
-      var _actualBox='<div style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px"><div class="draft-h" style="margin-bottom:6px">Lo que realmente enviaste <small style="color:var(--ink-3);font-weight:400">· opcional, lo guardamos para aprender tu voz</small></div><textarea class="actual-ta" rows="4" style="width:100%;box-sizing:border-box;border:1px solid var(--line-2);border-radius:10px;background:var(--canvas);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical" placeholder="Pegá acá el mensaje que de verdad enviaste a este lead..."></textarea><button type="button" class="btn actual-save" style="margin-top:8px">Guardar lo que enviaste</button></div>';
+      var _actualBox='<div style="margin-top:10px"><div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;display:flex;gap:7px;align-items:center">Lo que realmente enviaste<span class="actual-ok" style="color:var(--cool);opacity:0;transition:opacity .2s">guardado ✓</span></div><textarea class="actual-ta" rows="2" style="width:100%;box-sizing:border-box;border:1px solid var(--line-2);border-radius:9px;background:transparent;color:var(--ink);font-family:inherit;font-size:12.5px;line-height:1.5;padding:8px 10px;resize:none" placeholder="pegá el mensaje real para aprender tu voz…"></textarea></div>';
       var html='<button class="dc-back">&larr; Decisores</button>'
         +'<div class="card"><div class="c-head">'
         +'<div class="c-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</div>'
@@ -1649,7 +1652,7 @@
         +(l.instagramHandle?rrow('Instagram','<a class="link ext" href="https://instagram.com/'+esc(l.instagramHandle)+'" target="_blank" rel="noopener">@'+esc(l.instagramHandle)+(l.instagramFollowers?' · '+fmtK(l.instagramFollowers):'')+' ↗</a>'):'')
         +(credits.length?rrow('Créditos',esc(credits.slice(0,2).join(' · '))):'')
         +rrow('País',flag(l.country)+' '+esc(l.country))
-        +(l.companyBrief?rrow('Nota',esc(String(l.companyBrief).slice(0,180))):'')
+        +(l.companyBrief?rrow('Nota',esc(String(l.companyBrief).length>260?String(l.companyBrief).slice(0,260).replace(/\s+\S*$/,'')+'…':String(l.companyBrief))):'')
         +'</div><div class="c-main">'
         + _strip + _slotHtml
         +'<div class="tabs"><button class="tab on" data-p="borrador">Borrador</button><button class="tab" data-p="otros">Otros decisores'+(addl.length?' ('+addl.length+')':'')+'</button></div>'
@@ -1690,8 +1693,8 @@
       if(bSent) bSent.addEventListener('click',function(){try{navigator.clipboard.writeText(_pb.draft||'');}catch(e){} if(_pb.link) window.open(_pb.link,'_blank','noopener'); bSent.textContent='Copiado y abierto ✓'; bSent.classList.add('done'); markSent(l,_cad.channel);});
       var bAlt=cardWrap.querySelector('.copy-alt');
       if(bAlt) bAlt.addEventListener('click',function(){try{navigator.clipboard.writeText(_pb.altDraft||'');}catch(e){} if(_pb.link) window.open(_pb.link,'_blank','noopener'); bAlt.textContent='Copiado y abierto ✓'; bAlt.classList.add('done');});
-      var bAct=cardWrap.querySelector('.actual-save'),taAct=cardWrap.querySelector('.actual-ta');
-      if(bAct&&taAct) bAct.addEventListener('click',function(){var txt=(taAct.value||'').trim();if(!txt){toast('Pegá lo que enviaste primero');return;}var d=l._key||decDom(l.website);var sit=(cadOf(l)||{}).kind||'first';if(window.__ejeSB&&canWrite()){window.__ejeSB.from('sent_actuals').insert({client_id:EJE_CLIENT,lead_id:d,company:l.companyName||'',user_name:EJE_USER,channel:(_cad.channel||'email'),situation:sit,message_text:txt}).then(function(r){if(r&&r.error){toast('⚠ No se pudo guardar');return;}bAct.textContent='Guardado ✓';bAct.classList.add('done');toast('Guardado · esto entrena tu sistema');});}else{bAct.textContent='Guardado ✓';toast('Guardado');}});
+      var taAct=cardWrap.querySelector('.actual-ta'),okAct=cardWrap.querySelector('.actual-ok');
+      if(taAct) taAct.addEventListener('blur',function(){var txt=(taAct.value||'').trim();if(!txt||txt===taAct._last)return;taAct._last=txt;var d=l._key||decDom(l.website);var sit=(cadOf(l)||{}).kind||'first';if(window.__ejeSB&&canWrite()){window.__ejeSB.from('sent_actuals').insert({client_id:EJE_CLIENT,lead_id:d,company:l.companyName||'',user_name:EJE_USER,channel:(_cad.channel||'email'),situation:sit,message_text:txt}).then(function(r){if(r&&r.error)return;if(okAct){okAct.style.opacity='1';setTimeout(function(){okAct.style.opacity='0';},2000);}});}else if(okAct){okAct.style.opacity='1';}});
       var bBad=cardWrap.querySelector('.bad-ig');
       if(bBad) bBad.addEventListener('click',function(){
         l.instagramHandle=''; l.instagramKind=''; l.igBad=true;
