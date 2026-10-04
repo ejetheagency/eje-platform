@@ -34,7 +34,7 @@ icp:
   volume:
     ready_leads_per_day: 10
   channels:
-    allowed: [email, linkedin, phone]
+    allowed: [email, instagram, linkedin, phone]   # IG stays in the set, marked personal vs business; 2 min, 4 ideal
   offer:
     one_line_value_prop: "Experienced bilingual Latin American virtual assistants, managed end to end, paid by the hour actually worked, no setup fee."
     tone: direct_english
