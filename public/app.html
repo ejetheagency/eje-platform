@@ -1636,6 +1636,7 @@
       var credits=(l._verifiedCredits||l.verifiedCredits||[]);
       var addl=(l.additionalContacts||[]);
       var addlHtml=addl.length?('<div style="margin-top:14px">'+addl.map(function(c){return '<div class="row"><div class="k">'+esc(c.title||'Contacto')+'</div><div class="v">'+esc(c.name||'—')+(c.email?' · <span class="link">'+esc(c.email)+'</span>':'')+'</div></div>';}).join('')+'</div>'):'';
+      var _actualBox='<div style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px"><div class="draft-h" style="margin-bottom:6px">Lo que realmente enviaste <small style="color:var(--ink-3);font-weight:400">· opcional, lo guardamos para aprender tu voz</small></div><textarea class="actual-ta" rows="4" style="width:100%;box-sizing:border-box;border:1px solid var(--line-2);border-radius:10px;background:var(--canvas);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical" placeholder="Pegá acá el mensaje que de verdad enviaste a este lead..."></textarea><button type="button" class="btn actual-save" style="margin-top:8px">Guardar lo que enviaste</button></div>';
       var html='<button class="dc-back">&larr; Decisores</button>'
         +'<div class="card"><div class="c-head">'
         +'<div class="c-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</div>'
@@ -1652,7 +1653,7 @@
         +'</div><div class="c-main">'
         + _strip + _slotHtml
         +'<div class="tabs"><button class="tab on" data-p="borrador">Borrador</button><button class="tab" data-p="otros">Otros decisores'+(addl.length?' ('+addl.length+')':'')+'</button></div>'
-        +'<div class="tab-panel" data-panel="borrador">'+_pbHtml+'</div>'
+        +'<div class="tab-panel" data-panel="borrador">'+_pbHtml+_actualBox+'</div>'
         +'<div class="tab-panel" data-panel="otros" style="display:none">'+(addl.length?addl.map(function(c){return '<div class="row"><div class="k">'+esc(c.title||'Contacto')+'</div><div class="v">'+esc(c.name||'—')+(c.email?' · <span class="link">'+esc(c.email)+'</span>':'')+'</div></div>';}).join(''):'<div class="seam-note">Sin otros decisores registrados.</div>')+'</div>'
         +'<div class="c-actions">'+(l.website?'<a class="btn site" href="'+esc(l.website)+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;vertical-align:-2px;margin-right:5px"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Ver sitio actual ↗</a>':'')+'<button class="btn pri act-sent">Copiar, abrir '+esc(chLabel(_cad.channel))+' y marcar ✓</button>'
         +'<button class="btn win act-replied">Respondió</button>'
@@ -1689,6 +1690,8 @@
       if(bSent) bSent.addEventListener('click',function(){try{navigator.clipboard.writeText(_pb.draft||'');}catch(e){} if(_pb.link) window.open(_pb.link,'_blank','noopener'); bSent.textContent='Copiado y abierto ✓'; bSent.classList.add('done'); markSent(l,_cad.channel);});
       var bAlt=cardWrap.querySelector('.copy-alt');
       if(bAlt) bAlt.addEventListener('click',function(){try{navigator.clipboard.writeText(_pb.altDraft||'');}catch(e){} if(_pb.link) window.open(_pb.link,'_blank','noopener'); bAlt.textContent='Copiado y abierto ✓'; bAlt.classList.add('done');});
+      var bAct=cardWrap.querySelector('.actual-save'),taAct=cardWrap.querySelector('.actual-ta');
+      if(bAct&&taAct) bAct.addEventListener('click',function(){var txt=(taAct.value||'').trim();if(!txt){toast('Pegá lo que enviaste primero');return;}var d=l._key||decDom(l.website);var sit=(cadOf(l)||{}).kind||'first';if(window.__ejeSB&&canWrite()){window.__ejeSB.from('sent_actuals').insert({client_id:EJE_CLIENT,lead_id:d,company:l.companyName||'',user_name:EJE_USER,channel:(_cad.channel||'email'),situation:sit,message_text:txt}).then(function(r){if(r&&r.error){toast('⚠ No se pudo guardar');return;}bAct.textContent='Guardado ✓';bAct.classList.add('done');toast('Guardado · esto entrena tu sistema');});}else{bAct.textContent='Guardado ✓';toast('Guardado');}});
       var bBad=cardWrap.querySelector('.bad-ig');
       if(bBad) bBad.addEventListener('click',function(){
         l.instagramHandle=''; l.instagramKind=''; l.igBad=true;
