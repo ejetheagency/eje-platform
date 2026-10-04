@@ -114,6 +114,104 @@ Every blocked enqueue is logged with the reason, so the admin page can show *why
 
 ---
 
+## 4b. Two-Gate Verification and the Corroboration Loop
+
+"Verified" is a state the system earns, never a label a provider returns. There are two gates, in order. The first is free and is where the agents work together. The second costs money and runs only on contacts that are about to be used.
+
+### The thesis the code must enforce
+
+Several cheap workers run at the same time on one person. None of them is asked to find everything. Each one finds a piece and writes it to the graph. Every piece does two things at once:
+
+- **Forward:** it becomes the input of new searches (the pivot loop in section 2).
+- **Backward:** it is checked against every fact already known about that person. A new fact either confirms earlier facts, contradicts them, or says nothing. Confirmations are stored as edges.
+
+That backward step is what was missing. It is the difference between "I found an email" and "I found an email, and searching that email returned the same name and the same LinkedIn, so the name, the LinkedIn and the email now vouch for each other."
+
+### Data model additions
+
+corroborations
+  id, company_id, person_key,        # person_key: normalized full name + company
+  fact_id, confirms_fact_id,         # edge: this fact supports that fact
+  relation,                          # same_name | same_role | same_company | same_handle | same_email | contradicts
+  source_pivot, confidence, created_at
+
+persons (derived view, not a table of truth)
+  person_key, company_id, name, role,
+  facts[], first_party_fact_ids[], independent_source_count,
+  corroboration_score,               # sum of confirming edges weighted by independence
+  contradiction_count,
+  gate_a_passed_at, gate_b_passed_at, email_verify_method
+
+Rule: a fact can be written by any worker. A corroboration edge can only be written by the corroboration pivot (19) or by a backward-check pivot (22, 23, 24) after it has actually fetched something. No edge without evidence_url.
+
+### The loop, as it runs on one person
+
+1. Any worker finds a person_name at a company (site page, review reply, bio, listing). A persons candidate exists.
+2. The scheduler enqueues the backward checks for that person immediately, before any paid call: search the full name with the company (20), search any email candidate in quotes (6), fetch the most recent profile pages found (21, 23), fetch the company blog or news for the name (15).
+3. Each result goes through pivot 19 (cheap LLM) with one question: does this page name the same person, at the same company, in the same role, and does it add a new handle, email or page? Output is structured: {confirms: [fact_ids], contradicts: [fact_ids], new_facts: [...]}.
+4. Every new fact from step 3 re-enters step 2. The email surfaced the LinkedIn; the LinkedIn surfaced the Instagram; the Instagram caption names the company and the role. Each hop writes edges back to what came before.
+5. The loop stops for that person when Gate A passes, when max_backward_hops_per_person is reached (config, default 8), or when a contradiction is found and not resolved (then the person is flagged conflict and sent to the human queue).
+
+Workers never message each other. They read the graph and the edges. "Hey, I found the email, can you verify through here" is a queue entry created automatically because a new fact of type email exists for a person who is not yet past Gate A.
+
+### Gate A: corroboration (free and cheap LLM only)
+
+A person passes Gate A when all hold:
+
+1. Two independent sources name the same person at the same company. Independent means different origins (a review reply and a LinkedIn search result; not two pages of the same site).
+2. One first-party source: the company's own site, its Google Business Profile, its Instagram bio, a job post it published, a WHOIS record, or its legal filing (below).
+3. A role, confidence above min_role_confidence (default 0.6), matching a target or entry role in the ICP.
+4. An email candidate consistent with the domain's known pattern, or found verbatim on a first-party page.
+5. Zero unresolved contradictions.
+
+Thresholds live in config/thresholds.json under verify.gate_a. The LLM pivot carries no numbers.
+
+### The small-company fast path
+
+When company.size <= small_company_max_employees (config, default 10), every record found tends to point at the same two or three people. For these, Gate A accepts one first-party source plus one independent source where the independent source is the person's own public profile naming the company. Convergence usually takes two hops. This is Fernando's case and it is the cheapest verification the system has.
+
+### The large-company path and the legal listing
+
+For companies above large_company_min_employees (default 500) in Chile, add pivot 24: fetch the executive and board listing the company is required to publish (CMF filings, memoria anual, "gobierno corporativo" page). It is first-party, it carries roles, and it lists several decision-makers at once. Every additional person found there is written as a persons candidate with discovered_via = legal_listing and is kept for the account-based pool, so the next Monday's first touch at that account already has a corroborated name. For other countries, the equivalent registry pivot is added per country in config/registries.yaml; where none exists, the pivot is skipped.
+
+### Gate B: deliverability (paid, SMTP)
+
+Gate B runs only on persons who passed Gate A and are scheduled into a report within verify_lookahead_days (default 3). Nothing else is ever sent to the paid verifier. The backfill of the whole contacts table is therefore not a thing; the queue for Gate B is "tomorrow's report, in score order," every night.
+
+Outcomes:
+- ok: VERIFIED, email_verify_method = smtp.
+- invalid: drop that email candidate; the person stays in Gate A with the next pattern candidate. Max max_email_candidates_per_person (default 3).
+- unknown or timeout: retry once next run. After 2 attempts mark catch_all_suspected. With Gate A passed, the person is VERIFIED_SOFT: usable in reports, flagged in the panel, counted separately.
+
+### Pivots added
+
+| # | Input fact | Pivot | Output | Cost |
+|---|---|---|---|---|
+| 19 | all facts on one person (2+) | cheap LLM corroboration read: same person, same company, same role? | corroboration edges, new_facts | cheap_llm |
+| 20 | person_name + company | search full name in quotes + company | li_person, news_mention, other listings | search |
+| 21 | ig_handle | public bio and link-in-bio page | person_name, email, domain, role_mention | free |
+| 22 | email | search the email in quotes, read the top results | confirms name, li_person, other pages (backward check) | search + cheap_llm |
+| 23 | li_person | public profile headline and current company (public search snippet only, no scraping behind login) | role, company, confirms name | search |
+| 24 | company (large, CL) | executive and board listing from the legal filing | person_name, role, first_party (several decision-makers) | free |
+
+### Worked example (reconstructed from the founder's description)
+
+Target: a person at Cencosud. Pivot 1 finds a first name and a department on a company page (first-party). Pivot 20 searches the name with the company: a conference page and a news item name her with a full name and a role (two independent sources). Pivot 16 gives the email pattern; a candidate email exists. Pivot 22 searches the email in quotes: a public document lists it next to her LinkedIn. Edge written: email confirms name, email confirms li_person. Pivot 23 reads the LinkedIn snippet: same company, same role. Edge: li_person confirms role. Pivot 21 reads the Instagram bio linked from a page: mentions Cencosud and the role. Edge: ig_handle confirms company and role. Pivot 24 fetches the executive listing: she is there, and so are four other names with roles. Gate A passes with five independent sources and two first-party. The four other names enter persons as candidates for the account-based pool. Gate B runs on her only when she is scheduled into a report. Paid cost for finding her: zero. Paid cost for verifying her: one credit, once.
+
+Same loop for a three-person design studio: site "nosotros" page (first-party) names the founder; her Instagram bio names the studio and the role (independent, own profile). Fast path passes. Two hops, no credits.
+
+### Rules added
+
+1. No person enters Gate B without a Gate A pass and a report slot within verify_lookahead_days.
+2. Every corroboration edge has an evidence_url. The LLM proposes edges; the pivot that fetched the page writes them.
+3. VERIFIED and VERIFIED_SOFT are distinct states. Reports show both; the client sees a small flag on soft ones.
+4. A contradiction stops the loop for that person and routes to the human queue. It never resolves itself by majority.
+5. Backward checks are enqueued before any paid pivot for the same person. Paid contact-finding runs only when the backward loop ended without an email candidate.
+6. Extra decision-makers found during corroboration are kept, never discarded, and tagged with the account for account-based clients.
+7. The nightly metric is paid_verifications_per_verified_contact. It must fall as corroboration pivots gain score.
+
+---
+
 ## 5. Learning: Which Pivots Earn More Runs
 
 Every pivot run writes a `pivot_runs` row: pivot, input fact, facts produced, cost, time. Nightly, the Strategist joins that with downstream outcomes:

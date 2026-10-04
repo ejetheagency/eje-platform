@@ -1,0 +1,22 @@
+company,website,decision_maker,role,email,email_status,email_verify_method,phone,instagram,linkedin,whatsapp,logo_present,signal_present,msg_draft_present,score,contact_found_via
+DUCASSE CONSULTORA GASTRONÓMICA,https://ducasse360.webnode.ec/,María José Serrano Bautista,Gerente de General,ducasseconsultora@gmail.com,verified,smtp,,ducasseconsultoragastronomica,,,n,y,y,28,site
+Creas Films,https://www.instagram.com/creas_films/,Adrianna Denisse Silva,Fundadora y Productora,creasfilms@gmail.com,verified,smtp,,creas_films,,,y,y,y,28,
+Novum - Agencia de Diseño Gráfico y UI/UX,http://www.novumec.com/,Priscila Ordonez,Founder and Creative Director General,diseno@novumec.com,verified,smtp,,novum.ec,,,y,n,y,20,site
+Vudu Publicidad,https://vudupublicidad.com/,Luis Gonzalez,General Manager,luis@vudupublicidad.com,catch_all,smtp,,vudupublicidad,,,y,n,y,20,hunter
+Monkey Plus,http://www.monkeyplusbc.com/,Andrés Acosta,Chief Web Officer,aacosta@monkeyplusbc.com,verified,smtp,,monkeyplusbc,,,y,n,y,20,hunter
+DOPTUS,https://www.doptus.com/,Andrea Andrade,,aandrade@doptus.com,catch_all,smtp,,doptususa,,,n,n,y,20,hunter
+Arquitectos Minimalistas en Quito | Construcción y diseño,https://www.minimalstudioec.com/,Edisón Quel,socio fundador,gerencia@minimalstudioec.com,unknown,smtp,,minimalstudio.ec,,,y,n,y,20,site
+Metropolitan Institute of Design,http://lametro.edu.ec/,Nicolas Carrera,Project Director,carrera.nicolas@lametro.edu.ec,verified,smtp,,lametro.design,,,y,n,y,20,hunter
+Clínica Revival,http://www.revival.ec/,Yane García,Cirujana Plástica,,bounced,smtp,,revival.yane,,,y,n,y,20,site
+"Hasta la vuelta, Señor...",http://www.hastalavuelta.com/,Marco Bedoya García,Gerente General,reservas@hastalavuelta.com,verified,smtp,,hastalavueltasenor,,,n,n,y,20,site
+PUNCH Cine,https://sites.google.com/view/punchcine,Celso Florance,Fundador,celso.florance@hotmail.com,verified,smtp,,punch.cine,,,n,n,y,20,
+Agencia de Publicidad y Marketing Polimedios,https://www.polimedios.com/,Javier V.,CEO,ventas@polimedios.com,verified,smtp,,polimediosec,,,n,n,y,20,site
+InnovaBlack,https://www.innovablack.com/,Jorge Vela,Security Manager,jorge.vela@innovablack.com,verified,smtp,,innovablack,,,y,n,y,20,hunter
+Factor Engagement - Agencia de Marketing Digital Quito,https://factorengagement.com/,Daniela Encalada,Founder and CEO,info@factorengagement.com,catch_all,smtp,,factorengagement,,,y,n,y,20,site
+CLINICA DEL AUTOESTIMA TERCER MILLENNIUM. Cirugía Estética y Reconstructiva,http://www.3ermillennium.com/,Pedro Mauricio Salazar Eldredge,Director,tercermillennium@gmail.com,verified,smtp,,3ermillennium,,,y,n,y,20,site
+SWITSTETIC Clínica de Especialidades Estéticas,http://www.switstetic.com/,Dra. Lorena Flores,Directora de Clínica Estética SWITSTETIC,info@switstetic.com,unknown,smtp,,switstetic,,,y,n,y,20,site
+Simbolo Agencia Digital en Quito,https://www.simbolointeractivo.com/ec/?utm_source=google&utm_medium=organic&utm_campaign=gmb,Angélica Ramírez,Content Manager,angelica.ramirez@simbolointeractivo.com,verified,smtp,,simbolo.agenciadigital,,,y,n,y,20,hunter
+Viewdesign,http://www.viewdesign.com.ec/,Freddy Garate,,fgarate@viewdesign.com.ec,catch_all,smtp,,,,,y,n,y,10,hunter
+BIM Soluciones - Agencia de Diseño Web y Tiendas Online,https://bimsoluciones.com/,Giovanny Chicaiza,Full Stack Developer,gchicaiza@bimsoluciones.com,verified,smtp,,,,,y,n,y,10,hunter
+Carnaval Cine,https://www.facebook.com/CarnavalCine,Sebastián Cordero,Cofundador / Director (miembro AMPAS),carnavalcine@gmail.com,verified,smtp,,,,,y,n,y,10,
+Estudio Ánima,https://anima.com.ec/,Diana Roig,,diana@anima.com.ec,unknown,smtp,,,,,y,n,y,10,hunter
