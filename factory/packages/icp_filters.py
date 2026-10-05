@@ -10,7 +10,9 @@ _BRANDS = {"ledvance", "osram", "philips", "signify", "bosch", "siemens", "3m", 
            "samsung", "lg", "sony", "dell", "hp", "ibm", "oracle", "sap", "visa", "mastercard", "toyota", "nike",
            "ey", "kpmg", "deloitte", "pwc", "mcdonalds", "starbucks", "subway", "kfc", "burger king", "dominos",
            "fogo de chao", "fogo de chão", "marriott", "hilton", "fedex", "dhl", "ups",
-           "russell bedford", "bdo", "grant thornton", "crowe", "rsm", "baker tilly", "mazars", "nexia", "moore", "uhy"}
+           "russell bedford", "bdo", "grant thornton", "crowe", "rsm", "baker tilly", "mazars", "nexia", "moore", "uhy",
+           "stripe", "google", "meta", "facebook", "amazon", "microsoft", "apple", "havas", "ogilvy", "publicis",
+           "wpp", "accenture", "mccann", "bbdo", "ddb", "leo burnett", "saatchi", "wunderman", "dentsu"}
 _GEO = r"\b(ecuador|chile|peru|perú|colombia|mexico|méxico|argentina|uruguay|españa|spain|usa|canada|brasil|brazil|panama|panamá|guatemala|bolivia|venezuela|sa|s\.a\.|ltda|inc|llc|corp|group|grupo)\b"
 _CHAIN_KW = re.compile(r"franquicia|franchise|franquicias|sucursal|sucursales|locales en|nuestras sedes|our locations|"
                        r"en todo el mundo|worldwide|global presence|multinacional|international locations|cadena de|"
@@ -18,6 +20,13 @@ _CHAIN_KW = re.compile(r"franquicia|franchise|franquicias|sucursal|sucursales|lo
                        r"present in \d|presente en \d|oficinas en \d|offices in \d", re.I)
 _COUNTRIES = ["ecuador", "peru", "perú", "colombia", "mexico", "méxico", "chile", "argentina", "usa", "estados unidos",
               "brasil", "brazil", "españa", "panama", "panamá", "guatemala", "bolivia", "uruguay", "paraguay", "venezuela", "canada"]
+# OFF-ICP entity TYPES (not businesses that buy prospecting/VA services): schools, chambers, associations,
+# foundations, government. Catches the Stripe/Havas/CES-Design/Chamber-of-Commerce class of mistake.
+_OFF_ICP_NAME = re.compile(r"\b(universidad|university|colegio|academia|academy|centro superior|centro de estudios|"
+                           r"escuela de|school of|c[aá]mara de comercio|chamber of commerce|asociaci[oó]n|association|"
+                           r"gremio|federaci[oó]n|federation|cooperativa|fundaci[oó]n|foundation|ong\b|ngo\b|"
+                           r"ministerio|municipio|gobierno|alcald[ií]a|ayuntamiento|instituto de dise|institute of design)\b", re.I)
+_OFF_ICP_DOM = re.compile(r"\.(edu|gob|gov)(\.|/|$)", re.I)   # school / government domains
 # source URLs that are NOT a specific profile/page about the person -> cannot corroborate
 _BAD_SRC = re.compile(r"/reel/|/pub/dir/|/search\b|[?&]q=|google\.[^/]+/search|bing\.com/search|duckduckgo|"
                       r"/explore/|/tag/|/hashtag/|/directory|/dir/|yellowpages|paginasamarillas|/results|facebook\.com/pages", re.I)
@@ -56,17 +65,34 @@ def _homepage(website):
         return ""
 
 
+def _known_brand(name):
+    # True only for a KNOWN global brand/chain (token for single words, substring for multi-word). NOT generic
+    # single-token names (those are handled by is_brandlike for Gate A's search-trust only, never as exclusion).
+    n = re.sub(_GEO, "", (name or "").lower()).strip()
+    toks = set(re.split(r"\s+", n))
+    for b in _BRANDS:
+        if (" " in b or "-" in b):
+            if b in n:
+                return True
+        elif b in toks:
+            return True
+    return False
+
+
 def is_chain(name, website):
-    # Returns (excluded: bool, reason: str|None). Excludes global brands, franchises, and multi-country chains.
-    if is_brandlike(name):
-        return (True, "global brand or generic single-token name")
+    # Returns (excluded, reason). PRECISE exclusion: known global brands/chains, off-ICP entity types
+    # (schools/chambers/associations/government), and EXPLICIT franchise/network language on the site.
+    # Deliberately does NOT exclude generic single-token names or "mentions N countries" (those over-removed
+    # real small agencies).
+    if _known_brand(name):
+        return (True, "known global brand/chain")
+    if _OFF_ICP_NAME.search(name or ""):
+        return (True, "off-ICP entity (school/chamber/association/government)")
+    if _OFF_ICP_DOM.search(website or ""):
+        return (True, "off-ICP domain (edu/gov)")
     txt = _homepage(website)
-    if not txt:
-        return (False, None)
-    if _CHAIN_KW.search(txt):
-        return (True, "franchise/chain language on site")
-    if sum(1 for c in set(_COUNTRIES) if c in txt) >= 3:
-        return (True, "operates in 3+ countries (chain)")
+    if txt and _CHAIN_KW.search(txt):
+        return (True, "franchise/chain/network language on site")
     return (False, None)
 
 
