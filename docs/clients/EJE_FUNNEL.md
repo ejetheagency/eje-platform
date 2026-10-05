@@ -21,7 +21,7 @@ Source of truth for EJE's OWN outreach. Authoritative brand detail: `~/claude/ej
 This is the register: 4 short lines, warm with exclamations, introduces himself by name, casual current-client proof ("ahora mismo estoy trabajando con UnaBase"), selection ("calzaba con el perfil de mis clientes y decidí escribirte"), the loom offered as a soft question ("¿Quieres que te envíe un video explicando lo que hago?"), soft fit framing, "¡Quedo atento!". Do NOT make it longer or more corporate ("disciplina de una bandeja activa" is too much for the first touch).
 
 ## Current first-touch templates (WEEK OF 2026-10-05, until changed) — A/B, half and half
-Send ~5 of each per day, one template per lead (never both to the same person). Both end in the ask "¿a quién le envío la info?" (identify the decisor / next step). NO loom this week.
+Send ~5 of each per day, one template per lead (never both to the same person). Both end in the ask "¿a quién le envío la info?" (identify the decisor / next step). NO loom this week. **Subject = "{company} x EJE"** for both templates.
 
 **Template A (referral + IG angle):**
 > Hola {first}, ¿cómo estás? Espero que súper. Te habla Emiliano de @ejetheagency.
