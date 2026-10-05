@@ -9,6 +9,17 @@ Source of truth for EJE's OWN outreach. Authoritative brand detail: `~/claude/ej
 - **The "loom" = a short presentación (~3 min) that explains how the system works**, offered as the value-drop. From the real Daniela close: *"Te envío una presentación por email y me comentas."* It comes after interest, or is offered in the first email as the low-friction next step.
 - Cadence (ciclo de vida): Ciclo 1 email -> IG DM; Ciclo 2 email -> WhatsApp; Ciclo 3+ email. **The 2nd touch is NEVER email (IG or LinkedIn).** Always 10:00-18:00 recipient's timezone.
 
+### Real first-touch (verbatim, MIRROR THIS — sent 2026-09-18 from contact@ejetheagency.com)
+> Hola José! Te habla Emiliano de EJE Agency.
+>
+> Te cuento: ahora mismo estoy trabajando con UnaBase, y cuando escuché de Logistik vi que calzaba con el perfil de mis clientes y decidí escribirte.
+>
+> ¿Quieres que te envíe un video explicando lo que hago? Quizás Logistik es un fit para nuestro servicio.
+>
+> ¡Quedo atento!
+
+This is the register: 4 short lines, warm with exclamations, introduces himself by name, casual current-client proof ("ahora mismo estoy trabajando con UnaBase"), selection ("calzaba con el perfil de mis clientes y decidí escribirte"), the loom offered as a soft question ("¿Quieres que te envíe un video explicando lo que hago?"), soft fit framing, "¡Quedo atento!". Do NOT make it longer or more corporate ("disciplina de una bandeja activa" is too much for the first touch).
+
 ## Voice rules (mirror exactly)
 - CTA first; every message ends in a QUESTION or a DATE, never a period.
 - Short: ~3-4 lines, one idea. LATAM Spanish (tiempo/dale/ustedes/tomar/celular). Anglicisms OK (match, contact cards, clicks). No em dashes. No corporate words (optimizar, potenciar, robusto, integral, sinergia).
