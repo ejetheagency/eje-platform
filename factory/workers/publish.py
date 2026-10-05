@@ -25,12 +25,15 @@ def _pitch_text(comp):
     return p or ""
 
 
-def _merge(tpl, co, ct):
+def _merge(tpl, co, ct, sender=""):
     # TEMPLATE FLOOR: fill the client's first-touch template with merge fields. Guarantees a non-empty pitch so a
     # card is NEVER blank, even when the AI composer produced nothing. The composed pitch always wins when present.
+    # Tokens: {first} decisor first name, {decisor} full name, {company} target, {industry}, {sender} the client's
+    # person, {brands} similar brands (AI fills; floor degrades to "la tuya" so the sentence still reads right).
     first = ((ct.get("full_name") or "").split() or [""])[0]
-    return (str(tpl or "").replace("{first}", first or "ahí").replace("{company}", co.get("name") or "tu empresa")
-            .replace("{decisor}", ct.get("full_name") or first or "").replace("{industry}", co.get("industry") or ""))
+    return (str(tpl or "").replace("{first}", first or "ahí").replace("{company}", co.get("name") or "tu marca")
+            .replace("{decisor}", ct.get("full_name") or first or "").replace("{industry}", co.get("industry") or "")
+            .replace("{sender}", sender or "el equipo").replace("{brands}", "la tuya"))
 
 
 def publish(client_id, report_date=None):
@@ -41,6 +44,7 @@ def publish(client_id, report_date=None):
     ic = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
     geo = ic.get("geo") or ""
     tpl = ic.get("outreach_first_touch") or ""
+    sender = ic.get("sender_name") or ""
     published = 0
     added = 0
     skipped = 0
@@ -66,7 +70,7 @@ def publish(client_id, report_date=None):
             "industry": co.get("industry") or "", "instagramHandle": co.get("instagram") or "",
             "instagramKind": "profile" if co.get("instagram") else "", "instagramFollowers": 0,
             "contactLinkedIn": co.get("linkedin") or "",
-            "pitchEmailES": _pitch_text(comp) or _merge(tpl, co, ct), "sectorTemplate": tpl,
+            "pitchEmailES": _pitch_text(comp) or _merge(tpl, co, ct, sender), "sectorTemplate": tpl, "sender": sender,
             "companyBrief": co.get("brief") or "",
             "whyICP": "", "companyEmail": None, "score": cl.get("score") or 0,
             "source_date": sd, "whyNow": [s["type"] for s in (sigs or [])],
