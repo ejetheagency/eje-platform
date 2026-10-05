@@ -1200,13 +1200,13 @@
         +'Oye, te cuento: te he escrito un par de veces y se han perdido los mensajes. Calzas con el perfil de alguno de mis clientes, así que pensé en ti hoy.\n\n'
         +'Te cuento en cortísimo: abrimos conversaciones con tus clientes ideales y luego tú cierras la venta :). Podemos coordinar una demo si quieres explorar.\n\n'
         +'Cuéntame. Si tienes capacidad para 5-10 conversaciones extra semanales, puede funcionarte.'; }
-    // LinkedIn = 5th / FINAL touch (single shot, NOT a double-touch platform). Operator voice: warm, selection, video
-    // offered as a soft question (not a link drop). No corporate slop ("paso a paso accionable", "la dinámica").
-    function ejeLinkedInDM(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
-      return 'Hola '+n+'! Te escribí por correo hace unos días desde EJE y quise saludarte también por acá. Te cuento rápido: hoy trabajo con LockPro abriéndoles conversaciones con sus clientes ideales, y al ver '+e+' sentí que calzaba con el perfil de mis clientes. ¿Te gustaría que te mande un video corto explicando lo que hago? Capaz les hace sentido. ¡Un abrazo! Emiliano'; }
-    // Short LinkedIn CONNECTION-REQUEST note (free, ~300-char cap).
-    function ejeLinkedInConnectNote(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
-      return 'Hola '+n+'! Soy Emiliano, de EJE. Te escribí por correo hace unos días. Hoy trabajo con LockPro abriéndoles conversaciones con sus clientes ideales y al ver '+e+' pensé en ti. ¿Te mando un video corto de lo que hago? ¡Un abrazo!'; }
+    // LinkedIn = 5th / FINAL touch. Operator voice + ROSTER proof (NEVER just LockPro): names several clients,
+    // references the unanswered email, drops the video, asks to meet. Verbatim from the operator 2026-10-05.
+    function ejeLinkedInDM(l){ var n=firstName(l)||'';
+      return 'Hola '+n+', ¿todo bien? Te cuento: te envié un email y no recibí respuesta. Soy Emiliano de EJE. Ayudo a empresas en distintos rubros (EstudioFe, UnaBase, LockPro, 2upLatam entre otras) a iniciar conversaciones con su cliente ideal, dejándoles el cierre de la venta a ellos. Sentí que calzabas con el perfil y decidí escribirte. Te dejo un video corto que explica un poco más en profundidad lo que hago y me cuentas cuando puedes reunirte: https://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
+    // Short LinkedIn CONNECTION-REQUEST note (free, <=300-char cap, no link). ROSTER proof, never just LockPro.
+    function ejeLinkedInConnectNote(l){ var n=firstName(l)||'';
+      return 'Hola '+n+'! Soy Emiliano de EJE. Te envié un email y no tuve respuesta. Ayudo a empresas de varios rubros (EstudioFe, UnaBase, LockPro, 2upLatam, entre otras) a iniciar conversaciones con su cliente ideal. Sentí que calzabas con el perfil. ¿Te mando un video corto de lo que hago?'; }
     // Per-touch PLAYBOOK — the step-by-step "how" (IG protocol from enrichment/ai-content.js).
     function playbookFor(l,c){ c=c||cadOf(l); var ch=c.channel||'email';
       if(ch==='ig'){ var h=l.instagramHandle||''; var _re=ISEJE&&c.touch>=4;

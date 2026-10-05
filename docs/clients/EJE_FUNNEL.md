@@ -74,7 +74,7 @@ Once a lead replies or a client is onboarding, this is his register (mirror it, 
 - EXCLUDE (enforced in `factory/packages/icp_filters.py`): global brands/giants (Stripe, Havas, big agency networks), franchises/chains, schools/universities (.edu), chambers/associations/foundations, government (.gob/.gov). NOT generic single-token names (those are real small agencies).
 
 ## Social proof (real metrics only, never invent)
-- LockPro (current client): ~120-140 envíos/semana, 5-7% respuesta. USE EVERYWHERE.
+- **NEVER cite only LockPro.** Always use the ROSTER as proof: **EstudioFe, UnaBase, LockPro, 2upLatam (entre otras)** — "empresas en distintos rubros". LockPro metric for reference: ~120-140 envíos/semana, 5-7% respuesta.
 - UnaBase: ~75 decisores contactados, 5-10 conversaciones, 7-10% efectividad.
 - "el mejor ejemplo, irónicamente, soy yo" (reaches prospects with his own system).
 - Anchors: "Una negativa vale 10x más que el silencio." "No es magia. Es un sistema que convierte tu embudo en una disciplina."
