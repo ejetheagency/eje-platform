@@ -41,6 +41,11 @@ def run(client=None, max_leads=None):
         pass
     reps = reports.build_all() if not client else [reports.build(client)]
     out["reports"] = {r["client_id"]: r["count"] for r in reps}
+    try:  # bridge: publish READY factory leads -> the `leads` table the app reads (contact cards for full-access clients)
+        from factory.workers import publish
+        out["published"] = publish.publish_full_access(only=client if client else None)
+    except Exception as e:
+        out["published"] = {"error": str(e)[:150]}
     try:
         snap = admin.snapshot()
         out["pool"] = snap["pool"]
