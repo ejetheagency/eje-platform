@@ -8,6 +8,11 @@
 import datetime
 from factory.packages import db
 
+# A "company" whose only web presence is a social page gets a junk domain; never key an app lead by these.
+GENERIC_DOMAINS = {"facebook.com", "m.facebook.com", "business.facebook.com", "instagram.com", "linkedin.com",
+                   "twitter.com", "x.com", "youtube.com", "tiktok.com", "wa.me", "whatsapp.com", "linktr.ee",
+                   "google.com", "sites.google.com", "wixsite.com", "bit.ly"}
+
 
 def _today():
     return datetime.date.today().isoformat()
@@ -38,11 +43,13 @@ def publish(client_id, report_date=None):
     tpl = ic.get("outreach_first_touch") or ""
     published = 0
     added = 0
+    skipped = 0
     for cl in rows:
         co = (db.select("companies",
                         "id=eq.%s&select=name,domain,website,instagram,linkedin,brief,logo_url,country,industry" % cl["company_id"]) or [{}])[0]
         dom = (co.get("domain") or "").lower().strip()
-        if not dom:
+        if not dom or dom in GENERIC_DOMAINS:  # a lead keyed by facebook.com/instagram.com etc. is junk data, not a company
+            skipped += 1
             continue
         ct = {}
         if cl.get("contact_id"):
@@ -73,10 +80,16 @@ def publish(client_id, report_date=None):
         else:
             row = dict(base)
             row.update({"id": dom, "client_id": client_id, "status": status, "source_date": sd})
-            db.insert("leads", row, returning=False)
-            added += 1
+            try:
+                db.insert("leads", row, returning=False)
+                added += 1
+            except Exception:  # domain already a lead (possibly under another client; leads.id is global) -> update-or-skip
+                updated = db.update("leads", "id=eq.%s&client_id=eq.%s" % (dom, client_id), base)
+                if not updated:
+                    skipped += 1
+                    continue
         published += 1
-    return {"client_id": client_id, "published": published, "added": added}
+    return {"client_id": client_id, "published": published, "added": added, "skipped": skipped}
 
 
 def publish_full_access(report_date=None, only=None):
