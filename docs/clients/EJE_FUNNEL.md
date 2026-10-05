@@ -20,6 +20,32 @@ Source of truth for EJE's OWN outreach. Authoritative brand detail: `~/claude/ej
 
 This is the register: 4 short lines, warm with exclamations, introduces himself by name, casual current-client proof ("ahora mismo estoy trabajando con UnaBase"), selection ("calzaba con el perfil de mis clientes y decidí escribirte"), the loom offered as a soft question ("¿Quieres que te envíe un video explicando lo que hago?"), soft fit framing, "¡Quedo atento!". Do NOT make it longer or more corporate ("disciplina de una bandeja activa" is too much for the first touch).
 
+## Current first-touch templates (WEEK OF 2026-10-05, until changed) — A/B, half and half
+Send ~5 of each per day, one template per lead (never both to the same person). Both end in the ask "¿a quién le envío la info?" (identify the decisor / next step). NO loom this week.
+
+**Template A (referral + IG angle):**
+> Hola {first}, ¿cómo estás? Espero que súper. Te habla Emiliano de @ejetheagency.
+>
+> Un conocido me habló de ustedes, entré a su Instagram para revisar, y hoy trabajo con clientes en su sector. Cuéntame, ¿a quién le debería enviar la info, por aquí mismo o a alguien más del equipo?
+>
+> Creo que quizás {company} puede ser un match para nuestro servicio.
+
+**Template B (honest-cold + client names + explicit value):**
+> Hola {first}, ¿todo bien? Te habla Emiliano de EJE.
+>
+> Te escribo en frío total ya que vi que {company} tiene un perfil parecido a clientes que ayudo hoy. Básicamente ayudamos a empresas como UnaBase, 2upLatam o Estudio Fe: iniciamos conversaciones con su cliente ideal para que luego ellos cautiven y cierren la venta.
+>
+> Quizás calificas para usar el sistema. Cuéntame a quién le envío más info, o si te la mando por aquí. Abrazo.
+
+The loom-offer first-touch (above) stays the ARCHIVED exemplar; A/B is the active test. When the operator says "change templates", swap this block.
+
+## Warm / follow-up register (from real WhatsApp threads — e.g. somoshobby/Felipe, 2026-10)
+Once a lead replies or a client is onboarding, this is his register (mirror it, it is NOT the cold first-touch):
+- Warm + confident + calm, reassuring, zero pressure: "Dale {first}.", "Hola {first}, feliz lunes! A empezar la semana con todo!", "Gracias a ti {first}.", "Increíble me parece!", "Cualquier cosa estoy aquí.", "Abrazo, estamos hablando en un rato."
+- Frames value as natural result of doing the work: "una venta o conversación avanzada paga la inversión y mucho más", "mientras las tareas sean cumplidas eso sucede naturalmente", "cuando las cosas se hacen bien el resultado es mejor aún".
+- Offers help to the client's team: "Si necesitas que le aclare dudas a alguien de tu equipo, feliz lo hago."
+- Short exclamations, "!", warm closes ("Abrazo"), tú, LATAM. Never corporate, never pushy.
+
 ## Voice rules (mirror exactly)
 - CTA first; every message ends in a QUESTION or a DATE, never a period.
 - Short: ~3-4 lines, one idea. LATAM Spanish (tiempo/dale/ustedes/tomar/celular). Anglicisms OK (match, contact cards, clicks). No em dashes. No corporate words (optimizar, potenciar, robusto, integral, sinergia).
