@@ -20,12 +20,22 @@ def _pitch_text(comp):
     return p or ""
 
 
+def _merge(tpl, co, ct):
+    # TEMPLATE FLOOR: fill the client's first-touch template with merge fields. Guarantees a non-empty pitch so a
+    # card is NEVER blank, even when the AI composer produced nothing. The composed pitch always wins when present.
+    first = ((ct.get("full_name") or "").split() or [""])[0]
+    return (str(tpl or "").replace("{first}", first or "ahí").replace("{company}", co.get("name") or "tu empresa")
+            .replace("{decisor}", ct.get("full_name") or first or "").replace("{industry}", co.get("industry") or ""))
+
+
 def publish(client_id, report_date=None):
     report_date = report_date or _today()
     rows = db.select_all("client_leads",
                          "client_id=eq.%s&state=eq.READY&select=id,company_id,contact_id,score,composed" % client_id)
     existing = {r["id"]: r for r in db.select_all("leads", "client_id=eq.%s&select=id,status,source_date" % client_id)}
-    geo = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {}).get("geo") or ""
+    ic = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
+    geo = ic.get("geo") or ""
+    tpl = ic.get("outreach_first_touch") or ""
     published = 0
     added = 0
     for cl in rows:
@@ -49,7 +59,8 @@ def publish(client_id, report_date=None):
             "industry": co.get("industry") or "", "instagramHandle": co.get("instagram") or "",
             "instagramKind": "profile" if co.get("instagram") else "", "instagramFollowers": 0,
             "contactLinkedIn": co.get("linkedin") or "",
-            "pitchEmailES": _pitch_text(comp), "companyBrief": co.get("brief") or "",
+            "pitchEmailES": _pitch_text(comp) or _merge(tpl, co, ct), "sectorTemplate": tpl,
+            "companyBrief": co.get("brief") or "",
             "whyICP": "", "companyEmail": None, "score": cl.get("score") or 0,
             "source_date": sd, "whyNow": [s["type"] for s in (sigs or [])],
             "additionalContacts": [], "_verifiedCredits": [],

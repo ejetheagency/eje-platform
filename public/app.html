@@ -1151,6 +1151,13 @@
     function fmtDur(ms){ ms=Math.abs(ms); var d=Math.floor(ms/DAY),h=Math.floor((ms%DAY)/36e5),m=Math.floor((ms%36e5)/6e4);
       if(d>=1) return d+'d'+(h?' '+h+'h':''); if(h>=1) return h+'h'+(m?' '+m+'m':''); return (m||1)+'m'; }
     function firstName(l){ return (l.contactName||'').split(/\s+/)[0]||''; }
+    // TEMPLATE FLOOR: a card must NEVER show an empty message. If a lead has a per-lead template stored (lead_data
+    // .sectorTemplate, set by the factory from the client's icp_config), merge it; else a warm generic merge. The
+    // AI-composed pitch (pitchEmailES) always wins when present -- this is only the floor so nothing renders blank.
+    function _mergeTpl(tpl,l){ return String(tpl||'').replace(/\{first\}/g,firstName(l)||'ahí').replace(/\{company\}/g,l.companyName||'tu empresa').replace(/\{decisor\}/g,l.contactName||firstName(l)||'').replace(/\{industry\}/g,l.industry||''); }
+    function _floorPitch(l){ if(l.sectorTemplate) return _mergeTpl(l.sectorTemplate,l);
+      var n=firstName(l)||'', c=l.companyName||'tu empresa';
+      return 'Hola '+n+', ¿cómo estás? Vi '+c+' y me pareció que podíamos aportarles valor. ¿Te gustaría que te cuente en un minuto cómo funciona? Un saludo.'; }
     // ── SEND-TIME SLOT (per-country, Chile clock) — ported from classic cockpit ──
     // Operator works on the Chilean clock; schedule the email at this Santiago time
     // so it lands ~8 AM local in the recipient's country.
@@ -1178,7 +1185,7 @@
       c=c||cadOf(l);
       if(c.kind==='replied') return {text:repliedCopy(l),label:'Respondió · ofrecé consultoría gratis',mark:' · plantilla fijada'};
       if(c.kind==='loom') return {text:loomNudgeCopy(l),label:'Loom enviado · seguí para agendar la llamada',mark:' · editable'};
-      if(c.kind==='first'||c.touch===1) return {text:l.pitchEmailES||'(sin borrador)',label:'Email de primer toque',mark:''};
+      if(c.kind==='first'||c.touch===1) return {text:l.pitchEmailES||_floorPitch(l),label:'Email de primer toque',mark:(l.pitchEmailES?'':' · plantilla base (editá antes de enviar)')};
       return {text:ISEJE?ejeFollowEmail(l):followupCopy(l),label:c.stageLabel+' · email de seguimiento',mark:' · borrador editable'};
     }
     // Locked IG DM copy (plural voice, references prior email) — ported from classic cockpit.
@@ -1239,7 +1246,7 @@
         (res[1]||[]).forEach(function(m){var d=String(m.lead_id||'').toLowerCase();var t=new Date(m.sent_at).getTime();if(d&&!isNaN(t)){(MSGS[d]=MSGS[d]||[]).push(t);}});
         var map={};
         (res[0]||[]).forEach(function(r){var d=String(r.id||'').toLowerCase();if(!d)return;var ld=r.lead_data||{};
-          map[d]={_key:d,companyName:r.company||ld.companyName||d,contactName:r.contact_name||ld.contactName||'',contactEmail:r.contact_email||ld.contactEmail||'',country:ld.country||'',score:r.score||ld.score||'',instagramHandle:ld.instagramHandle||'',instagramFollowers:ld.instagramFollowers||0,contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',website:ld.website||('https://'+d),pitchEmailES:ld.pitchEmailES||ld.emailCercana||'',companyBrief:ld.companyBrief||'',whyICP:ld.whyICP||'',_emailVerify:ld._emailVerify||'',instagramKind:ld.instagramKind||'',contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',_verifiedCredits:ld._verifiedCredits||ld.verifiedCredits||[],additionalContacts:ld.additionalContacts||[],companyEmail:ld.companyEmail||null,contactTitle:ld.contactTitle||'',source_date:r.source_date||ld.source_date||'',status:r.status||'none'};
+          map[d]={_key:d,companyName:r.company||ld.companyName||d,contactName:r.contact_name||ld.contactName||'',contactEmail:r.contact_email||ld.contactEmail||'',country:ld.country||'',score:r.score||ld.score||'',instagramHandle:ld.instagramHandle||'',instagramFollowers:ld.instagramFollowers||0,contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',website:ld.website||('https://'+d),pitchEmailES:ld.pitchEmailES||ld.emailCercana||'',sectorTemplate:ld.sectorTemplate||'',industry:ld.industry||'',companyBrief:ld.companyBrief||'',whyICP:ld.whyICP||'',_emailVerify:ld._emailVerify||'',instagramKind:ld.instagramKind||'',contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',_verifiedCredits:ld._verifiedCredits||ld.verifiedCredits||[],additionalContacts:ld.additionalContacts||[],companyEmail:ld.companyEmail||null,contactTitle:ld.contactTitle||'',source_date:r.source_date||ld.source_date||'',status:r.status||'none'};
         });
         if(DATA&&DATA.leads){DATA.leads.forEach(function(l){var d=decDom(l.website);if(!d)return;map[d]=Object.assign({},map[d]||{},l,{_key:d,_today:true});});}
         BYKEY=map; UNIVERSE=Object.keys(map).map(function(k){return map[k];});
