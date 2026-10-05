@@ -1100,8 +1100,8 @@
       if(n<=1) return {touch:1,label:'1er toque',channel:'email',iv:0};
       if(n===2) return {touch:2,label:'2º toque',channel:'ig',iv:2*DAY};    // 2º canal: IG (o WhatsApp si no hay IG)
       if(n===3) return {touch:3,label:'3er toque',channel:'email',iv:5*DAY};  // 2º email
-      if(n===4) return {touch:4,label:'4º toque',channel:'li',iv:5*DAY};    // LinkedIn o canal alterno restante
-      if(n===5) return {touch:5,label:'Re-toque',channel:'ig',iv:7*DAY};    // EJE: doble-toque IG + email, ~1 semana si sigue en silencio
+      if(n===4) return {touch:4,label:'4º toque',channel:'ig',iv:7*DAY};    // EJE: re-toque IG + email (~1 sem si sigue en silencio). IG/WhatsApp SÍ permiten doble toque.
+      if(n===5) return {touch:5,label:'5º toque LinkedIn',channel:'li',iv:5*DAY};  // LinkedIn = toque FINAL, un solo disparo (NO es plataforma de doble toque)
       return {touch:n,label:'Mensual',channel:'email',iv:30*DAY};
     }
     function chLabel(ch){ return ch==='ig'?'IG':ch==='wa'?'WA':ch==='li'?'LinkedIn':ch==='call'?'Llamada':'Email'; }
@@ -1112,7 +1112,7 @@
         // NO alternate channel, HOLD it for re-enrichment (factory finds a channel) rather than burn the domain with a
         // redundant email. This is what stops already-contacted leads from being re-emailed.
         if(ch==='ig'&&!ig) return li?'li':(wa?'wa':'hold');
-        if(ch==='li'&&!li) return wa?'wa':(ig?'ig':'hold');
+        if(ch==='li'&&!li) return wa?'wa':'hold';   // LinkedIn = toque final; sin perfil -> HOLD (no repetir IG del toque 4)
         if(ch==='wa'&&!wa) return ig?'ig':(li?'li':'hold');
         return ch; }
       if(ch==='ig'&&!ig) return li?'li':'email';   // non-EJE (productoras) keeps the legacy email fallback
@@ -1200,15 +1200,16 @@
         +'Oye, te cuento: te he escrito un par de veces y se han perdido los mensajes. Calzas con el perfil de alguno de mis clientes, así que pensé en ti hoy.\n\n'
         +'Te cuento en cortísimo: abrimos conversaciones con tus clientes ideales y luego tú cierras la venta :). Podemos coordinar una demo si quieres explorar.\n\n'
         +'Cuéntame. Si tienes capacidad para 5-10 conversaciones extra semanales, puede funcionarte.'; }
-    // LinkedIn 2nd touch = fuller version WITH the Loom (fewer/scarcer touches, put value up front). Operator copy, 2026-09-16.
+    // LinkedIn = 5th / FINAL touch (single shot, NOT a double-touch platform). Operator voice: warm, selection, video
+    // offered as a soft question (not a link drop). No corporate slop ("paso a paso accionable", "la dinámica").
     function ejeLinkedInDM(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
-      return 'Hola '+n+', te escribí un correo hace unos días desde EJE. Trabajo con LockPro ayudando a founders a llegar a su prospecto ideal con un paso a paso accionable y contactos verificados. Te dejo un video que explica brevemente la dinámica. Si te interesa, nos juntamos un momento a revisar cómo se vería para '+e+'.\nUn saludo,\nEmiliano\n\nhttps://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
-    // Short LinkedIn CONNECTION-REQUEST note (free, ~300-char cap). Use for lower-priority leads; save InMail for top faith.
+      return 'Hola '+n+'! Te escribí por correo hace unos días desde EJE y quise saludarte también por acá. Te cuento rápido: hoy trabajo con LockPro abriéndoles conversaciones con sus clientes ideales, y al ver '+e+' sentí que calzaba con el perfil de mis clientes. ¿Te gustaría que te mande un video corto explicando lo que hago? Capaz les hace sentido. ¡Un abrazo! Emiliano'; }
+    // Short LinkedIn CONNECTION-REQUEST note (free, ~300-char cap).
     function ejeLinkedInConnectNote(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
-      return 'Hola '+n+', te escribí un correo hace unos días desde EJE. Ayudo a founders a llegar a su prospecto ideal con contactos verificados. Te dejo un video corto; si te interesa, vemos cómo se vería para '+e+': https://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
+      return 'Hola '+n+'! Soy Emiliano, de EJE. Te escribí por correo hace unos días. Hoy trabajo con LockPro abriéndoles conversaciones con sus clientes ideales y al ver '+e+' pensé en ti. ¿Te mando un video corto de lo que hago? ¡Un abrazo!'; }
     // Per-touch PLAYBOOK — the step-by-step "how" (IG protocol from enrichment/ai-content.js).
     function playbookFor(l,c){ c=c||cadOf(l); var ch=c.channel||'email';
-      if(ch==='ig'){ var h=l.instagramHandle||''; var _re=ISEJE&&c.touch>=5;
+      if(ch==='ig'){ var h=l.instagramHandle||''; var _re=ISEJE&&c.touch>=4;
         return {ch:'ig',title:_re?'Playbook · IG re-toque (doble)':'Playbook · Instagram DM',target:h?('@'+h):'(sin handle)',link:h?('https://instagram.com/'+h):'',
         steps:_re?['Ya le escribiste antes: este es el re-toque (5º), ~1 semana después del último toque.','Abrí @'+h+' y reaccioná a una historia o post reciente para reactivar el hilo.','Enviá el mensaje de abajo por IG (uno solo).','Mandá también la versión por email (mismo mensaje, adaptado) para doble canal.','Reconocé con liviandad que ya intentaste contactar; sin presión, cerrá con el ask de la demo.']
           :['Abrí @'+h+' y mirá sus historias y últimos posts.','Reaccioná / dale me gusta a sus últimos 2-3 posts.','Dejá un comentario genuino y específico en un post reciente (no genérico).','Seguí la cuenta.','Recién ahí enviá el DM (abajo). Casual, sin nombrar el producto de entrada.'],

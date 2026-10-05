@@ -8,12 +8,12 @@ Source of truth for EJE's OWN outreach. Authoritative brand detail: `~/claude/ej
 - **First touch = email, personalized.** Open with the invitation (CTA first), lead with the *destino* (the change in their life: "saber de dónde sale tu próximo cliente"), use SELECTION not agitation ("calzas con el perfil de mis clientes"), transparency as the weapon.
 - **The "loom" = a short presentación (~3 min) that explains how the system works**, offered as the value-drop. From the real Daniela close: *"Te envío una presentación por email y me comentas."* It comes after interest, or is offered in the first email as the low-friction next step.
 - **Cadence (doctrine 2026-10-05, in app.html cadNext):** 4 toques principales con canal distinto cada uno, luego un 5º de re-enganche:
-  1. **T1 email** (canal principal)
+  1. **T1 email** (canal principal, lo manda él desde su correo, no se loguea)
   2. **T2 IG DM** (o WhatsApp si no hay IG) — +2d. **El 2º toque NUNCA es email.**
   3. **T3 2º email** — +5d
-  4. **T4 LinkedIn** (o canal alterno restante) — +5d
-  5. **T5 doble-toque IG (2 globos) + email** — +7d, solo si sigue en silencio (re-enganche que reconoce los intentos previos)
-  - Tras el T5 el lead **re-ingresa a la factory** para enriquecimiento de canal alterno -> nuevo follow-up por un canal nuevo (próxima fase).
+  4. **T4 re-toque IG + email** — +7d, solo si sigue en silencio (re-enganche que reconoce los intentos previos). **IG/WhatsApp SÍ permiten doble toque.**
+  5. **T5 LinkedIn** — toque FINAL, un solo disparo. **LinkedIn NO es plataforma de doble toque** (una solicitud de conexión con nota, no se repite). Si no hay perfil de LinkedIn, el lead queda en HOLD para re-enriquecer (no se repite IG).
+  - Tras el T5 el lead **re-ingresa a la factory** para enriquecimiento de canal alterno.
 - **Timezone + horario laboral (importante):** toda acción es timezone-aware. Enviar en la ventana laboral del destinatario (Lun-Vie 8:00-18:00 local), objetivo ~8 AM local. La tarjeta muestra la hora local actual del contacto, si está dentro/fuera de horario, y la hora Chile equivalente para programar.
 
 ### T5 re-enganche IG (verbatim del operador — UN solo mensaje; "ocupadísim@" se gendera por el nombre del decisor)
