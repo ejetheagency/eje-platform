@@ -16,10 +16,14 @@ Source of truth for EJE's OWN outreach. Authoritative brand detail: `~/claude/ej
   - Tras el T5 el lead **re-ingresa a la factory** para enriquecimiento de canal alterno -> nuevo follow-up por un canal nuevo (próxima fase).
 - **Timezone + horario laboral (importante):** toda acción es timezone-aware. Enviar en la ventana laboral del destinatario (Lun-Vie 8:00-18:00 local), objetivo ~8 AM local. La tarjeta muestra la hora local actual del contacto, si está dentro/fuera de horario, y la hora Chile equivalente para programar.
 
-### T5 doble-toque IG (re-enganche, verbatim del operador — enviar como 2 mensajes, adaptar al área)
-> **Globo 1:** Hola {decisor} ¿cómo estás? Me imagino que ocupadísim@ jajaja.
+### T5 re-enganche IG (verbatim del operador — UN solo mensaje; "ocupadísim@" se gendera por el nombre del decisor)
+> Hola {decisor} ¿cómo estás? Me imagino que ocupadísim{a/o} jajaja.
 >
-> **Globo 2:** Oye, te cuento: te he escrito un par de veces y se han perdido los mensajes. Calzas con el perfil de alguno de mis clientes, así que pensé en ti hoy. Te cuento en cortísimo: abrimos conversaciones con tus clientes ideales y luego tú cierras la venta :). Podemos coordinar una demo si quieres explorar. Cuéntame. Si tienes capacidad para 5-10 conversaciones extra semanales, puede funcionarte.
+> Oye, te cuento: te he escrito un par de veces y se han perdido los mensajes. Calzas con el perfil de alguno de mis clientes, así que pensé en ti hoy.
+>
+> Te cuento en cortísimo: abrimos conversaciones con tus clientes ideales y luego tú cierras la venta :). Podemos coordinar una demo si quieres explorar.
+>
+> Cuéntame. Si tienes capacidad para 5-10 conversaciones extra semanales, puede funcionarte.
 
 ### Real first-touch (verbatim, MIRROR THIS — sent 2026-09-18 from contact@ejetheagency.com)
 > Hola José! Te habla Emiliano de EJE Agency.

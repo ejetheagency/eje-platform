@@ -1185,9 +1185,21 @@
     function igDM(l){ return 'Hola, ¿cómo están?\nLes escribimos un mail hace unos días y queríamos asegurarnos de que no se perdiera 🙌\nSi les hace sentido, se los contamos por acá y coordinamos una llamada corta.\nScarlett'; }
     // EJE workspace. IG 2nd touch = soft opener, no link (better IG engagement).
     function ejeFollowDM(l){ var n=firstName(l)||''; return 'Hola '+n+'! Te escribí un correo hace unos días desde EJE. Quedé esperando tu respuesta. ¿Quieres que te haga un resumen por aquí?'; }
-    // EJE 4th touch (+1wk after the core 3): IG "doble toque" RE-ENGAGEMENT — operator's real message, sent as TWO bubbles.
-    // Acknowledges prior attempts with lightness, re-states the offer short, soft demo ask. Adaptá levemente al área de la persona.
-    function ejeDobleToqueDM(l){ var n=firstName(l)||''; return 'Hola '+n+' ¿cómo estás? Me imagino que ocupadísim@ jajaja.\n\n[2º mensaje]\nOye, te cuento: te he escrito un par de veces y se han perdido los mensajes.\n\nCalzas con el perfil de alguno de mis clientes, así que pensé en ti hoy.\n\nTe cuento en cortísimo: abrimos conversaciones con tus clientes ideales y luego tú cierras la venta :). Podemos coordinar una demo si quieres explorar.\n\nCuéntame. Si tienes capacidad para 5-10 conversaciones extra semanales, puede funcionarte.'; }
+    // Guess grammatical gender from the decisor's first name (Spanish heuristic) so gendered words agree.
+    // Ends in 'a' -> feminine, with small exception lists both ways. Worst case it's a draft the operator edits.
+    function _femName(nm){ var n=(nm||'').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').split(/\s+/)[0]||'';
+      var FEM=['natali','nataly','nathaly','raquel','isabel','pilar','carmen','mercedes','dolores','beatriz','ines','ruth','flor','abril','noelia','mabel','soledad','consuelo','rocio','azucena','estefani','jennifer','jazmin','yasmin'];
+      var MASC_A=['garcia','sosa','costa','matias','elias','tobias','josue','luca','nicola','andrea','bautista','zacarias','isaias','jeremias'];
+      if(FEM.indexOf(n)>=0) return true;
+      if(MASC_A.indexOf(n)>=0) return false;
+      return /a$/.test(n); }
+    // EJE 5th touch (+1wk after the core 4): IG re-engagement. Operator's real message, ONE message. Acknowledges
+    // prior attempts with lightness, re-states the offer short, soft demo ask. "ocupadísim@" -> gendered by name.
+    function ejeDobleToqueDM(l){ var n=firstName(l)||''; var occ=_femName(l.contactName||n)?'ocupadísima':'ocupadísimo';
+      return 'Hola '+n+' ¿cómo estás? Me imagino que '+occ+' jajaja.\n\n'
+        +'Oye, te cuento: te he escrito un par de veces y se han perdido los mensajes. Calzas con el perfil de alguno de mis clientes, así que pensé en ti hoy.\n\n'
+        +'Te cuento en cortísimo: abrimos conversaciones con tus clientes ideales y luego tú cierras la venta :). Podemos coordinar una demo si quieres explorar.\n\n'
+        +'Cuéntame. Si tienes capacidad para 5-10 conversaciones extra semanales, puede funcionarte.'; }
     // LinkedIn 2nd touch = fuller version WITH the Loom (fewer/scarcer touches, put value up front). Operator copy, 2026-09-16.
     function ejeLinkedInDM(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
       return 'Hola '+n+', te escribí un correo hace unos días desde EJE. Trabajo con LockPro ayudando a founders a llegar a su prospecto ideal con un paso a paso accionable y contactos verificados. Te dejo un video que explica brevemente la dinámica. Si te interesa, nos juntamos un momento a revisar cómo se vería para '+e+'.\nUn saludo,\nEmiliano\n\nhttps://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
@@ -1198,7 +1210,7 @@
     function playbookFor(l,c){ c=c||cadOf(l); var ch=c.channel||'email';
       if(ch==='ig'){ var h=l.instagramHandle||''; var _re=ISEJE&&c.touch>=5;
         return {ch:'ig',title:_re?'Playbook · IG re-toque (doble)':'Playbook · Instagram DM',target:h?('@'+h):'(sin handle)',link:h?('https://instagram.com/'+h):'',
-        steps:_re?['Ya le escribiste antes: este es el re-toque (5º), ~1 semana después del último toque.','Abrí @'+h+' y reaccioná a una historia o post reciente para reactivar el hilo.','Enviá los DOS mensajes de abajo por IG, uno tras otro (primer globo corto, luego el segundo).','Mandá también la versión por email (mismo mensaje, adaptado) para doble canal.','Reconocé con liviandad que ya intentaste contactar; sin presión, cerrá con el ask de la demo.']
+        steps:_re?['Ya le escribiste antes: este es el re-toque (5º), ~1 semana después del último toque.','Abrí @'+h+' y reaccioná a una historia o post reciente para reactivar el hilo.','Enviá el mensaje de abajo por IG (uno solo).','Mandá también la versión por email (mismo mensaje, adaptado) para doble canal.','Reconocé con liviandad que ya intentaste contactar; sin presión, cerrá con el ask de la demo.']
           :['Abrí @'+h+' y mirá sus historias y últimos posts.','Reaccioná / dale me gusta a sus últimos 2-3 posts.','Dejá un comentario genuino y específico en un post reciente (no genérico).','Seguí la cuenta.','Recién ahí enviá el DM (abajo). Casual, sin nombrar el producto de entrada.'],
         draft:ISEJE?(_re?ejeDobleToqueDM(l):ejeFollowDM(l)):(l.instagramDM||igDM(l))}; }
       if(ch==='li'){ var lu=l.contactLinkedIn||l.linkedin||'';
