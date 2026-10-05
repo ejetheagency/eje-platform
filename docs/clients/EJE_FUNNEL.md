@@ -7,7 +7,19 @@ Source of truth for EJE's OWN outreach. Authoritative brand detail: `~/claude/ej
 ## First-touch -> loom funnel
 - **First touch = email, personalized.** Open with the invitation (CTA first), lead with the *destino* (the change in their life: "saber de dónde sale tu próximo cliente"), use SELECTION not agitation ("calzas con el perfil de mis clientes"), transparency as the weapon.
 - **The "loom" = a short presentación (~3 min) that explains how the system works**, offered as the value-drop. From the real Daniela close: *"Te envío una presentación por email y me comentas."* It comes after interest, or is offered in the first email as the low-friction next step.
-- Cadence (ciclo de vida): Ciclo 1 email -> IG DM; Ciclo 2 email -> WhatsApp; Ciclo 3+ email. **The 2nd touch is NEVER email (IG or LinkedIn).** Always 10:00-18:00 recipient's timezone.
+- **Cadence (doctrine 2026-10-05, in app.html cadNext):** 4 toques principales con canal distinto cada uno, luego un 5º de re-enganche:
+  1. **T1 email** (canal principal)
+  2. **T2 IG DM** (o WhatsApp si no hay IG) — +2d. **El 2º toque NUNCA es email.**
+  3. **T3 2º email** — +5d
+  4. **T4 LinkedIn** (o canal alterno restante) — +5d
+  5. **T5 doble-toque IG (2 globos) + email** — +7d, solo si sigue en silencio (re-enganche que reconoce los intentos previos)
+  - Tras el T5 el lead **re-ingresa a la factory** para enriquecimiento de canal alterno -> nuevo follow-up por un canal nuevo (próxima fase).
+- **Timezone + horario laboral (importante):** toda acción es timezone-aware. Enviar en la ventana laboral del destinatario (Lun-Vie 8:00-18:00 local), objetivo ~8 AM local. La tarjeta muestra la hora local actual del contacto, si está dentro/fuera de horario, y la hora Chile equivalente para programar.
+
+### T5 doble-toque IG (re-enganche, verbatim del operador — enviar como 2 mensajes, adaptar al área)
+> **Globo 1:** Hola {decisor} ¿cómo estás? Me imagino que ocupadísim@ jajaja.
+>
+> **Globo 2:** Oye, te cuento: te he escrito un par de veces y se han perdido los mensajes. Calzas con el perfil de alguno de mis clientes, así que pensé en ti hoy. Te cuento en cortísimo: abrimos conversaciones con tus clientes ideales y luego tú cierras la venta :). Podemos coordinar una demo si quieres explorar. Cuéntame. Si tienes capacidad para 5-10 conversaciones extra semanales, puede funcionarte.
 
 ### Real first-touch (verbatim, MIRROR THIS — sent 2026-09-18 from contact@ejetheagency.com)
 > Hola José! Te habla Emiliano de EJE Agency.

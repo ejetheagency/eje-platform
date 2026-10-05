@@ -1093,13 +1093,15 @@
     var ISEJE=(EJE_CLIENT==='eje'); // EJE Outreach workspace: cadence is IG DM then a 2nd email, then stop (no WhatsApp/monthly).
     var DORMANT_MS=30*DAY; // last touch older than this -> revival bucket, NOT "urgente"
     var MSGS={}, UNIVERSE=[], BYKEY={};
-    // Real cadence (doctrine): T1 email -> T2 Instagram DM (+2d) -> T3 email #2 (+5d)
-    // -> T4 alt-channel (+7d) -> monthly. IG/WA fall back to email if channel unavailable.
+    // EJE cadence (doctrine 2026-10-05): 4 toques principales -> T1 email -> T2 IG/WA (+2d) -> T3 2º email (+5d)
+    // -> T4 LinkedIn/canal alterno (+5d); si sigue en silencio -> T5 doble-toque IG (2 globos) + email (+7d, re-enganche).
+    // Tras el T5 el lead RE-INGRESA a la factory (enriquecimiento de canal alterno). Canales con fallback IG->LinkedIn->WA->email.
     function cadNext(n){
       if(n<=1) return {touch:1,label:'1er toque',channel:'email',iv:0};
-      if(n===2) return {touch:2,label:'2º toque',channel:'ig',iv:2*DAY};
-      if(n===3) return {touch:3,label:'3er toque',channel:'email',iv:5*DAY};
-      if(n===4) return {touch:4,label:'4º toque',channel:'wa',iv:7*DAY};
+      if(n===2) return {touch:2,label:'2º toque',channel:'ig',iv:2*DAY};    // 2º canal: IG (o WhatsApp si no hay IG)
+      if(n===3) return {touch:3,label:'3er toque',channel:'email',iv:5*DAY};  // 2º email
+      if(n===4) return {touch:4,label:'4º toque',channel:'li',iv:5*DAY};    // LinkedIn o canal alterno restante
+      if(n===5) return {touch:5,label:'Re-toque',channel:'ig',iv:7*DAY};    // EJE: doble-toque IG + email, ~1 semana si sigue en silencio
       return {touch:n,label:'Mensual',channel:'email',iv:30*DAY};
     }
     function chLabel(ch){ return ch==='ig'?'IG':ch==='wa'?'WA':ch==='li'?'LinkedIn':ch==='call'?'Llamada':'Email'; }
@@ -1120,7 +1122,7 @@
       if(st==='meeting') return {kind:'meeting'};
       if(st==='closed'||st==='skip') return {kind:'stop'};
       if(touches===0) return {kind:'first',touch:1,stageLabel:'1er toque',chip:'1er · Email',channel:'email',next:'Enviar primer email',dueMs:now,overdue:0,stageClass:''};
-      if(ISEJE && touches>=3) return {kind:'stop'}; // EJE: 1er email + IG DM + 2º email done -> sequence complete
+      if(ISEJE && touches>=5) return {kind:'stop'}; // EJE: 4 toques principales (email -> IG/WA -> 2º email -> LinkedIn/alt) + 5º doble-toque IG+email re-enganche (~1 sem si sigue en silencio). Tras el 5º el lead RE-INGRESA a la factory para enriquecimiento de canal alterno -> nuevo follow-up (próxima fase, aún no construida).
       var last=ts[touches-1], nx=cadNext(touches+1), ch=resolveCh(nx.channel,l), dueMs=last+nx.iv, overdue=now-dueMs;
       var kind=overdue>=0?'due':(dueMs-now<=DAY?'soon':'upcoming');
       var dormant=overdue>=0 && (now-last)>DORMANT_MS;
@@ -1143,6 +1145,12 @@
     function _tzOff(tz,date){var p=new Intl.DateTimeFormat('en-US',{timeZone:tz,hour12:false,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(date).reduce(function(a,x){a[x.type]=x.value;return a;},{});var hh=parseInt(p.hour,10)%24;var asUTC=Date.UTC(+p.year,+p.month-1,+p.day,hh,+p.minute,+p.second);return Math.round((asUTC-date.getTime())/60000);}
     function _fmt12(mins){mins=((mins%1440)+1440)%1440;var h=Math.floor(mins/60),m=mins%60;var ap=h<12?'AM':'PM';var hh=h%12;if(hh===0)hh=12;return hh+(m?(':'+String(m).padStart(2,'0')):'')+' '+ap;}
     function sendSlot(country){var tz=COUNTRY_TZ[country];if(!tz)return null;var now=new Date();var diff=_tzOff('America/Santiago',now)-_tzOff(tz,now);return {chile:_fmt12(8*60+diff),local:_fmt12(8*60),same:diff===0};}
+    // Recipient's CURRENT local time + whether it's working hours (Mon-Fri 8:00-18:00 local). Used to make every
+    // action timezone + working-hours aware: don't nudge a send at 3 AM local; point to the next good window.
+    function localNow(country){var tz=COUNTRY_TZ[country];if(!tz)return null;var now=new Date();
+      var p=new Intl.DateTimeFormat('en-US',{timeZone:tz,hour12:false,weekday:'short',hour:'2-digit',minute:'2-digit'}).formatToParts(now).reduce(function(a,x){a[x.type]=x.value;return a;},{});
+      var hh=parseInt(p.hour,10)%24,mm=parseInt(p.minute,10),dow=p.weekday,weekend=(dow==='Sat'||dow==='Sun');
+      return {label:_fmt12(hh*60+mm),hour:hh,weekend:weekend,working:(!weekend&&hh>=8&&hh<18)};}
     // Follow-up copy (ported verbatim from checkpoint/03-email-copy/WINNING-COPY.md)
     function followupCopy(l){ var n=firstName(l)||'equipo', e=l.companyName||'tu productora';
       return '¡Hola, '+n+'! ¿Cómo va todo?\n\nSolo quería saber si pudiste ver mi correo anterior y si te parece bien agendar la llamada que te comentaba. Me encantaría contarte más sobre nuestro sistema porque creo que a '+e+' le vendría muy bien. La diseñamos específicamente para la industria creativa y ordena muchísimo los presupuestos cuando hay varios proyectos a la vez.\n\n¿Te parece si coordinamos una reunión corta por Meet, sin ningún compromiso, para resolver cualquier duda? Contame cómo lo ves.\n\nSaludos,\nScarlett Lillo'; }
@@ -1164,6 +1172,9 @@
     function igDM(l){ return 'Hola, ¿cómo están?\nLes escribimos un mail hace unos días y queríamos asegurarnos de que no se perdiera 🙌\nSi les hace sentido, se los contamos por acá y coordinamos una llamada corta.\nScarlett'; }
     // EJE workspace. IG 2nd touch = soft opener, no link (better IG engagement).
     function ejeFollowDM(l){ var n=firstName(l)||''; return 'Hola '+n+'! Te escribí un correo hace unos días desde EJE. Quedé esperando tu respuesta. ¿Quieres que te haga un resumen por aquí?'; }
+    // EJE 4th touch (+1wk after the core 3): IG "doble toque" RE-ENGAGEMENT — operator's real message, sent as TWO bubbles.
+    // Acknowledges prior attempts with lightness, re-states the offer short, soft demo ask. Adaptá levemente al área de la persona.
+    function ejeDobleToqueDM(l){ var n=firstName(l)||''; return 'Hola '+n+' ¿cómo estás? Me imagino que ocupadísim@ jajaja.\n\n[2º mensaje]\nOye, te cuento: te he escrito un par de veces y se han perdido los mensajes.\n\nCalzas con el perfil de alguno de mis clientes, así que pensé en ti hoy.\n\nTe cuento en cortísimo: abrimos conversaciones con tus clientes ideales y luego tú cierras la venta :). Podemos coordinar una demo si quieres explorar.\n\nCuéntame. Si tienes capacidad para 5-10 conversaciones extra semanales, puede funcionarte.'; }
     // LinkedIn 2nd touch = fuller version WITH the Loom (fewer/scarcer touches, put value up front). Operator copy, 2026-09-16.
     function ejeLinkedInDM(l){ var n=firstName(l)||'', e=l.companyName||'tu equipo';
       return 'Hola '+n+', te escribí un correo hace unos días desde EJE. Trabajo con LockPro ayudando a founders a llegar a su prospecto ideal con un paso a paso accionable y contactos verificados. Te dejo un video que explica brevemente la dinámica. Si te interesa, nos juntamos un momento a revisar cómo se vería para '+e+'.\nUn saludo,\nEmiliano\n\nhttps://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
@@ -1172,9 +1183,11 @@
       return 'Hola '+n+', te escribí un correo hace unos días desde EJE. Ayudo a founders a llegar a su prospecto ideal con contactos verificados. Te dejo un video corto; si te interesa, vemos cómo se vería para '+e+': https://www.loom.com/share/3ba0a1be7a6846cdb151d6e37c5e0205'; }
     // Per-touch PLAYBOOK — the step-by-step "how" (IG protocol from enrichment/ai-content.js).
     function playbookFor(l,c){ c=c||cadOf(l); var ch=c.channel||'email';
-      if(ch==='ig'){ var h=l.instagramHandle||''; return {ch:'ig',title:'Playbook · Instagram DM',target:h?('@'+h):'(sin handle)',link:h?('https://instagram.com/'+h):'',
-        steps:['Abrí @'+h+' y mirá sus historias y últimos posts.','Reaccioná / dale me gusta a sus últimos 2-3 posts.','Dejá un comentario genuino y específico en un post reciente (no genérico).','Seguí la cuenta.','Recién ahí enviá el DM (abajo). Casual, sin nombrar el producto de entrada.'],
-        draft:ISEJE?ejeFollowDM(l):(l.instagramDM||igDM(l))}; }
+      if(ch==='ig'){ var h=l.instagramHandle||''; var _re=ISEJE&&c.touch>=5;
+        return {ch:'ig',title:_re?'Playbook · IG re-toque (doble)':'Playbook · Instagram DM',target:h?('@'+h):'(sin handle)',link:h?('https://instagram.com/'+h):'',
+        steps:_re?['Ya le escribiste antes: este es el re-toque (5º), ~1 semana después del último toque.','Abrí @'+h+' y reaccioná a una historia o post reciente para reactivar el hilo.','Enviá los DOS mensajes de abajo por IG, uno tras otro (primer globo corto, luego el segundo).','Mandá también la versión por email (mismo mensaje, adaptado) para doble canal.','Reconocé con liviandad que ya intentaste contactar; sin presión, cerrá con el ask de la demo.']
+          :['Abrí @'+h+' y mirá sus historias y últimos posts.','Reaccioná / dale me gusta a sus últimos 2-3 posts.','Dejá un comentario genuino y específico en un post reciente (no genérico).','Seguí la cuenta.','Recién ahí enviá el DM (abajo). Casual, sin nombrar el producto de entrada.'],
+        draft:ISEJE?(_re?ejeDobleToqueDM(l):ejeFollowDM(l)):(l.instagramDM||igDM(l))}; }
       if(ch==='li'){ var lu=l.contactLinkedIn||l.linkedin||'';
         return {ch:'li',title:'Playbook · LinkedIn',target:l.contactName||'(perfil)',link:lu,
         steps:['Abrí el perfil'+(lu?'':' (buscá su nombre en LinkedIn)')+' y revisá su actividad reciente.','MEJOR: enviá solicitud de conexión con la nota corta (gratis, abajo). Guardá los InMails (30/mes) para los de mayor prioridad.','Cuando conecten (o por InMail si es prioridad), enviá el mensaje completo con el video.'],
@@ -1651,8 +1664,15 @@
       var _dots=''; for(var _k=1;_k<=Math.max(4,_done+1);_k++){_dots+='<i class="'+(_k<=_done?'on':(_k===_done+1?'now':''))+'"></i>';}
       var _strip='<div class="cad-strip"><span class="cs-badge stage-chip '+(_cad.stageClass||'')+'">'+esc(_cad.chip||_cad.stageLabel||'—')+'</span><span class="cs-due">Próxima acción: <b>'+esc(_cad.next||'—')+'</b> · '+_dueLbl+'</span><div class="cad-dots">'+_dots+'</div></div>';
       var _pbHtml='<div class="pb"><div class="pb-h"><span>'+esc(_pb.title)+'</span>'+(_pb.link?'<a class="pb-open" href="'+esc(_pb.link)+'" target="_blank" rel="noopener">'+esc(_pb.target)+' ↗</a>':'<span class="pb-tgt">'+esc(_pb.target)+'</span>')+'</div><ol class="pb-steps">'+_pb.steps.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ol><div class="draft"><div class="draft-h">Mensaje'+esc(_draft.mark||'')+'</div><pre class="draft-b">'+esc(_pb.draft)+'</pre></div>'+(_pb.altDraft?'<div class="draft" style="margin-top:8px"><div class="draft-h">'+esc(_pb.altLabel||'Alternativa')+'</div><pre class="draft-b">'+esc(_pb.altDraft)+'</pre><div style="padding:2px 14px 12px"><button type="button" class="btn copy-alt">Copiar nota de conexión</button></div></div>':'')+((ISEJE&&_pb.ch==='ig')?'<div style="padding:0 14px 12px"><button type="button" class="btn bad-ig" style="background:transparent;border:1px solid var(--line);color:var(--ink-3);font-size:12px">Marcar IG incorrecto ✕</button></div>':'')+'</div>';
-      var _slot=(_cad.channel==='email')?sendSlot(l.country):null;
-      var _slotHtml=_slot?('<div class="sendslot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg><span>Programá el envío a las <b>'+esc(_slot.chile)+'</b> (hora Chile) para que llegue ~8 AM en '+esc(l.country||'destino')+(_slot.same?' · misma zona horaria':'')+'</span></div>'):'';
+      // Timezone + working-hours aware: for EVERY channel, show the recipient's local time now, whether it's
+      // within working hours, and the best send window (8 AM local = _slot.chile in Chile clock).
+      var _slot=sendSlot(l.country), _ln=localNow(l.country);
+      var _slotHtml=(_slot&&_ln)?(function(){
+        var ok=_ln.working, st=ok?'dentro de horario laboral':(_ln.weekend?'fin de semana en destino':'fuera de horario laboral');
+        var tip=ok?('Buen momento para enviar. Objetivo ~8 AM local = <b>'+esc(_slot.chile)+'</b> hora Chile'+(_slot.same?' · misma zona':'')+'.')
+                  :('Mejor esperá a la ventana de las <b>'+esc(_slot.local)+'</b> local (<b>'+esc(_slot.chile)+'</b> hora Chile'+(_slot.same?' · misma zona':'')+').');
+        return '<div class="sendslot" style="'+(ok?'':'border-color:color-mix(in srgb,#e0a73f 45%,var(--line-2))')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg><span>Ahora <b>'+esc(_ln.label)+'</b> en '+esc(l.country||'destino')+' · '+st+'. '+tip+'</span></div>';
+      })():'';
       var credits=(l._verifiedCredits||l.verifiedCredits||[]);
       var addl=(l.additionalContacts||[]);
       var addlHtml=addl.length?('<div style="margin-top:14px">'+addl.map(function(c){return '<div class="row"><div class="k">'+esc(c.title||'Contacto')+'</div><div class="v">'+esc(c.name||'—')+(c.email?' · <span class="link">'+esc(c.email)+'</span>':'')+'</div></div>';}).join('')+'</div>'):'';
