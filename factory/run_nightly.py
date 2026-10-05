@@ -39,6 +39,12 @@ def run(client=None, max_leads=None):
         out["replies_captured"] = reply_reconcile.reconcile_email(client="eje", apply=True).get("recorded", 0)
     except Exception:
         pass
+    try:  # reconcile OUTBOUND email sends (first touch + chat-drafted + Gmail follow-ups) -> platform, by recipient,
+          # so the task queue stays TRUE even when the operator sends from his own inbox. EJE-only (his comfort path).
+        from factory.workers import reconcile_sends
+        out["sends_reconciled"] = reconcile_sends.reconcile(client="eje", apply=True).get("recorded", 0)
+    except Exception:
+        pass
     reps = reports.build_all() if not client else [reports.build(client)]
     out["reports"] = {r["client_id"]: r["count"] for r in reps}
     try:  # bridge: publish READY factory leads -> the `leads` table the app reads (contact cards for full-access clients)
