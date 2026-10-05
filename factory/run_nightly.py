@@ -32,6 +32,11 @@ def run(client=None, max_leads=None):
         out["reverified"] = reverify.sweep(client_id=client)
     except Exception:
         pass
+    try:  # re-enrich parked leads missing a decisor/email through the (upgraded) site_decisor extraction -> recovers
+          # the "no name / no email" parked bucket the factory left behind. The yield fix, run autonomously nightly.
+        out["reenriched"] = reverify.reenrich_parked(client_id=client)
+    except Exception:
+        pass
     drained = runner.drain_concurrent(workers=4)  # concurrent workers (atomic claim) = faster nightly runs
     out["jobs"] = len(drained)
     try:  # capture inbound email replies for EJE's own outreach (agency inbox) -> engagement + learning
