@@ -78,3 +78,17 @@ Once a lead replies or a client is onboarding, this is his register (mirror it, 
 - UnaBase: ~75 decisores contactados, 5-10 conversaciones, 7-10% efectividad.
 - "el mejor ejemplo, irónicamente, soy yo" (reaches prospects with his own system).
 - Anchors: "Una negativa vale 10x más que el silencio." "No es magia. Es un sistema que convierte tu embudo en una disciplina."
+
+## Per-situation reply exemplars (REAL sent — mirror these moves, don't invent)
+
+### Soft-no / "lo hacemos internamente / somos agencia, prospectamos solos" (2026-10-05, verbatim)
+Prospect (an Inbound/Sales agency) declined: "no estamos buscando apoyo externo para la prospección... gestionamos toda nuestra generación de leads de manera interna con nuestro propio equipo. Por ahora dejaremos pasar la demo, te deseo éxito."
+
+Emiliano's reply (the move to mirror):
+> Qué gusto escuchar de ustedes 🙂. Obvio, ningún problema. Es un placer. Me alegra genuinamente que estén con flujo. Y espero que siga así.
+>
+> Te entiendo; revisé previamente. La verdad es que nuestro apoyo viene desde adentro. Es un sistema que simplemente les brinda un apoyo diario y que necesita 0 esfuerzo mental, ya que funciona semiautomático. La revisión diaria solamente es para asegurarse de que los mensajes siempre representen la marca. Nuestro objetivo es entregarle a empresas pequeñas y medianas un motor que no varía dependiendo del mes, ya que está al 100% bajo control tuyo.
+>
+> Con eso dicho, discúlpame a mil lo entrometido, ¿pero te puedo preguntar cómo están haciendo su prospección hoy? Me encantaría entender lo que les funciona tan bien 🙂.
+
+**The moves (apply to any soft-no):** (1) validate warmly + genuine, ZERO pressure ("obvio, ningún problema", "me alegra que estén con flujo"). (2) REFRAME the objection: no es apoyo EXTERNO, es un sistema interno, 0 esfuerzo mental, semiautomático, **100% bajo su control** (la revisión diaria solo mantiene los mensajes on-brand). (3) Value anchor: **un motor que no varía mes a mes**, para pymes. (4) Reopen with a HUMBLE curiosity question ("discúlpame lo entrometido, ¿cómo prospectan hoy? me encantaría entender qué les funciona") — keeps it alive, "ahora no = todavía no". Never argue; stay warm and curious.
