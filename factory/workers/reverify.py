@@ -4,6 +4,7 @@
 # is moved back to GATE_CHECK and re-queued for verify. Bounded per client so a fresh night's cap works through
 # the backlog a slice at a time. Makes named-but-unverified leads reach READY on a later run, with no human/cron.
 import datetime
+from urllib.parse import quote
 from factory.packages import db, queue, lead_state
 
 
@@ -19,7 +20,7 @@ def reenrich_parked(client_id=None, cap=120, stale_hours=36):
     for cid in clients:
         rows = db.select("client_leads",
                          "client_id=eq.%s&state=eq.PARKED&updated_at=lt.%s&select=id,company_id,contact_id&order=updated_at.asc&limit=%d"
-                         % (cid, cutoff, cap))
+                         % (cid, quote(cutoff, safe=""), cap))
         for r in rows:
             if n >= cap:
                 break
