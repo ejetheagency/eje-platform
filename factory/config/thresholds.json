@@ -19,6 +19,8 @@
     "reserve_credits": 50,
     "lookahead_days": 3,
     "night_credit_cap": 100,
+    "_recovery_reserve_comment": "Verify credits reserved for RECOVERY (promote_candidates) that the general new-lead drain can't consume. Recovering an already-FOUND email is higher-ROI than verifying a fresh lead, so it never gets starved: recovery ceiling = night_credit_cap + recovery_reserve.",
+    "recovery_reserve": 25,
     "gate_a": {
       "min_corroborations": 2,
       "min_role_confidence": 0.6,

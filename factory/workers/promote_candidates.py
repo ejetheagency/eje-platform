@@ -13,19 +13,38 @@ from factory.providers import verifier
 ROLE = {"info", "contacto", "contact", "hola", "hello", "ventas", "sales", "admin", "soporte", "support",
         "gerencia", "administracion", "recepcion", "contacto1", "comercial"}
 
+# Candidate hygiene: never spend a (scarce, capped) verify credit on a malformed or placeholder address.
+# Scrapes pick up template junk like "usuario@dominio.com" / "your@email.com" and broken tokens; filter them out.
+_EMAIL_RE = re.compile(r"^[a-z0-9][a-z0-9._%+-]*@([a-z0-9](-?[a-z0-9]+)*\.)+[a-z]{2,}$")
+_PLACEHOLDER_DOMAINS = {"dominio.com", "domain.com", "example.com", "ejemplo.com", "email.com", "correo.com",
+                        "test.com", "mail.com", "yourdomain.com", "sudominio.com", "tudominio.com", "empresa.com"}
+_PLACEHOLDER_LOCAL = {"usuario", "user", "nombre", "name", "tucorreo", "tuemail", "ejemplo", "example", "test",
+                      "email", "correo", "your", "sample"}
+
+
+def _hygienic(e):
+    if not _EMAIL_RE.match(e):
+        return False
+    lp, dom = e.split("@", 1)
+    return dom not in _PLACEHOLDER_DOMAINS and lp not in _PLACEHOLDER_LOCAL
+
 
 def _now():
     return datetime.datetime.now(datetime.timezone.utc).isoformat()
 
 
-def _ncap_reached():
+def _ncap_reached(reserve=0):
+    # Recovery (promoting an ALREADY-FOUND email) is higher-ROI than verifying a brand-new lead, so it gets a
+    # reserved credit slice the general new-lead drain can't touch: its ceiling = night_credit_cap + recovery_reserve.
     thp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "thresholds.json")
     try:
-        ncap = int((json.load(open(thp)).get("verify") or {}).get("night_credit_cap", 100))
+        vcfg = (json.load(open(thp)).get("verify") or {})
+        ncap = int(vcfg.get("night_credit_cap", 100))
+        reserve = reserve if reserve else int(vcfg.get("recovery_reserve", 0))
     except Exception:
         ncap = 100
     day = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
-    return db.count("cost_ledger", "created_at=gte.%s&provider=in.(millionverifier,hunter)" % day) >= ncap
+    return db.count("cost_ledger", "created_at=gte.%s&provider=in.(millionverifier,hunter)" % day) >= (ncap + reserve)
 
 
 def _candidates(company_id):
@@ -43,7 +62,7 @@ def _candidates(company_id):
             out.append(v.strip().lower())
     seen, r = set(), []
     for e in out:
-        if e not in seen:
+        if e not in seen and _hygienic(e):  # drop malformed/placeholder before they cost a verify credit
             seen.add(e)
             r.append(e)
     return r
