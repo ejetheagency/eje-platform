@@ -45,6 +45,9 @@ def publish(client_id, report_date=None):
     geo = ic.get("geo") or ""
     tpl = ic.get("outreach_first_touch") or ""
     sender = ic.get("sender_name") or ""
+    ig_t = ic.get("outreach_ig") or ""
+    fu_t = ic.get("outreach_email_followup") or ""
+    li_t = ic.get("outreach_linkedin") or ""
     published = 0
     added = 0
     skipped = 0
@@ -71,6 +74,7 @@ def publish(client_id, report_date=None):
             "instagramKind": "profile" if co.get("instagram") else "", "instagramFollowers": 0,
             "contactLinkedIn": co.get("linkedin") or "",
             "pitchEmailES": _pitch_text(comp) or _merge(tpl, co, ct, sender), "sectorTemplate": tpl, "sender": sender,
+            "instagramDM": _merge(ig_t, co, ct, sender), "followupEmail": _merge(fu_t, co, ct, sender), "linkedinDM": _merge(li_t, co, ct, sender),
             "companyBrief": co.get("brief") or "",
             "whyICP": "", "companyEmail": None, "score": cl.get("score") or 0,
             "source_date": sd, "whyNow": [s["type"] for s in (sigs or [])],
