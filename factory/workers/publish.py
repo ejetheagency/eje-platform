@@ -7,6 +7,10 @@
 # run_nightly scopes this to access=='full' clients so legacy surfaces (2uplatam) and EJE's own pool are untouched.
 import datetime
 from factory.packages import db
+try:
+    from factory.workers import scoring
+except Exception:
+    scoring = None
 
 # A "company" whose only web presence is a social page gets a junk domain; never key an app lead by these.
 GENERIC_DOMAINS = {"facebook.com", "m.facebook.com", "business.facebook.com", "instagram.com", "linkedin.com",
@@ -60,9 +64,15 @@ def publish(client_id, report_date=None):
             continue
         ct = {}
         if cl.get("contact_id"):
-            ct = (db.select("contacts", "id=eq.%s&select=full_name,title,email" % cl["contact_id"]) or [{}])[0]
+            ct = (db.select("contacts", "id=eq.%s&select=full_name,title,email,phone" % cl["contact_id"]) or [{}])[0]
         sigs = db.select("signals", "company_id=eq.%s&select=type&limit=5" % cl["company_id"])
         comp = cl.get("composed") or {}
+        # RE-SCORE on CURRENT enrichment (the stored client_lead.score is the stale pre-enrichment value;
+        # a READY lead with email+decisor+brief+IG should read ~60-72 "fit", not its early 10-20).
+        try:
+            fscore = int(scoring.score(co, ct, sigs, True)) if scoring else int(cl.get("score") or 0)
+        except Exception:
+            fscore = int(cl.get("score") or 0)
         prev = existing.get(dom)
         sd = (prev or {}).get("source_date") or report_date
         status = (prev or {}).get("status") or "none"
@@ -76,12 +86,12 @@ def publish(client_id, report_date=None):
             "pitchEmailES": _pitch_text(comp) or _merge(tpl, co, ct, sender), "sectorTemplate": tpl, "sender": sender,
             "instagramDM": _merge(ig_t, co, ct, sender), "followupEmail": _merge(fu_t, co, ct, sender), "linkedinDM": _merge(li_t, co, ct, sender),
             "companyBrief": co.get("brief") or "",
-            "whyICP": "", "companyEmail": None, "score": cl.get("score") or 0,
+            "whyICP": "", "companyEmail": None, "score": fscore,
             "source_date": sd, "whyNow": [s["type"] for s in (sigs or [])],
             "additionalContacts": [], "_verifiedCredits": [],
         }
         base = {"company": co.get("name") or dom, "contact_name": ct.get("full_name") or None,
-                "contact_email": ct.get("email") or None, "score": int(cl.get("score") or 0),
+                "contact_email": ct.get("email") or None, "score": fscore,
                 "lead_data": ld, "updated_at": datetime.datetime.now(datetime.timezone.utc).isoformat()}
         if prev:
             db.update("leads", "id=eq.%s&client_id=eq.%s" % (dom, client_id), base)
