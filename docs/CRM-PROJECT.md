@@ -1,5 +1,8 @@
 # CRM Project, Build Spec
 
+> **Status + current position live in `docs/PLAN.md` (the anchor). This file is the build spec; Factory engine detail is in `docs/FACTORY-VISION.md`.**
+
+
 **Official project name: the CRM Project.** The execution spine for rebuilding the EJE Outreach tool into
 **the scalable multi-tenant CRM product**.
 Grounded in `ARCHITECTURE.md` (current state), `ENGINE-INTEGRATION.md` (the engine we already built),

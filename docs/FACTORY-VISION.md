@@ -1,5 +1,8 @@
 # THE FACTORY — vision → architecture (non-negotiable north star)
 
+> **Status + current position live in `docs/PLAN.md` (the anchor). This doc = the detailed spec for CRM Project slices S3+S4 (`docs/CRM-PROJECT.md`).**
+
+
 This is the operator's vision for EJE's factory, translated from human language into the system it has to become.
 It is not aspirational copy. It is the spec. Every build decision is measured against it. Written 2026-10-05.
 
