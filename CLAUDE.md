@@ -1,5 +1,21 @@
 # EJE Platform: read this first
 
+## THE GOAL (the anchor — hold this before anything else, every session)
+**We build a factory that turns mined companies into a small number of real, ready-to-contact decisor cards,
+and raises the mine→finished (quality) ratio by itself.** That one honest number is the job.
+- **We don't do leads. We do conversations yet to be had.** Every card the factory produces is INTENTIONAL —
+  the right ICP, a named decisor, a reachable email — or it dies with a recorded cause. Nothing floats.
+- **Docs must equal the live machine.** A doc/line that claims "works" without being shown running in code is a
+  lie we trip over next week. Label reality honestly: WIRED (in the live run path) vs MEASUREMENT (read-only,
+  not yet acting) vs WORDS (not built). Never celebrate volume or vision over the finished-ratio.
+- **Clean code: every line has a purpose and an effect.** A line that doesn't change what the factory does is the
+  code version of a floating doc. Build so tomorrow is easier.
+- **The north:** an Innovations↔Miners feedback loop where departments reverse-engineer hard info, find new
+  routes, and REPEAT the high-yield ones per ICP — optimizing even when no one is watching.
+- When the operator says **"the plan"**, read **`docs/PLAN.md`** (the anchor) + this block, and work toward it.
+  Doctrine = `docs/FACTORY-VISION.md` (THE CIRCLE). Honest current truth: TSA is not yet tight (junk still slips,
+  ICP drifts, mine→finished ratio is ~2%) — that gap IS the work.
+
 This repo (GitHub `eje-platform`) hosts **two things that share one codebase + one Supabase project**
 (`ogdsuztzhmnnjolilsuo`, `leads` table): the legacy productora cockpit (built for a former client) AND EJE's own product.
 Deploy = commit the changed file(s) by name + `git push origin main` (Vercel auto-deploys; live at `app.ejetheagency.com`).

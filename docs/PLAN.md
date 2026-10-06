@@ -1,5 +1,10 @@
 # PLAN — the anchor (read this first, update it last)
 
+> **THE GOAL:** a factory that turns mined companies into a small number of real, ready-to-contact decisor cards,
+> and raises the **mine→finished (quality) ratio** by itself. We don't do leads — we do conversations yet to be
+> had; every card is intentional or dies with cause. **Docs must equal the live machine** (WIRED / MEASUREMENT /
+> WORDS). Clean code: every line has a purpose and an effect. (Full anchor in the repo `CLAUDE.md` top block.)
+
 **Purpose:** the single place that answers "where do we stand right now?" at all times, even when we drift into
 daily tasks. If this doc is current, a new session spends zero tokens re-deriving context.
 
