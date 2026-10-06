@@ -13,12 +13,27 @@ def _cfg():
         return json.load(f)
 
 
+# Tokens that appear in an ICP description for NON-industry reasons (geography, generic filler). A company-name
+# token matching one of these is a FALSE fit — e.g. "Fogo de Chão Ecuador" matched the ICP only via "ecuador"
+# (the client's geo), scoring a chain restaurant as ICP-fit. These never count as an industry match.
+_FIT_STOP = {
+    # geography (LATAM countries + major cities)
+    "ecuador", "mexico", "méxico", "colombia", "chile", "españa", "espana", "peru", "perú", "argentina",
+    "bolivia", "paraguay", "uruguay", "venezuela", "guatemala", "honduras", "panama", "panamá", "latam",
+    "latinoamerica", "latinoamérica", "sudamerica", "sudamérica", "america", "américa", "quito", "guayaquil",
+    "cuenca", "bogota", "bogotá", "medellin", "medellín", "santiago", "madrid", "barcelona", "lima",
+    # generic business filler (not an industry signal)
+    "negocio", "negocios", "empresa", "empresas", "grupo", "group", "company", "corporation", "corporativo",
+    "international", "internacional", "global", "oficial", "official", "online", "store", "tienda", "shop",
+}
+
+
 def _fit(company, client_id):
     rows = db.select("clients", "id=eq.%s&select=icp_config" % client_id)
     icp = (rows[0].get("icp_config") or {}) if rows else {}
     hay = (str(icp.get("icp") or "") + " " + json.dumps(icp.get("signals") or "")).lower()
     comp = ((company.get("industry") or "") + " " + (company.get("name") or "")).lower()
-    toks = [t for t in comp.replace("/", " ").split() if len(t) > 4]
+    toks = [t for t in comp.replace("/", " ").split() if len(t) > 4 and t not in _FIT_STOP]
     return any(t in hay for t in toks)
 
 
