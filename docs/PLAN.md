@@ -44,7 +44,8 @@ The strategic build. Order chosen so each phase makes the next compound.
   2. **Continuous running: NOT YET.** It amplifies weak work; sequence it after the brain + yield fix.
   3. **Build order: THE LIBRARY FIRST.**
 - **In progress:** Library Phase 1. Found it ~70% built + dormant (see Phase 1). **Next brick = the route-yield read layer** over `enrichment_findings` (2,755 rows): rank which routes/sources find emails + decisors best, per ICP, at what cost. Then populate `strategies` (the route registry), then the selector the miners consult, then 3-rate instrumentation.
-- **Fernando bridge (Track A, honest — no guessing):** the durable fix is the Library teaching the factory to FIND the 59 IG-having leads' real verified emails (IG handle as the path + tier2 Hunter/Apollo, FD-approved premium spend for the paying client). Not gate-lowering, not guessing.
+- **Fernando bridge (Track A, honest — no guessing):** the durable fix is the Library teaching the factory to FIND the 59 IG-having leads' real verified emails (IG handle as the path + tier2 Hunter/Apollo, FD-approved premium spend). Not gate-lowering, not guessing.
+- **LIBRARY FINDING #1 (2026-10-05, the leak):** `enrichment_findings` has **366 real `email_candidates` (scraped from company sites — NOT guesses) but only 50 verified `email`s.** The factory FINDS emails then drops them — no step verifies candidates + promotes them to the contact. **49 of Fernando's 109 parked leads already have a found candidate on file.** Also: Hunter/Apollo produce ZERO findings (not running / not logged). **NEXT BRICK = a `promote_candidates` factory step: verify a lead's found candidates (MillionVerifier) → promote the deliverable one → READY.** Honest (completes the factory's own work), recovers ~49 for Fernando, fixes the leak system-wide.
 
 ---
 
