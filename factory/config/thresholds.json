@@ -1,6 +1,8 @@
 {
   "_comment": "Scoring + routing thresholds. Founder tunes these. score is 0-100.",
   "discard_floor": 30,
+  "_junk_floor_comment": "Doctrine 0b: stay-vs-discard is the QUALITY axis, not completeness. A lead is early-killed ONLY when its COMPANY quality (fit+brief+signals+web-presence, NOT contact data) is below junk_floor — i.e. no positive evidence it's a good target. Conservative: 8 = discard only total-blank leads (zero fit/signal/presence/brief). Raise as cheap junk detectors (dead-site, off-ICP classifier) come online to leak more junk earlier and save more Tier-2 spend.",
+  "junk_floor": 8,
   "tier2_threshold": 70,
   "explore_rate": 0.2,
   "_nurture_comment": "Outreach playbook nurture caps (OUTREACH_PLAYBOOKS.md §6 rule 4). After the cap, the run PARKS.",

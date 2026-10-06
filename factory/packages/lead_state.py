@@ -36,7 +36,9 @@ def can_move(frm, to):
     return to in ALLOWED.get(frm, set())
 
 
-def move(client_lead_id, to_state):
+def move(client_lead_id, to_state, reason=None):
+    # reason = the recorded CAUSE of this transition (doctrine law 1: nothing leaves the circle — DISCARDED or
+    # PARKED — without a cause). Written to hold_reason so a discard/park is always auditable, never silent.
     rows = db.select("client_leads", "id=eq.%s&select=id,state,cycle_count" % client_lead_id)
     if not rows:
         raise InvalidTransition("client_lead %s not found" % client_lead_id)
@@ -44,6 +46,10 @@ def move(client_lead_id, to_state):
     if not can_move(cur, to_state):
         raise InvalidTransition("%s -> %s not allowed" % (cur, to_state))
     patch = {"state": to_state, "updated_at": _now()}
+    if reason is not None:
+        patch["hold_reason"] = reason
+    elif to_state in ("GATE_CHECK", "READY"):
+        patch["hold_reason"] = None  # leaving a held state -> clear the stale cause
     # count a full re-enrichment cycle each time we re-enter enrichment from a gate
     if to_state == "T1_ENRICHING" and cur in ("GATE_CHECK", "PARKED"):
         patch["cycle_count"] = (rows[0].get("cycle_count") or 0) + 1

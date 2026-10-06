@@ -34,10 +34,19 @@ leaves the circle are those two doors; any other exit is a bug, not a design.
 
 **The two laws that make this real:**
 
-- **No premature death.** A lead may not be proclaimed useless on thin evidence. Discard requires BOTH (a) a
-  genuine TSA failure after honest attempts (no real website AND no findable email AND no decisor, per the
-  client's ICP), AND (b) a recorded cause (`hold_reason` / `quality_flags`). **A cycle-0, score-below-floor,
-  no-reason discard is forbidden** — that lead has no evidence yet; it must loop, not leave.
+- **No premature death — on the QUALITY axis, not the completeness axis.** The decision "does this leave the
+  circle?" is about **how good the COMPANY is** (ICP fit + why-now signal + it's a real target), NOT about how
+  complete its contact card is yet.
+  - **High-quality company, thin contact → never discard. Loop it, and spend MORE capacity mining the contact.**
+    A great company missing only its email/decisor is the most valuable thing in the circle; killing it for
+    un-mined data is the forbidden leak. (This was the live bug: `score < discard_floor` weighted contact
+    completeness, so it executed high-quality companies for not-yet-mined contacts.)
+  - **Detectably-shitty company → discard EARLY, cheaply, with cause. This is a sanctioned leak.** If an early,
+    cheap detector already knows the card is junk (off-ICP, no real website per the client's ICP, dead/placeholder
+    company, spam domain), we do **not** burn enrichment capacity looping it. Early-kill with a recorded cause is
+    the point of "leaks only where they are needed" — the junk door is a *needed* door.
+  - So: **READY-vs-keep-mining** is the completeness question (loop until the contact is found or routes exhaust);
+    **stay-vs-discard** is the quality question (cheap early detector). Every discard still records a cause.
 - **Evidence density = priority.** The more evidence we already hold on a lead (findings count, cycles survived,
   signals), the **higher** its priority to finish — it is closest to READY and carries the most sunk work. The
   queue pulls high-evidence leads first; it never scores a lead *down* for data we simply have not mined yet.
