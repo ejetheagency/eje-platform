@@ -8,7 +8,7 @@
 # COMPLIANCE (operator's locked 'no email guessing'): a lane must FIND a real email that is then VERIFIED
 # (MillionVerifier) before attach. The verified-PATTERN lane is intentionally NOT included until the operator
 # lifts the lock (it would live behind icp_config.allow_email_pattern).
-import json, re
+import json, re, unicodedata
 from factory.packages import db, budget, lead_state
 from factory.providers import serper, verifier
 from factory.workers.promote_candidates import _hygienic, ROLE
@@ -53,7 +53,73 @@ def lane_search_email(company, contact, domain, client_id):
     return cands
 
 
-LANES = [("search_email", lane_search_email)]  # add lanes here; the data decides which survive
+# ---- LANE: verified-PATTERN (GATED behind icp_config.allow_email_pattern — operator's no-guess lock) ----
+# Generate the likely personal formats for a small biz on its OWN domain, MV-verify each, and accept ONLY a CLEAN
+# deliverable (status 'valid'). A catch-all ('accept_all') is REJECTED, never attached — we do not burn the client's
+# sending reputation on a maybe-wrong box. Tier-3 (experimental), kept OUT of the main SLA.
+def _ascii(s):
+    return "".join(c for c in unicodedata.normalize("NFD", s or "") if unicodedata.category(c) != "Mn")
+
+
+def _patterns(name, domain):
+    parts = [re.sub(r"[^a-z]", "", _ascii(p).lower()) for p in (name or "").split()]
+    parts = [p for p in parts if len(p) > 1]
+    if not parts or not domain:
+        return []
+    first, last = parts[0], (parts[-1] if len(parts) > 1 else "")
+    pats = [first]
+    if last:
+        pats += [first + "." + last, first[0] + last, first + last, last + "." + first]
+    return list(dict.fromkeys("%s@%s" % (p, domain) for p in pats))
+
+
+def lane_pattern_verify(company, contact, domain, client_id):
+    pats = _patterns((contact or {}).get("full_name"), domain)
+    catch = 0
+    for e in pats:
+        v = verifier.verify(e, client_id=client_id)
+        if not v.get("ok"):
+            continue
+        st = (v.get("status") or "").lower()
+        if st == "valid":            # CLEAN deliverable only -> accept
+            return {"email": e, "catch_all_seen": catch}
+        if st == "accept_all":       # catch-all -> REJECT (risk), but note it
+            catch += 1
+    return {"email": None, "catch_all_seen": catch}
+
+
+def measure_pattern(client_id, max_leads=8):
+    """EXPERIMENT (measure-only, attaches NOTHING, ships NOTHING): run the pattern lane on stuck named-no-email
+    leads and report yield (clean deliverable found) + catch-all rate (the deliverability RISK), so the operator
+    can decide whether to enable it live as a flagged tier-3 EXTRA. No address is burned by a silent MV check."""
+    rows = db.select_all("client_leads", "client_id=eq.%s&state=in.(PARKED,T2_ENRICHING,SCORED,GATE_CHECK)&contact_id=not.is.null&select=id,company_id,contact_id" % client_id)
+    checked = clean = catchall = nohit = 0
+    ex = []
+    for r in rows:
+        if checked >= max_leads:
+            break
+        ct = (db.select("contacts", "id=eq.%s&select=full_name,email" % r["contact_id"]) or [{}])[0]
+        if not ct.get("full_name") or ct.get("email"):
+            continue
+        co = (db.select("companies", "id=eq.%s&select=id,name,domain,website" % r["company_id"]) or [{}])[0]
+        domain = _domain(co)
+        if not domain:
+            continue
+        checked += 1
+        res = lane_pattern_verify(co, ct, domain, client_id)
+        if res["email"]:
+            clean += 1
+            if len(ex) < 6:
+                ex.append((ct["full_name"], res["email"]))
+        elif res["catch_all_seen"] > 0:
+            catchall += 1
+        else:
+            nohit += 1
+    return {"checked": checked, "clean_deliverable": clean, "catchall_domains": catchall,
+            "no_hit": nohit, "examples": ex}
+
+
+LANES = [("search_email", lane_search_email)]  # live lanes; pattern lane is gated/experimental (measure first)
 
 
 def find_email(company, contact, client_id, icp):
