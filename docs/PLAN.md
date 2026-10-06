@@ -25,7 +25,8 @@ The drift track. Daily ops to keep 2uplatam producing + served. Timeline: live ~
 - ✅ Factory re-enrich of parked leads deployed (runs nightly).
 - ⛔ **20 READY/day** — blocked. Root cause: yield (~10%). Homepage extractor barely helps 2uplatam (sites expose no emails: 0 personal, 1 JSON-LD of 109). The real lever = **email-pattern pivot** (guess+verify) — **operator decision pending** (quality call). Second lever = **discovery refill** (queries drying up).
 - ⬜ Recompose the 29 2uplatam pitches on the corrected offer (after composer grounding confirmed).
-- ⬜ Follow-up templates (IG / LinkedIn / email-followup) per client — currently fall back to EJE/Scarlett voice (wrong). Drafts pending operator review.
+- ✅ Follow-up templates (IG / LinkedIn / email-followup) now **per-client** (app uses `lead_data.instagramDM/linkedinDM/followupEmail` for non-EJE; publish merges from `icp_config.outreach_ig/_linkedin/_email_followup`). **2uplatam done in Fernando's consulting voice** + 45 cards backfilled. Demos (somoshobby/nanovideos) can get theirs the same way when wanted.
+- 🔄 **Factory run triggered manually (~01:30 UTC Oct 6) for 2uplatam** — 8h early so recovery + data land tonight. Awaiting results (candidates_promoted / reenriched / new READY / spend).
 
 ### TRACK B — the Factory + CRM (the compounding product)
 The strategic build. Order chosen so each phase makes the next compound.
