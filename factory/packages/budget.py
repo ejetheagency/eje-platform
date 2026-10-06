@@ -64,7 +64,12 @@ def can_spend(client_id, provider, est_usd):
         return (False, "global monthly cap $%.2f reached" % gcap)
     if client_id:  # per-client cap from clients.icp_config.spend_cap_usd (0/absent = no limit)
         crow = db.select("clients", "id=eq.%s&select=icp_config" % client_id)
-        ccap = float(((crow[0].get("icp_config") or {}).get("spend_cap_usd") if crow else 0) or 0)
+        cicp = (crow[0].get("icp_config") or {}) if crow else {}
+        # FD commercial/engagement gate: never spend on a paused client (idle non-paying demo). Door stays open
+        # — the client is kept, FD just stops burning scarce credits on someone not working the leads.
+        if (cicp.get("spend_policy") or "").lower() == "paused" and (cicp.get("commercial_status") or "").lower() != "paying":
+            return (False, "client %s spend paused (idle/non-paying demo — FD stop)" % client_id)
+        ccap = float((cicp.get("spend_cap_usd")) or 0)
         if ccap and _spent(client_id=client_id) + est > ccap:
             return (False, "client %s cap $%.2f reached" % (client_id, ccap))
     pa = db.select("provider_accounts", "provider=eq.%s&select=credits_remaining,monthly_cap_usd" % provider)

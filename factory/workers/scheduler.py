@@ -40,6 +40,12 @@ def pool_floor(client_id=None):
         icp = c.get("icp_config") or {}
         if not icp.get("icp"):          # skip library / no-ICP clients
             continue
+        # FD: don't even discover for a paused (idle non-paying demo) client — no queue churn, no spend. Kept, not deleted.
+        if (icp.get("spend_policy") or "").lower() == "paused" and (icp.get("commercial_status") or "").lower() != "paying":
+            out.append({"client": cid, "ready_now": db.count("client_leads", "client_id=eq.%s&state=eq.READY" % cid),
+                        "target": 0, "jobs_enqueued": 0, "spend": 0, "under_50pct": False,
+                        "line": "pool-floor %s: PAUSED (idle demo — FD stop, no discovery)" % cid})
+            continue
         rld = int(icp.get("ready_leads_per_day") or default_rld)
         target = rld * days
         ready_now = db.count("client_leads", "client_id=eq.%s&state=eq.READY" % cid)
