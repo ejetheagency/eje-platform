@@ -32,6 +32,13 @@ def run(client=None, max_leads=None):
         out["reverified"] = reverify.sweep(client_id=client)
     except Exception:
         pass
+    try:  # promote found email CANDIDATES (verify + attach to the decisor) -> recovers leads whose email the factory
+          # already scraped but never verified/attached (the 366-found-vs-50-promoted leak). Runs BEFORE re-enrich so
+          # it catches parked-with-decisor-and-candidate leads first. Honest: real found addresses, verified, no guessing.
+        from factory.workers import promote_candidates
+        out["candidates_promoted"] = promote_candidates.sweep(client_id=client, max_leads=20, apply=True)
+    except Exception:
+        pass
     try:  # re-enrich parked leads missing a decisor/email through the (upgraded) site_decisor extraction -> recovers
           # the "no name / no email" parked bucket the factory left behind. The yield fix, run autonomously nightly.
         out["reenriched"] = reverify.reenrich_parked(client_id=client)
