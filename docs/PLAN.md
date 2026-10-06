@@ -53,6 +53,15 @@ The strategic build. Order chosen so each phase makes the next compound.
 
 ---
 
+## NEXT BUILD — profile-aware FIT score (the "best-lead signals" doctrine)
+The "fit" number is a dumb binary checklist: it clumps (28 leads at 72 = same boxes checked), caps ~72, and
+PENALIZES un-mined/ICP-irrelevant data (no LinkedIn/phone = -points, even though we never looked / a tiny Ecuador
+biz isn't expected to have them). Operator rule: **never score a lead down for data we didn't mine.** Fix = BOTH:
+1. **Profile-weighted fit** (config-driven from `icp_config`): weight what THIS client cares about — e.g. 2uplatam = decisoras mujeres (gender) + owner seniority + geo. Tested scorer already spreads 2uplatam 12→72 across 10 distinct values (vs 28 clumped at 72); female owners rank top.
+2. **Per-profile NORMALIZATION:** denominator = criteria that matter for the profile AND are evaluable; exclude un-mined/irrelevant channels so a strong lead reads ~90, not 72 ("72 should read ~8.5/10").
+3. **Mine the missing signal:** IG follower count (we have handles, 0 counts) — differentiates + legitimately raises strong leads. Add as an enrichment step.
+4. Wire the fit score into publish (replacing the checklist for the "fit" display); keep enrichment-completeness as the READY gate, separate from fit.
+
 ## SESSION LOG (one line per session; newest first)
 - 2026-10-05: Cadence overhaul (5-touch, off-by-one fix, no-email-fallback, LinkedIn=5th, 1-msg gendered re-toque, client roster). Publish bridge (factory→app) for full-access + 2uplatam. Outbound send reconcile wired. Template floor + sector templates (Hobby/NanoVideos/2uplatam). 2uplatam offer grounded + pitches flagged. somoshobby demo unbanned. Factory re-enrich-parked deployed. FACTORY-VISION.md + PLAN.md written. DECISIONS LOCKED: no email-guessing (email mandatory, factory must FIND it; IG = clue not substitute), continuous-running NOT yet, Library FIRST. Library assessed = ~70% built + dormant (enrichment_findings 2755, brain/route-registry is the gap). Saved 2 Seguimiento leads (Diego Palermo/Academia SomoS demo Oct 12; Daniel Cárdenas/Data Insights demo Oct 7 3:30). NEXT: route-yield read layer over enrichment_findings.
 
