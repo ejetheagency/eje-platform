@@ -29,7 +29,7 @@ def schedule(client_id, per_day=None, start_date=None):
     unreleased = []
     for r in rows:
         sd = r.get("source_date") or ""
-        if sd and sd <= today.isoformat():
+        if sd and start.isoformat() <= sd <= today.isoformat():   # released within the valid window -> keep (don't vanish)
             used[sd] = used.get(sd, 0) + 1
         else:
             unreleased.append(r)
