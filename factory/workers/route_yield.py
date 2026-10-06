@@ -55,6 +55,29 @@ def ranked(client_id, by="decisor", top=15):
     return rows[:top]
 
 
+PAID_ROUTES = ("hunter", "apollo", "prospeo")
+
+
+def skip_paid(client_id, min_attempts=20):
+    """THE LOOP'S FIRST TURN: which PAID finders has this ICP proven dead? A paid route is skipped only on real
+    negative evidence — it was ATTEMPTED >= min_attempts times (from cost_ledger) and found ZERO decisors/emails
+    (from enrichment_findings) for this client. No evidence = run it (never skip on thin data). Returns a set of
+    provider names find_contact must NOT call for this client. This is the factory learning 'hunter doesn't work
+    for ES small-biz' and stopping the waste — not a hardcoded rule."""
+    cc = {r["company_id"] for r in db.select_all("client_leads", "client_id=eq.%s&select=company_id" % client_id)
+          if r.get("company_id")}
+    finds_by_src = defaultdict(int)
+    for f in db.select_all("enrichment_findings", "select=company_id,field,source"):
+        if f.get("company_id") in cc and f.get("field") in (DECISOR_FIELDS | EMAIL_FIELDS):
+            finds_by_src[f.get("source")] += 1
+    skip = set()
+    for prov in PAID_ROUTES:
+        attempts = db.count("cost_ledger", "provider=eq.%s&client_id=eq.%s" % (prov, client_id))
+        if attempts >= min_attempts and finds_by_src.get(prov, 0) == 0:
+            skip.add(prov)
+    return skip
+
+
 def report(client_id):
     rows = ranked(client_id, by="decisor", top=20)
     tot_d = sum(r["decisor"] for r in rows)

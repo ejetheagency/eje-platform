@@ -51,6 +51,14 @@ def find_contact(company_id, client_id=None):
     if not dom:
         return {"ok": False, "reason": "no domain"}
 
+    # ROUTE POLICY (the loop's first turn): skip PAID finders this ICP has proven dead (>=20 attempts, 0 finds).
+    # Free routes always run; only paid waste is cut, and only on real negative evidence. Default: skip nothing.
+    try:
+        from factory.workers import route_yield
+        _skip = route_yield.skip_paid(client_id) if client_id else set()
+    except Exception:
+        _skip = set()
+
     # 0) FREE CHAIN FIRST (Pivot Engine): read the company's own site with a cheap LLM before any paid call.
     sd = site_decisor.find(company_id, client_id)
     if sd.get("ok") and sd.get("found") and sd.get("email"):
@@ -59,18 +67,21 @@ def find_contact(company_id, client_id=None):
         return {"ok": True, "found": True, "contact_id": cid, "email": sd["email"], "name": name, "via": sd.get("via") or "site"}
 
     # 1) Hunter: name + email in one call (paid; only reached when the free site chain found nothing)
-    r = hunter.find_decisor(dom, client_id)
+    if "hunter" in _skip:
+        r = {"ok": True, "found": False, "skipped": "hunter (ICP-dead: >=20 attempts, 0 finds)"}
+    else:
+        r = hunter.find_decisor(dom, client_id)
     if r.get("ok") and r.get("found") and r.get("email"):
         name = ((r.get("first_name") or "") + " " + (r.get("last_name") or "")).strip()
         cid = _upsert_contact(company_id, name, r.get("first_name"), r.get("title"), r["email"], "hunter")
         return {"ok": True, "found": True, "contact_id": cid, "email": r["email"], "name": name, "via": "hunter"}
 
     # 2) Apollo (name, maybe email) -> Prospeo (email for that name) as fallback
-    if apollo:
+    if apollo and "apollo" not in _skip:
         a = apollo.find_decisor(dom, client_id)
         if a.get("ok") and a.get("found"):
             email, source = a.get("email"), "apollo"
-            if (not email or "email_not_unlocked" in str(email)) and prospeo and a.get("first_name"):
+            if (not email or "email_not_unlocked" in str(email)) and prospeo and "prospeo" not in _skip and a.get("first_name"):
                 p = prospeo.find_email(a["first_name"], a.get("last_name") or "", dom, client_id)
                 if p.get("ok") and p.get("email"):
                     email, source = p["email"], "prospeo"
