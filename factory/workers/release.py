@@ -7,6 +7,7 @@
 # vanishes); only unreleased leads (no date or future) are (re)scheduled, filling each day up to the cap.
 import datetime
 from factory.packages import db
+from factory.workers import tsa
 
 
 def schedule(client_id, per_day=None, start_date=None):
@@ -24,10 +25,12 @@ def schedule(client_id, per_day=None, start_date=None):
                 start = d if d > today else today
             except Exception:
                 pass
-    rows = db.select_all("leads", "client_id=eq.%s&status=eq.none&select=id,score,source_date,lead_data&order=score.desc" % client_id)
+    rows = db.select_all("leads", "client_id=eq.%s&status=eq.none&select=id,score,source_date,contact_name,contact_email,lead_data&order=score.desc" % client_id)
     used = {}            # date -> count already placed (released leads reserve their day's capacity)
     unreleased = []
     for r in rows:
+        if not tsa.passes_lead_row(r):
+            continue  # TSA: never put an incomplete lead into a client's report
         sd = r.get("source_date") or ""
         if sd and start.isoformat() <= sd <= today.isoformat():   # released within the valid window -> keep (don't vanish)
             used[sd] = used.get(sd, 0) + 1

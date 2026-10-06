@@ -8,7 +8,7 @@
 import datetime
 from factory.packages import db
 try:
-    from factory.workers import scoring
+    from factory.workers import scoring, tsa
 except Exception:
     scoring = None
 
@@ -66,6 +66,9 @@ def publish(client_id, report_date=None):
         if cl.get("contact_id"):
             ct = (db.select("contacts", "id=eq.%s&select=full_name,title,email,phone" % cl["contact_id"]) or [{}])[0]
         sigs = db.select("signals", "company_id=eq.%s&select=type&limit=5" % cl["company_id"])
+        if not tsa.passes_contact(ct):  # TSA: never publish a lead without a named decisor + non-bounced email
+            skipped += 1
+            continue
         comp = cl.get("composed") or {}
         # RE-SCORE on CURRENT enrichment (the stored client_lead.score is the stale pre-enrichment value;
         # a READY lead with email+decisor+brief+IG should read ~60-72 "fit", not its early 10-20).

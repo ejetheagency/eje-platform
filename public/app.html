@@ -1442,7 +1442,10 @@
       // EJE: Hoy is a DAILY REPORT (leads whose send date is today), highest priority first. Older days live in Historial.
       var rep=DATA.leads.slice(), dstr=DATA.date;
       if(ISEJE){ var td=ejeTodayET(); rep=rep.filter(function(l){return (l.source_date||'')===td;}); dstr=td; }
-      else { var tdc=ejeTodayET(); rep=rep.filter(function(l){ var sd=l.source_date||''; return !sd||sd<=tdc; }); }  // client daily-report drip: show RELEASED batches (<= today); future-dated held "for next reports"
+      else { var tdc=ejeTodayET(); rep=rep.filter(function(l){ var sd=l.source_date||'';
+        // TSA surface guard: a CLIENT never sees a lead without a named decisor AND an email. Non-negotiable.
+        // Plus daily-report drip: only RELEASED batches (source_date <= today); future-dated held for next reports.
+        return (!sd||sd<=tdc) && !!(l.contactName||l.decisor) && !!l.contactEmail; }); }
       // Dedup by canonical key (domain): a lead must never show twice, even if a send ever wrote a second row.
       var _sk={}; rep=rep.filter(function(l){var k=decDom(l.website)||l.id||l.companyName; if(_sk[k])return false; _sk[k]=1; return true;});
       rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
