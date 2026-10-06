@@ -41,6 +41,7 @@ The **Generador de Conversaciones Accionables**: identifies, enriches, and deliv
 - **Focus: decisoras mujeres** (female decision-makers), broad business areas, refined by conversion results.
 - **Market: Ecuador** — Sierra Norte, capital (Quito), Sierra Sur, Costa.
 - **Volume target: 20 decisores/día — CONTRACTUAL reference volume.** (This is why factory yield for 2uplatam is an obligation, not a nice-to-have. Set `icp_config.ready_leads_per_day = 20`.)
+- **Website exception (operator, 2026-10-06):** a genuinely good lead with **NO website is shippable** for 2uplatam (many real Ecuadorian micro-businesses live on IG only). Email + named decisor stay MANDATORY. A website is **never fabricated** (no synthetic `2up-…` slug, no fake link). This is the ONLY client with the exception (`tsa.NO_WEBSITE_OK`); every other client requires a real website. ICP tightens day by day via that set.
 - 2uplatam's own offer (what THEY sell to these decisores): a **Scale Hub** — entry product = a **consultoría (USD 500)**, then a qualified few go to ongoing acompañamiento + acceso a capital + red de contactos. (Composer grounded on this; the "export" angle was a composer error, corrected.)
 - Expansion to Colombia / Perú = only by written agreement.
 
