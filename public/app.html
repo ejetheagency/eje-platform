@@ -1155,7 +1155,8 @@
     var _BADHOST={'facebook.com':1,'instagram.com':1,'linkedin.com':1,'twitter.com':1,'x.com':1,'tiktok.com':1,'wa.me':1,'whatsapp.com':1,'linktr.ee':1,'sites.google.com':1,'wixsite.com':1,'bit.ly':1,'youtube.com':1};
     function _realDom(d){ d=(d||'').toLowerCase().replace(/^www\./,''); return !!d && d.indexOf('2up-')!==0 && d.indexOf(' ')<0 && /^[a-z0-9][a-z0-9-]*(\.[a-z0-9-]+)*\.[a-z]{2,}$/.test(d) && !_BADHOST[d]; }
     function _realWebsite(w){ return _realDom((w||'').toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0]); }
-    function _shippable(l){ return !!(l.contactName||l.decisor) && !!l.contactEmail && !l.emailBounced && _realWebsite(l.website||l._key||''); }
+    var _NOWEB=(EJE_CLIENT==='2uplatam'); // ICP exception: website optional ONLY for 2uplatam; every other client requires a real website
+    function _shippable(l){ var ok=!!(l.contactName||l.decisor) && !!l.contactEmail && !l.emailBounced; return _NOWEB?ok:(ok && _realWebsite(l.website||l._key||'')); } // a fabricated link is never rendered for anyone
     // TEMPLATE FLOOR: a card must NEVER show an empty message. If a lead has a per-lead template stored (lead_data
     // .sectorTemplate, set by the factory from the client's icp_config), merge it; else a warm generic merge. The
     // AI-composed pitch (pitchEmailES) always wins when present -- this is only the floor so nothing renders blank.

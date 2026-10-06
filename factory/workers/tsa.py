@@ -4,8 +4,10 @@
 # what happened upstream. Non-negotiable minimum: a NAMED decisor + a VERIFIED, non-bounced email. (Channel
 # completeness — IG / LinkedIn / WhatsApp — is the fuller quality bar handled by gates.py; this is the floor a client
 # may never see broken.)
-# NON-NEGOTIABLE (operator, repeatedly): a company with NO real website OR NO email is NOT shippable. A fabricated/
-# synthetic domain (e.g. "2up-moodpilates-ec", no TLD) is NOT a website.
+# NON-NEGOTIABLE (operator): a lead ships ONLY with a NAMED decisor + a VERIFIED, non-bounced email. A website is
+# NOT required — a genuinely good lead with no site is usable. What is forbidden is FABRICATING one: a synthetic
+# slug (e.g. "2up-moodpilates-ec", no TLD) is NOT a website, is never stored as one, and never renders as a link.
+# real_domain/real_website below exist to decide whether a website LINK may be shown, not to gate shippability.
 import re
 from factory.packages import db
 
@@ -13,6 +15,11 @@ _GENERIC = {"facebook.com", "m.facebook.com", "business.facebook.com", "instagra
             "x.com", "youtube.com", "tiktok.com", "wa.me", "whatsapp.com", "linktr.ee", "google.com", "sites.google.com",
             "wixsite.com", "bit.ly"}
 _DOMRE = re.compile(r"^[a-z0-9][a-z0-9-]*(\.[a-z0-9-]+)*\.[a-z]{2,}$")
+
+# Per-client ICP exception (operator, 2026-10-06): clients here may ship a genuinely good lead with NO website.
+# DEFAULT (every client NOT in this set) still requires a REAL website. A website is still never FABRICATED for anyone.
+# ICP tightens day by day — this is the knob.
+NO_WEBSITE_OK = {"2uplatam"}
 
 
 def real_domain(d):
@@ -42,12 +49,16 @@ def passes_contact(ct):
 
 
 def passes_lead_row(row):
-    """Client-surface: SHIPPABLE iff named decisor + email (not bounced) + a REAL website. No exceptions."""
+    """Client-surface: SHIPPABLE iff named decisor + email (not bounced). Website is OPTIONAL (a good no-site lead
+    ships); it is only never FABRICATED. ICP tightening (e.g. require a site for some sectors) comes later, config-driven."""
     ld = row.get("lead_data") or {}
     name = (row.get("contact_name") or ld.get("contactName") or "").strip()
     email = (row.get("contact_email") or ld.get("contactEmail") or "").strip()
-    website = ld.get("website") or (row.get("id") or "")
-    return bool(name) and bool(email) and real_website(website) and not ld.get("emailBounced")
+    if not (name and email) or ld.get("emailBounced"):
+        return False
+    if row.get("client_id") in NO_WEBSITE_OK:  # ICP exception: website optional for these clients
+        return True
+    return real_website(ld.get("website") or (row.get("id") or ""))
 
 
 def clean_surface(client_id):

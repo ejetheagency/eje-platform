@@ -65,7 +65,9 @@ def _run_one(cl):
     min_ch, req_ch = _channels_cfg(cl["client_id"])
     gates = [
         ("company_name",    bool(co.get("name"))),
-        ("real_website",    tsa.real_website(co.get("website") or "") or tsa.real_domain(co.get("domain") or "")),
+        ("web_presence",    (bool(co.get("website") or co.get("domain") or co.get("instagram") or co.get("linkedin"))
+                             if cl["client_id"] in tsa.NO_WEBSITE_OK
+                             else (tsa.real_website(co.get("website") or "") or tsa.real_domain(co.get("domain") or "")))),
         ("decision_maker",  bool(ct.get("full_name"))),
         ("email_deliverable", bool(ct.get("email")) and ct.get("email_status") not in ("invalid", "bounced")),
         # VERIFIED (email_verified_at) or VERIFIED_SOFT (catch-all whose identity is corroborated) or ICP allows catch-all.

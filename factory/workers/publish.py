@@ -59,7 +59,9 @@ def publish(client_id, report_date=None):
         co = (db.select("companies",
                         "id=eq.%s&select=name,domain,website,instagram,linkedin,brief,logo_url,country,industry" % cl["company_id"]) or [{}])[0]
         dom = (co.get("domain") or "").lower().strip()
-        if not dom or dom in GENERIC_DOMAINS or (tsa and not tsa.real_domain(dom)):  # TSA: no REAL website -> not shippable
+        if not dom or dom in GENERIC_DOMAINS:  # no key / shared social host -> cannot key a lead row
+            continue
+        if client_id not in tsa.NO_WEBSITE_OK and tsa and not tsa.real_domain(dom):  # default: real website required
             skipped += 1
             continue
         ct = {}
@@ -82,7 +84,7 @@ def publish(client_id, report_date=None):
         ld = {
             "_key": dom, "companyName": co.get("name"), "contactName": ct.get("full_name") or "",
             "contactEmail": ct.get("email") or "", "contactTitle": ct.get("title") or "",
-            "country": co.get("country") or geo, "website": co.get("website") or ("https://" + dom),
+            "country": co.get("country") or geo, "website": (co.get("website") if (tsa and tsa.real_website(co.get("website") or "")) else ""),  # REAL website or EMPTY — never fabricate from a synthetic domain
             "industry": co.get("industry") or "", "instagramHandle": co.get("instagram") or "",
             "instagramKind": "profile" if co.get("instagram") else "", "instagramFollowers": 0,
             "contactLinkedIn": co.get("linkedin") or "",
