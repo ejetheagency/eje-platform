@@ -26,6 +26,13 @@ Signed contract PDF + invoices: `~/claude/eje-brand-templates/2uplatam/` (`contr
 - **Late base payment → EJE may suspend system access** until regularized (does not extend term or waive accrued fees).
 - Reminder cadence to set: base charge on the **7th** each month; variable reconciled at period close.
 
+## DAILY REPORT SLA (operator rule, 2026-10-05)
+**Every day the report must be UP by 8:00 AM (client local) with EXACTLY 20 leads — no more, no less.** Enforced:
+- Drip dates uncontacted TSA-passing leads 20/day (`release.py`); the app's Hoy shows exactly TODAY's dated batch.
+- "No more": Hoy shows only today's 20 (no carry-forward pile; unworked past leads live in Decisores/Historial).
+- "No less": a SUPPLY commitment — the factory must reliably produce 20/day. NOT yet guaranteed (yield is the open work: promote_candidates + decisor-finding). If a day is short, pool_floor alerts.
+- Timing: factory runs 09:00 UTC (~4 AM Ecuador) so the batch is ready before 8 AM local; day rolls at the morning boundary.
+
 ## What EJE delivers (objeto)
 The **Generador de Conversaciones Accionables**: identifies, enriches, and delivers **qualified decision-makers daily**, each with a ready first message + the right contact channels, configured to 2uplatam's ICP. **The system does NOT auto-send** — 2uplatam's team executes each contact via the guided one-click steps. Best-effort; no guaranteed # of meetings/closes.
 
