@@ -1246,7 +1246,7 @@
         (res[1]||[]).forEach(function(m){var d=String(m.lead_id||'').toLowerCase();var t=new Date(m.sent_at).getTime();if(d&&!isNaN(t)){(MSGS[d]=MSGS[d]||[]).push(t);}});
         var map={};
         (res[0]||[]).forEach(function(r){var d=String(r.id||'').toLowerCase();if(!d)return;var ld=r.lead_data||{};
-          map[d]={_key:d,companyName:r.company||ld.companyName||d,contactName:r.contact_name||ld.contactName||'',contactEmail:r.contact_email||ld.contactEmail||'',country:ld.country||'',score:r.score||ld.score||'',instagramHandle:ld.instagramHandle||'',instagramFollowers:ld.instagramFollowers||0,contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',website:ld.website||('https://'+d),pitchEmailES:ld.pitchEmailES||ld.emailCercana||'',sectorTemplate:ld.sectorTemplate||'',sender:ld.sender||'',instagramDM:ld.instagramDM||'',followupEmail:ld.followupEmail||'',linkedinDM:ld.linkedinDM||'',industry:ld.industry||'',companyBrief:ld.companyBrief||'',whyICP:ld.whyICP||'',_emailVerify:ld._emailVerify||'',instagramKind:ld.instagramKind||'',contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',_verifiedCredits:ld._verifiedCredits||ld.verifiedCredits||[],additionalContacts:ld.additionalContacts||[],companyEmail:ld.companyEmail||null,contactTitle:ld.contactTitle||'',source_date:r.source_date||ld.source_date||'',status:r.status||'none'};
+          map[d]={_key:d,companyName:r.company||ld.companyName||d,contactName:r.contact_name||ld.contactName||'',contactEmail:r.contact_email||ld.contactEmail||'',country:ld.country||'',score:r.score||ld.score||'',instagramHandle:ld.instagramHandle||'',instagramFollowers:ld.instagramFollowers||0,contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',website:ld.website||('https://'+d),pitchEmailES:ld.pitchEmailES||ld.emailCercana||'',sectorTemplate:ld.sectorTemplate||'',sender:ld.sender||'',instagramDM:ld.instagramDM||'',followupEmail:ld.followupEmail||'',linkedinDM:ld.linkedinDM||'',emailBounced:ld.emailBounced||false,industry:ld.industry||'',companyBrief:ld.companyBrief||'',whyICP:ld.whyICP||'',_emailVerify:ld._emailVerify||'',instagramKind:ld.instagramKind||'',contactLinkedIn:ld.contactLinkedIn||ld.linkedin||'',_verifiedCredits:ld._verifiedCredits||ld.verifiedCredits||[],additionalContacts:ld.additionalContacts||[],companyEmail:ld.companyEmail||null,contactTitle:ld.contactTitle||'',source_date:r.source_date||ld.source_date||'',status:r.status||'none'};
         });
         if(DATA&&DATA.leads){DATA.leads.forEach(function(l){var d=decDom(l.website);if(!d)return;map[d]=Object.assign({},map[d]||{},l,{_key:d,_today:true});});}
         BYKEY=map; UNIVERSE=Object.keys(map).map(function(k){return map[k];});
@@ -1442,6 +1442,7 @@
       // EJE: Hoy is a DAILY REPORT (leads whose send date is today), highest priority first. Older days live in Historial.
       var rep=DATA.leads.slice(), dstr=DATA.date;
       if(ISEJE){ var td=ejeTodayET(); rep=rep.filter(function(l){return (l.source_date||'')===td;}); dstr=td; }
+      else { var tdc=ejeTodayET(); rep=rep.filter(function(l){ var sd=l.source_date||''; return !sd||sd<=tdc; }); }  // client daily-report drip: show RELEASED batches (<= today); future-dated held "for next reports"
       // Dedup by canonical key (domain): a lead must never show twice, even if a send ever wrote a second row.
       var _sk={}; rep=rep.filter(function(l){var k=decDom(l.website)||l.id||l.companyName; if(_sk[k])return false; _sk[k]=1; return true;});
       rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
@@ -1696,7 +1697,7 @@
       var _dueLbl=_cad.kind==='replied'?'responder ahora':(_cad.kind==='first'?'listo para enviar':(_cad.overdue>=0?('vence hace '+fmtDur(_cad.overdue)):('vence en '+fmtDur(_cad.overdue))));
       var _dots=''; for(var _k=1;_k<=Math.max(4,_done+1);_k++){_dots+='<i class="'+(_k<=_done?'on':(_k===_done+1?'now':''))+'"></i>';}
       var _strip='<div class="cad-strip"><span class="cs-badge stage-chip '+(_cad.stageClass||'')+'">'+esc(_cad.chip||_cad.stageLabel||'—')+'</span><span class="cs-due">Próxima acción: <b>'+esc(_cad.next||'—')+'</b> · '+_dueLbl+'</span><div class="cad-dots">'+_dots+'</div></div>';
-      var _pbHtml='<div class="pb"><div class="pb-h"><span>'+esc(_pb.title)+'</span>'+(_pb.link?'<a class="pb-open" href="'+esc(_pb.link)+'" target="_blank" rel="noopener">'+esc(_pb.target)+' ↗</a>':'<span class="pb-tgt">'+esc(_pb.target)+'</span>')+'</div><ol class="pb-steps">'+_pb.steps.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ol><div class="draft"><div class="draft-h">Mensaje'+esc(_draft.mark||'')+'</div><pre class="draft-b">'+esc(_pb.draft)+'</pre></div>'+(_pb.altDraft?'<div class="draft" style="margin-top:8px"><div class="draft-h">'+esc(_pb.altLabel||'Alternativa')+'</div><pre class="draft-b">'+esc(_pb.altDraft)+'</pre><div style="padding:2px 14px 12px"><button type="button" class="btn copy-alt">Copiar nota de conexión</button></div></div>':'')+((ISEJE&&_pb.ch==='ig')?'<div style="padding:0 14px 12px"><button type="button" class="btn bad-ig" style="background:transparent;border:1px solid var(--line);color:var(--ink-3);font-size:12px">Marcar IG incorrecto ✕</button></div>':'')+'</div>';
+      var _pbHtml='<div class="pb"><div class="pb-h"><span>'+esc(_pb.title)+'</span>'+(_pb.link?'<a class="pb-open" href="'+esc(_pb.link)+'" target="_blank" rel="noopener">'+esc(_pb.target)+' ↗</a>':'<span class="pb-tgt">'+esc(_pb.target)+'</span>')+'</div><ol class="pb-steps">'+_pb.steps.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ol><div class="draft"><div class="draft-h">Mensaje'+esc(_draft.mark||'')+'</div><pre class="draft-b">'+esc(_pb.draft)+'</pre></div>'+(_pb.altDraft?'<div class="draft" style="margin-top:8px"><div class="draft-h">'+esc(_pb.altLabel||'Alternativa')+'</div><pre class="draft-b">'+esc(_pb.altDraft)+'</pre><div style="padding:2px 14px 12px"><button type="button" class="btn copy-alt">Copiar nota de conexión</button></div></div>':'')+((ISEJE&&_pb.ch==='ig')?'<div style="padding:0 14px 12px"><button type="button" class="btn bad-ig" style="background:transparent;border:1px solid var(--line);color:var(--ink-3);font-size:12px">Marcar IG incorrecto ✕</button></div>':'')+((_pb.ch==='email'&&l.contactEmail)?'<div style="padding:0 14px 12px"><button type="button" class="btn bad-email" style="background:transparent;border:1px solid var(--line);color:var(--ink-3);font-size:12px">Email rebotó ✕</button></div>':'')+'</div>';
       // Timezone + working-hours aware: for EVERY channel, show the recipient's local time now, whether it's
       // within working hours, and the best send window (8 AM local = _slot.chile in Chile clock).
       var _slot=sendSlot(l.country), _ln=localNow(l.country);
@@ -1770,6 +1771,14 @@
         l.instagramHandle=''; l.instagramKind=''; l.igBad=true;
         var d=l._key||decDom(l.website); if(d&&BYKEY[d]){BYKEY[d].instagramHandle='';BYKEY[d].instagramKind='';BYKEY[d].igBad=true;}
         toast('IG marcado incorrecto · 2º toque pasa a '+((l.contactLinkedIn||l.linkedin)?'LinkedIn':'email'));
+        if(canWrite()&&d) sbUpsertLead(d,l).catch(function(){});
+        openCard(l);
+      });
+      var bEm=cardWrap.querySelector('.bad-email');
+      if(bEm) bEm.addEventListener('click',function(){
+        l.contactEmail=''; l.emailBounced=true; l.emailBouncedAt=new Date().toISOString();  // dead email -> clear + flag for re-enrichment
+        var d=l._key||decDom(l.website); if(d&&BYKEY[d]){BYKEY[d].contactEmail='';BYKEY[d].emailBounced=true;}
+        toast('Email marcado como rebotado · se buscará uno nuevo');
         if(canWrite()&&d) sbUpsertLead(d,l).catch(function(){});
         openCard(l);
       });

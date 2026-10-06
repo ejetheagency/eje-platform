@@ -64,6 +64,11 @@ def run(client=None, max_leads=None):
         out["published"] = publish.publish_full_access(only=client if client else None)
     except Exception as e:
         out["published"] = {"error": str(e)[:150]}
+    try:  # daily-report DRIP: date uncontacted leads N/day so clients see a dated report, not the whole pool at once
+        from factory.workers import release
+        out["released"] = release.schedule_all(only=client if client else None)
+    except Exception as e:
+        out["released"] = {"error": str(e)[:150]}
     try:
         snap = admin.snapshot()
         out["pool"] = snap["pool"]
