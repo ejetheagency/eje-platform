@@ -8,7 +8,7 @@
 import datetime
 from factory.packages import db
 try:
-    from factory.workers import scoring, tsa
+    from factory.workers import scoring, tsa, fit
 except Exception:
     scoring = None
 
@@ -73,7 +73,7 @@ def publish(client_id, report_date=None):
         # RE-SCORE on CURRENT enrichment (the stored client_lead.score is the stale pre-enrichment value;
         # a READY lead with email+decisor+brief+IG should read ~60-72 "fit", not its early 10-20).
         try:
-            fscore = int(scoring.score(co, ct, sigs, True)) if scoring else int(cl.get("score") or 0)
+            fscore = int(fit.fit_score(co, ct, sigs, ic))
         except Exception:
             fscore = int(cl.get("score") or 0)
         prev = existing.get(dom)
