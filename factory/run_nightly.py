@@ -39,6 +39,17 @@ def run(client=None, max_leads=None):
         out["candidates_promoted"] = promote_candidates.sweep(client_id=client, max_leads=20, apply=True)
     except Exception:
         pass
+    try:  # MICRO-ROUTES: for NAMED-decisor-but-no-email leads, actively FIND+verify+attach an email via the lane
+          # framework (instrumented per lane so route_yield ranks which lane wins per ICP -> double down on winners).
+        from factory.workers import micro_routes
+        mr = {}
+        for _cid in ([client] if client else [c["id"] for c in db.select("clients", "select=id")]):
+            r = micro_routes.sweep(_cid, apply=True)
+            if r.get("found"):
+                mr[_cid] = r
+        out["micro_routes"] = mr
+    except Exception as e:
+        out["micro_routes"] = {"error": str(e)[:150]}
     try:  # re-enrich parked leads missing a decisor/email through the (upgraded) site_decisor extraction -> recovers
           # the "no name / no email" parked bucket the factory left behind. The yield fix, run autonomously nightly.
         out["reenriched"] = reverify.reenrich_parked(client_id=client)

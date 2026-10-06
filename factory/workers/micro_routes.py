@@ -1,0 +1,114 @@
+# factory/workers/micro_routes.py
+# MICRO-ROUTES: the small, learned heuristics that turn a known decisor NAME into a reachable EMAIL for a small
+# business. The system's reason-to-exist is to TEST lanes, measure per-ICP yield, and DOUBLE DOWN on winners
+# (operator, 2026-10-06). Each lane is tiny + pluggable; each run is INSTRUMENTED (attempt -> cost_ledger as
+# 'route:<lane>'; a success -> enrichment_finding source=<lane>) so route_yield ranks lanes PER ICP. We add lanes
+# and let the DATA pick winners, lane by lane — not a 3-step chain anyone could write.
+#
+# COMPLIANCE (operator's locked 'no email guessing'): a lane must FIND a real email that is then VERIFIED
+# (MillionVerifier) before attach. The verified-PATTERN lane is intentionally NOT included until the operator
+# lifts the lock (it would live behind icp_config.allow_email_pattern).
+import json, re
+from factory.packages import db, budget, lead_state
+from factory.providers import serper, verifier
+from factory.workers.promote_candidates import _hygienic, ROLE
+
+_EMAIL = re.compile(r"[a-z0-9][a-z0-9._%+-]*@[a-z0-9.-]+\.[a-z]{2,}", re.I)
+
+
+def _log_attempt(lane, client_id):
+    try:  # the yield DENOMINATOR: every lane run is an attempt, even when it finds nothing
+        budget.log_cost("route:" + lane, 0.0, client_id=client_id, job_type="micro_route")
+    except Exception:
+        pass
+
+
+def _log_find(company_id, email, lane):
+    try:  # the yield NUMERATOR: route_yield counts findings by source -> per-lane yield emerges
+        db.insert("enrichment_findings", {"company_id": company_id, "field": "email_candidates",
+                  "value": json.dumps([email]), "source": lane, "pivot_name": lane}, returning=False)
+    except Exception:
+        pass
+
+
+def _domain(company):
+    w = company.get("domain") or company.get("website") or ""
+    return w.replace("https://", "").replace("http://", "").replace("www.", "").split("/")[0] if w else ""
+
+
+# ---- LANE: known name -> general web search -> email found in snippets (compliant real finding) ----
+def lane_search_email(company, contact, domain, client_id):
+    name = (contact or {}).get("full_name")
+    if not name:
+        return []
+    scope = domain or company.get("name") or ""
+    q = '"%s" %s (email OR correo OR contacto OR mail)' % (name, scope)
+    sr = serper.search(q, num=7, client_id=client_id)
+    org = sr.get("results") or sr.get("organic") or []
+    text = " ".join(((x.get("title") or "") + " " + (x.get("snippet") or "")) for x in org)
+    first = (name.split()[0] if name else "").lower()
+    cands = list(dict.fromkeys(e.lower() for e in _EMAIL.findall(text) if _hygienic(e.lower())))
+    cands.sort(key=lambda e: (0 if domain and domain in e else 1,
+                              0 if len(first) > 2 and first in e.split("@")[0] else 1))
+    return cands
+
+
+LANES = [("search_email", lane_search_email)]  # add lanes here; the data decides which survive
+
+
+def find_email(company, contact, client_id, icp):
+    domain = _domain(company)
+    for lane, fn in LANES:
+        _log_attempt(lane, client_id)
+        try:
+            cands = fn(company, contact, domain, client_id) or []
+        except Exception:
+            cands = []
+        for e in cands:
+            v = verifier.verify(e, client_id=client_id)
+            if v.get("ok") and ((v.get("result") or "").lower() == "deliverable" or (v.get("status") or "").lower() == "valid"):
+                _log_find(company["id"], e, lane)
+                return {"email": e, "lane": lane, "tier": 2 if e.split("@")[0] in ROLE else 1}
+    return None
+
+
+def sweep(client_id, max_leads=12, apply=False):
+    """NAMED-decisor-but-no-email leads: actively FIND + verify + attach an email via the micro-route lanes.
+    Instrumented per lane (route_yield shows which lane wins for THIS ICP). Bounded per run."""
+    try:  # FD: don't spend lane effort on a paused (idle non-paying demo) client
+        from factory.workers import client_status
+        if not client_status.spend_allowed(client_id):
+            return {"checked": 0, "found": 0, "by_lane": {}, "skipped": "spend paused"}
+    except Exception:
+        pass
+    icp = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
+    out = {"checked": 0, "found": 0, "by_lane": {}}
+    rows = db.select_all("client_leads",
+                         "client_id=eq.%s&state=in.(PARKED,T2_ENRICHING,SCORED,GATE_CHECK)&contact_id=not.is.null&select=id,company_id,contact_id,state" % client_id)
+    for r in rows:
+        if out["checked"] >= max_leads:
+            break
+        ct = (db.select("contacts", "id=eq.%s&select=full_name,email" % r["contact_id"]) or [{}])[0]
+        if not ct.get("full_name") or ct.get("email"):
+            continue
+        out["checked"] += 1
+        if not apply:
+            continue
+        co = (db.select("companies", "id=eq.%s&select=id,name,domain,website" % r["company_id"]) or [{}])[0]
+        res = find_email(co, ct, client_id, icp)
+        if res:
+            db.update("contacts", "id=eq.%s" % r["contact_id"],
+                      {"email": res["email"], "email_status": "verified", "email_source": "micro_" + res["lane"]})
+            try:
+                if r["state"] in ("PARKED", "T2_ENRICHING", "SCORED"):
+                    lead_state.move(r["id"], "GATE_CHECK", reason="email via micro-route %s (tier %d)" % (res["lane"], res["tier"]))
+            except Exception:
+                pass
+            out["found"] += 1
+            out["by_lane"][res["lane"]] = out["by_lane"].get(res["lane"], 0) + 1
+    return out
+
+
+if __name__ == "__main__":
+    import sys
+    print(sweep(sys.argv[1] if len(sys.argv) > 1 else "2uplatam", apply=("--apply" in sys.argv)))
