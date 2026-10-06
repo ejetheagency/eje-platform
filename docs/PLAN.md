@@ -30,7 +30,7 @@ The drift track. Daily ops to keep 2uplatam producing + served. Timeline: live ~
 ### TRACK B — the Factory + CRM (the compounding product)
 The strategic build. Order chosen so each phase makes the next compound.
 - **Phase 0 — S1 infrastructure** ⛔ *prerequisite for everything multi-tenant.* Backend API (keys server-side), auth + RLS multi-tenant on PROD, provision clients. Needs the prod DB connection string from the operator. Without this: no Aduana (cross-client dedup), browser still holds the anon key, can't scale. **This gates the full vision.**
-- **Phase 1 — The Library / Memory (the brain)** ⬜ the #1 missing department. A consultable store of what-source-yielded / what-template-replied / what-signal-worked + per-client voice. Without it every improvement is oral tradition lost on restart. Build first; everything else compounds on it. (= CRM S4 foundation.)
+- **Phase 1 — The Library / Memory (the brain)** 🔄 STARTED. **Finding (2026-10-05): ~70% already built + dormant.** `enrichment_findings` (2,755 rows: field/value/source/strategy_id/confidence/cost), `engagement_events` (431), `playbook_runs` (157), `icps` (5), `signals`/`corroborations` populated. **The gap is the BRAIN, not the tables:** `strategies` is EMPTY (no route registry, though findings reference strategy_id), and NOTHING reads the 2,755 findings to rank routes ("which route finds emails best, for which ICP, at what cost"). Work = ACTIVATE, not construct. Bricks: (1) route-yield read layer over `enrichment_findings`; (2) populate/define `strategies` as the route registry; (3) route-selector miners consult; (4) 3-rate instrumentation (named/emailed/replied per route+ICP). (= CRM S4 foundation.)
 - **Phase 2 — Continuous running + feedback bus** ⬜ flip `run_nightly` (cron) → persistent workers draining the queue all day + department cycles on timers, FD caps as the governor. Plus the bus so departments talk (TSA→Innovations, Design→Innovations, Writers→Innovations). (= CRM S3 deepened.)
 - **Phase 3 — Self-improving departments** ⬜ FD **quality veto** (4th gate) + FD-approved scaling; TSA ≥3-channel completeness gate + drift→Innovations loop; Committee value-based premium selector; Innovations real cross-agent learning (the hardest build). (= CRM S3/S4.)
 - **Phase 4 — Intelligence + safety** ⬜ Response Intelligence (**optimize for CLOSES not replies** — needs operator outcome signal); Aduana (do-not-contact + cross-client collision); Caducidad (re-verify + expire stale cards); Deliverability (protect the CLIENT's account). (= CRM S4.)
@@ -39,17 +39,17 @@ The strategic build. Order chosen so each phase makes the next compound.
 ---
 
 ## RIGHT NOW (the single most current truth)
-- **Just finished:** the factory vision doc + external-review integration; mapped Factory ↔ CRM Project; built this anchor.
-- **The open decisions that unblock the next move** (operator's call):
-  1. **Email-pattern pivot for Fernando?** (guess+verify emails — the real 20/day lever; a quality tradeoff you've guarded).
-  2. **Flip the factory to continuous running?** (run all day; caps stay as governor).
-  3. **Build order for Track B:** start with **the Library (brain)** or **continuous running (work all day while we build the brain)**?
-- **Immediate next action (proposed):** decide #1 (Fernando can't hit 20/day without it), then start Phase 1 (Library) as the first Track-B brick.
+- **Decisions LOCKED (2026-10-05):**
+  1. **NO email guessing.** Email is MANDATORY — no lead ships without a verified one. The factory must FIND the real email; Instagram is a *clue to find it*, NOT a substitute channel. (I had misproposed an IG-only gate — rejected.)
+  2. **Continuous running: NOT YET.** It amplifies weak work; sequence it after the brain + yield fix.
+  3. **Build order: THE LIBRARY FIRST.**
+- **In progress:** Library Phase 1. Found it ~70% built + dormant (see Phase 1). **Next brick = the route-yield read layer** over `enrichment_findings` (2,755 rows): rank which routes/sources find emails + decisors best, per ICP, at what cost. Then populate `strategies` (the route registry), then the selector the miners consult, then 3-rate instrumentation.
+- **Fernando bridge (Track A, honest — no guessing):** the durable fix is the Library teaching the factory to FIND the 59 IG-having leads' real verified emails (IG handle as the path + tier2 Hunter/Apollo, FD-approved premium spend for the paying client). Not gate-lowering, not guessing.
 
 ---
 
 ## SESSION LOG (one line per session; newest first)
-- 2026-10-05: Cadence overhaul (5-touch, off-by-one fix, no-email-fallback, LinkedIn=5th, 1-msg gendered re-toque, client roster). Publish bridge (factory→app) for full-access + 2uplatam. Outbound send reconcile wired. Template floor + sector templates (Hobby/NanoVideos/2uplatam). 2uplatam offer grounded + pitches flagged. somoshobby demo unbanned. Factory re-enrich-parked deployed. FACTORY-VISION.md + PLAN.md written. Open: email-pivot decision, continuous-running decision, Library build.
+- 2026-10-05: Cadence overhaul (5-touch, off-by-one fix, no-email-fallback, LinkedIn=5th, 1-msg gendered re-toque, client roster). Publish bridge (factory→app) for full-access + 2uplatam. Outbound send reconcile wired. Template floor + sector templates (Hobby/NanoVideos/2uplatam). 2uplatam offer grounded + pitches flagged. somoshobby demo unbanned. Factory re-enrich-parked deployed. FACTORY-VISION.md + PLAN.md written. DECISIONS LOCKED: no email-guessing (email mandatory, factory must FIND it; IG = clue not substitute), continuous-running NOT yet, Library FIRST. Library assessed = ~70% built + dormant (enrichment_findings 2755, brain/route-registry is the gap). Saved 2 Seguimiento leads (Diego Palermo/Academia SomoS demo Oct 12; Daniel Cárdenas/Data Insights demo Oct 7 3:30). NEXT: route-yield read layer over enrichment_findings.
 
 ---
 
