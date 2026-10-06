@@ -1,0 +1,11 @@
+.git
+node_modules
+public
+cache
+.agents
+docs
+ads
+*.log
+*.md
+.claude
+.DS_Store

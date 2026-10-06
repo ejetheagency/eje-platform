@@ -1,0 +1,220 @@
+{
+  "domain": "storylab.com.ar",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:16:36.997Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://storylab.com.ar",
+        "https://storylab.com.ar/contacto",
+        "https://storylab.com.ar/contact",
+        "https://storylab.com.ar/contact-us",
+        "https://storylab.com.ar/nosotros",
+        "https://storylab.com.ar/about",
+        "https://storylab.com.ar/about-us",
+        "https://storylab.com.ar/equipo",
+        "https://storylab.com.ar/team",
+        "https://storylab.com.ar/quienes-somos",
+        "https://storylab.com.ar/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "paulap@storylab.com.ar",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "nv@storylab.com.ar",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "info@storylab.com.ar",
+            "tier": "PUBLISHED",
+            "isRole": true,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 11
+          },
+          {
+            "email": "bruquetasl@storylab.com.ar",
+            "tier": "DERIVED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "luzg@storylab.com.ar",
+            "tier": "DERIVED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          }
+        ],
+        "igs": [
+          {
+            "handle": "storylabarg",
+            "tier": "PUBLISHED",
+            "footerCanonical": true,
+            "sources": [
+              "https://storylab.com.ar",
+              "https://storylab.com.ar/contacto",
+              "https://storylab.com.ar/contact",
+              "https://storylab.com.ar/contact-us",
+              "https://storylab.com.ar/nosotros",
+              "https://storylab.com.ar/about",
+              "https://storylab.com.ar/about-us",
+              "https://storylab.com.ar/equipo",
+              "https://storylab.com.ar/team",
+              "https://storylab.com.ar/quienes-somos",
+              "https://storylab.com.ar/somos"
+            ]
+          }
+        ],
+        "linkedins": [
+          "linkedin.com/company/25016036"
+        ],
+        "phones": [
+          {
+            "phone": "+5452720400",
+            "kind": "tel",
+            "sources": [
+              "https://storylab.com.ar",
+              "https://storylab.com.ar/contacto",
+              "https://storylab.com.ar/contact",
+              "https://storylab.com.ar/contact-us",
+              "https://storylab.com.ar/nosotros",
+              "https://storylab.com.ar/about",
+              "https://storylab.com.ar/about-us",
+              "https://storylab.com.ar/equipo",
+              "https://storylab.com.ar/team",
+              "https://storylab.com.ar/quienes-somos",
+              "https://storylab.com.ar/somos"
+            ]
+          },
+          {
+            "phone": "+59829009029",
+            "kind": "tel",
+            "sources": [
+              "https://storylab.com.ar",
+              "https://storylab.com.ar/contacto",
+              "https://storylab.com.ar/contact",
+              "https://storylab.com.ar/contact-us",
+              "https://storylab.com.ar/nosotros",
+              "https://storylab.com.ar/about",
+              "https://storylab.com.ar/about-us",
+              "https://storylab.com.ar/equipo",
+              "https://storylab.com.ar/team",
+              "https://storylab.com.ar/quienes-somos",
+              "https://storylab.com.ar/somos"
+            ]
+          }
+        ],
+        "dms": [
+          {
+            "name": "Bruquetas Lorena",
+            "title": "Executive Producer",
+            "email": "bruquetasl@storylab.com.ar",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/bruquetas-lorena-614769147",
+            "source": "apollo"
+          },
+          {
+            "name": "Luz Gago",
+            "title": "Executive Producer",
+            "email": "luzg@storylab.com.ar",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/luz-gago-9b837a12",
+            "source": "apollo"
+          },
+          {
+            "name": "Paula Perez",
+            "title": "Commercial Director",
+            "email": "paulap@storylab.com.ar",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/paula-p%c3%a9rez-32b4319",
+            "source": "apollo"
+          },
+          {
+            "name": "Nacho Viale",
+            "title": "Managing Director",
+            "email": "nv@storylab.com.ar",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/nacho-viale-2239815",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "paulap@storylab.com.ar",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": "storylabarg",
+        "additionalContacts": [
+          {
+            "name": "Bruquetas Lorena",
+            "title": "Executive Producer",
+            "email": "bruquetasl@storylab.com.ar",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/bruquetas-lorena-614769147",
+            "source": "apollo"
+          },
+          {
+            "name": "Luz Gago",
+            "title": "Executive Producer",
+            "email": "luzg@storylab.com.ar",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/luz-gago-9b837a12",
+            "source": "apollo"
+          },
+          {
+            "name": "Paula Perez",
+            "title": "Commercial Director",
+            "email": "paulap@storylab.com.ar",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/paula-p%c3%a9rez-32b4319",
+            "source": "apollo"
+          },
+          {
+            "name": "Nacho Viale",
+            "title": "Managing Director",
+            "email": "nv@storylab.com.ar",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/nacho-viale-2239815",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "nv@storylab.com.ar",
+          "current_contactName": "Nacho Viale",
+          "current_ig": "storylabarg",
+          "current_status": "verified"
+        }
+      }
+    }
+  ]
+}

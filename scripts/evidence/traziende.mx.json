@@ -1,0 +1,130 @@
+{
+  "domain": "traziende.mx",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:38:38.908Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://traziende.mx",
+        "https://traziende.mx/contacto",
+        "https://traziende.mx/contact",
+        "https://traziende.mx/contact-us",
+        "https://traziende.mx/nosotros",
+        "https://traziende.mx/about",
+        "https://traziende.mx/about-us",
+        "https://traziende.mx/equipo",
+        "https://traziende.mx/team",
+        "https://traziende.mx/quienes-somos",
+        "https://traziende.mx/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "duran@traziende.mx",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "monica@traziende.mx",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "produccion@traziende.mx",
+            "tier": "PUBLISHED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 1
+          }
+        ],
+        "igs": [
+          {
+            "handle": "traziendefilms",
+            "tier": "PUBLISHED",
+            "footerCanonical": true,
+            "sources": [
+              "https://traziende.mx",
+              "https://traziende.mx/contacto"
+            ]
+          }
+        ],
+        "linkedins": [],
+        "phones": [
+          {
+            "phone": "+525552082758",
+            "kind": "jsonld",
+            "sources": [
+              "jsonld"
+            ]
+          }
+        ],
+        "dms": [
+          {
+            "name": "Rodrigo Duran",
+            "title": "Head of Development",
+            "email": "duran@traziende.mx",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/rodrigo-dur%c3%a1n-573761114",
+            "source": "apollo"
+          },
+          {
+            "name": "Monica Vargas Celis",
+            "title": "Fundadora y Directora General de Producción",
+            "email": "monica@traziende.mx",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/m%c3%b3nica-vargas-celis-1a760711",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "duran@traziende.mx",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": "traziendefilms",
+        "additionalContacts": [
+          {
+            "name": "Rodrigo Duran",
+            "title": "Head of Development",
+            "email": "duran@traziende.mx",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/rodrigo-dur%c3%a1n-573761114",
+            "source": "apollo"
+          },
+          {
+            "name": "Monica Vargas Celis",
+            "title": "Fundadora y Directora General de Producción",
+            "email": "monica@traziende.mx",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/m%c3%b3nica-vargas-celis-1a760711",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "monica@traziende.mx",
+          "current_contactName": "Mónica Vargas Celis",
+          "current_ig": "traziendefilms",
+          "current_status": null
+        }
+      }
+    }
+  ]
+}

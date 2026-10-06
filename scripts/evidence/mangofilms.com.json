@@ -1,0 +1,143 @@
+{
+  "domain": "mangofilms.com",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:36:50.953Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://mangofilms.com",
+        "https://mangofilms.com/contacto",
+        "https://mangofilms.com/contact",
+        "https://mangofilms.com/contact-us",
+        "https://mangofilms.com/nosotros",
+        "https://mangofilms.com/about",
+        "https://mangofilms.com/about-us",
+        "https://mangofilms.com/equipo",
+        "https://mangofilms.com/team",
+        "https://mangofilms.com/quienes-somos",
+        "https://mangofilms.com/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "brooklyn@mangofilms.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "eduardo@mangofilms.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "laura@mangofilms.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          }
+        ],
+        "igs": [],
+        "linkedins": [],
+        "phones": [],
+        "dms": [
+          {
+            "name": "Brooklyn Fecter",
+            "title": "Managing Partner & Executive Producer",
+            "email": "brooklyn@mangofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/brooklynfecter",
+            "source": "apollo"
+          },
+          {
+            "name": "Eduardo Avila",
+            "title": "CEO and Founding Partner, Executive Director",
+            "email": "eduardo@mangofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/eduardoavilamango",
+            "source": "apollo"
+          },
+          {
+            "name": "Mariana Gutierrez Lascurain",
+            "title": "Executive Producer",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/mariana-guti%c3%a9rrez-lascurain-0a8ba311",
+            "source": "apollo"
+          },
+          {
+            "name": "Laura Gonzalez",
+            "title": "Partner Head of Production",
+            "email": "laura@mangofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/lauragzgz",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "brooklyn@mangofilms.com",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": null,
+        "additionalContacts": [
+          {
+            "name": "Brooklyn Fecter",
+            "title": "Managing Partner & Executive Producer",
+            "email": "brooklyn@mangofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/brooklynfecter",
+            "source": "apollo"
+          },
+          {
+            "name": "Eduardo Avila",
+            "title": "CEO and Founding Partner, Executive Director",
+            "email": "eduardo@mangofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/eduardoavilamango",
+            "source": "apollo"
+          },
+          {
+            "name": "Mariana Gutierrez Lascurain",
+            "title": "Executive Producer",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/mariana-guti%c3%a9rrez-lascurain-0a8ba311",
+            "source": "apollo"
+          },
+          {
+            "name": "Laura Gonzalez",
+            "title": "Partner Head of Production",
+            "email": "laura@mangofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/lauragzgz",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "eduardo@mangofilms.com",
+          "current_contactName": "Eduardo Avila",
+          "current_ig": "hazlomangofilms",
+          "current_status": null
+        }
+      }
+    }
+  ]
+}

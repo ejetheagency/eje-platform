@@ -1,0 +1,170 @@
+[
+  {
+    "companyName": "Qualia Producciones",
+    "website": "https://qualia.com.ec",
+    "country": "Ecuador",
+    "industry": "commercial",
+    "summary": "PRODUCTORA AUDIOVISUAL SOMOS ESPECIALISTAS EN PROYECTOS CORPORATIVOS, COMUNICACIÓN Y CONTENIDO DIGITAL. NUESTROS SERVICIOS Con más de 13 años de experiencia, asesoramos a nuestros clientes para lograr piezas audiovisuales estéticas y efectivas, utilizando eficientemente los recursos que empleamos. VIDEO CORPORATIVO Y COMERCIAL Somos especialistas produciendo videos de comunicación corporativa con una visión de negocio, brindando una información estratégica, que funcione de forma efectiva y con mensajes claros, sin sacrificar calidad y con resultados estéticamente adecuados.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "small",
+    "unabaseScore": 4,
+    "entertainmentVerified": true,
+    "entertainmentSignals": 10,
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "contactName": "Juan José Borja",
+    "contactTitle": "director general",
+    "contactEmail": "info@qualia.com.ec",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/qualiaproductora/",
+    "instagramHandle": "qualiaproductora",
+    "instagramBio": "See Instagram photos and videos from QUALIA (@qualiaprod)",
+    "instagramFollowers": "9,485",
+    "facebookUrl": "https://www.facebook.com/QualiaProductoraAudiovisual",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "nothing",
+        "emailsChecked": 1
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 2,
+        "personalEmails": [
+          "%20info@qualia.com.ec"
+        ],
+        "genericEmails": [
+          "info@qualia.com.ec"
+        ],
+        "phones": [],
+        "name": "Juan José Borja",
+        "social": {
+          "instagram": "https://www.instagram.com/qualiaproductora/",
+          "facebook": "https://www.facebook.com/QualiaProductoraAudiovisual",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/qualiaproductora/",
+        "igHandle": "qualiaproductora",
+        "igFollowers": "9,485",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Juan José Borja"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "%20info@qualia.com.ec",
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Juan José Borja"
+      },
+      {
+        "step": "founder_recovery",
+        "ig_bio_error": "net::ERR_NETWORK_CHANGED at https://www.instagram.com/qualiaproductora/"
+      },
+      {
+        "step": "founder_recovery",
+        "ig_search_error": "net::ERR_INTERNET_DISCONNECTED at https://html.duckduckgo.com/html/?q=%22Juan%20Jos%C3%A9%20Borja%22%20%22Qualia%20Producciones%22%20instagram"
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "%20info@qualia.com.ec",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "_tier": "tier1",
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "entertainment",
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "fitVerified": true,
+    "fitSignals": 1,
+    "fitReasons": [
+      "premium_clients"
+    ],
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "api_error",
+    "_aiApiMsg": "getaddrinfo ENOTFOUND api.anthropic.com",
+    "source_date": "2026-04-24",
+    "approved": false,
+    "_draftFix_2026_06_02": "stripped leading %20 (URL-encoded space) from email"
+  }
+]

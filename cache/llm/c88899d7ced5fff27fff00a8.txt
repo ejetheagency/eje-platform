@@ -1,0 +1,1 @@
+{"company":"Cactus Films","person":"Miguel","what_they_said":"El cliente está muy interesado en el sistema pero no tiene presupuesto hasta el próximo trimestre.","response_type":"bad_timing","secondary_type":"no_budget","temperature":"warm","suggested_next_action":"Agendar un recordatorio en el CRM para contactarlo a principios del próximo trimestre."}

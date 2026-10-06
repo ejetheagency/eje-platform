@@ -1,0 +1,162 @@
+[
+  {
+    "companyName": "Nora Films",
+    "website": "https://norafilms.net",
+    "country": "Spain",
+    "industry": "film",
+    "summary": "Productora audiovisual experta en documentales y comunicación de impacto. Descubre nuestras producciones y únete a la misión de generar conciencia.",
+    "notableClients": [
+      "Netflix",
+      "TikTok"
+    ],
+    "recentProjects": [
+      "No es un don. Es una manera única de ser.",
+      "by Nora Films",
+      "que sigue a un grupo de artistas con disc",
+      "que pone voz al arte de las personas con",
+      "documental sobre Salud Mental y el Trasto",
+      "señalará los caminos por los que discurri",
+      "sobre salud mental que verás de un tirón",
+      "sobre personas Superdotadas y con Altas C",
+      "para",
+      "inclusivo de FAD"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 6,
+    "scopeVerified": true,
+    "scopeSignals": 6,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 6,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "hola.norafilms@gmail.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/nora_films_oficial",
+    "instagramHandle": "nora_films_oficial",
+    "instagramBio": "See Instagram photos and videos from Nora De La Paz (@noraprod)",
+    "instagramFollowers": "914",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/norafilmsoficial",
+    "contactPhone": "34) 610 541",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "nothing",
+        "emailsChecked": 0
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "hola.norafilms@gmail.com"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "34) 610 541"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/nora_films_oficial",
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": "https://vimeo.com/norafilmsoficial",
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/nora_films_oficial",
+        "igHandle": "nora_films_oficial",
+        "igFollowers": "914",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "hola.norafilms@gmail.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/norafilms",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 2,
+    "contactPath": "company_fallback",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-05",
+    "approved": false
+  }
+]

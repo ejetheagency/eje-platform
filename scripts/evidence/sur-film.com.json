@@ -1,0 +1,123 @@
+{
+  "domain": "sur-film.com",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:39:02.527Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://sur-film.com",
+        "https://sur-film.com/contacto",
+        "https://sur-film.com/contact",
+        "https://sur-film.com/contact-us",
+        "https://sur-film.com/nosotros",
+        "https://sur-film.com/about",
+        "https://sur-film.com/about-us",
+        "https://sur-film.com/equipo",
+        "https://sur-film.com/team",
+        "https://sur-film.com/quienes-somos",
+        "https://sur-film.com/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "andreas@sur-film.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "cristina@sur-film.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "info@sur-film.com",
+            "tier": "PUBLISHED",
+            "isRole": true,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 1
+          }
+        ],
+        "igs": [
+          {
+            "handle": "surfilm_productions",
+            "tier": "PUBLISHED",
+            "footerCanonical": false,
+            "sources": [
+              "https://sur-film.com"
+            ]
+          }
+        ],
+        "linkedins": [
+          "linkedin.com/company/sur-film"
+        ],
+        "phones": [],
+        "dms": [
+          {
+            "name": "Andreas Wentz",
+            "title": "Executive Producer",
+            "email": "andreas@sur-film.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/andreas-wentz-846b497b",
+            "source": "apollo"
+          },
+          {
+            "name": "Cristina Mateo",
+            "title": "Production Director",
+            "email": "cristina@sur-film.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/cristina-mateo-127b4726",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "andreas@sur-film.com",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": "surfilm_productions",
+        "additionalContacts": [
+          {
+            "name": "Andreas Wentz",
+            "title": "Executive Producer",
+            "email": "andreas@sur-film.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/andreas-wentz-846b497b",
+            "source": "apollo"
+          },
+          {
+            "name": "Cristina Mateo",
+            "title": "Production Director",
+            "email": "cristina@sur-film.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/cristina-mateo-127b4726",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "andreas@sur-film.com",
+          "current_contactName": "Andreas Wentz",
+          "current_ig": "surfilm_productions",
+          "current_status": null
+        }
+      }
+    }
+  ]
+}

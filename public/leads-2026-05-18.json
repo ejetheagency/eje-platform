@@ -1,0 +1,700 @@
+[
+  {
+    "companyName": "Gorky Films",
+    "website": "https://www.gorkyfilms.com.ar",
+    "country": "Argentina",
+    "industry": "film",
+    "searchQuery": "estudio de colorimetria cine Argentina",
+    "summary": "Gorky Films - Postproducción audiovisual",
+    "notableClients": [
+      "Facebook",
+      "Modelo"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@gorkyfilms.com.ar",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/gorkyfilms/",
+    "instagramHandle": "gorkyfilms",
+    "instagramBio": "See Instagram photos and videos from Gorky Films (@gorkyfilms)",
+    "instagramFollowers": "1,541",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/user44413091",
+    "contactPhone": "+54 911 4191-9348",
+    "emailPatterns": [
+      "monica@gorkyfilms.com.ar",
+      "monica.esterroza@gorkyfilms.com.ar",
+      "m.esterroza@gorkyfilms.com.ar"
+    ],
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "nothing",
+        "emailsChecked": 1
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@gorkyfilms.com.ar"
+        ],
+        "phones": [
+          "+54 911 4191-9348",
+          "+54 911 4191-0789"
+        ],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": "Mónica Ester Roza",
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/gorkyfilms/",
+        "igHandle": "gorkyfilms",
+        "igFollowers": "17",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "D",
+        "name": "Name→Email",
+        "started": true
+      },
+      {
+        "step": "D",
+        "patterns": [
+          "monica@gorkyfilms.com.ar",
+          "monica.esterroza@gorkyfilms.com.ar",
+          "m.esterroza@gorkyfilms.com.ar"
+        ],
+        "via": "pattern"
+      },
+      {
+        "step": 9,
+        "name": "Hunter Find",
+        "started": true
+      },
+      {
+        "step": 9,
+        "error": "timeout of 10000ms exceeded"
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "gorkyfilms",
+        "followers": "1,541",
+        "email": null,
+        "phone": null,
+        "triedHandles": 13
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "+54 911 4191-9348",
+          "+54 911 4191-0789"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Mónica Ester Roza"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/user44413091"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@gorkyfilms.com.ar",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 3,
+    "whoisCheckPending": true,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-18",
+    "approved": false
+  },
+  {
+    "companyName": "Maple Films",
+    "website": "https://themaplefilms.com",
+    "country": "Mexico",
+    "industry": "music",
+    "searchQuery": "casa productora videoclips Monterrey",
+    "summary": "Maple Films is a production company.",
+    "notableClients": [
+      "Marvel"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 5,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "contactName": "Dustin Lee",
+    "contactTitle": "Owner",
+    "contactEmail": "hellomaplefilms@gmail.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website_direct_recovered",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/maplefilms/",
+    "instagramHandle": "maplefilms",
+    "instagramBio": "See Instagram photos and videos from Maple Films (@maplefilms) Log In",
+    "instagramFollowers": "595",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/maplefilmsweddings",
+    "contactPhone": "01 55) 5397-1759",
+    "emailPatterns": [
+      "dustin@themaplefilms.com",
+      "dustin.lee@themaplefilms.com",
+      "d.lee@themaplefilms.com"
+    ],
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": [
+          "mfl2003@rediffmail.com"
+        ]
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": "Dustin Lee",
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/maplefilms/",
+        "igHandle": "maplefilms",
+        "igFollowers": "595",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "D",
+        "name": "Name→Email",
+        "started": true
+      },
+      {
+        "step": "D",
+        "patterns": [
+          "dustin@themaplefilms.com",
+          "dustin.lee@themaplefilms.com",
+          "d.lee@themaplefilms.com"
+        ],
+        "via": "pattern"
+      },
+      {
+        "step": 9,
+        "name": "Hunter Find",
+        "started": true
+      },
+      {
+        "step": 9,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "maplefilms",
+        "followers": "595",
+        "email": null,
+        "phone": null,
+        "triedHandles": 13
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": []
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "email_error": "net::ERR_TOO_MANY_REDIRECTS at https://themaplefilms.com"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "01 55) 5397-1759"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": false,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Dustin Lee"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "blog_error": "net::ERR_TOO_MANY_REDIRECTS at https://themaplefilms.com"
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/maplefilmsweddings"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": null,
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/maple-films",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 3,
+    "contactVenues": 1,
+    "whoisCheckPending": true,
+    "contactPath": "ig_only",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-18",
+    "approved": false
+  },
+  {
+    "companyName": "La Tina",
+    "website": "https://la-tina.co",
+    "country": "Colombia",
+    "industry": "film",
+    "searchQuery": "estudio de posproduccion Bogota",
+    "summary": "ESP ENG WE ARE an audio post production and film scoring studio exporting services globally since 2010. We work with a wide range of clients from OTT VOD platforms to springing independent production companies and everyone in between. Our mission is to help you create an experience that will deeply move people.",
+    "notableClients": [],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 5,
+    "scopeVerified": true,
+    "scopeSignals": 10,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 10,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "_companyNameSource": "domain_canonical",
+    "contactName": "Andres Silva",
+    "contactTitle": "Founder / General Manager / Sound Supervisor",
+    "contactEmail": "andres@la-tina.co",
+    "contactLinkedIn": "http://www.linkedin.com/in/andres-silva-5bb7721a7",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/latina/",
+    "instagramHandle": "latina",
+    "instagramBio": "See Instagram photos and videos from LATINA (@latina)",
+    "instagramFollowers": "546K",
+    "facebookUrl": "https://www.facebook.com/LaTinaSoundDesignAndFilmScoring",
+    "twitterUrl": "https://twitter.com/LaTinaSonido",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Andres Silva",
+        "title": "Founder / General Manager / Sound Supervisor",
+        "email": "andres@la-tina.co",
+        "linkedin": "http://www.linkedin.com/in/andres-silva-5bb7721a7"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@la-tina.co"
+        ],
+        "phones": [],
+        "name": "Sound Designer",
+        "social": {
+          "instagram": "https://www.instagram.com/latinasoundandmusic/",
+          "facebook": "https://www.facebook.com/LaTinaSoundDesignAndFilmScoring",
+          "twitter": "https://twitter.com/LaTinaSonido",
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/latina/",
+        "igHandle": "latina",
+        "igFollowers": "546K",
+        "socialEmail": "info@la-tina.co",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Andres Silva"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "andres@la-tina.co",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/la-tina-sonido",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 29,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-18",
+    "approved": false
+  }
+]

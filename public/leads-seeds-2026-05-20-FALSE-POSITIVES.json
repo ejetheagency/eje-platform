@@ -1,0 +1,244 @@
+[
+  {
+    "companyName": "ADLATINA",
+    "website": "https://adlatina.com",
+    "country": "Mexico",
+    "searchQuery": "Bengala productora Diego Luna Pablo Cruz Mexico",
+    "summary": "El Portal de la Comunicación Latina",
+    "notableClients": [
+      "Netflix",
+      "Coca-Cola",
+      "Pepsi",
+      "Meta"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "large",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": "Portal de comunicación latina que funciona como medio especializado en la industria publicitaria. Trabajan con grandes marcas como Netflix, Coca-Cola, Pepsi y Meta.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola Belen! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en ADLATINA y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que manejan campañas para múltiples marcas premium simultáneamente, proyectos que típicamente tienen ritmos de caja y estructuras presupuestarias completamente distintas.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "premium_clients",
+      "large_team"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "_companyNameSource": "domain_canonical",
+    "contactName": "Belen Martinez",
+    "contactTitle": "CEO",
+    "contactEmail": "contenidos@adlatina.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/bel%c3%a9n-mart%c3%adnez-cima-7a533857",
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/adlatinagroup/",
+    "instagramHandle": "adlatinagroup",
+    "instagramBio": "See Instagram photos and videos from Adlatina Group (@adlatinagroup)",
+    "instagramFollowers": "26K",
+    "facebookUrl": "https://www.facebook.com/adlatinacom/",
+    "twitterUrl": "https://x.com/AdlatinaGroup",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name_only",
+        "name": "Belen Martinez"
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "contenidos@adlatina.com",
+          "comercial@adlatina.com",
+          "administracion@adlatina.com",
+          "negocios@adlatina.com",
+          "jmartinez@adlatina.com",
+          "mbmartinezcima@adlatina.com",
+          "juanimartinezcima@adlatina.com",
+          "panchodondo@adlatina.com",
+          "nbiscione@adlatina.com",
+          "mlejarza@adlatina.com",
+          "pvilches@adlatina.com",
+          "agibert@adlatina.com",
+          "xtapias@adlatina.com",
+          "xdiazalarcon@adlatina.com",
+          "sdomian@adlatina.com",
+          "lsenderowitsch@adlatina.com"
+        ],
+        "genericEmails": [
+          "info@adlatina.com"
+        ],
+        "phones": [
+          "2026\n123456",
+          "+54 11 4703-0775",
+          "30-70712303"
+        ],
+        "name": "Rodrigo Grau",
+        "social": {
+          "instagram": "https://www.instagram.com/adlatinagroup/",
+          "facebook": "https://www.facebook.com/adlatinacom/",
+          "twitter": "https://x.com/AdlatinaGroup",
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/adlatinagroup/",
+        "igHandle": "adlatinagroup",
+        "igFollowers": "26K",
+        "socialEmail": "info@adlatina.com",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Belen Martinez"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "dm": {
+          "handle": "belu_martinez_cima",
+          "email": null,
+          "phone": null,
+          "needsManual": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "contenidos@adlatina.com",
+          "additional": 1,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/adlatina",
+    "apolloCompanyPhone": "+1 214-815-6496",
+    "apolloEmployeeCount": 27,
+    "_igVerified": true,
+    "_igVerificationEvidence": [
+      "website-linked"
+    ],
+    "_igVerificationReason": "website-linked",
+    "additionalContacts": [
+      {
+        "instagramHandle": "belu_martinez_cima",
+        "instagramUrl": "https://www.instagram.com/belu_martinez_cima/",
+        "contactTitle": "CEO",
+        "contactEmail": null,
+        "contactPhone": null,
+        "contactSource": "founder_ig_profile",
+        "needsManualContactButtonCheck": true,
+        "igIsPrivate": false,
+        "context": "name-search",
+        "contactName": "Belen Martinez Cima"
+      }
+    ],
+    "manualNote": "Founder IG(s) identified (@belu_martinez_cima) — check IG Contact button manually for direct email + phone.",
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "_streams": [
+      "ig",
+      "email",
+      "linkedin"
+    ],
+    "_streamCount": 3,
+    "_credibilitySignals": [
+      "apollo_10plus:27"
+    ],
+    "_credibilityPass": true,
+    "_credibilityReason": "cred_pass",
+    "_domainCoherent": true,
+    "_domainCoherenceReason": "matched:domain-in-brand,brand-in-domain,firstword-in-domain,5char-prefix-match",
+    "instagramDM": "Hola Belén! Vimos el trabajo que hacen cubriendo la industria publicitaria latina. Me imagino que con tantas campañas corriendo en paralelo el tema de organizar presupuestos debe ser todo un desafío. ¿Te interesa conocer cómo otras empresas del sector están resolviendo esto?",
+    "readyToSend": true,
+    "contactDecisionPower": "Alto",
+    "contactWhyThisPerson": "CEO toma decisiones operativas y puede evaluar herramientas que optimicen workflows internos.",
+    "whyThisLead": [
+      "Trabajan con múltiples clientes premium que requieren reportes y seguimiento financiero detallado",
+      "Manejo de contratos y proyectos con marcas globales indica complejidad presupuestaria",
+      "Como medio especializado necesitan trackear múltiples campañas y proyectos simultáneamente"
+    ],
+    "actionBlock": [
+      "Enviar email personalizado mencionando su trabajo con múltiples marcas premium",
+      "como canal primario por su presencia activa",
+      "Tono profesional pero directo, enfocado en eficiencia operativa"
+    ],
+    "conversationAngle": "Como portal que maneja campañas para múltiples marcas premium simultáneamente, seguramente enfrentan el desafío de organizar presupuestos y timelines de proyectos que tienen ritmos de caja completamente distintos.",
+    "channelPriority": {
+      "primario": "Instagram",
+      "secundario": "WhatsApp",
+      "opcional": "Email"
+    },
+    "specificLine": "Vimos que manejan campañas para múltiples marcas premium simultáneamente, proyectos que típicamente tienen ritmos de caja y estructuras presupuestarias completamente distintas.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola Belen! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en ADLATINA y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que manejan campañas para múltiples marcas premium simultáneamente, proyectos que típicamente tienen ritmos de caja y estructuras presupuestarias completamente distintas.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado/a Belen,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que manejan campañas para múltiples marcas premium simultáneamente, proyectos que típicamente tienen ritmos de caja y estructuras presupuestarias completamente distintas.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": {
+      "paso1": "Seguir @adlatinagroup",
+      "paso2": "Dar like a sus ultimos 3 posts",
+      "paso3": "Comentar: 'Excelente cobertura de la industria, siempre al día con las tendencias'",
+      "dm": "Hola Belén! Vimos el trabajo que hacen cubriendo la industria publicitaria latina. Me imagino que con tantas campañas corriendo en paralelo el tema de organizar presupuestos debe ser todo un desafío. ¿Te interesa conocer cómo otras empresas del sector están resolviendo esto?"
+    },
+    "whatsappMessage": "Hola Belén, soy Scarlett de EJE. Vimos el gran trabajo de ADLATINA cubriendo la industria publicitaria. Con tantas campañas premium que manejan, me imagino que organizar presupuestos debe ser complejo. ¿Te interesa ver cómo otras empresas del sector están optimizando este proceso?",
+    "linkedinPlaybook": {
+      "connectionNote": "Hola Belén, siguiendo el excelente trabajo de ADLATINA en la industria",
+      "followUp": "Gracias por conectar! Me imagino que con el crecimiento de ADLATINA y las múltiples campañas que cubren, el tema de organización presupuestaria debe ser cada vez más complejo. ¿Te interesa conocer cómo otros portales están optimizando estos procesos?"
+    },
+    "outreachSequence": [
+      "Dia 1: Enviar DM por mencionando su trabajo con múltiples marcas",
+      "Dia 2: Dar like y comentar en su último post sobre tendencias",
+      "Dia 4: Mensaje de marcas reconocidas casual preguntando sobre workflow presupuestario",
+      "Dia 7: Email formal si no hay respuesta en redes sociales"
+    ],
+    "keyInsight": "CEO de medio establecido con clientes premium que debe manejar múltiples proyectos simultáneos con estructuras presupuestarias distintas.",
+    "source_date": "2026-05-20",
+    "approved": false
+  }
+]

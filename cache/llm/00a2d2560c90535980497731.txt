@@ -1,0 +1,1 @@
+Nufi es una empresa ubicada en México que ofrece servicios de validación de identidad y verificación de antecedentes para personas y empresas. Su plataforma realiza reportes mediante la consulta de información en más de 100 registros públicos. Los servicios incluyen validación de identidad, background check y consultas mediante APIs.

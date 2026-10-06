@@ -1,0 +1,117 @@
+{
+  "domain": "unlimitedfilms.com",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:35:11.668Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://unlimitedfilms.com",
+        "https://unlimitedfilms.com/contacto",
+        "https://unlimitedfilms.com/contact",
+        "https://unlimitedfilms.com/contact-us",
+        "https://unlimitedfilms.com/nosotros",
+        "https://unlimitedfilms.com/about",
+        "https://unlimitedfilms.com/about-us",
+        "https://unlimitedfilms.com/equipo",
+        "https://unlimitedfilms.com/team",
+        "https://unlimitedfilms.com/quienes-somos",
+        "https://unlimitedfilms.com/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "john@unlimitedfilms.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "jorge@unlimitedfilms.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          }
+        ],
+        "igs": [],
+        "linkedins": [],
+        "phones": [],
+        "dms": [
+          {
+            "name": "John McGrath",
+            "title": "Director",
+            "email": "john@unlimitedfilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/john-mcgrath-564bb512",
+            "source": "apollo"
+          },
+          {
+            "name": "Steveson Kenya",
+            "title": "Film Director",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/steveson-kenya-990b98170",
+            "source": "apollo"
+          },
+          {
+            "name": "Jorge Gonzalez Castanos",
+            "title": "Director General / Productor Ejecutivo",
+            "email": "jorge@unlimitedfilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/jorge-gonzalez-casta%c3%b1os-59172327",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "john@unlimitedfilms.com",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": null,
+        "additionalContacts": [
+          {
+            "name": "John McGrath",
+            "title": "Director",
+            "email": "john@unlimitedfilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/john-mcgrath-564bb512",
+            "source": "apollo"
+          },
+          {
+            "name": "Steveson Kenya",
+            "title": "Film Director",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/steveson-kenya-990b98170",
+            "source": "apollo"
+          },
+          {
+            "name": "Jorge Gonzalez Castanos",
+            "title": "Director General / Productor Ejecutivo",
+            "email": "jorge@unlimitedfilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/jorge-gonzalez-casta%c3%b1os-59172327",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "jorge@unlimitedfilms.com",
+          "current_contactName": "Jorge Gonzalez Castanos",
+          "current_ig": "unlimitedfilms_mx",
+          "current_status": null
+        }
+      }
+    }
+  ]
+}

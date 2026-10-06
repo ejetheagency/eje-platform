@@ -1,0 +1,155 @@
+{
+  "domain": "sunomonofilms.com",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:12:23.722Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://sunomonofilms.com",
+        "https://sunomonofilms.com/contacto",
+        "https://sunomonofilms.com/contact",
+        "https://sunomonofilms.com/contact-us",
+        "https://sunomonofilms.com/nosotros",
+        "https://sunomonofilms.com/about",
+        "https://sunomonofilms.com/about-us",
+        "https://sunomonofilms.com/equipo",
+        "https://sunomonofilms.com/team",
+        "https://sunomonofilms.com/quienes-somos",
+        "https://sunomonofilms.com/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "produccion@sunomonofilms.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "visible",
+              "apollo"
+            ],
+            "pages": 11
+          },
+          {
+            "email": "yun@sunomonofilms.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "etica@sunomonofilms.com",
+            "tier": "PUBLISHED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 11
+          },
+          {
+            "email": "averges@sunomonofilms.com",
+            "tier": "PUBLISHED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "visible",
+              "jsonld"
+            ],
+            "pages": 11
+          },
+          {
+            "email": "info@sunomonofilms.com",
+            "tier": "PUBLISHED",
+            "isRole": true,
+            "domainMatch": true,
+            "methods": [
+              "visible",
+              "mailto"
+            ],
+            "pages": 2
+          }
+        ],
+        "igs": [
+          {
+            "handle": "sunomonofilms",
+            "tier": "CORROBORATED",
+            "footerCanonical": false,
+            "sources": [
+              "jsonld",
+              "https://sunomonofilms.com/contacto"
+            ]
+          }
+        ],
+        "linkedins": [
+          "linkedin.com/company/sunomono-films-barcelona"
+        ],
+        "phones": [
+          {
+            "phone": "+34637209570",
+            "kind": "jsonld",
+            "sources": [
+              "jsonld"
+            ]
+          }
+        ],
+        "dms": [
+          {
+            "name": "Mireia Prat",
+            "title": "Executive Producer",
+            "email": "produccion@sunomonofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/mireiaproducerbcn",
+            "source": "apollo"
+          },
+          {
+            "name": "Yun Mateo Palos",
+            "title": "Creative Director",
+            "email": "yun@sunomonofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/yun-mateo-palos-35a705223",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "produccion@sunomonofilms.com",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": "sunomonofilms",
+        "additionalContacts": [
+          {
+            "name": "Mireia Prat",
+            "title": "Executive Producer",
+            "email": "produccion@sunomonofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/mireiaproducerbcn",
+            "source": "apollo"
+          },
+          {
+            "name": "Yun Mateo Palos",
+            "title": "Creative Director",
+            "email": "yun@sunomonofilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/yun-mateo-palos-35a705223",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "produccion@sunomonofilms.com",
+          "current_contactName": "Mireia Prat",
+          "current_ig": "sunomonofilms",
+          "current_status": "verified"
+        }
+      }
+    }
+  ]
+}

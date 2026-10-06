@@ -1,0 +1,148 @@
+{
+  "domain": "chilerayo.com",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:17:03.246Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://chilerayo.com",
+        "https://chilerayo.com/contacto",
+        "https://chilerayo.com/contact",
+        "https://chilerayo.com/contact-us",
+        "https://chilerayo.com/nosotros",
+        "https://chilerayo.com/about",
+        "https://chilerayo.com/about-us",
+        "https://chilerayo.com/equipo",
+        "https://chilerayo.com/team",
+        "https://chilerayo.com/quienes-somos",
+        "https://chilerayo.com/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "contacto@chilerayo.com",
+            "tier": "PUBLISHED",
+            "isRole": true,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 2
+          },
+          {
+            "email": "leonardo@chilerayo.com",
+            "tier": "DERIVED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "jona@chilerayo.com",
+            "tier": "DERIVED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          }
+        ],
+        "igs": [
+          {
+            "handle": "morfina.cl",
+            "tier": "PUBLISHED",
+            "footerCanonical": false,
+            "sources": [
+              "https://chilerayo.com"
+            ]
+          },
+          {
+            "handle": "chilerayo",
+            "tier": "PUBLISHED",
+            "footerCanonical": false,
+            "sources": [
+              "https://chilerayo.com",
+              "https://chilerayo.com/nosotros"
+            ]
+          }
+        ],
+        "linkedins": [
+          "linkedin.com/company/productora-chilerayo"
+        ],
+        "phones": [],
+        "dms": [
+          {
+            "name": "Leonardo Oyarzun Ramirez",
+            "title": "Director",
+            "email": "leonardo@chilerayo.com",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/leonardooyarzun",
+            "source": "apollo"
+          },
+          {
+            "name": "Jona Fuenzalida",
+            "title": "Director",
+            "email": "jona@chilerayo.com",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/jona-fuenzalida-145668320",
+            "source": "apollo"
+          },
+          {
+            "name": "Nicolas Ugarte",
+            "title": "Audiovisual Director",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/nicolas-ugarte-5069676b",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "contacto@chilerayo.com",
+          "tier": "PUBLISHED",
+          "role": true
+        },
+        "canonicalIG": "morfina.cl",
+        "additionalContacts": [
+          {
+            "name": "Leonardo Oyarzun Ramirez",
+            "title": "Director",
+            "email": "leonardo@chilerayo.com",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/leonardooyarzun",
+            "source": "apollo"
+          },
+          {
+            "name": "Jona Fuenzalida",
+            "title": "Director",
+            "email": "jona@chilerayo.com",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/jona-fuenzalida-145668320",
+            "source": "apollo"
+          },
+          {
+            "name": "Nicolas Ugarte",
+            "title": "Audiovisual Director",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/nicolas-ugarte-5069676b",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "contacto@chilerayo.com",
+          "current_contactName": "Equipo ChileRayo",
+          "current_ig": "morfina.cl",
+          "current_status": "website_published"
+        }
+      }
+    }
+  ]
+}

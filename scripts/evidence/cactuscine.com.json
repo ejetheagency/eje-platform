@@ -1,0 +1,174 @@
+{
+  "domain": "cactuscine.com",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:37:41.593Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://cactuscine.com",
+        "https://cactuscine.com/contacto",
+        "https://cactuscine.com/contact",
+        "https://cactuscine.com/contact-us",
+        "https://cactuscine.com/nosotros",
+        "https://cactuscine.com/about",
+        "https://cactuscine.com/about-us",
+        "https://cactuscine.com/equipo",
+        "https://cactuscine.com/team",
+        "https://cactuscine.com/quienes-somos",
+        "https://cactuscine.com/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "seba@cactuscine.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "agu@cactuscine.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "info@cactuscine.com",
+            "tier": "CORROBORATED",
+            "isRole": true,
+            "domainMatch": true,
+            "methods": [
+              "visible"
+            ],
+            "pages": 11
+          },
+          {
+            "email": "ezequiel@cactuscine.com",
+            "tier": "DERIVED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          }
+        ],
+        "igs": [
+          {
+            "handle": "elcactusyelcine",
+            "tier": "PUBLISHED",
+            "footerCanonical": true,
+            "sources": [
+              "https://cactuscine.com",
+              "https://cactuscine.com/contacto",
+              "https://cactuscine.com/contact",
+              "https://cactuscine.com/contact-us",
+              "https://cactuscine.com/nosotros",
+              "https://cactuscine.com/about",
+              "https://cactuscine.com/about-us",
+              "https://cactuscine.com/equipo",
+              "https://cactuscine.com/team",
+              "https://cactuscine.com/quienes-somos",
+              "https://cactuscine.com/somos"
+            ]
+          }
+        ],
+        "linkedins": [
+          "linkedin.com/company/cactuscine"
+        ],
+        "phones": [],
+        "dms": [
+          {
+            "name": "Ezequiel Morales",
+            "title": "Executive Producer & Post Production Coordinator",
+            "email": "ezequiel@cactuscine.com",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/ezequiel-morales-9018028a",
+            "source": "apollo"
+          },
+          {
+            "name": "Sebastian Carreras",
+            "title": "Director, Creative Producer & Owner",
+            "email": "seba@cactuscine.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/sebacarreras",
+            "source": "apollo"
+          },
+          {
+            "name": "Agustin Vidal",
+            "title": "Director",
+            "email": "agu@cactuscine.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/agustin-vidal-3266017a",
+            "source": "apollo"
+          },
+          {
+            "name": "Nicolas Carreras",
+            "title": "Director",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/nicol%c3%a1s-carreras-a1a34ab",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "seba@cactuscine.com",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": "elcactusyelcine",
+        "additionalContacts": [
+          {
+            "name": "Ezequiel Morales",
+            "title": "Executive Producer & Post Production Coordinator",
+            "email": "ezequiel@cactuscine.com",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/ezequiel-morales-9018028a",
+            "source": "apollo"
+          },
+          {
+            "name": "Sebastian Carreras",
+            "title": "Director, Creative Producer & Owner",
+            "email": "seba@cactuscine.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/sebacarreras",
+            "source": "apollo"
+          },
+          {
+            "name": "Agustin Vidal",
+            "title": "Director",
+            "email": "agu@cactuscine.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/agustin-vidal-3266017a",
+            "source": "apollo"
+          },
+          {
+            "name": "Nicolas Carreras",
+            "title": "Director",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/nicol%c3%a1s-carreras-a1a34ab",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "seba@cactuscine.com",
+          "current_contactName": "Sebastian Carreras",
+          "current_ig": "elcactusyelcine",
+          "current_status": null
+        }
+      }
+    }
+  ]
+}

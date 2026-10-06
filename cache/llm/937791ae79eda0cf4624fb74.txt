@@ -1,0 +1,1 @@
+Muze AI es una empresa con sede en Chile que ofrece soluciones de automatización e inteligencia artificial basadas en Microsoft 365, incluyendo agentes de IA y flujos de trabajo. Su implementación toma un promedio de 30 días y atiende a industrias reguladas y operaciones críticas. Entre sus clientes notables se encuentran BlueYou, Meliomar y la Universidad Austral de Chile.

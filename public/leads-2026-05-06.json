@@ -1,0 +1,303 @@
+[
+  {
+    "companyName": "Dosruedasproducciones",
+    "website": "https://dosruedasproducciones.com",
+    "country": "Costa Rica",
+    "industry": "film",
+    "summary": "DRP Ident Play Pause Unmute Mute",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "con calidad cinematográfica y atención pe"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 1,
+    "fitReasons": [
+      "premium_clients"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "brauliofallas@gmail.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "http://instagram.com/dosruedasproducciones",
+    "instagramHandle": "dosruedasproducciones",
+    "instagramBio": "See Instagram photos and videos from Dos Ruedas Producciones (@dosruedasproducciones)",
+    "instagramFollowers": "714",
+    "facebookUrl": "https://facebook.com/dosruedasproducciones",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/user116454455",
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "nothing",
+        "emailsChecked": 1
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "brauliofallas@gmail.com",
+          "nquesadaamador@gmail.com",
+          "dosruedasprod@gmail.com"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "http://instagram.com/dosruedasproducciones",
+          "facebook": "https://facebook.com/dosruedasproducciones",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": "https://vimeo.com/user116454455",
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "http://instagram.com/dosruedasproducciones",
+        "igHandle": "dosruedasproducciones",
+        "igFollowers": "714",
+        "socialEmail": "info@dosruedasproducciones.com",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "brauliofallas@gmail.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/dosruedasproducciones",
+    "apolloCompanyPhone": "+506 8911 4126",
+    "apolloEmployeeCount": 2,
+    "contactPath": "company_fallback",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-06",
+    "approved": false
+  },
+  {
+    "companyName": "deleFOCO",
+    "website": "https://delefoco.com",
+    "country": "Costa Rica",
+    "industry": "film",
+    "summary": "AGREGADO RECIENTEMENTE Aftersun Casting de Talentos Educación y Capacitación Audiovisual Marketing Digital Servicios de Producción VOLVER AL INICIO FORMACIÓN Más allá de lo visual: el Departamento de Arte y su papel clave ... FORMACIÓN ¿Qué hace que una historia funcione en cine? CINE Y TELEVISIÓN Shorts Costa Rica anuncia los cortometrajes ganadores de su cuarta ...",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "de servicios para profesionales y empresa"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 5,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 5,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "premium_clients",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "josue@delefoco.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "confirmed",
+    "contactSource": "hunter_domain",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/delefoco/",
+    "instagramHandle": "delefoco",
+    "instagramBio": "See Instagram photos and videos from deleFOCO Comunidad Audiovisual (@delefoco)",
+    "instagramFollowers": "5,735",
+    "facebookUrl": "https://www.facebook.com/delefoco",
+    "twitterUrl": "https://twitter.com/delefoco",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "+506 2224-4696",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "named_contact",
+        "name": "Josue Fischel",
+        "title": "Director",
+        "email": "josue@delefoco.com"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "comunidad@delefoco.com"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "+506 2224-4696",
+          "+506 8682-3430",
+          "80070002"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/delefoco/",
+          "facebook": "https://www.facebook.com/delefoco",
+          "twitter": "https://twitter.com/delefoco",
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/delefoco/",
+        "igHandle": "delefoco",
+        "igFollowers": "5,735",
+        "socialEmail": "comunidad@delefoco.com",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Josue Fischel"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "josue@delefoco.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/delefoco",
+    "apolloCompanyPhone": "+506 2224 4696",
+    "apolloEmployeeCount": 12,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-06",
+    "approved": false
+  }
+]

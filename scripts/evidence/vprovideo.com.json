@@ -1,0 +1,129 @@
+{
+  "domain": "vprovideo.com",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:14:57.352Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://vprovideo.com",
+        "https://vprovideo.com/contacto",
+        "https://vprovideo.com/contact",
+        "https://vprovideo.com/contact-us",
+        "https://vprovideo.com/nosotros",
+        "https://vprovideo.com/about",
+        "https://vprovideo.com/about-us",
+        "https://vprovideo.com/equipo",
+        "https://vprovideo.com/team",
+        "https://vprovideo.com/quienes-somos",
+        "https://vprovideo.com/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "sofia.ventas@vprovideo.com",
+            "tier": "PUBLISHED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 1
+          }
+        ],
+        "igs": [
+          {
+            "handle": "vprovideo",
+            "tier": "PUBLISHED",
+            "footerCanonical": true,
+            "sources": [
+              "https://vprovideo.com",
+              "https://vprovideo.com/contacto",
+              "https://vprovideo.com/contact",
+              "https://vprovideo.com/contact-us",
+              "https://vprovideo.com/nosotros",
+              "https://vprovideo.com/about",
+              "https://vprovideo.com/about-us",
+              "https://vprovideo.com/equipo",
+              "https://vprovideo.com/team",
+              "https://vprovideo.com/quienes-somos",
+              "https://vprovideo.com/somos"
+            ]
+          }
+        ],
+        "linkedins": [
+          "linkedin.com/company/vpro-videos"
+        ],
+        "phones": [
+          {
+            "phone": "526676982799",
+            "kind": "whatsapp",
+            "sources": [
+              "https://vprovideo.com",
+              "https://vprovideo.com/contact",
+              "https://vprovideo.com/quienes-somos"
+            ]
+          },
+          {
+            "phone": "526674099301",
+            "kind": "whatsapp",
+            "sources": [
+              "https://vprovideo.com/contacto",
+              "https://vprovideo.com/contact",
+              "https://vprovideo.com/contact-us",
+              "https://vprovideo.com/nosotros",
+              "https://vprovideo.com/about",
+              "https://vprovideo.com/about-us",
+              "https://vprovideo.com/equipo",
+              "https://vprovideo.com/team",
+              "https://vprovideo.com/somos"
+            ]
+          },
+          {
+            "phone": "+526676982799",
+            "kind": "tel",
+            "sources": [
+              "https://vprovideo.com/contact"
+            ]
+          }
+        ],
+        "dms": [
+          {
+            "name": "Osiel Hernandez Aldape",
+            "title": "Director de Cámaras (Switcher) y Productor de Audio",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/osiel-cuauht%c3%a9moc-hern%c3%a1ndez-aldape-94bba1177",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "sofia.ventas@vprovideo.com",
+          "tier": "PUBLISHED",
+          "role": false
+        },
+        "canonicalIG": "vprovideo",
+        "additionalContacts": [
+          {
+            "name": "Osiel Hernandez Aldape",
+            "title": "Director de Cámaras (Switcher) y Productor de Audio",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/osiel-cuauht%c3%a9moc-hern%c3%a1ndez-aldape-94bba1177",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": null,
+          "current_contactName": "Pedro Villarreal",
+          "current_ig": "vprovideo",
+          "current_status": "no_email_use_whatsapp"
+        }
+      }
+    }
+  ]
+}

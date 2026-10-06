@@ -1,0 +1,2838 @@
+[
+  {
+    "companyName": "10 Plataformas SaaS B2B Revolucionarias en 2025",
+    "website": "https://es.editorialge.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Infórmate con las últimas noticias, tendencias tecnológicas, reseñas de películas y mucho más en Editorialge España. Contenido exclusivo para ti.",
+    "notableClients": [
+      "Google"
+    ],
+    "recentProjects": [
+      "Animación hollywood bollywood Música Dibu"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "has_clients",
+      "strong_b2b_signal"
+    ],
+    "contactName": "Aushnik Das",
+    "contactTitle": "Acting CEO",
+    "contactEmail": "contacteditorialge@gmail.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/aushnik-das-a9351021b",
+    "contactConfidence": "website_direct",
+    "contactSource": "deep_rescue",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/",
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://web.facebook.com/TheEditorialge/",
+    "twitterUrl": "https://twitter.com/editorialge",
+    "youtubeUrl": "https://www.youtube.com/channel/UCLxSZoKq-tyzXB7yJlYUKsg/",
+    "vimeoUrl": null,
+    "contactPhone": "00.0000000",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Aushnik Das",
+        "title": "Acting CEO",
+        "email": "aushnik@editorialge.com",
+        "linkedin": "http://www.linkedin.com/in/aushnik-das-a9351021b"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "contacteditorialge@gmail.com"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": "Sukanta Parthib",
+        "social": {
+          "instagram": null,
+          "facebook": "https://web.facebook.com/TheEditorialge/",
+          "twitter": "https://twitter.com/editorialge",
+          "youtube": "https://www.youtube.com/channel/UCLxSZoKq-tyzXB7yJlYUKsg/",
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_email": "contacteditorialge@gmail.com",
+        "pages_crawled": 20
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "00.0000000"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Aushnik Das"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "contacteditorialge@gmail.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "DISC",
+    "website": "https://disc.com.mx",
+    "country": "Mexico",
+    "industry": "services",
+    "summary": "DISC - Diseño e Integración de Sistemas Computacionales. Fábrica de software 100% mexicana con certificaciones CMMI DEV3, ISO 9001, ISO 27001 e ISO 37001. Desarrollo web, ERP ARCO Suite360, GRP gubernamental.",
+    "notableClients": [
+      "Modelo"
+    ],
+    "recentProjects": [
+      "Nosotros le ayudamos a cumplir",
+      "Estamos listos para ayudarte a transforma"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": false,
+    "scopeSignals": 1,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 1,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 5,
+    "fitReasons": [
+      "has_clients",
+      "case_studies",
+      "mid_size_team"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "clientes@disc.com.mx",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/discprod/",
+    "instagramHandle": "discprod",
+    "instagramBio": "See Instagram photos and videos from DISC (@discstudio)",
+    "instagramFollowers": "415",
+    "facebookUrl": "https://www.facebook.com/DISCMexico/",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "+52 (55) 5813 7676",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "clientes@disc.com.mx"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "+52 (55) 5813 7676",
+          "+52 (55) 2025 6030"
+        ],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": "https://www.facebook.com/DISCMexico/",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/discprod/",
+        "igHandle": "discprod",
+        "igFollowers": "415",
+        "socialEmail": "clientes@disc.com.mx",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": [
+          "fanaticos902000"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "dm": {
+          "handle": "fanaticos902000",
+          "email": null,
+          "phone": null,
+          "needsManual": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "clientes@disc.com.mx",
+          "additional": 1,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/discovery-limited",
+    "apolloCompanyPhone": "+27 11 877 3750",
+    "apolloEmployeeCount": 14000,
+    "additionalContacts": [
+      {
+        "instagramHandle": "fanaticos902000",
+        "instagramUrl": "https://www.instagram.com/fanaticos902000/",
+        "contactTitle": null,
+        "contactEmail": null,
+        "contactPhone": null,
+        "contactSource": "founder_ig_profile",
+        "needsManualContactButtonCheck": true,
+        "igIsPrivate": false,
+        "context": "J Productora coperativa de Eventos y DJ @fanaticos902000"
+      }
+    ],
+    "manualNote": "Founder IG(s) identified (@fanaticos902000) — check IG Contact button manually for direct email + phone.",
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Consultora de Recursos Humanos para Empresas",
+    "website": "https://purotalent.com",
+    "country": "Argentina",
+    "industry": "services",
+    "summary": "Somos más que una consultora de recursos humanos. Creamos mejores conexiones fusionando experiencia y tecnología. ¡Contáctanos sin compromiso!",
+    "notableClients": [],
+    "recentProjects": [],
+    "estimatedSize": "large",
+    "unabaseScore": 4,
+    "scopeVerified": false,
+    "scopeSignals": 1,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 1,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "large_team"
+    ],
+    "contactName": "Jose Luis Blas",
+    "contactTitle": "CEO de My Top Tour",
+    "contactEmail": "hola@purotalent.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "social_only",
+    "contactSource": "social",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/purotalenthr/",
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/PuroTalentHR",
+    "twitterUrl": "https://twitter.com/TalentPuroHR",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "hola@purotalent.com"
+        ],
+        "phones": [],
+        "name": "Jose Luis Blas",
+        "social": {
+          "instagram": "https://www.instagram.com/purotalenthr/",
+          "facebook": "https://www.facebook.com/PuroTalentHR",
+          "twitter": "https://twitter.com/TalentPuroHR",
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": "reverse",
+        "name": "Reverse Lookup",
+        "started": true,
+        "targetName": "Jose Luis Blas"
+      },
+      {
+        "step": "reverse",
+        "hunter_error": "Request failed with status code 429"
+      },
+      {
+        "step": "reverse",
+        "found": "nothing"
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "hola@purotalent.com",
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": null,
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 14
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": []
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Jose Luis Blas"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "hola@purotalent.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Jose Luis Blas"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "hola@purotalent.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 2,
+    "whoisCheckPending": true,
+    "contactPath": "decision_maker_email",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Transforma más rápido.",
+    "website": "https://nivelics.com",
+    "country": "Colombia",
+    "industry": "services",
+    "summary": "Empresa colombiana de transformación digital B2B. IA aplicada, Cloud (AWS, GCP, Azure) y Staff Augmentation premium para empresas en LATAM y USA.",
+    "notableClients": [
+      "Televisa",
+      "Univision",
+      "Modelo"
+    ],
+    "recentProjects": [
+      "tiene KPIs definidos antes de empezar"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "has_clients",
+      "mid_size_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": "Camilo Villanueva Nino",
+    "contactTitle": "Founder",
+    "contactEmail": "camilo.villanueva@nivelics.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/camilovillanueva",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "+573103926621",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Camilo Villanueva Nino",
+        "title": "Founder",
+        "email": "camilo.villanueva@nivelics.com",
+        "linkedin": "http://www.linkedin.com/in/camilovillanueva"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "tu@empresa.com"
+        ],
+        "genericEmails": [
+          "contacto@nivelics.com"
+        ],
+        "phones": [
+          "+573103926621"
+        ],
+        "name": "Camilo Andrés Villanueva Niño",
+        "social": {
+          "instagram": "https://www.instagram.com/nivelics",
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/colombiatransforma/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Empresas de \"Software Factory\" en España",
+    "website": "https://empresite.eleconomista.es",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Empresite España es el mayor directorio de empresas, profesionales, negocios y lugares de España. Buscador gratuito para potenciar su marca, productos, trabajos y servicios.",
+    "notableClients": [],
+    "recentProjects": [
+      "Software Factory",
+      "en España"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 7,
+    "scopeVerified": false,
+    "scopeSignals": 0,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 0,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "case_studies",
+      "mid_size_team"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "filmmadrid@madrid.org",
+    "contactLinkedIn": null,
+    "contactConfidence": "directory_confirmed",
+    "contactSource": "film_office_directory",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "80192727",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [
+          "80192727"
+        ],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": null,
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 13
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "80192727"
+        ]
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_email": "sugerencias@mercadona.es",
+        "pages_crawled": 20
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/prostartsoftware/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "directory_email": "filmmadrid@madrid.org",
+        "url": "https://www.madrid.org/filmmadrid/directorio-empresas.html"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "filmmadrid@madrid.org",
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_email": "sugerencias@mercadona.es",
+        "pages_crawled": 20
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/softwarefactoryandservices/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "directory_email": "filmmadrid@madrid.org",
+        "url": "https://www.madrid.org/filmmadrid/directorio-empresas.html"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "filmmadrid@madrid.org",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 1,
+    "whoisCheckPending": true,
+    "contactPath": "email_only",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "PropTech Latam",
+    "website": "https://proptechlatam.com",
+    "country": "Mexico",
+    "industry": "services",
+    "summary": "La plataforma que conecta el ecosistema del Real Estate tecnológico, vinculando a corporativos, startups, inversores e instituciones de Latam",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 7,
+    "scopeVerified": false,
+    "scopeSignals": 0,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 0,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "has_clients",
+      "mid_size_team"
+    ],
+    "contactName": "Andrea Valdez",
+    "contactTitle": "Founder",
+    "contactEmail": "andrea@proptechlatam.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/andrearodriguezvaldez-proptech",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/proptechlatam/",
+    "instagramHandle": "proptechlatam",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/PropTechLatam/",
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/channel/UCsk90XVWWE5Sk-Aw7FC7n3w",
+    "vimeoUrl": null,
+    "contactPhone": "+1 754 269 9398",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Andrea Valdez",
+        "title": "Founder",
+        "email": "andrea@proptechlatam.com",
+        "linkedin": "http://www.linkedin.com/in/andrearodriguezvaldez-proptech"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "andrea@proptechlatam.com"
+        ],
+        "genericEmails": [
+          "info@proptechlatam.com"
+        ],
+        "phones": [
+          "+1 754 269 9398",
+          "123456789101112",
+          "13141516171819",
+          "13141516",
+          "+54911) 3684 8400"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/proptechlatam/",
+          "facebook": "https://www.facebook.com/PropTechLatam/",
+          "twitter": null,
+          "youtube": "https://www.youtube.com/channel/UCsk90XVWWE5Sk-Aw7FC7n3w",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "contacto@proptechlatam.com",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/proptechlatam/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "+1 754 269 9398"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Andrea Valdez"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "ig_search_error": "Navigation timeout of 10000 ms exceeded"
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "andrea@proptechlatam.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/proptech-latam",
+    "apolloCompanyPhone": "+1754269",
+    "apolloEmployeeCount": 10,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Top Devops Consulting Service in Argentina",
+    "website": "https://goodfirms.co",
+    "country": "Argentina",
+    "industry": "services",
+    "summary": "Goodfirms is your trusted B2B Reviews & Rating platform, helping you choose the right partner from hand-picked lists of vetted companies using credible, verified reviews from real users.",
+    "notableClients": [],
+    "recentProjects": [
+      "Find verified firms specializing in softw"
+    ],
+    "estimatedSize": "large",
+    "unabaseScore": 4,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "large_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": "Megha Patel",
+    "contactTitle": "Chief Operating Officer",
+    "contactEmail": "megha@goodfirms.co",
+    "contactLinkedIn": "http://www.linkedin.com/in/megha-patel-378a6920",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/",
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/goodfirms",
+    "twitterUrl": "https://www.webfx.com/lp/digital-marketing-services/?utm_source=goodfirms&utm_medium=campaign&utm_campaign=gf",
+    "youtubeUrl": "https://www.youtube.com/@Goodfirms",
+    "vimeoUrl": null,
+    "contactPhone": "00.0000000",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Megha Patel",
+        "title": "Chief Operating Officer",
+        "email": "megha@goodfirms.co",
+        "linkedin": "http://www.linkedin.com/in/megha-patel-378a6920"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": "Ivan Lykhovyd",
+        "social": {
+          "instagram": "https://www.instagram.com/goodfirms_/",
+          "facebook": "https://www.facebook.com/goodfirms",
+          "twitter": "https://www.webfx.com/lp/digital-marketing-services/?utm_source=goodfirms&utm_medium=campaign&utm_campaign=gf",
+          "youtube": "https://www.youtube.com/@Goodfirms",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "info@goodfirms.co",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "00.0000000"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Megha Patel"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "megha@goodfirms.co",
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Megha Patel"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "megha@goodfirms.co",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Plataformas SaaS B2B",
+    "website": "https://logicalcommander.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Logical Commander provides early visibility into integrity, ethical, behavioral, and human-driven operational risks before they escalate into financial, legal, or reputational impact.",
+    "notableClients": [],
+    "recentProjects": [
+      "Accept All"
+    ],
+    "estimatedSize": "large",
+    "unabaseScore": 6,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "large_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": "Matias Schapiro",
+    "contactTitle": "Chief Executive Officer",
+    "contactEmail": "matias.schapiro@logicalcommander.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/matias-schapiro-741122214",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://business.instagram.com/?locale=es_ES",
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/logicalcommander/",
+    "twitterUrl": "https://x.com/Logicalcomm",
+    "youtubeUrl": "https://www.youtube.com/@logicalcommander",
+    "vimeoUrl": null,
+    "contactPhone": "902 504 831",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Matias Schapiro",
+        "title": "Chief Executive Officer",
+        "email": "matias.schapiro@logicalcommander.com",
+        "linkedin": "http://www.linkedin.com/in/matias-schapiro-741122214"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [
+          "27018\n2770"
+        ],
+        "name": "Matias Schapiro",
+        "social": {
+          "instagram": "https://www.instagram.com/logicalcommander/",
+          "facebook": "https://www.facebook.com/logicalcommander/",
+          "twitter": "https://x.com/Logicalcomm",
+          "youtube": "https://www.youtube.com/@logicalcommander",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "marketing@logicalcommander.com",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://business.instagram.com/?locale=es_ES"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "902 504 831"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Matias Schapiro"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "matias.schapiro@logicalcommander.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Mexicoproptech",
+    "website": "https://mexicoproptech.org",
+    "country": "Mexico",
+    "industry": "services",
+    "summary": "The Community of the brightest minds in PropTech",
+    "notableClients": [
+      "Fox"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 6,
+    "scopeVerified": false,
+    "scopeSignals": 1,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 1,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "has_clients",
+      "mid_size_team"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "jane@mexicoproptech.org",
+    "contactLinkedIn": null,
+    "contactConfidence": "confirmed",
+    "contactSource": "ddg_email",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/mexicoproptech/",
+    "instagramHandle": "mexicoproptech",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/proptechmx/",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/mexicoproptech/",
+          "facebook": "https://www.facebook.com/proptechmx/",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": [
+          "jane@mexicoproptech.org"
+        ]
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "name_derive",
+        "email": "jane@mexicoproptech.org"
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "mexicoproptech",
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 6
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": []
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "jane@mexicoproptech.org",
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "jane@mexicoproptech.org",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/mexico-proptech",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 2,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "SOFTWARE FACTORY",
+    "website": "https://integratecnologia.es",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Top 5 Production Software - List Of Software Products. Find Simple, Personalized Production Software Advice That is Best For Your Business. Need Guidance Through the Production Software Jungle?",
+    "notableClients": [],
+    "recentProjects": [
+      "IMPACTO DE LA IA EN EL ÁREA DE PERSONAS",
+      "Aceptar cookies",
+      "Rechazar cookies",
+      "Servicios de outsourcing VER TODOS LOS SE"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 6,
+    "scopeVerified": false,
+    "scopeSignals": 1,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 1,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "case_studies"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "nbello@integratecnologia.es",
+    "contactLinkedIn": "http://www.linkedin.com/in/nicolasbello",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/channel/UCReLZfBo6k7gKVzIVcaYXrw",
+    "vimeoUrl": null,
+    "contactPhone": "50.197.581",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Nicolas Bello",
+        "title": "Desarrollador | Product Owner",
+        "email": "nbello@integratecnologia.es",
+        "linkedin": "http://www.linkedin.com/in/nicolasbello"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 15,
+        "personalEmails": [
+          "privacidad@integratecnologia.es",
+          "dpo@integratecnologia.es"
+        ],
+        "genericEmails": [
+          "hola@integratecnologia.es"
+        ],
+        "phones": [
+          "50.197.581"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/integra_tecnologia/",
+          "facebook": null,
+          "twitter": null,
+          "youtube": "https://www.youtube.com/channel/UCReLZfBo6k7gKVzIVcaYXrw",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/softwarefactory.org.in/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/softwarefactory.official/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/vtxrm",
+    "apolloCompanyPhone": "+351 21 049 7779",
+    "apolloEmployeeCount": 450,
+    "contactPath": "email_only",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Consultoría Empresarial Integral en México",
+    "website": "https://flintconsulting.mx",
+    "country": "Mexico",
+    "industry": "services",
+    "summary": "We transform organizations with financial, legal, and organizational solutions tailored to companies in Mexico.",
+    "notableClients": [],
+    "recentProjects": [],
+    "estimatedSize": "large",
+    "unabaseScore": 4,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "large_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "connect@flintconsulting.mx",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": "https://x.com/",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "connect@flintconsulting.mx"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "+52 81 1351 8242"
+        ],
+        "name": "Anyuri Barrera",
+        "social": {
+          "instagram": "https://instagram.com/",
+          "facebook": null,
+          "twitter": "https://x.com/",
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/coemx.oficial/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "email_only",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Prostart Software Factory",
+    "website": "https://prostartsoftware.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Software Factory specialized in developing customized software for companies.",
+    "notableClients": [
+      "Google"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "large",
+    "unabaseScore": 5,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 5,
+    "fitReasons": [
+      "has_clients",
+      "large_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": "Julian Ariel Sgombich",
+    "contactTitle": "CEO & Founder / Software Achitect SR",
+    "contactEmail": "jsgombich@prostartsoftware.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/julian-ariel-sgombich",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/prostartsoftware/",
+    "instagramHandle": "prostartsoftware",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/channel/UCzrGG1WvPyoqp84d60_tfFg",
+    "vimeoUrl": null,
+    "contactPhone": "00.0000000",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Julian Ariel Sgombich",
+        "title": "CEO & Founder / Software Achitect SR.",
+        "email": "jsgombich@prostartsoftware.com",
+        "linkedin": "http://www.linkedin.com/in/julian-ariel-sgombich"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "contact@prostartsoftware.com"
+        ],
+        "phones": [
+          "9 11 6572-0081"
+        ],
+        "name": "Julián Ariel Sgombich",
+        "social": {
+          "instagram": "https://www.instagram.com/prostartsoftware/",
+          "facebook": null,
+          "twitter": null,
+          "youtube": "https://www.youtube.com/channel/UCzrGG1WvPyoqp84d60_tfFg",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/prostartsoftware/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "00.0000000"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Julian Ariel Sgombich"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "jsgombich@prostartsoftware.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Firma del año",
+    "website": "https://ecija.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "ECIJA, la firma legal del futuro, asesora a empresas innovadoras con un equipo global en Iberoamérica.",
+    "notableClients": [
+      "Modelo"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "large",
+    "unabaseScore": 5,
+    "scopeVerified": false,
+    "scopeSignals": 0,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 0,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "has_clients",
+      "large_team"
+    ],
+    "contactName": "Sergio Gonzalez Marquez",
+    "contactTitle": "Socio / CEO Ecija Digital Solutions",
+    "contactEmail": "sgmarquez@ecija.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/sergio-gonzalez-marquez-8ab0a4157",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": "https://x.com/ECIJA",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Sergio Gonzalez Marquez",
+        "title": "Socio / CEO Ecija Digital Solutions",
+        "email": "sgmarquez@ecija.com",
+        "linkedin": "http://www.linkedin.com/in/sergio-gonzalez-marquez-8ab0a4157"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@ecija.com"
+        ],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/ecija_law/",
+          "facebook": null,
+          "twitter": "https://x.com/ECIJA",
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/popular/firma-samuel/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Legaltech",
+    "website": "https://wolterskluwer.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Wolters Kluwer is a global provider of professional information, software, AI solutions, and services.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 5,
+    "scopeVerified": false,
+    "scopeSignals": 1,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 1,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "has_clients",
+      "mid_size_team"
+    ],
+    "contactName": "Nancy McKinstry",
+    "contactTitle": "Chief Executive Officer",
+    "contactEmail": "nancy.mckinstry@wolterskluwer.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/nancy-mckinstry-4a25009",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/wolterskluwer",
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/@WoltersKluwerComms",
+    "vimeoUrl": null,
+    "contactPhone": "911 013 552",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Nancy McKinstry",
+        "title": "Chief Executive Officer",
+        "email": "nancy.mckinstry@wolterskluwer.com",
+        "linkedin": "http://www.linkedin.com/in/nancy-mckinstry-4a25009"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/_wolterskluwer/",
+          "facebook": "https://www.facebook.com/wolterskluwer",
+          "twitter": null,
+          "youtube": "https://www.youtube.com/@WoltersKluwerComms",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "thirdpartyincident@wolterskluwer.com",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/popular/legaltech/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "911 013 552"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/legal-tech-hub",
+    "apolloCompanyPhone": "+1 347-335-5458",
+    "apolloEmployeeCount": 30,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Shopify",
+    "website": "https://shopify.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Try Shopify free and start a business or grow an existing one. Get more than ecommerce software with tools to manage every part of your business.",
+    "notableClients": [],
+    "recentProjects": [],
+    "estimatedSize": "large",
+    "unabaseScore": 4,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "large_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "victoria.barbosa@shopify.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/victoriabarbosa",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/shopify/",
+    "instagramHandle": "shopify",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/shopify",
+    "twitterUrl": "https://twitter.com/shopify",
+    "youtubeUrl": "https://www.youtube.com/user/shopify",
+    "vimeoUrl": null,
+    "contactPhone": "00.0000000",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Victoria Barbosa",
+        "title": "Director, Operations | Office of the CEO",
+        "email": "victoria.barbosa@shopify.com",
+        "linkedin": "http://www.linkedin.com/in/victoriabarbosa"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": "Hell Babes",
+        "social": {
+          "instagram": "https://www.instagram.com/shopify/",
+          "facebook": "https://www.facebook.com/shopify",
+          "twitter": "https://twitter.com/shopify",
+          "youtube": "https://www.youtube.com/user/shopify",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/shopify/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "00.0000000"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Victoria Barbosa"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "victoria.barbosa@shopify.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/shopify",
+    "apolloCompanyPhone": "+1 613-241-2828",
+    "apolloEmployeeCount": 8100,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  },
+  {
+    "companyName": "Iberfirma",
+    "website": "https://iberfirma.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Plataforma integral de firma electrónica avanzada y cualificada. Cumplimiento eIDAS, custodia probatoria y validación documental.",
+    "notableClients": [],
+    "recentProjects": [
+      "QUALIFIED_SIGNATURE",
+      "Verificación automática de documentos fir",
+      "Nuestros expertos te ayudarán a definir l"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 3,
+    "scopeVerified": false,
+    "scopeSignals": 0,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 0,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "case_studies"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "soporte@iberfirma.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "deep_rescue",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "+34 900 171 171",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "cliente@empresa.com",
+          "soporte@iberfirma.com"
+        ],
+        "genericEmails": [
+          "ventas@iberfirma.com"
+        ],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_email": "soporte@iberfirma.com",
+        "pages_crawled": 20
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/spain/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "+34 900 171 171"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "email_only",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-23",
+    "approved": true
+  }
+]

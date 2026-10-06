@@ -1,0 +1,165 @@
+{
+  "domain": "linkvids.io",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:13:18.764Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://linkvids.io",
+        "https://linkvids.io/contacto",
+        "https://linkvids.io/contact",
+        "https://linkvids.io/contact-us",
+        "https://linkvids.io/nosotros",
+        "https://linkvids.io/about",
+        "https://linkvids.io/about-us",
+        "https://linkvids.io/equipo",
+        "https://linkvids.io/team",
+        "https://linkvids.io/quienes-somos",
+        "https://linkvids.io/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "martin.pons@linkvids.io",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "laura.casadiego@linkvids.io",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "sofia.rodriguez@linkvids.io",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "josep.surinyachculi@linkvids.io",
+            "tier": "DERIVED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          }
+        ],
+        "igs": [
+          {
+            "handle": "linkvids.io",
+            "tier": "PUBLISHED",
+            "footerCanonical": true,
+            "sources": [
+              "https://linkvids.io",
+              "https://linkvids.io/contact"
+            ]
+          }
+        ],
+        "linkedins": [
+          "linkedin.com/company/linkvids"
+        ],
+        "phones": [],
+        "dms": [
+          {
+            "name": "Josep Surinyach Culi",
+            "title": "Co-founder & CEO",
+            "email": "josep.surinyachculi@linkvids.io",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/josep-surinyach-cul%c3%ad-7932a92a",
+            "source": "apollo"
+          },
+          {
+            "name": "Martin Pons",
+            "title": "Co-Founder",
+            "email": "martin.pons@linkvids.io",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/ponsmartin",
+            "source": "apollo"
+          },
+          {
+            "name": "Laura Casadiego",
+            "title": "Head of Production",
+            "email": "laura.casadiego@linkvids.io",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/lvcasadiego",
+            "source": "apollo"
+          },
+          {
+            "name": "Sofia Rodriguez",
+            "title": "Account Director",
+            "email": "sofia.rodriguez@linkvids.io",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/sofiarq",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "martin.pons@linkvids.io",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": "linkvids.io",
+        "additionalContacts": [
+          {
+            "name": "Josep Surinyach Culi",
+            "title": "Co-founder & CEO",
+            "email": "josep.surinyachculi@linkvids.io",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/josep-surinyach-cul%c3%ad-7932a92a",
+            "source": "apollo"
+          },
+          {
+            "name": "Martin Pons",
+            "title": "Co-Founder",
+            "email": "martin.pons@linkvids.io",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/ponsmartin",
+            "source": "apollo"
+          },
+          {
+            "name": "Laura Casadiego",
+            "title": "Head of Production",
+            "email": "laura.casadiego@linkvids.io",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/lvcasadiego",
+            "source": "apollo"
+          },
+          {
+            "name": "Sofia Rodriguez",
+            "title": "Account Director",
+            "email": "sofia.rodriguez@linkvids.io",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/sofiarq",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "martin.pons@linkvids.io",
+          "current_contactName": "Martin Pons",
+          "current_ig": "linkvids.io",
+          "current_status": "verified"
+        }
+      }
+    }
+  ]
+}

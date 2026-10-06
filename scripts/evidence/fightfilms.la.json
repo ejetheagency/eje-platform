@@ -1,0 +1,127 @@
+{
+  "domain": "fightfilms.la",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:34:19.870Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://fightfilms.la",
+        "https://fightfilms.la/contacto",
+        "https://fightfilms.la/contact",
+        "https://fightfilms.la/contact-us",
+        "https://fightfilms.la/nosotros",
+        "https://fightfilms.la/about",
+        "https://fightfilms.la/about-us",
+        "https://fightfilms.la/equipo",
+        "https://fightfilms.la/team",
+        "https://fightfilms.la/quienes-somos",
+        "https://fightfilms.la/somos"
+      ],
+      "candidates": {
+        "emails": [],
+        "igs": [
+          {
+            "handle": "fight.films",
+            "tier": "PUBLISHED",
+            "footerCanonical": true,
+            "sources": [
+              "https://fightfilms.la",
+              "https://fightfilms.la/contacto",
+              "https://fightfilms.la/contact",
+              "https://fightfilms.la/contact-us",
+              "https://fightfilms.la/nosotros",
+              "https://fightfilms.la/about",
+              "https://fightfilms.la/about-us",
+              "https://fightfilms.la/equipo",
+              "https://fightfilms.la/team",
+              "https://fightfilms.la/quienes-somos",
+              "https://fightfilms.la/somos"
+            ]
+          }
+        ],
+        "linkedins": [],
+        "phones": [],
+        "dms": [
+          {
+            "name": "Rodolphe Dunand",
+            "title": "Executive Producer",
+            "email": "rodolphe@fightfilms.la",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/rodolphe-dunand-b58ba729",
+            "source": "apollo"
+          },
+          {
+            "name": "Carlos Montiel",
+            "title": "Executive Producer",
+            "email": "cmontiel@fightfilms.la",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/carlos-montiel-producer",
+            "source": "apollo"
+          },
+          {
+            "name": "Delfina Tramezzani",
+            "title": "Executive Producer",
+            "email": "delfinat@fightfilms.la",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/delfina-tramezzani-a42020137",
+            "source": "apollo"
+          },
+          {
+            "name": "Alejandro Coton",
+            "title": "Executive Producer",
+            "email": "acoton@fightfilms.la",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/alejandro-coton-4266441b",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": null,
+        "canonicalIG": "fight.films",
+        "additionalContacts": [
+          {
+            "name": "Rodolphe Dunand",
+            "title": "Executive Producer",
+            "email": "rodolphe@fightfilms.la",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/rodolphe-dunand-b58ba729",
+            "source": "apollo"
+          },
+          {
+            "name": "Carlos Montiel",
+            "title": "Executive Producer",
+            "email": "cmontiel@fightfilms.la",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/carlos-montiel-producer",
+            "source": "apollo"
+          },
+          {
+            "name": "Delfina Tramezzani",
+            "title": "Executive Producer",
+            "email": "delfinat@fightfilms.la",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/delfina-tramezzani-a42020137",
+            "source": "apollo"
+          },
+          {
+            "name": "Alejandro Coton",
+            "title": "Executive Producer",
+            "email": "acoton@fightfilms.la",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/alejandro-coton-4266441b",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "rodolphe@fightfilms.la",
+          "current_contactName": "Rodolphe Dunand",
+          "current_ig": "fight.films",
+          "current_status": null
+        }
+      }
+    }
+  ]
+}

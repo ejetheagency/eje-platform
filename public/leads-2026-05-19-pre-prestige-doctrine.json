@@ -1,0 +1,858 @@
+[
+  {
+    "companyName": "El Studio Films",
+    "website": "https://elstudiofilms.com",
+    "country": "Guatemala",
+    "industry": "commercial",
+    "summary": "elStudioFilms es una productora audiovisual ubicada en la Ciudad de Guatemala, enfocada en la creación de materiales. Nuestra estrategia se basa en crear contenido de calidad,enfocado en satisfacer las necesidades de los clientes.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "Jingle",
+      "necesita"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": "elStudioFilms es una productora audiovisual en Ciudad de Guatemala enfocada en contenido comercial de calidad. Trabajan con clientes como Facebook creando jingles y material publicitario.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola equipo de El Studio Films! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en El Studio Films y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que trabajan con Facebook y manejan desde jingles hasta campañas completas - ¿cómo organizan presupuestos cuando cada formato tiene ritmos de caja tan distintos?\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "mid_size_team"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": null,
+    "contactLinkedIn": null,
+    "contactConfidence": null,
+    "contactSource": null,
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/elstudiofilms/",
+    "instagramHandle": "elstudiofilms",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/ElStudioFilms/",
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/channel/UCb3hNmuJy4eWIiZzE-PF9uw",
+    "vimeoUrl": null,
+    "contactPhone": "00.0000000",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "alberto.sazo@elstudiogt.com"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/elstudiofilms/",
+          "facebook": "https://www.facebook.com/ElStudioFilms/",
+          "twitter": null,
+          "youtube": "https://www.youtube.com/channel/UCb3hNmuJy4eWIiZzE-PF9uw",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "alberto.sazo@elstudiogt.com",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_email": "alberto.sazo@elstudiogt.com",
+        "pages_crawled": 0
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/elstudiofilms/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "00.0000000"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": null,
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "whoisCheckPending": true,
+    "contactPath": "ig_only",
+    "tier": "tier3",
+    "instagramDM": "Hola! Soy Scarlett de una startup que ayuda a productoras como la suya. Vi que trabajan con Facebook y me llamó la atención cómo manejan proyectos tan diversos. ¿Tienen un minuto para platicar de herramientas operativas?",
+    "readyToSend": true,
+    "contactDecisionPower": "Bajo",
+    "contactWhyThisPerson": "Sin datos del contacto específico, pero cualquier decision maker en una productora mid-size puede aprobar herramientas operativas.",
+    "whyThisLead": [
+      "Productora comercial con múltiples formatos (jingles, publicidad) que requiere presupuestación específica por proyecto",
+      "Clientes premium como Facebook indican volumen de trabajo y necesidad de profesionalización",
+      "Tamaño mid sugiere crecimiento donde Excel ya no escala para múltiples proyectos"
+    ],
+    "actionBlock": [
+      "Contactar vía Instagram para establecer conexión inicial",
+      "Usar Instagram como canal primario por presencia activa",
+      "Tono casual y directo, enfoque en eficiencia operativa"
+    ],
+    "conversationAngle": "Productoras comerciales como ustedes con clientes premium necesitan herramientas que escalen con el crecimiento - especialmente cuando manejan formatos distintos como jingles vs campañas completas.",
+    "channelPriority": {
+      "primario": "Instagram",
+      "secundario": "WhatsApp",
+      "opcional": "Email directo"
+    },
+    "specificLine": "Vimos que trabajan con Facebook y manejan desde jingles hasta campañas completas - ¿cómo organizan presupuestos cuando cada formato tiene ritmos de caja tan distintos?",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola equipo de El Studio Films! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en El Studio Films y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que trabajan con Facebook y manejan desde jingles hasta campañas completas - ¿cómo organizan presupuestos cuando cada formato tiene ritmos de caja tan distintos?\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado equipo,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que trabajan con Facebook y manejan desde jingles hasta campañas completas - ¿cómo organizan presupuestos cuando cada formato tiene ritmos de caja tan distintos?\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": {
+      "paso1": "Seguir @elstudiofilms",
+      "paso2": "Dar like a sus ultimos 3 posts",
+      "paso3": "Comentar: 'Excelente trabajo con estos comerciales! Se ve la calidad en cada frame'",
+      "dm": "Hola! Soy Scarlett de una startup que ayuda a productoras como la suya. Vi que trabajan con Facebook y me llamó la atención cómo manejan proyectos tan diversos. ¿Tienen un minuto para platicar de herramientas operativas?"
+    },
+    "whatsappMessage": "Hola! Soy Scarlett, trabajo con productoras audiovisuales en LATAM. Vi que elStudio maneja desde jingles hasta campañas para Facebook. Me encantaría platicar sobre herramientas que están usando para escalar. ¿Tienes 10 min esta semana?",
+    "linkedinPlaybook": null,
+    "outreachSequence": [
+      "Dia 1: Seguir y engagement en Instagram",
+      "Dia 2: DM casual en Instagram",
+      "Dia 4: WhatsApp de seguimiento si no responde IG",
+      "Dia 7: Email formal con propuesta específica si no hay respuesta"
+    ],
+    "keyInsight": "Productora comercial con cliente premium que maneja múltiples formatos - exactamente el perfil que más sufre con Excel para presupuestación.",
+    "source_date": "2026-05-19",
+    "approved": false
+  },
+  {
+    "companyName": "Imakifilms",
+    "website": "https://imakifilms.com",
+    "country": "Colombia",
+    "industry": "film",
+    "summary": "ImakiFilms: Comerciales, videoclips, fotografía y contenido digital con calidad cinematográfica. Creamos historias que inspiran y venden.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "increíble"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": "ImakiFilms produce comerciales, videoclips y contenido digital cinematográfico en Colombia. Trabajan con clientes como Facebook creando contenido premium multiplataforma.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola John! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Imakifilms y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon clientes como Facebook y formatos que van desde comerciales hasta videoclips, seguramente tienen presupuestos muy distintos corriendo en paralelo.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 1,
+    "fitReasons": [
+      "premium_clients"
+    ],
+    "contactName": "John Gil",
+    "contactTitle": "CEO",
+    "contactEmail": null,
+    "contactLinkedIn": "http://www.linkedin.com/in/john-gil-575aa055",
+    "contactConfidence": "not_found",
+    "contactSource": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "contactPhone": null,
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/imaki-films-imakinetica-s.a.s.",
+    "apolloCompanyPhone": "+57 319 3643319",
+    "apolloEmployeeCount": 3,
+    "scoutLog": [
+      {
+        "step": "aborted",
+        "reason": "timeout",
+        "salvaged": true
+      }
+    ],
+    "_scoutAborted": "timeout",
+    "scoutPartial": true,
+    "scoutPartialReason": "scout_timeout_partial",
+    "contactPath": "social_manual",
+    "contactPathLabel": "manual/social contact path (LinkedIn + phone)",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": true,
+    "contactDecisionPower": "Alto",
+    "contactWhyThisPerson": "CEO y fundador - toma todas las decisiones de herramientas y presupuesto en la productora.",
+    "whyThisLead": [
+      "Productora activa con múltiples formatos (comerciales, videoclips, contenido digital)",
+      "Cliente premium como Facebook indica proyectos de presupuesto significativo",
+      "Empresa pequeña con 3 empleados necesita eficiencia en gestión de múltiples proyectos"
+    ],
+    "actionBlock": [
+      "Contactar por WhatsApp con mensaje específico sobre gestión de presupuestos",
+      "WhatsApp (número disponible, mercado latinoamericano)",
+      "Casual y directo - empresa pequeña, CEO accesible"
+    ],
+    "conversationAngle": "Con clientes como Facebook y proyectos que van desde comerciales hasta videoclips, seguramente manejan presupuestos muy distintos corriendo al mismo tiempo.",
+    "channelPriority": {
+      "primario": "WhatsApp",
+      "secundario": "LinkedIn",
+      "opcional": "email directo si se encuentra"
+    },
+    "specificLine": "Con clientes como Facebook y formatos que van desde comerciales hasta videoclips, seguramente tienen presupuestos muy distintos corriendo en paralelo.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola John! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Imakifilms y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon clientes como Facebook y formatos que van desde comerciales hasta videoclips, seguramente tienen presupuestos muy distintos corriendo en paralelo.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado/a John,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon clientes como Facebook y formatos que van desde comerciales hasta videoclips, seguramente tienen presupuestos muy distintos corriendo en paralelo.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": null,
+    "whatsappMessage": "Hola John! Vimos el trabajo increíble que hacen en ImakiFilms con clientes como Facebook. Con tantos formatos distintos (comerciales, videoclips), ¿cómo están manejando los presupuestos cuando tienen varios proyectos corriendo? Te muestro algo que puede interesarte.",
+    "linkedinPlaybook": {
+      "connectionNote": "Hola John, me impresionó el trabajo cinematográfico de ImakiFilms",
+      "followUp": "Gracias por conectar! Con el nivel de producción que manejan para Facebook, seguro coordinan presupuestos complejos entre comerciales y videoclips. ¿Cómo organizan todo cuando tienen múltiples proyectos activos?"
+    },
+    "outreachSequence": [
+      "Dia 1: Mensaje WhatsApp mencionando Facebook y múltiples formatos",
+      "Dia 2: LinkedIn connection con nota sobre calidad cinematográfica",
+      "Dia 4: Follow-up WhatsApp con pregunta específica sobre organización de presupuestos",
+      "Dia 7: LinkedIn follow-up si aceptó conexión, sino WhatsApp final"
+    ],
+    "keyInsight": "CEO accesible de productora pequeña con cliente premium que maneja múltiples formatos - necesidad clara y decision maker directo.",
+    "source_date": "2026-05-19",
+    "approved": false
+  },
+  {
+    "companyName": "Sjmotionpictures",
+    "website": "https://sjmotionpictures.com",
+    "country": "Dominican Republic",
+    "industry": "film",
+    "summary": "Productora audiovisual especializada en cine, videos musicales y contenido para marcas. Producción cinematográfica profesional en República Dominicana.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "audiovisual al siguiente nivel"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 7,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 7,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": "Productora audiovisual dominicana especializada en cine, videos musicales y contenido para marcas. Trabajan con clientes como Facebook y se enfocan en llevar la producción audiovisual al siguiente nivel.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola equipo de Sjmotionpictures! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Sjmotionpictures y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que manejan desde producción cinematográfica hasta contenido para Facebook - formatos que requieren estructuras de presupuesto completamente diferentes.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "premium_clients",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "alianzas@sjmotionpictures.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/sjmotionpictures/",
+    "instagramHandle": "sjmotionpictures",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/SJMotionPictures",
+    "twitterUrl": null,
+    "youtubeUrl": "https://youtube.com/@sjmotionpicture-s",
+    "vimeoUrl": "https://vimeo.com/user37593905",
+    "contactPhone": "+1 (849) 514-1070",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "alianzas@sjmotionpictures.com"
+        ],
+        "genericEmails": [
+          "info@sjmotionpictures.com"
+        ],
+        "phones": [
+          "+1 (849) 514-1070"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/sjmotionpictures",
+          "facebook": "https://www.facebook.com/SJMotionPictures",
+          "twitter": null,
+          "youtube": "https://youtube.com/@sjmotionpicture-s",
+          "vimeo": "https://vimeo.com/user37593905",
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/sjmotionpictures/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "alianzas@sjmotionpictures.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": "¡Hola! Scarlett desde UnaBase. Me encanta la diversidad de proyectos que manejan - desde cine hasta contenido para Facebook. ¿Cómo organizan los presupuestos entre formatos tan diferentes?",
+    "readyToSend": true,
+    "contactDecisionPower": "Medio",
+    "contactWhyThisPerson": "El email de alianzas sugiere que maneja partnerships y decisiones estratégicas de la productora.",
+    "whyThisLead": [
+      "Manejan múltiples formatos (cine, videos musicales, contenido de marca) que requieren estructuras de presupuesto diferentes",
+      "Trabajan con clientes premium como Facebook, indicando proyectos de presupuestos considerables",
+      "Productora en crecimiento que busca profesionalizar sus procesos para competir a nivel internacional"
+    ],
+    "actionBlock": [
+      "Enviar email personalizado mencionando su diversidad de formatos",
+      "Canal primario: email alianzas@sjmotionpictures.com",
+      "Tono profesional pero cercano, enfocado en eficiencia operativa"
+    ],
+    "conversationAngle": "Como productora que maneja desde largometrajes hasta contenido para Facebook, deben estar enfrentando el desafío de organizar presupuestos completamente diferentes en cada proyecto.",
+    "channelPriority": {
+      "primario": "Email",
+      "secundario": "Instagram DM",
+      "opcional": "WhatsApp"
+    },
+    "specificLine": "Vimos que manejan desde producción cinematográfica hasta contenido para Facebook - formatos que requieren estructuras de presupuesto completamente diferentes.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola equipo de Sjmotionpictures! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Sjmotionpictures y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que manejan desde producción cinematográfica hasta contenido para Facebook - formatos que requieren estructuras de presupuesto completamente diferentes.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado equipo,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que manejan desde producción cinematográfica hasta contenido para Facebook - formatos que requieren estructuras de presupuesto completamente diferentes.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": {
+      "paso1": "Seguir @sjmotionpictures",
+      "paso2": "Dar like a sus ultimos 3 posts",
+      "paso3": "Comentar algo sobre la calidad visual de su último proyecto",
+      "dm": "¡Hola! Scarlett desde UnaBase. Me encanta la diversidad de proyectos que manejan - desde cine hasta contenido para Facebook. ¿Cómo organizan los presupuestos entre formatos tan diferentes?"
+    },
+    "whatsappMessage": "Hola! Soy Scarlett de UnaBase. Vi que Sjmotion maneja desde largometrajes hasta contenido para Facebook. ¿Cómo hacen para organizar presupuestos tan diferentes entre proyectos? Nos especializamos justo en ese tema.",
+    "linkedinPlaybook": null,
+    "outreachSequence": [
+      "Dia 1: Email personalizado sobre diversidad de formatos",
+      "Dia 2: Instagram follow + engagement en posts recientes",
+      "Dia 4: WhatsApp follow-up casual",
+      "Dia 7: Instagram DM final si no hay respuesta por email"
+    ],
+    "keyInsight": "Productora diversificada con cliente premium confirmado que enfrenta exactamente el dolor que UnaBase resuelve: múltiples formatos con estructuras de presupuesto diferentes.",
+    "source_date": "2026-05-19",
+    "approved": false
+  },
+  {
+    "companyName": "Delbarrio",
+    "website": "https://delbarrio.pe",
+    "country": "Peru",
+    "industry": "film",
+    "summary": "Del Barrio Producciones es una casa productora peruana de televisión, cine y espectáculos. Creadora de Luz de Luna, Luz de Fantasía y Amando a Amanda.",
+    "notableClients": [],
+    "recentProjects": [
+      "by Inicio Films",
+      "refleje la diversidad y riqueza de nuestr"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 5,
+    "scopeVerified": true,
+    "scopeSignals": 9,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 9,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": "Del Barrio Producciones es una casa productora peruana con presencia en televisión, cine y espectáculos, creadora de series como Luz de Luna y Amando a Amanda. Operan en múltiples formatos audiovisuales con ritmos de producción y presupuestación distintos.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola Hugo! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Delbarrio y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que manejan producciones en televisión, cine y espectáculos simultáneamente - cada formato con ritmos de caja y presupuestación completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "multiple_projects",
+      "high_ent_signals"
+    ],
+    "contactName": "Hugo Coya",
+    "contactTitle": "director general",
+    "contactEmail": null,
+    "contactLinkedIn": null,
+    "contactConfidence": "not_found",
+    "contactSource": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "contactPhone": null,
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/producciones-del-barrio-sl",
+    "apolloCompanyPhone": "+34 935 51 84 01",
+    "apolloEmployeeCount": 99,
+    "scoutLog": [
+      {
+        "step": "aborted",
+        "reason": "timeout",
+        "salvaged": true
+      }
+    ],
+    "_scoutAborted": "timeout",
+    "scoutPartial": true,
+    "scoutPartialReason": "scout_timeout_partial",
+    "contactPath": "social_manual",
+    "contactPathLabel": "manual/social contact path (LinkedIn + phone)",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": true,
+    "contactDecisionPower": "Alto",
+    "contactWhyThisPerson": "Como director general, Hugo tiene autoridad total sobre decisiones de herramientas operativas y presupuestación de proyectos.",
+    "whyThisLead": [
+      "Productora multi-formato (TV, cine, espectáculos) requiere presupuestación diferenciada por proyecto",
+      "Portfolio establecido con producciones reconocidas indica flujo constante de proyectos",
+      "Casa productora tradicional probablemente usando Excel para presupuestos complejos"
+    ],
+    "actionBlock": [
+      "Llamar al +34 935 51 84 01 para contacto directo",
+      "WhatsApp como canal secundario al mismo número",
+      "Tono profesional pero directo, enfocado en eficiencia operativa"
+    ],
+    "conversationAngle": "¿Cómo organizan los presupuestos cuando tienen una serie de TV, un proyecto de cine y un espectáculo corriendo simultáneamente? Cada formato tiene ritmos de caja completamente distintos.",
+    "channelPriority": {
+      "primario": "Teléfono",
+      "secundario": "WhatsApp",
+      "opcional": "LinkedIn"
+    },
+    "specificLine": "Vimos que manejan producciones en televisión, cine y espectáculos simultáneamente - cada formato con ritmos de caja y presupuestación completamente distintos.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola Hugo! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Delbarrio y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que manejan producciones en televisión, cine y espectáculos simultáneamente - cada formato con ritmos de caja y presupuestación completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado/a Hugo,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVimos que manejan producciones en televisión, cine y espectáculos simultáneamente - cada formato con ritmos de caja y presupuestación completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": null,
+    "whatsappMessage": "Hola Hugo! Somos UnaBase, software de presupuestación para productoras. Vi que Del Barrio maneja TV, cine y espectáculos al mismo tiempo. ¿Cómo organizan los presupuestos con ritmos de caja tan distintos? 5 min de demo?",
+    "linkedinPlaybook": {
+      "connectionNote": "Hola Hugo, hablamos con productoras sobre presupuestación multi-formato",
+      "followUp": "Gracias por conectar Hugo. Con series como Luz de Luna y proyectos en múltiples formatos, ¿cómo manejan los presupuestos cuando cada formato tiene ritmos de caja distintos?"
+    },
+    "outreachSequence": [
+      "Dia 1: Llamada telefónica directa",
+      "Dia 2: WhatsApp de seguimiento si no contesta",
+      "Dia 4: LinkedIn connection + mensaje",
+      "Dia 7: Email final vía contacto web si no hay respuesta"
+    ],
+    "keyInsight": "Productora multi-formato establecida que probablemente sufre el dolor exacto que UnaBase resuelve: presupuestación compleja entre proyectos con ritmos distintos.",
+    "source_date": "2026-05-19",
+    "approved": false
+  },
+  {
+    "companyName": "Acousticcomunicacion",
+    "website": "https://acousticcomunicacion.com",
+    "country": "Guatemala",
+    "industry": "commercial",
+    "summary": "Acoustic Comunicación: Videos Documentales y Animados 2D Educativos y para Capacitar, eventos, jingles y spots, streaming HD y doblaje.",
+    "notableClients": [
+      "Google"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "large",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 5,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 5,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": "Acoustic Comunicación produce videos documentales, animados 2D educativos, spots publicitarios y maneja streaming HD y doblaje desde Guatemala. Trabajan con Google y manejan múltiples formatos desde jingles hasta documentales.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola equipo de Acousticcomunicacion! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Acousticcomunicacion y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon documentales, animación 2D, spots y streaming corriendo simultáneamente, cada formato tiene ritmos de presupuesto y caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "premium_clients",
+      "large_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@acousticcomunicacion.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "social_only",
+    "contactSource": "social",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/acousticcomunicacion/?hl=es-la",
+    "instagramHandle": "acousticcomunicacion",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://es-la.facebook.com/acousticcomunicacion/",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/379478900",
+    "contactPhone": "+50233747060",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@acousticcomunicacion.com"
+        ],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/acousticcomunicacion/?hl=es-la",
+          "facebook": "https://es-la.facebook.com/acousticcomunicacion/",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/acousticcomunicacion/?hl=es-la",
+        "igHandle": "acousticcomunicacion",
+        "igFollowers": null,
+        "socialEmail": "info@acousticcomunicacion.com",
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": "+50233747060",
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "acousticcomunicacion",
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 6
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "+50233747060",
+          "+502 66106000"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/379478900"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@acousticcomunicacion.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/acoustic-comunicaci-n-s-a-",
+    "apolloCompanyPhone": "+502 6664 2754",
+    "apolloEmployeeCount": 4,
+    "contactVenues": 3,
+    "manualNote": "Email generico (info@acousticcomunicacion.com) — contactar tambien por Instagram @acousticcomunicacion",
+    "whoisCheckPending": true,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": "Hola! Vi su trabajo de animación 2D y documentales - súper profesional. Me imagino que manejar presupuestos entre formatos tan distintos debe ser complejo. ¿Cómo lo organizan?",
+    "readyToSend": true,
+    "contactDecisionPower": "Bajo",
+    "contactWhyThisPerson": "Email general de la empresa, probablemente llegue a administración o dirección que puede conectar con el decisor final.",
+    "whyThisLead": [
+      "Manejan múltiples formatos (documentales, animación 2D, spots, streaming) con presupuestos muy diferentes",
+      "Cliente premium Google indica capacidad de pago y proyectos de escala",
+      "Productora multi-formato necesita organizar presupuestos complejos entre proyectos simultáneos"
+    ],
+    "actionBlock": [
+      "Enviar email específico mencionando los múltiples formatos",
+      "Email como canal primario al info@",
+      "Tono profesional pero directo, enfocado en la complejidad operativa"
+    ],
+    "conversationAngle": "Con documentales, animación 2D, spots y streaming corriendo al mismo tiempo, cada formato tiene ritmos de caja completamente distintos - especialmente trabajando para clientes como Google.",
+    "channelPriority": {
+      "primario": "Email",
+      "secundario": "Instagram",
+      "opcional": "WhatsApp"
+    },
+    "specificLine": "Con documentales, animación 2D, spots y streaming corriendo simultáneamente, cada formato tiene ritmos de presupuesto y caja completamente distintos.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola equipo de Acousticcomunicacion! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Acousticcomunicacion y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon documentales, animación 2D, spots y streaming corriendo simultáneamente, cada formato tiene ritmos de presupuesto y caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado equipo,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon documentales, animación 2D, spots y streaming corriendo simultáneamente, cada formato tiene ritmos de presupuesto y caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": {
+      "paso1": "Seguir @acousticcomunicacion",
+      "paso2": "Dar like a sus ultimos 3 posts",
+      "paso3": "Comentar algo específico sobre la calidad de su trabajo de animación 2D o documentales",
+      "dm": "Hola! Vi su trabajo de animación 2D y documentales - súper profesional. Me imagino que manejar presupuestos entre formatos tan distintos debe ser complejo. ¿Cómo lo organizan?"
+    },
+    "whatsappMessage": "Hola desde EJE! Vimos su trabajo con Google y los múltiples formatos que manejan. Me imagino que cuadrar presupuestos entre documentales, animación y spots debe ser todo un reto. ¿Tienen 15 min para platicar?",
+    "linkedinPlaybook": {
+      "connectionNote": "Hola, trabajo con productoras multi-formato en Latinoamérica",
+      "followUp": "Hola! Vi que manejan desde documentales hasta animación 2D para clientes como Google. Me encantaría conocer cómo organizan los presupuestos entre formatos tan distintos."
+    },
+    "outreachSequence": [
+      "Dia 1: Email específico al info@ mencionando múltiples formatos",
+      "Dia 2: Follow en Instagram + likes a posts recientes",
+      "Dia 4: DM en Instagram preguntando por organización de presupuestos",
+      "Dia 7: WhatsApp final ofreciendo llamada de 15 minutos"
+    ],
+    "keyInsight": "Productora multi-formato con cliente premium que necesariamente enfrenta el dolor de presupuestos complejos entre documentales, animación y comerciales.",
+    "source_date": "2026-05-19",
+    "approved": false
+  }
+]

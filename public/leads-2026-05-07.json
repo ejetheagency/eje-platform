@@ -1,0 +1,638 @@
+[
+  {
+    "companyName": "Adrenalina Films",
+    "website": "https://adrenalina.mx",
+    "country": "Mexico",
+    "industry": "film",
+    "summary": "Somos un Centro de Post producción y Casa Productora, con más de 25 años de experiencia en el desarrollo y ejecución de proyectos audiovisuales.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "nuestro expertise como productores de con"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": "hola — vi que Adrenalina Films lleva más de 25 años haciendo postproducción y producción en México, con un volumen serio de proyectos en paralelo\n\n¿cómo están manejando el presupuesto y el seguimiento de cada producción cuando tienen varios pipelines abiertos al mismo tiempo?\n\nen UnaBase vemos este tipo de operación todo el tiempo — hay formas mucho más simples de ordenarlo.\n\nte puedo mostrar cómo lo están ordenando otras productoras en tu misma situación — lo vemos 10 min?\n\nScarlett",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 1,
+    "fitReasons": [
+      "premium_clients"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "adrenalinafilms@me.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website_direct_recovered",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/adrenalinafilms/",
+    "instagramHandle": "adrenalinafilms",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/adrenalina.adrenalina.908",
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/channel/UCttdtrCWv1FlpAmR1SjHh6A",
+    "vimeoUrl": "https://vimeo.com/adrenalinafilms",
+    "contactPhone": "55 4834 9725",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "nothing",
+        "emailsChecked": 0
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 15,
+        "personalEmails": [
+          "adrenalinafilms@me.com"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "55 4834 9725",
+          "55 5404 8945"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/adrenalinafilms/",
+          "facebook": "https://www.facebook.com/adrenalina.adrenalina.908",
+          "twitter": null,
+          "youtube": "https://www.youtube.com/channel/UCttdtrCWv1FlpAmR1SjHh6A",
+          "vimeo": "https://vimeo.com/adrenalinafilms",
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/adrenalinafilms/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": false,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": null,
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/adrenalina-films",
+    "apolloCompanyPhone": "+52 55 5525 0055",
+    "apolloEmployeeCount": 9,
+    "whoisCheckPending": true,
+    "contactPath": "ig_only",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-07",
+    "approved": false
+  },
+  {
+    "companyName": "Labo",
+    "website": "https://labo.mx",
+    "country": "Mexico",
+    "industry": "film",
+    "summary": "Labo es una empresa de postproducción que brinda soluciones desde el primer claquetazo en set, hasta el estreno de tu proyecto en cualquier plataforma audiovisual.",
+    "notableClients": [],
+    "recentProjects": [
+      "by Labo",
+      "en cualquier plataforma audiovisual"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 5,
+    "scopeVerified": true,
+    "scopeSignals": 7,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 7,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": "hola Charles — vi que Labo cubre la postproducción end-to-end desde el primer claquetazo en set hasta entrega final\n\n¿cómo están ordenando los presupuestos y el avance de cada proyecto cuando tienen varios pipelines de post abiertos a la vez?\n\nen UnaBase vemos este tipo de operación todo el tiempo — hay formas mucho más simples de ordenarlo.\n\nte puedo mostrar cómo lo están ordenando otras productoras en tu misma situación — lo vemos 10 min?\n\nScarlett",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "multiple_projects",
+      "high_ent_signals"
+    ],
+    "contactName": "Charles Barthe",
+    "contactTitle": "Chief Executive Officer",
+    "contactEmail": "c.barthe@labodigital.com.co",
+    "contactLinkedIn": "http://www.linkedin.com/in/charles-barthe-5a06931b7",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/labo/",
+    "instagramHandle": "labo",
+    "instagramBio": "See Instagram photos and videos from  (@labo) Log In",
+    "instagramFollowers": "480",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Charles Barthe",
+        "title": "Chief Executive Officer",
+        "email": "c.barthe@labodigital.com.co",
+        "linkedin": "http://www.linkedin.com/in/charles-barthe-5a06931b7"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/labo/",
+        "igHandle": "labo",
+        "igFollowers": "480",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Charles Barthe"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "c.barthe@labodigital.com.co",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/laborum",
+    "apolloCompanyPhone": "+56 2 3202 4000",
+    "apolloEmployeeCount": 160,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-07",
+    "approved": false
+  },
+  {
+    "companyName": "Wippost",
+    "website": "https://wippost.com",
+    "country": "Mexico",
+    "industry": "film",
+    "summary": "Sabemos que la grandeza de un proyecto la determina la postproducción con la que lo realizamos y que cada uno es diferente.",
+    "notableClients": [
+      "Google"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 4,
+    "scopeVerified": true,
+    "scopeSignals": 7,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 7,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": "hola Jess — vi que Wippost se enfoca en postproducción de alto nivel y trabaja proyectos grandes en paralelo\n\n¿cómo están coordinando presupuesto y tiempos cuando tienen varias producciones corriendo al mismo tiempo?\n\nen UnaBase vemos este tipo de operación todo el tiempo — hay formas mucho más simples de ordenarlo.\n\nte puedo mostrar cómo lo están ordenando otras productoras en tu misma situación — lo vemos 10 min?\n\nScarlett",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": "Jess Azpiri",
+    "contactTitle": null,
+    "contactEmail": "jess@wippost.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "confirmed",
+    "contactSource": "hunter_domain",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/wippost/",
+    "instagramHandle": "wippost",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/WIPPOST",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "55 2308 9784",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "named_contact",
+        "name": "Jess Azpiri",
+        "title": null,
+        "email": "jess@wippost.com"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "zaida@wippost.com",
+          "german@wippost.com",
+          "jess@wippost.com",
+          "engel@wippost.com",
+          "pablo@wippost.com"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": "Flavio Bizzarri",
+        "social": {
+          "instagram": "https://www.instagram.com/wippost/",
+          "facebook": "https://www.facebook.com/WIPPOST",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "zaida@wippost.com",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/wippost/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "55 2308 9784"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Jess Azpiri"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "jess@wippost.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/wippost",
+    "apolloCompanyPhone": "+92 336 3010005",
+    "apolloEmployeeCount": 22,
+    "contactPath": "company_fallback",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-07",
+    "approved": false
+  },
+  {
+    "companyName": "Estudio Audiovisual",
+    "website": "https://estudioaudiovisual.mx",
+    "country": "Mexico",
+    "industry": "commercial",
+    "summary": "Productora audiovisual en México especializada en videos corporativos, testimoniales y contenido estratégico. Atrae clientes y aumenta tus ventas.",
+    "notableClients": [
+      "Google"
+    ],
+    "recentProjects": [
+      "NO ESTÁ CRECIENDO COMO DEBERÍA",
+      "HOY"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": "hola Rossann — vi que Estudio Audiovisual cubre videos corporativos, testimoniales y contenido estratégico desde CDMX\n\n¿cómo están manejando el presupuesto y el seguimiento de cada producción cuando coordinan varios clientes a la vez?\n\nen UnaBase vemos este tipo de operación todo el tiempo — hay formas mucho más simples de ordenarlo.\n\nte puedo mostrar cómo lo están ordenando otras productoras en tu misma situación — lo vemos 10 min?\n\nScarlett",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients"
+    ],
+    "contactName": "Rossann V",
+    "contactTitle": "Production Manager",
+    "contactEmail": "rossann@estudioaudiovisual.mx",
+    "contactLinkedIn": null,
+    "contactConfidence": "confirmed",
+    "contactSource": "hunter_domain",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/estudioaudiovisualmx/",
+    "instagramHandle": "estudioaudiovisualmx",
+    "instagramBio": "See Instagram photos and videos from EA (@estudioaudiovisualmx)",
+    "instagramFollowers": "1,094",
+    "facebookUrl": "http://www.facebook.com/pages/Estudio-Audiovisual/156082656273#/pages/Estudio-Audiovisual/156082656273?ref=nf')",
+    "twitterUrl": "http://twitter.com/estudioAudioV",
+    "youtubeUrl": null,
+    "vimeoUrl": "https://player.vimeo.com/video/1184695922",
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "named_contact",
+        "name": "Rossann V",
+        "title": "Production Manager",
+        "email": "rossann@estudioaudiovisual.mx"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "contacto@estudioaudiovisual.mx"
+        ],
+        "phones": [
+          "55 6284 1646",
+          "55 4613 4172"
+        ],
+        "name": "Andy García",
+        "social": {
+          "instagram": "https://www.instagram.com/estudioaudiovisualmx/",
+          "facebook": "http://www.facebook.com/pages/Estudio-Audiovisual/156082656273#/pages/Estudio-Audiovisual/156082656273?ref=nf')",
+          "twitter": "http://twitter.com/estudioAudioV",
+          "youtube": null,
+          "vimeo": "https://player.vimeo.com/video/1184695922",
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/estudioaudiovisualmx/",
+        "igHandle": "estudioaudiovisualmx",
+        "igFollowers": "1,094",
+        "socialEmail": "contacto@estudioaudiovisual.mx",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Rossann V"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "rossann@estudioaudiovisual.mx",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "isAdjacent": true,
+    "adjacentIndustry": "corporate",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-07",
+    "approved": false
+  }
+]

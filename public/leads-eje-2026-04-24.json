@@ -1,0 +1,2281 @@
+[
+  {
+    "companyName": "Consultoría Empresarial",
+    "website": "https://bpsolutions.com.ar",
+    "country": "Argentina",
+    "industry": "services",
+    "summary": "Consultora para PyMEs y grandes empresas. Consultoría en procesos, personas y tecnología con foco en implementación.",
+    "notableClients": [
+      "Google",
+      "Toyota",
+      "Modelo"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "has_clients",
+      "mid_size_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": "Alejandro Oliverio",
+    "contactTitle": "Socio Fundador & CEO de Consultora BPS",
+    "contactEmail": "aoliverio@bpsolutions.com.ar",
+    "contactLinkedIn": "http://www.linkedin.com/in/alejandro-oliverio-3a5618a",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": "See Instagram photos and videos from Martha Aldana (@consultora.empresarial) Log In",
+    "instagramFollowers": "114",
+    "facebookUrl": "https://www.facebook.com/ConsultoraBPS/",
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/@consultorabps",
+    "vimeoUrl": null,
+    "contactPhone": "12345678910",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Alejandro Oliverio",
+        "title": "Socio Fundador & CEO de Consultora BPS",
+        "email": "aoliverio@bpsolutions.com.ar",
+        "linkedin": "http://www.linkedin.com/in/alejandro-oliverio-3a5618a"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "warn": "IG handle @bpsconsultora does not match domain \"bpsolutions\" — may be wrong company"
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "contacto@bpsolutions.com.ar"
+        ],
+        "phones": [
+          "12345678910",
+          "541152355611"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/bpsconsultora/",
+          "facebook": "https://www.facebook.com/ConsultoraBPS/",
+          "twitter": null,
+          "youtube": "https://www.youtube.com/@consultorabps",
+          "vimeo": null,
+          "instagramScore": 0
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/bpsconsultora/",
+        "igHandle": "bpsconsultora",
+        "igFollowers": "114",
+        "socialEmail": "aoliverio@bpsolutions.com.ar",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/kreobusiness/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/serem-consultoria-empresarial",
+    "apolloCompanyPhone": "+34 915 06 17 31",
+    "apolloEmployeeCount": 500,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "Best Cloud Consulting Services in Chile",
+    "website": "https://pyopstech.com",
+    "country": "Chile",
+    "industry": "services",
+    "summary": "Get a professional custom business website in Bengaluru starting at ₹3,499! PyOps Tech offers affordable web development, eCommerce solutions, and SEO-friendly designs tailored to your business needs. Contact us to grow your online presence today!",
+    "notableClients": [
+      "Google"
+    ],
+    "recentProjects": [
+      "journey"
+    ],
+    "estimatedSize": "large",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 5,
+    "fitReasons": [
+      "has_clients",
+      "large_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": "Anil Ug",
+    "contactTitle": "Founder",
+    "contactEmail": "connect@pyopstech.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/anil-kumar-ug-063b36339",
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/www.pyopstech/",
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/@pyops_tech_solutions_llp",
+    "vimeoUrl": null,
+    "contactPhone": "+91 70196 6791",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name_only",
+        "name": "Anil Ug"
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "connect@pyopstech.com"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "+91 70196 6791"
+        ],
+        "name": "Lotus Clothes",
+        "social": {
+          "instagram": "https://www.instagram.com/pyopstech/",
+          "facebook": "https://www.facebook.com/www.pyopstech/",
+          "twitter": null,
+          "youtube": "https://www.youtube.com/@pyops_tech_solutions_llp",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/consulting/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/cloudconsultinginc/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "Blackfor",
+    "website": "https://blackfor.com.mx",
+    "country": "Mexico",
+    "industry": "services",
+    "summary": "Servicio de desarrollo de aplicaciones a tu medida. Visítanos y transforma tu negocio con soluciones digitales seguras y eficientes.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "Contacto Herramientas Ingenieros certific",
+      "con calidad y experiencia Ver Todas Las H",
+      "desde el principio hasta el final"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 2,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 2,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 5,
+    "fitReasons": [
+      "has_clients",
+      "case_studies",
+      "mid_size_team"
+    ],
+    "contactName": "Jose Yair",
+    "contactTitle": "Co-Founder",
+    "contactEmail": "yairrm@blackfor.com.mx",
+    "contactLinkedIn": "http://www.linkedin.com/in/jose-yair-r-380bb214b",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/blackfor_mx/",
+    "instagramHandle": "blackfor_mx",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/BlackkFor",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "102810567-3312",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Jose Yair",
+        "title": "Co-Founder",
+        "email": "yairrm@blackfor.com.mx",
+        "linkedin": "http://www.linkedin.com/in/jose-yair-r-380bb214b"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "fabi99sua@gmail.com"
+        ],
+        "genericEmails": [
+          "contacto@blackfor.com.mx"
+        ],
+        "phones": [
+          "52 33 1025 6014",
+          "+52 33 1025 6014"
+        ],
+        "name": "Miguel Rodríguez",
+        "social": {
+          "instagram": "https://www.instagram.com/blackkfor/",
+          "facebook": "https://www.facebook.com/BlackkFor",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 1
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "contacto@blackfor.com.mx",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/blackfor_mx/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "102810567-3312"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Jose Yair"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "yairrm@blackfor.com.mx",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/blackfor-m%c3%a9xico",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 11,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "Billionhands",
+    "website": "https://billionhands.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Find and vote on the best rankings for tech, movies, sports, and more. Create your own list and share your opinion. Your vote decides the winner!",
+    "notableClients": [
+      "Netflix"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 6,
+    "scopeVerified": true,
+    "scopeSignals": 2,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 2,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "has_clients",
+      "mid_size_team"
+    ],
+    "contactName": "Ramon Ferraz",
+    "contactTitle": "CEO",
+    "contactEmail": "ramon.ferraz@billionhands.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/ram%c3%b3n-ferraz-cfa-8144b762",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/billionhands_/",
+    "instagramHandle": "billionhands_",
+    "instagramBio": "See Instagram photos and videos from Sebastian Szymański (@szymanski__11)",
+    "instagramFollowers": "849K",
+    "facebookUrl": "https://www.facebook.com/61577788191458/posts/-halloween-ya-est%C3%A1-cerca-haz-de-tu-mesa-el-centro-de-atenci%C3%B3n-con-nuestra-decora/122136383186926273/?utm_source=billionhands&utm_medium=clickout&utm_campaign=6798f053b3a1a5d46e1313fb&utm_content=Top+Alluring+Perfumes+for+Women&utm_term=HALLOWEEN+BLISS",
+    "twitterUrl": "https://www.fragrancex.com/products/gucci/gucci-bamboo-perfume?utm_source=billionhands&utm_medium=clickout&utm_campaign=6798f053b3a1a5d46e1313fb&utm_content=Top+Alluring+Perfumes+for+Women&utm_term=Gucci+Bamboo",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "16699712",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Ramon Ferraz",
+        "title": "CEO | Social Platform",
+        "email": "ramon.ferraz@billionhands.com",
+        "linkedin": "http://www.linkedin.com/in/ram%c3%b3n-ferraz-cfa-8144b762"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "warn": "IG handle @szymanski11 does not match domain \"billionhands\" — may be wrong company"
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "socials@billionhands.com",
+          "b858474f84c2e9306907beeec1de104a@o401110.ingest.us.sentry.io",
+          "horeca-prod@billionhands-prod.iam.gserviceaccount.com",
+          "negocio@billionhands.com",
+          "dpd@conversia.es"
+        ],
+        "genericEmails": [
+          "info@nc43.com"
+        ],
+        "phones": [
+          "16699712"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/szymanski__11/?utm_source=billionhands&utm_medium=clickout&utm_campaign=68e636f5b18824175acf4ee1&utm_content=The+best+goals+in+the+history+of+the+Champions+League&utm_term=Sebastian+Szyma%C5%84ski",
+          "facebook": "https://www.facebook.com/61577788191458/posts/-halloween-ya-est%C3%A1-cerca-haz-de-tu-mesa-el-centro-de-atenci%C3%B3n-con-nuestra-decora/122136383186926273/?utm_source=billionhands&utm_medium=clickout&utm_campaign=6798f053b3a1a5d46e1313fb&utm_content=Top+Alluring+Perfumes+for+Women&utm_term=HALLOWEEN+BLISS",
+          "twitter": "https://www.fragrancex.com/products/gucci/gucci-bamboo-perfume?utm_source=billionhands&utm_medium=clickout&utm_campaign=6798f053b3a1a5d46e1313fb&utm_content=Top+Alluring+Perfumes+for+Women&utm_term=Gucci+Bamboo",
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 0
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/szymanski__11/?utm_source=billionhands&utm_medium=clickout&utm_campaign=68e636f5b18824175acf4ee1&utm_content=The+best+goals+in+the+history+of+the+Champions+League&utm_term=Sebastian+Szyma%C5%84ski",
+        "igHandle": "szymanski__11",
+        "igFollowers": "849K",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/billionhands_/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Ramon Ferraz"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "ramon.ferraz@billionhands.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/billionhands",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 11,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "PCG Latam Consulting",
+    "website": "https://pcglatam.com",
+    "country": "LATAM",
+    "industry": "services",
+    "summary": "Consultoría estratégica comercial en LATAM. Mejoramos resultados optimizando modelos comerciales, operación y equipos con foco en ejecución.",
+    "notableClients": [],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 6,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "mid_size_team",
+      "strong_b2b_signal"
+    ],
+    "contactName": "Rodrigo Zurro",
+    "contactTitle": "CEO - Member Board",
+    "contactEmail": "rodrigo.zurro@pcglatam.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/consultoriadenegocios",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": "See Instagram photos and videos from rfy<3 (@pcgfilms)",
+    "instagramFollowers": "58",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Rodrigo Zurro",
+        "title": "CEO - Member Board",
+        "email": "rodrigo.zurro@pcglatam.com",
+        "linkedin": "http://www.linkedin.com/in/consultoriadenegocios"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/pcgfilms/",
+        "igHandle": "pcgfilms",
+        "igFollowers": "58",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/pcgconsulting.group/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/pcglatamconsulting",
+    "apolloCompanyPhone": "54 9 11 4815-8575",
+    "apolloEmployeeCount": 65,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "Desarrollo software a medida argentina",
+    "website": "https://watson.com.ar",
+    "country": "Argentina",
+    "industry": "services",
+    "summary": "Especialistas en soluciones tecnológicas para empresas. Brindamos infraestructura, cloud y soporte IT estratégico para potenciar el crecimiento de tu negocio.",
+    "notableClients": [
+      "Google"
+    ],
+    "recentProjects": [
+      "Distribución de contenido digital con la"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 2,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 2,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "has_clients",
+      "mid_size_team"
+    ],
+    "contactName": "Allyson Lawrence",
+    "contactTitle": "CEO",
+    "contactEmail": "info@watson.com.ar",
+    "contactLinkedIn": "http://www.linkedin.com/in/allyson-lawrence-208896aa",
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "+54 11 5199-2069",
+    "emailPatterns": [
+      "allyson@watson.com.ar",
+      "allyson.lawrence@watson.com.ar",
+      "a.lawrence@watson.com.ar"
+    ],
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name_only",
+        "name": "Allyson Lawrence"
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@watson.com.ar"
+        ],
+        "phones": [
+          "+54 11 5199-2069"
+        ],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": "reverse",
+        "name": "Reverse Lookup",
+        "started": true,
+        "targetName": "Allyson Lawrence"
+      },
+      {
+        "step": "reverse",
+        "hunter_error": "Request failed with status code 429"
+      },
+      {
+        "step": "reverse",
+        "found": "nothing"
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": "+541151992069",
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "D",
+        "name": "Name→Email",
+        "started": true
+      },
+      {
+        "step": "D",
+        "patterns": [
+          "allyson@watson.com.ar",
+          "allyson.lawrence@watson.com.ar",
+          "a.lawrence@watson.com.ar"
+        ],
+        "via": "pattern"
+      },
+      {
+        "step": 9,
+        "name": "Hunter Find",
+        "started": true
+      },
+      {
+        "step": 9,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": null,
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 13
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "+54 11 5199-2069",
+          "+541151992069"
+        ]
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/software_argentina/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Allyson Lawrence"
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@watson.com.ar",
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/software_argentina/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Allyson Lawrence"
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@watson.com.ar",
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/software_argentina/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Allyson Lawrence"
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@watson.com.ar",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 3,
+    "whoisCheckPending": true,
+    "contactPath": "decision_maker_email",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "Lumus Consultora",
+    "website": "https://lumusconsultora.cl",
+    "country": "Chile",
+    "industry": "services",
+    "summary": "Consultoría tecnológica para pymes en Chile. Migraciones cloud, analítica de datos, integraciones de software y paneles directivos. Tu equipo tecnológico externo.",
+    "notableClients": [],
+    "recentProjects": [
+      "y juntos encontraremos la mejor solución",
+      "Enviar mensaje LUMUS Soluciones digitales"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 6,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "case_studies",
+      "strong_b2b_signal"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "lumusconsultora@gmail.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/lumusconsultora",
+    "instagramHandle": "lumusconsultora",
+    "instagramBio": "See Instagram photos and videos from Lumus Films (@lumusfilms)",
+    "instagramFollowers": "2,456",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "lumusconsultora@gmail.com"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/lumusconsultora",
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/lumusconsultora",
+        "igHandle": "lumusconsultora",
+        "igFollowers": "2,456",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "lumusconsultora@gmail.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "company_fallback",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "JumoraSoft",
+    "website": "https://jumorasoft.com",
+    "country": "Mexico",
+    "industry": "services",
+    "summary": "JumoraSoft: consultoría estratégica en transformación digital, desarrollo de software a medida, ciberseguridad, gestión de nube y automatización RPA para medianas y grandes empresas B2B.",
+    "notableClients": [
+      "Modelo"
+    ],
+    "recentProjects": [
+      "EXPERIENCIA Más de 100"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 5,
+    "scopeVerified": true,
+    "scopeSignals": 2,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 2,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "has_clients"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@jumorasoft.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/jumoraesof/",
+    "instagramHandle": "jumoraesof",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "1776969909680",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@jumorasoft.com"
+        ],
+        "phones": [
+          "1776969909680",
+          "1776969910659",
+          "1776969911587",
+          "1776969912527",
+          "1776969913396",
+          "1776969914256",
+          "90747559",
+          "1776969915147",
+          "1776969916047",
+          "1776969917000",
+          "1776969917853",
+          "1776969918723",
+          "1776969919585",
+          "1776969920449"
+        ],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": null,
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 6
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "1776969909680",
+          "1776969910659",
+          "1776969911587",
+          "1776969912527",
+          "1776969913396",
+          "1776969914256",
+          "90747559",
+          "1776969915147",
+          "1776969916047",
+          "1776969917000",
+          "1776969917853",
+          "1776969918723",
+          "1776969919585",
+          "1776969920449"
+        ]
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/jumoraesof/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@jumorasoft.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@jumorasoft.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 2,
+    "whoisCheckPending": true,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "Empresa de ciberseguridad para empresas",
+    "website": "https://ciberso.com",
+    "country": "Spain",
+    "industry": "services",
+    "summary": "Ciberso es una empresa de ciberseguridad experta en soluciones y estrategias para garantizar la protección y seguridad de tu organización.",
+    "notableClients": [],
+    "recentProjects": [
+      "Permitir la selección",
+      "Denegar"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 5,
+    "scopeVerified": false,
+    "scopeSignals": 1,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 1,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "case_studies"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@ciberso.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@ciberso.com"
+        ],
+        "phones": [
+          "681 286 002"
+        ],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "kmj_ciberseguridad",
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 13
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "681 286 002"
+        ]
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/kmj_ciberseguridad/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": false
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "schema_authors": [
+          "Ciberso",
+          "Clara Frías",
+          "Jaime Morales"
+        ]
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 2
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@ciberso.com",
+          "additional": 2,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/kmj_ciberseguridad/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": false
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "schema_authors": [
+          "Ciberso",
+          "Clara Frías",
+          "Jaime Morales"
+        ]
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 2
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@ciberso.com",
+          "additional": 2,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 3,
+    "manualNote": "Email generico (info@ciberso.com) — contactar tambien por Instagram @kmj_ciberseguridad",
+    "additionalContacts": [
+      {
+        "contactName": "Clara Frías",
+        "contactTitle": null,
+        "contactSource": "company_blog_schema_author",
+        "needsManualContactButtonCheck": true,
+        "note": "Name surfaced via schema.org author byline on company blog. Role/title unknown — verify."
+      },
+      {
+        "contactName": "Jaime Morales",
+        "contactTitle": null,
+        "contactSource": "company_blog_schema_author",
+        "needsManualContactButtonCheck": true,
+        "note": "Name surfaced via schema.org author byline on company blog. Role/title unknown — verify."
+      }
+    ],
+    "whoisCheckPending": true,
+    "contactPath": "email_only",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "GEMBA",
+    "website": "https://gembaconsulting.com.ar",
+    "country": "Argentina",
+    "industry": "services",
+    "summary": "Consultoría en optimización operativa, transformación digital y mejora continua para empresas. Impulsamos eficiencia, datos y resultados medibles.",
+    "notableClients": [
+      "Unilever",
+      "Modelo"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 8,
+    "scopeVerified": false,
+    "scopeSignals": 1,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 1,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "has_clients",
+      "mid_size_team"
+    ],
+    "contactName": "Miguel Piccinini",
+    "contactTitle": "President & Co-Founder Naviera Cruz del Sur",
+    "contactEmail": "barbara.pozzi@gembaconsulting.com.ar",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/gembaconsulting.arg/",
+    "instagramHandle": "gembaconsulting.arg",
+    "instagramBio": "See Instagram photos and videos from Gemma Broadhurst (@gemba)",
+    "instagramFollowers": "59",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "barbara.pozzi@gembaconsulting.com.ar"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "9 11 3115-9883"
+        ],
+        "name": "Miguel Piccinini",
+        "social": {
+          "instagram": "https://www.instagram.com/gembaconsulting.arg/",
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/gembaconsulting.arg/",
+        "igHandle": "gembaconsulting.arg",
+        "igFollowers": "59",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Miguel Piccinini"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "barbara.pozzi@gembaconsulting.com.ar",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/gemba-concepts",
+    "apolloCompanyPhone": "+91 96064 75131",
+    "apolloEmployeeCount": 300,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  },
+  {
+    "companyName": "VOUSYS",
+    "website": "https://vousys.com",
+    "country": "Argentina",
+    "industry": "services",
+    "summary": "We create amazing custom software development and MPV to help your brand success. Argentina software development company.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "small",
+    "unabaseScore": 3,
+    "scopeVerified": true,
+    "scopeSignals": 2,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 2,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "has_clients"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@vousys.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/vousys/",
+    "instagramHandle": "vousys",
+    "instagramBio": "See Instagram photos and videos from VOUSYS (@vousys)",
+    "instagramFollowers": "131",
+    "facebookUrl": "https://www.facebook.com/vousys",
+    "twitterUrl": "https://twitter.com/vousys",
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/vousys",
+    "contactPhone": "+54 (011) 5368-7925",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@vousys.com"
+        ],
+        "phones": [
+          "+54 (011) 5368-7925"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://instagram.com/vousys",
+          "facebook": "https://www.facebook.com/vousys",
+          "twitter": "https://twitter.com/vousys",
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "vousys",
+        "followers": "131",
+        "email": null,
+        "phone": null,
+        "triedHandles": 7
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "+54 (011) 5368-7925",
+          "011 5368-7925"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/vousys"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@vousys.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 3,
+    "manualNote": "Email generico (info@vousys.com) — contactar tambien por Instagram @vousys",
+    "whoisCheckPending": true,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-24",
+    "approved": true
+  }
+]

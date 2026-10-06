@@ -4,11 +4,33 @@
 # what happened upstream. Non-negotiable minimum: a NAMED decisor + a VERIFIED, non-bounced email. (Channel
 # completeness — IG / LinkedIn / WhatsApp — is the fuller quality bar handled by gates.py; this is the floor a client
 # may never see broken.)
+# NON-NEGOTIABLE (operator, repeatedly): a company with NO real website OR NO email is NOT shippable. A fabricated/
+# synthetic domain (e.g. "2up-moodpilates-ec", no TLD) is NOT a website.
+import re
 from factory.packages import db
+
+_GENERIC = {"facebook.com", "m.facebook.com", "business.facebook.com", "instagram.com", "linkedin.com", "twitter.com",
+            "x.com", "youtube.com", "tiktok.com", "wa.me", "whatsapp.com", "linktr.ee", "google.com", "sites.google.com",
+            "wixsite.com", "bit.ly"}
+_DOMRE = re.compile(r"^[a-z0-9][a-z0-9-]*(\.[a-z0-9-]+)*\.[a-z]{2,}$")
+
+
+def real_domain(d):
+    """A REAL website domain: has a valid TLD, no spaces, not a synthetic '2up-' slug, not a social/link host."""
+    d = (d or "").lower().strip().replace("www.", "")
+    if not d or d.startswith("2up-") or " " in d or d in _GENERIC:
+        return False
+    return _DOMRE.match(d) is not None
+
+
+def real_website(url):
+    d = (url or "").lower().replace("https://", "").replace("http://", "").replace("www.", "").split("/")[0]
+    return real_domain(d)
 
 
 def passes_contact(ct):
-    """Factory-side: a contact clears TSA iff it has a decisor name + an email that isn't invalid/bounced."""
+    """Factory-side: a contact clears TSA iff it has a decisor name + an email that isn't invalid/bounced.
+    (Website is checked separately against the company — see real_domain, enforced in publish.)"""
     if not ct:
         return False
     if not (ct.get("full_name") or "").strip():
@@ -20,11 +42,12 @@ def passes_contact(ct):
 
 
 def passes_lead_row(row):
-    """Client-surface: a `leads`-table row clears TSA iff it has a decisor name + an email and isn't flagged bounced."""
+    """Client-surface: SHIPPABLE iff named decisor + email (not bounced) + a REAL website. No exceptions."""
     ld = row.get("lead_data") or {}
     name = (row.get("contact_name") or ld.get("contactName") or "").strip()
     email = (row.get("contact_email") or ld.get("contactEmail") or "").strip()
-    return bool(name) and bool(email) and not ld.get("emailBounced")
+    website = ld.get("website") or (row.get("id") or "")
+    return bool(name) and bool(email) and real_website(website) and not ld.get("emailBounced")
 
 
 def clean_surface(client_id):

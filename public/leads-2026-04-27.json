@@ -1,0 +1,1364 @@
+[
+  {
+    "companyName": "Cinematres",
+    "website": "https://cinematres.com.ar",
+    "country": "Argentina",
+    "industry": "film",
+    "summary": "Cinematres es una compañía cinematografica fundada por Pablo José Meza y Natacha Rébora en el año 2002. Se dedica a desarrollar y producir proyectos cinematograficos nacionales o en coproduccion y dar servicios de producción.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "Las Ineses",
+      "Algunos Días Sin Música Largometraje La V",
+      "Buenos Aires 100 KM Largometraje El Paso",
+      "La De Messi Cortometraje Proyectos Estos"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 8,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 8,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": "Pablo Meza",
+    "contactTitle": null,
+    "contactEmail": "pablomeza@cinematres.com.ar",
+    "contactLinkedIn": null,
+    "contactConfidence": "name_from_email",
+    "contactSource": "ddg_email",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/cinematres_argentina/",
+    "instagramHandle": "cinematres_argentina",
+    "instagramBio": "See Instagram photos and videos from Cinematres (@cinematres_argentina) Log into Instagram",
+    "instagramFollowers": "1,964",
+    "facebookUrl": "https://www.facebook.com/CinematresArgentina",
+    "twitterUrl": "https://twitter.com/cinematres",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "nothing",
+        "emailsChecked": 1
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 15,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@cinematres.com.ar"
+        ],
+        "phones": [
+          "11 6812 2274"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/cinematres_argentina/",
+          "facebook": "https://www.facebook.com/CinematresArgentina",
+          "twitter": "https://twitter.com/cinematres",
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": [
+          "pablomeza@cinematres.com.ar"
+        ]
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": [
+          "pablomeza@cinematres.com.ar"
+        ]
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "info@cinematres.com.ar",
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": "011 4687-5450",
+        "gmbOwner": null
+      },
+      {
+        "step": "name_derive",
+        "email": "pablomeza@cinematres.com.ar"
+      },
+      {
+        "step": "name_derive",
+        "result": "high_confidence",
+        "name": "Pablo Meza"
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "cinematres_argentina",
+        "followers": "1,964",
+        "email": null,
+        "phone": null,
+        "triedHandles": 7
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "11 6812 2274",
+          "011 4687-5450",
+          "+5411 3528-7192",
+          "30710102348"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Pablo Meza"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "pablomeza@cinematres.com.ar",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "manualNote": "Nombre derivado del email (pablomeza@cinematres.com.ar) — verificar antes de enviar si es posible",
+    "contactVenues": 3,
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "contactWhyThisPerson": "Pablo es co-fundador de Cinematres, por lo que tiene poder total de decisión sobre herramientas y presupuestos de producción.",
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "replyTrigger": [
+      "Múltiples largometrajes en simultáneo generan cuellos de botella operativos",
+      "Productoras mid-size buscan profesionalizar procesos sin perder agilidad",
+      "Experiencia con clientes como Facebook indica necesidad de sistemas más robustos"
+    ],
+    "source_date": "2026-04-14",
+    "approved": true,
+    "batch_id": "batch-2026-04-14",
+    "contactPath": "company_fallback",
+    "tier": "tier1",
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled"
+  },
+  {
+    "companyName": "Haddock Films",
+    "website": "https://haddockfilms.com",
+    "country": "Argentina",
+    "industry": "film",
+    "summary": "Somos una empresa argentina de produccción y realización cinematográfica, de televisión y publicidad. Fundada en Buenos Aires en el año 2006.",
+    "notableClients": [
+      "Netflix",
+      "Facebook"
+    ],
+    "recentProjects": [
+      "El secreto de sus ojos",
+      "by Haddock Films",
+      "the company profile See 2 updates Adverti",
+      "Netflix Producido por Harlan Coben",
+      "Extranjera en 2010 con nuestro film",
+      "de TV",
+      "Extranjera en 2010 con el film"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 7,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 6,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": "Vanessa Ragone",
+    "contactTitle": null,
+    "contactEmail": "vanessa.ragone@haddockfilms.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "confirmed",
+    "contactSource": "hunter_domain",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/haddockfilms/",
+    "instagramHandle": "haddockfilms",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/haddockfilms/",
+    "twitterUrl": "https://twitter.com/HaddockFilms",
+    "youtubeUrl": "https://www.youtube.com/channel/UCnmqMxFHaOCjPPK82UqItYw",
+    "vimeoUrl": "https://vimeo.com/haddockfilms",
+    "contactPhone": "011 4393-5543",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "named_contact",
+        "name": "Vanessa Ragone",
+        "email": "vanessa.ragone@haddockfilms.com"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@haddockfilms.com"
+        ],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/haddockfilms/",
+          "facebook": "https://www.facebook.com/haddockfilms/",
+          "twitter": "https://twitter.com/HaddockFilms",
+          "youtube": "https://www.youtube.com/channel/UCnmqMxFHaOCjPPK82UqItYw",
+          "vimeo": "https://vimeo.com/haddockfilms"
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/haddockfilms/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "011 4393-5543"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Vanessa Ragone"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "vanessa.ragone@haddockfilms.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/haddock-films-s-r-l",
+    "apolloCompanyPhone": "54 9 11 4776-1876",
+    "apolloEmployeeCount": 23,
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "contactWhyThisPerson": "Como contacto principal de una productora de 23 empleados, probablemente maneja operaciones y decisiones de herramientas de producción.",
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "replyTrigger": [
+      "Gestión de 23 empleados en proyectos simultáneos genera complejidad operativa diaria",
+      "Productoras audiovisuales están bajo presión constante por deadlines de Netflix y plataformas",
+      "Necesidad de centralizar coordinación entre departamentos creativos y administrativos"
+    ],
+    "source_date": "2026-04-14",
+    "approved": true,
+    "batch_id": "batch-2026-04-14",
+    "contactPath": "company_fallback",
+    "tier": "tier1",
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled"
+  },
+  {
+    "companyName": "Posta Productions",
+    "website": "https://posta-productions.com",
+    "country": "Argentina",
+    "industry": "commercial",
+    "summary": "Productora líder en eventos deportivos, broadcast y streaming. Soluciones audiovisuales innovadoras y diseño de escenarios en Argentina, Mexico y España.",
+    "notableClients": [
+      "Disney"
+    ],
+    "recentProjects": [
+      "CONFÍAN EN POSTA ESPN DAZN LALIGA"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 6,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 6,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@posta-productions.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/postaproductions/",
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/@PostaProductions01",
+    "vimeoUrl": "https://vimeo.com/49483533",
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@posta-productions.com"
+        ],
+        "phones": [
+          "9 3412 727 998"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/postaproductions/",
+          "facebook": null,
+          "twitter": null,
+          "youtube": "https://www.youtube.com/@PostaProductions01",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/postaproductions/",
+        "igHandle": "postaproductions",
+        "igFollowers": "207",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": null,
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 14
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "9 3412 727 998"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": [
+          "postaproductions"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "dm": {
+          "handle": "postaproductions",
+          "email": null,
+          "phone": null,
+          "needsManual": true
+        }
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/49483533"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 1
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@posta-productions.com",
+          "additional": 1,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 3,
+    "manualNote": "Founder IG(s) identified (@postaproductions) — check IG Contact button manually for direct email + phone.",
+    "additionalContacts": [
+      {
+        "instagramHandle": "postaproductions",
+        "instagramUrl": "https://www.instagram.com/postaproductions/",
+        "contactTitle": null,
+        "contactEmail": null,
+        "contactPhone": null,
+        "contactSource": "founder_ig_profile",
+        "needsManualContactButtonCheck": true,
+        "igIsPrivate": false,
+        "context": "otos and videos from Posta Productions (@postaproductions",
+        "contactName": "Posta Productions"
+      }
+    ],
+    "whoisCheckPending": true,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-27",
+    "approved": false
+  },
+  {
+    "companyName": "Machaco Films",
+    "website": "https://machaco.ar",
+    "country": "Argentina",
+    "industry": "film",
+    "summary": "Ir al contenido MAIN MENU ph: @lufnadale FESTIVALES En un pueblo rural, dos hermanos descubren que un mal ancestral está gestándose dentro de un hombre poseído. Cuando intentan detenerlo, desatan el horror en toda la comunidad. Fenómenos paranormales comienzan a manifestarse en un barrio de Buenos Aires.",
+    "notableClients": [
+      "Netflix"
+    ],
+    "recentProjects": [
+      "Cuando hacecha la Maldad",
+      "latinoamericana en ganar el premio a mejo",
+      "del Festival Internacional de SITGES",
+      "nacional de terror más vista de la histor",
+      "argentina en salas en ese país",
+      "combina realismo y horror con una narrati"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 7,
+    "scopeVerified": true,
+    "scopeSignals": 5,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 5,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "machaco.adm@gmail.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/machacofilms/?hl=es",
+    "instagramHandle": "machacofilms",
+    "instagramBio": "See Instagram photos and videos from Machaco Films (@machacofilms)",
+    "instagramFollowers": "3,293",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "machaco.adm@gmail.com"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/machacofilms/?hl=es",
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/machacofilms/?hl=es",
+        "igHandle": "machacofilms",
+        "igFollowers": "3,293",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": [
+          "fernandodiazcine"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "dm": {
+          "handle": "fernandodiazcine",
+          "email": null,
+          "phone": null,
+          "needsManual": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "machaco.adm@gmail.com",
+          "additional": 1,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "additionalContacts": [
+      {
+        "instagramHandle": "fernandodiazcine",
+        "instagramUrl": "https://www.instagram.com/fernandodiazcine/",
+        "contactTitle": "CEO",
+        "contactEmail": null,
+        "contactPhone": null,
+        "contactSource": "founder_ig_profile",
+        "needsManualContactButtonCheck": true,
+        "igIsPrivate": false,
+        "context": "de cine y televisión independiente. CEO @fernandodiazcine",
+        "contactName": "Fernando Diaz"
+      }
+    ],
+    "manualNote": "Founder IG(s) identified (@fernandodiazcine) — check IG Contact button manually for direct email + phone.",
+    "contactPath": "company_fallback",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-27",
+    "approved": false
+  },
+  {
+    "companyName": "Aqua Films",
+    "website": "https://aquafilms.com.ar",
+    "country": "Argentina",
+    "industry": "film",
+    "summary": "Anchoíta Films es una productora de cine y teatro con base en Buenos Aires. Enfoca sus recursos en el desarrollo, producción y post producción de largometrajes.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 6,
+    "scopeVerified": true,
+    "scopeSignals": 5,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 5,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": "Silvina Argentine",
+    "contactTitle": null,
+    "contactEmail": null,
+    "contactLinkedIn": null,
+    "contactConfidence": "confirmed",
+    "contactSource": "hunter_domain",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/aquafilmsdo/",
+    "instagramHandle": "aquafilmsdo",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/AquafilmsARG/",
+    "twitterUrl": "https://twitter.com/aquafilms",
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "011 4809-3698",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "named_contact",
+        "name": "Silvina Argentine",
+        "title": null,
+        "email": "silvina@aquafilms.com.ar"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "produccion@anchoitafilms.com.ar"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/volareshumano/",
+          "facebook": "https://www.facebook.com/AquafilmsARG/",
+          "twitter": "https://twitter.com/aquafilms",
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "produccion@anchoitafilms.com.ar",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/aquafilmsdo/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "011 4809-3698"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Silvina Argentine"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "silvina@aquafilms.com.ar",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/aqua-vita-films-ltd",
+    "apolloCompanyPhone": "+44 117 373 0833",
+    "apolloEmployeeCount": null,
+    "contactPath": "instagram",
+    "tier": "tier1",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-27",
+    "approved": false,
+    "_draftFix_2026_06_02": "dropped email — anchoitafilms.com.ar is a different brand from aquafilms; no Apollo DMs available; pivots to IG channel"
+  },
+  {
+    "companyName": "Videos corporativos en México",
+    "website": "https://vcm.mx",
+    "country": "Mexico",
+    "industry": "commercial",
+    "summary": "VCM crea videos corporativos con diseño moderno y calidad audiovisual para impulsar la imagen profesional de tu empresa.",
+    "notableClients": [],
+    "recentProjects": [
+      "EMAIL TELÉFONO xavier"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 4,
+    "scopeVerified": true,
+    "scopeSignals": 3,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 3,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": false,
+    "fitSignals": 0,
+    "fitReasons": [],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "xavier@vcm.mx",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/vcm.mx?igsh=MWZiOTJheHZiZHFjbw==&utm_source=qr",
+    "instagramHandle": "vcm.mx?igsh=MWZiOTJheHZiZHFjbw==&utm_source=qr",
+    "instagramBio": "See Instagram photos and videos from Videos Corporativos de México (@vcm.mx)",
+    "instagramFollowers": "39",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "+52 55 29711347",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 15,
+        "personalEmails": [
+          "xavier@vcm.mx"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "+52 55 29711347"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/vcm.mx?igsh=MWZiOTJheHZiZHFjbw==&utm_source=qr",
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/vcm.mx?igsh=MWZiOTJheHZiZHFjbw==&utm_source=qr",
+        "igHandle": "vcm.mx?igsh=MWZiOTJheHZiZHFjbw==&utm_source=qr",
+        "igFollowers": "39",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": [
+          "vcm.mx"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "dm": {
+          "handle": "vcm.mx",
+          "email": null,
+          "phone": null,
+          "needsManual": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "xavier@vcm.mx",
+          "additional": 1,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "additionalContacts": [
+      {
+        "instagramHandle": "vcm.mx",
+        "instagramUrl": "https://www.instagram.com/vcm.mx/",
+        "contactTitle": null,
+        "contactEmail": null,
+        "contactPhone": null,
+        "contactSource": "founder_ig_profile",
+        "needsManualContactButtonCheck": true,
+        "igIsPrivate": false,
+        "context": "eos from Videos Corporativos de México (@vcm.mx"
+      }
+    ],
+    "manualNote": "Founder IG(s) identified (@vcm.mx) — check IG Contact button manually for direct email + phone.",
+    "isAdjacent": true,
+    "adjacentIndustry": "corporate",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-27",
+    "approved": false
+  },
+  {
+    "companyName": "Publicidadyvideo",
+    "website": "https://publicidadyvideo.com.mx",
+    "country": "Mexico",
+    "industry": "commercial",
+    "summary": "Somos Empresa De Producción De Video en México, a la realización de vídeos profesionales corporativos y promocionales. Videos Institucionales",
+    "notableClients": [],
+    "recentProjects": [
+      "a los inversionistas necesitaba ser difer",
+      "de video",
+      "y le guiaremos a través de nuestro proces",
+      "se mantenga encaminado y reciba el video"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 5,
+    "scopeVerified": true,
+    "scopeSignals": 5,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 5,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 2,
+    "fitReasons": [
+      "multiple_projects",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "cervemiliano@hotmail.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/channel/UC2_GmUYvtRyAzm43Qrk3akw",
+    "vimeoUrl": null,
+    "contactPhone": "5564231962",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 15,
+        "personalEmails": [
+          "cervemiliano@hotmail.com"
+        ],
+        "genericEmails": [
+          "contacto@publicidadyvideo.com.mx"
+        ],
+        "phones": [
+          "5564231962"
+        ],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": "https://www.youtube.com/channel/UC2_GmUYvtRyAzm43Qrk3akw",
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/vdmcasaproductora/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "isAdjacent": true,
+    "adjacentIndustry": "corporate",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-27",
+    "approved": false
+  }
+]

@@ -1,0 +1,441 @@
+[
+  {
+    "companyName": "BAFICI 2026",
+    "website": "https://otroscines.com",
+    "country": "Argentina",
+    "searchQuery": "BAFICI productora argentina ganadora",
+    "summary": "Otros Cines es un espacio dedicado a cubrir y analizar la actualidad del cine en Argentina y el exterior. El portal combina servicio (recomendaciones, información de futuros estrenos, agenda, cine en TV, lanzamientos en DVD) con debate y opinión crítica, la participación de columnistas especializados, la cobertura de los principales festivales del mundo y el análisis de la taquilla.",
+    "notableClients": [
+      "Netflix",
+      "Facebook"
+    ],
+    "recentProjects": [
+      "de y con Jordan Firstman",
+      "de James Gray con Adam Driver",
+      "de Lisandro Alonso con Misael Saavedra y",
+      "de Jon Favreau con Pedro Pascal",
+      "Crítica de",
+      "de Juan Taratuto con Gael García Bernal y",
+      "de Curry Barker Ezequiel Boetti Crítica d",
+      "de Lawrence Kasdan sobre Martin Short",
+      "de David Pablos",
+      "de Genki Kawamura con Kazunari Ninomiya D"
+    ],
+    "estimatedSize": "large",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 9,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 9,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": "Otros Cines es un portal especializado en cobertura y análisis de cine argentino e internacional que combina contenido editorial con cobertura de festivales. Trabajan con Netflix y desarrollando proyectos con directores como James Gray, Jon Favreau y Juan Taratuto.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola equipo de BAFICI 2026! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en BAFICI 2026 y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que producen contenido tanto para Netflix como, dos plataformas con ritmos de aprobación y flujos de caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 5,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "large_team",
+      "high_ent_signals"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "dbatlle@otroscines.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://instagram.com/otroscines/",
+    "instagramHandle": "otroscines",
+    "instagramBio": "See Instagram photos and videos from OtrosCines (@otroscines)",
+    "instagramFollowers": "14K",
+    "facebookUrl": "https://www.facebook.com/pages/OtrosCinescom/148994488048",
+    "twitterUrl": "https://x.com/OtrosCines",
+    "youtubeUrl": "https://www.youtube.com/user/OtrosCines",
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "dbatlle@otroscines.com",
+          "otroscinespublicidad@gmail.com",
+          "otroscinescursos@gmail.com",
+          "otroscinesclub@gmail.com"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://instagram.com/otroscines/",
+          "facebook": "https://www.facebook.com/pages/OtrosCinescom/148994488048",
+          "twitter": "https://x.com/OtrosCines",
+          "youtube": "https://www.youtube.com/user/OtrosCines",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://instagram.com/otroscines/",
+        "igHandle": "otroscines",
+        "igFollowers": "14K",
+        "socialEmail": "otroscinesclub@gmail.com",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": [
+          "batlle_diego",
+          "gmail.com"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "dm": {
+          "handle": "batlle_diego",
+          "email": null,
+          "phone": null,
+          "needsManual": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "dm": {
+          "handle": "gmail.com",
+          "email": null,
+          "phone": null,
+          "needsManual": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "dbatlle@otroscines.com",
+          "additional": 2,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "_igVerified": true,
+    "_igVerificationEvidence": [
+      "website-linked"
+    ],
+    "_igVerificationReason": "website-linked",
+    "additionalContacts": [
+      {
+        "instagramHandle": "batlle_diego",
+        "instagramUrl": "https://www.instagram.com/batlle_diego/",
+        "contactTitle": "Director",
+        "contactEmail": null,
+        "contactPhone": null,
+        "contactSource": "founder_ig_profile",
+        "needsManualContactButtonCheck": true,
+        "igIsPrivate": false,
+        "context": "bre cine y series desde 2007. Director: @batlle_diego",
+        "contactName": "Diego Batlle"
+      },
+      {
+        "instagramHandle": "gmail.com",
+        "instagramUrl": "https://www.instagram.com/gmail.com/",
+        "contactTitle": null,
+        "contactEmail": null,
+        "contactPhone": null,
+        "contactSource": "founder_ig_profile",
+        "needsManualContactButtonCheck": true,
+        "igIsPrivate": false,
+        "context": "or: @batlle_diego / Club: OtrosCinesClub@gmail.com"
+      }
+    ],
+    "manualNote": "Founder IG(s) identified (@batlle_diego, @gmail.com) — check IG Contact button manually for direct email + phone.",
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "_streams": [
+      "ig",
+      "email"
+    ],
+    "_streamCount": 2,
+    "_credibilitySignals": [
+      "multi_operator:2"
+    ],
+    "_credibilityPass": true,
+    "_credibilityReason": "cred_pass",
+    "instagramDM": "Hola! Vi tu cobertura del cine argentino y me llamó la atención cómo manejan la producción para diferentes plataformas. ¿Tienen un minuto para charlar sobre workflows de presupuestación?",
+    "readyToSend": true,
+    "contactDecisionPower": "Bajo",
+    "contactWhyThisPerson": "Sin información del rol específico, pero maneja comunicación del portal que produce contenido audiovisual.",
+    "whyThisLead": [
+      "Producen contenido audiovisual para múltiples plataformas con formatos diversos",
+      "Trabajan con Netflix y en proyectos de diferentes escalas",
+      "Manejan producciones documentales y comerciales con ritmos de caja distintos"
+    ],
+    "actionBlock": [
+      "Contactar vía email con enfoque en gestión de presupuestos multiplataforma",
+      "Usar canal email como primario, como seguimiento",
+      "Tono profesional pero accesible, enfocado en eficiencia operativa"
+    ],
+    "conversationAngle": "¿Cómo organizan los presupuestos cuando producen contenido para Netflix y simultáneamente? Cada plataforma tiene ritmos de aprobación y flujos de caja completamente distintos.",
+    "channelPriority": {
+      "primario": "Email",
+      "secundario": "Instagram DM",
+      "opcional": "ninguno"
+    },
+    "specificLine": "Vimos que producen contenido tanto para Netflix como Facebook, dos plataformas con ritmos de aprobación y flujos de caja completamente distintos.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola equipo de BAFICI 2026! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en BAFICI 2026 y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que producen contenido tanto para Netflix como, dos plataformas con ritmos de aprobación y flujos de caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado equipo,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que producen contenido tanto para Netflix como, dos plataformas con ritmos de aprobación y flujos de caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": {
+      "paso1": "Seguir @otroscines",
+      "paso2": "Dar like a sus ultimos 3 posts",
+      "paso3": "Comentar algo específico sobre su cobertura de festivales o análisis de taquilla",
+      "dm": "Hola! Vi tu cobertura del cine argentino y me llamó la atención cómo manejan la producción para diferentes plataformas. ¿Tienen un minuto para charlar sobre workflows de presupuestación?"
+    },
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": [
+      "Dia 1: Email inicial con specificLine sobre gestión multiplataforma",
+      "Dia 2: Seguimiento en (seguir, likes, comentario)",
+      "Dia 4: Email de seguimiento preguntando sobre organización de presupuestos por proyecto",
+      "Dia 7: DM en con enfoque casual sobre workflows"
+    ],
+    "keyInsight": "Manejan producciones para plataformas con flujos de caja distintos, dolor directo que UnaBase resuelve.",
+    "source_date": "2026-05-20",
+    "approved": false
+  },
+  {
+    "companyName": "Fabula",
+    "website": "https://zoominfo.com",
+    "country": "Chile",
+    "searchQuery": "Fabula productora chilena similares",
+    "summary": "ZoomInfo is the #1 GTM Platform: Marketing and sales AI plus the best B2B data. All-in-one lead generation, prospecting, market intelligence , and ABM software.",
+    "notableClients": [
+      "Netflix",
+      "Mediaset"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 7,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 7,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": "Fabula es una productora audiovisual chilena de escala media con 220 empleados que trabaja con clientes como Netflix y Mediaset. Maneja múltiples proyectos en paralelo con formatos diversos que requieren gestión presupuestaria compleja.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola Henry! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Fabula y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nFabula con 220 empleados manejando clientes como Netflix y Mediaset seguramente tiene el desafío de cuadrar presupuestos entre múltiples formatos corriendo en paralelo con ritmos de caja distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "contactName": "Henry Schuck",
+    "contactTitle": "CEO & Founder",
+    "contactEmail": "henry.schuck@zoominfo.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/hschuck",
+    "contactConfidence": "confirmed",
+    "contactSource": "apollo",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": "See Instagram photos and videos from Jazzi Hey (@fabula)",
+    "instagramFollowers": "628",
+    "facebookUrl": "https://www.facebook.com/ZoomInformation",
+    "twitterUrl": "https://x.com/zoominfo",
+    "youtubeUrl": "https://www.youtube.com/c/zoominformation",
+    "vimeoUrl": null,
+    "contactPhone": "+1 866-904-9666",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Henry Schuck",
+        "title": "CEO & Founder",
+        "email": "henry.schuck@zoominfo.com",
+        "linkedin": "http://www.linkedin.com/in/hschuck"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 15,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [
+          "+1 866-904-9666",
+          "866.904.9666"
+        ],
+        "name": "Henry Schuck",
+        "social": {
+          "instagram": "https://www.instagram.com/zoominfo/",
+          "facebook": "https://www.facebook.com/ZoomInformation",
+          "twitter": "https://x.com/zoominfo",
+          "youtube": "https://www.youtube.com/c/zoominformation",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/fabula/",
+        "igHandle": "fabula",
+        "igFollowers": "628",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "ig_verify",
+        "handle": "fabula",
+        "verified": true,
+        "reason": "matched:bio:brand,title:brand"
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/fabulaperth/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/fabula-prod",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 220,
+    "_igVerified": true,
+    "_igVerificationEvidence": [
+      "bio:brand",
+      "title:brand"
+    ],
+    "_igVerificationReason": "matched:bio:brand,title:brand",
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "_streams": [
+      "email",
+      "linkedin"
+    ],
+    "_streamCount": 2,
+    "_credibilitySignals": [
+      "apollo_10plus:220"
+    ],
+    "_credibilityPass": true,
+    "_credibilityReason": "cred_pass",
+    "instagramDM": null,
+    "readyToSend": true,
+    "contactDecisionPower": "Alto",
+    "contactWhyThisPerson": "Como CEO y Founder, Henry tiene poder de decisión total sobre herramientas que optimicen la operación y rentabilidad de múltiples proyectos simultáneos.",
+    "whyThisLead": [
+      "Productora de escala media con 220 empleados manejando múltiples formatos simultaneos",
+      "Cartera de clientes premium como Netflix y Mediaset que demandan precision presupuestaria",
+      "Tamano y complejidad operativa que requiere control financiero sofisticado mas alla de Excel"
+    ],
+    "actionBlock": [
+      "Contactar via LinkedIn con mensaje especifico sobre gestion multi-proyecto",
+      "LinkedIn como canal primario por perfil ejecutivo",
+      "Tono profesional y directo enfocado en eficiencia operacional"
+    ],
+    "conversationAngle": "Con 220 empleados manejando clientes como Netflix y Mediaset, seguramente tienen el dolor de cuadrar presupuestos entre formatos distintos corriendo en paralelo. La pregunta es si estan usando algo mas sofisticado que Excel para el control financiero multi-proyecto.",
+    "channelPriority": {
+      "primario": "LinkedIn",
+      "secundario": "Email",
+      "opcional": "WhatsApp"
+    },
+    "specificLine": "Fabula con 220 empleados manejando clientes como Netflix y Mediaset seguramente tiene el desafío de cuadrar presupuestos entre múltiples formatos corriendo en paralelo con ritmos de caja distintos.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola Henry! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Fabula y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nFabula con 220 empleados manejando clientes como Netflix y Mediaset seguramente tiene el desafío de cuadrar presupuestos entre múltiples formatos corriendo en paralelo con ritmos de caja distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado/a Henry,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nFabula con 220 empleados manejando clientes como Netflix y Mediaset seguramente tiene el desafío de cuadrar presupuestos entre múltiples formatos corriendo en paralelo con ritmos de caja distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": null,
+    "whatsappMessage": "Hola Henry! Veo que Fabula maneja proyectos para Netflix y Mediaset con 220 personas. Me imagino el dolor de cuadrar presupuestos entre tantos formatos corriendo al mismo tiempo. ¿Como estan organizando eso actualmente? Te muestro como otras productoras lo resolvieron en 10 min?",
+    "linkedinPlaybook": {
+      "connectionNote": "CEO de productora que trabaja con Netflix - me gustaria compartir como optimizar control presupuestario multi-proyecto",
+      "followUp": "Henry, con la escala que maneja Fabula (220 empleados, clientes como Netflix), seguramente conoces el dolor de cuadrar presupuestos entre formatos distintos corriendo simultaneamente. ¿Te interesa ver como otras productoras resolvieron esto mas alla de Excel? 10 minutos."
+    },
+    "outreachSequence": [
+      "Dia 1: Enviar solicitud de conexion LinkedIn con nota especifica",
+      "Dia 2: Follow-up en LinkedIn si acepta conexion",
+      "Dia 4: Email de refuerzo con caso especifico de productora similar",
+      "Dia 7: casual preguntando por el tema de presupuestos multi-proyecto"
+    ],
+    "keyInsight": "CEO de productora de escala premium con clientes exigentes que definitivamente siente el dolor de control presupuestario complejo.",
+    "source_date": "2026-05-20",
+    "approved": false
+  }
+]

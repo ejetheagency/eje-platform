@@ -1,0 +1,1 @@
+Clouxter es una empresa con sede en Bogotá, Colombia, especializada en la adopción, migración y gestión de infraestructura en la nube de AWS. Ofrece servicios de DevOps, seguridad, análisis de datos e inteligencia artificial, con un enfoque particular en instituciones financieras y proveedores de software independientes.

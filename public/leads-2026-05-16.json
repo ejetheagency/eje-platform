@@ -1,0 +1,185 @@
+[
+  {
+    "companyName": "Dvlfilmhouse",
+    "website": "https://dvlfilmhouse.com",
+    "country": "Mexico",
+    "industry": "commercial",
+    "searchQuery": "productora documental Mexico",
+    "summary": "DVL Film House creates high-impact video strategies, original content, and end-to-end production services tailored for brands and agencies across North America — with competitive nearshore capabilities from Mexico.",
+    "notableClients": [],
+    "recentProjects": [
+      "Accept All",
+      "for Visit Tucson"
+    ],
+    "estimatedSize": "large",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 5,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 5,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "multiple_projects",
+      "large_team",
+      "high_ent_signals"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "contactName": "Alejandro Mendivil",
+    "contactTitle": "CEO & Executive Producer",
+    "contactEmail": "info@dvlfilmhouse.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/alejandro-mendivil-8611a058",
+    "contactConfidence": "website_direct",
+    "contactSource": "deep_rescue",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/dvlfilmhouse/",
+    "instagramHandle": "dvlfilmhouse",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/dvlfilmhouse",
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/@dvlfilmhouse5676",
+    "vimeoUrl": "https://vimeo.com/dvlfilmhouse",
+    "contactPhone": "+1 602 738 7619",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name+email",
+        "name": "Alejandro Mendivil",
+        "title": "CEO & Executive Producer",
+        "email": "a.mendivil@dvl.com.mx",
+        "linkedin": "http://www.linkedin.com/in/alejandro-mendivil-8611a058"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@dvlfilmhouse.com"
+        ],
+        "phones": [
+          "+1 602 738 7619"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/dvlfilmhouse/",
+          "facebook": "https://www.facebook.com/dvlfilmhouse",
+          "twitter": null,
+          "youtube": "https://www.youtube.com/@dvlfilmhouse5676",
+          "vimeo": "https://vimeo.com/dvlfilmhouse",
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_email": "info@dvlfilmhouse.com",
+        "pages_crawled": 0
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/dvlfilmhouse/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Alejandro Mendivil"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/dvlfilmhouse"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@dvlfilmhouse.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "whoisCheckPending": true,
+    "_companyNameSource": "domain_canonical",
+    "contactPath": "decision_maker_email",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-05-16",
+    "approved": false
+  }
+]

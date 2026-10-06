@@ -1,0 +1,492 @@
+[
+  {
+    "companyName": "Buenavidafilms",
+    "website": "https://www.buenavidafilms.com",
+    "country": "Colombia",
+    "industry": "tv",
+    "summary": "BUENAVIDA FILMS Productora de cine y televisión y Agencia de Publicidad",
+    "notableClients": [
+      "Sony"
+    ],
+    "recentProjects": [
+      "Hijos del Hielo",
+      "documental que invita a embarcarse en una",
+      "Oscar Darío Jiménez Escrucería GUION Alej",
+      "Doris Duarte Téllez TRANSCRIPCIÓN Y CLOSE",
+      "es tanto un testimonio conmovedor como un",
+      "fue auspiciado por la Agencia de Estados"
+    ],
+    "estimatedSize": "large",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 15,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 15,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 5,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "large_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "buenavidapro@gmail.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/buenavidafilms/",
+    "instagramHandle": "buenavidafilms",
+    "instagramBio": "See Instagram photos and videos from BuenaVida Producciones (@buenavidaprod)",
+    "instagramFollowers": "920",
+    "facebookUrl": "https://www.facebook.com/BuenavidaFilms/",
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/user/oscarfx1/videos?view_as=subscriber",
+    "vimeoUrl": null,
+    "contactPhone": "3187287533",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "nothing",
+        "emailsChecked": 0
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "buenavidapro@gmail.com"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "3187287533"
+        ],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": "https://www.facebook.com/BuenavidaFilms/",
+          "twitter": null,
+          "youtube": "https://www.youtube.com/user/oscarfx1/videos?view_as=subscriber",
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/buenavidafilms/",
+        "igHandle": "buenavidafilms",
+        "igFollowers": "920",
+        "socialEmail": "buenavidapro@gmail.com",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "buenavidapro@gmail.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "company_fallback",
+    "tier": "tier3",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-30",
+    "approved": false
+  },
+  {
+    "companyName": "Magma Cine",
+    "website": "https://magmacine.com.ar",
+    "country": "Argentina",
+    "industry": "film",
+    "summary": "MAGMA CINE Casa productora de contenidos audiovisuales fundada en el 2005 por Nathalia Videla Peña y Juan Pablo Gugliotta con más de 30 largos y series de ficción, documentales y cortometrajes. Ganadora de premio platino mejor ópera prima 2023 Disponible en Filmin España. Nos especializamos en la búsqueda de financiación en el mercado internacional y hemos coproducido con los países más relevantes del mapa audiovisual mundial: España, Francia, Alemania, México, Brasil, Chile, Uruguay, Colombia, Panamá y Estados Unidos.",
+    "notableClients": [
+      "Netflix",
+      "Amazon",
+      "Fox",
+      "Movistar",
+      "Facebook",
+      "Mercedes"
+    ],
+    "recentProjects": [
+      "Araña",
+      "more than 38 films",
+      "with companies such as Participant Media",
+      "by Magma Cine",
+      "Manual de supervivencia"
+    ],
+    "estimatedSize": "large",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 9,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 9,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 5,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "large_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "nat@magmacine.com.ar",
+    "contactLinkedIn": null,
+    "contactConfidence": "confirmed",
+    "contactSource": "hunter_domain",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/magma.cine/",
+    "instagramHandle": "magma.cine",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "11950328",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name_only",
+        "name": "Juan Martin Arauz"
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "named_contact",
+        "name": "Nathalia Videla",
+        "email": "nat@magmacine.com.ar"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "juanpablo@magmacine.com.ar",
+          "nat@magmacine.com.ar"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "9 (11) 3782 6354"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/magma.cine/",
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/magma.cine/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "11950328"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Juan Martin Arauz"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "nat@magmacine.com.ar",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/magma-tv-y-cine-sl",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 1,
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "contactWhyThisPerson": "Co-founder con poder de decisión directo sobre herramientas operativas y presupuestos de producción.",
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "replyTrigger": [
+      "Múltiples entregas simultáneas a Netflix/Amazon creando bottlenecks",
+      "Crecimiento acelerado requiere mejor coordinación interna",
+      "UnaBase elimina el ping-pong de emails entre stakeholders internacionales"
+    ],
+    "source_date": "2026-04-14",
+    "approved": true,
+    "batch_id": "batch-2026-04-14",
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "_draftFix_2026_06_02": "cleared contactName — nat@ inbox does not belong to assigned Juan Pablo"
+  },
+  {
+    "companyName": "AGStudios",
+    "website": "https://agstudios.com",
+    "country": "Colombia",
+    "industry": "tv",
+    "summary": "Colombia offers two incentive options for international productions produced in the country: a cash rebate paid back to the producer or a transferrable tax certificate issued to the foreign producer.",
+    "notableClients": [],
+    "recentProjects": [
+      "a pr En Estado de Fuga: 1986"
+    ],
+    "estimatedSize": "large",
+    "unabaseScore": 6,
+    "scopeVerified": true,
+    "scopeSignals": 5,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 5,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "large_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "infocolombia@agstudios.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/agstudioslatam/",
+    "instagramHandle": "agstudioslatam",
+    "instagramBio": "See Instagram photos and videos from AG Studios Latam (@agstudioslatam)",
+    "instagramFollowers": "5,962",
+    "facebookUrl": "https://www.facebook.com/AGSTUDIOSLATAM",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "+571) 439 1203",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "infocolombia@agstudios.com"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "+571) 439 1203"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/agstudioslatam/",
+          "facebook": "https://www.facebook.com/AGSTUDIOSLATAM",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/agstudioslatam/",
+        "igHandle": "agstudioslatam",
+        "igFollowers": "5,962",
+        "socialEmail": "infocolombia@agstudios.com",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "infocolombia@agstudios.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-30",
+    "approved": false
+  }
+]

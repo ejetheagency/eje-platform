@@ -1,0 +1,1022 @@
+[
+  {
+    "companyName": "Rednoisefilms",
+    "website": "https://www.rednoisefilms.com",
+    "country": "Spain",
+    "industry": "commercial",
+    "summary": "Red Noise Films es una productora audiovisual en Madrid con más de 10 años creando vídeos corporativos, spots publicitarios y branded content para marcas líderes.",
+    "notableClients": [
+      "Adidas",
+      "Mercedes",
+      "TikTok"
+    ],
+    "recentProjects": [
+      "para empresas que buscan destacar en el m",
+      "audiovisual"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 10,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 8,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@rednoisefilms.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/rednoisefilms/",
+    "instagramHandle": "rednoisefilms",
+    "instagramBio": "See Instagram photos and videos from RedNoiseFilms (@rednoisefilms)",
+    "instagramFollowers": "208",
+    "facebookUrl": null,
+    "twitterUrl": "https://www.netflix.com/es-en/title/81568624",
+    "youtubeUrl": "https://www.youtube.com/channel/UCT6CWBXkHJ49vYlVzV04K-A",
+    "vimeoUrl": null,
+    "contactPhone": "678878565",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@rednoisefilms.com"
+        ],
+        "phones": [
+          "678 878 565",
+          "+34 678 878 565",
+          "608 848 089",
+          "+34 608 848 089"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/rednoisefilms/",
+          "facebook": null,
+          "twitter": "https://www.netflix.com/es-en/title/81568624",
+          "youtube": "https://www.youtube.com/channel/UCT6CWBXkHJ49vYlVzV04K-A",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/rednoisefilms/",
+        "igHandle": "rednoisefilms",
+        "igFollowers": "208",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "rednoisefilms",
+        "followers": "208",
+        "email": null,
+        "phone": null,
+        "triedHandles": 15
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "678 878 565",
+          "+34 678 878 565",
+          "608 848 089",
+          "+34 608 848 089"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "directory_phone": "678878565"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@rednoisefilms.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 3,
+    "manualNote": "Email generico (info@rednoisefilms.com) — contactar tambien por Instagram @rednoisefilms",
+    "whoisCheckPending": true,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-29",
+    "approved": false
+  },
+  {
+    "companyName": "Filmotions",
+    "website": "https://filmotions.com",
+    "country": "Guatemala",
+    "industry": "commercial",
+    "summary": "En Filmotions, somos especialistas en capturar el impacto de proyectos que transforman vidas. Como productora audiovisual en Guatemala, nuestra experiencia en producción de video y fotografía documental nos ha llevado a las zonas más remotas para visibilizar.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "production that touches your Filmotions -",
+      "o promocional",
+      "en papel y quedando en fechas de filmar",
+      "nos ha llevado a las zonas más remotas pa"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 7,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 7,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 4,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@filmotions.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/filmotionsgt/",
+    "instagramHandle": "filmotionsgt",
+    "instagramBio": "See Instagram photos and videos from Filmotions (@filmotionsgt)",
+    "instagramFollowers": "452",
+    "facebookUrl": "https://www.facebook.com/filmotions",
+    "twitterUrl": "https://twitter.com/share?via=in1.com&text=Producci%C3%B3n%20de%20Video%20Profesional%20en%20Guatemala%20%20Filmotions",
+    "youtubeUrl": "https://www.youtube.com/channel/UCF9v0ANKD-IzKuQPCsrtD3A",
+    "vimeoUrl": "https://vimeo.com/852238036",
+    "contactPhone": "+502 56408801",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@filmotions.com"
+        ],
+        "phones": [
+          "+502 56408801"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/filmotionsgt/",
+          "facebook": "https://www.facebook.com/filmotions",
+          "twitter": "https://twitter.com/share?via=in1.com&text=Producci%C3%B3n%20de%20Video%20Profesional%20en%20Guatemala%20%20Filmotions",
+          "youtube": "https://www.youtube.com/channel/UCF9v0ANKD-IzKuQPCsrtD3A",
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/filmotionsgt/",
+        "igHandle": "filmotionsgt",
+        "igFollowers": "452",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "filmotionsgt",
+        "followers": "452",
+        "email": null,
+        "phone": null,
+        "triedHandles": 6
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "+502 56408801"
+        ]
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/852238036"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@filmotions.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 3,
+    "manualNote": "Email generico (info@filmotions.com) — contactar tambien por Instagram @filmotionsgt",
+    "whoisCheckPending": true,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-29",
+    "approved": false
+  },
+  {
+    "companyName": "Cabruja Films",
+    "website": "https://cabrujafilms.com",
+    "country": "Bolivia",
+    "industry": "film",
+    "summary": "Contamos con instalaciones propias, además de una división especializada en digital y un rental de equipos de cámaras y luces de cine de última tecnología que permite alcanzar estándares internacionales en cuanto a imagen se refiere. A mediados del año 2019, fuimos galardonados como “empresa boliviana del año” por latin american quality institute, en el marco del evento “bolivia quality summit”, así mismo nuestros principales ejecutivos recibieron el reconocimiento de “empresario del año”. Y es así como nosotros, cabruja films, nos hemos convertido una empresa que ofrece un servicio “made in bolivia” de calidad internacional.",
+    "notableClients": [
+      "Facebook",
+      "TikTok"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 8,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 8,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "jl@cabrujafilms.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/cabruja_films/",
+    "instagramHandle": "cabruja_films",
+    "instagramBio": "See Instagram photos and videos from CABRUJA FILMS (@cabruja_films)",
+    "instagramFollowers": "5,501",
+    "facebookUrl": "https://www.facebook.com/CabrujaFilms/",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/cabrujafilms",
+    "contactPhone": "+591 721-2187",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [
+          "jl@cabrujafilms.com"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "+591 721-2187",
+          "+591 726-1422"
+        ],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/cabruja_films/",
+          "facebook": "https://www.facebook.com/CabrujaFilms/",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": "https://vimeo.com/cabrujafilms",
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/cabruja_films/",
+        "igHandle": "cabruja_films",
+        "igFollowers": "5,501",
+        "socialEmail": "dgcabrujafilms@gmail.com",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "jl@cabrujafilms.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-29",
+    "approved": false
+  },
+  {
+    "companyName": "Productora de Spots Publicitarios en Madrid",
+    "website": "https://frankrodfilms.com",
+    "country": "Spain",
+    "industry": "commercial",
+    "summary": "Films, series & vertical dramas by Frank Rod. Audiovisual Production, Screenwriting and showrunning in Madrid for brands, platforms & global investors. We develop and produce original films, series (horizontal & vertical), and branded commercials for streaming platforms, agencies, and global brands.",
+    "notableClients": [
+      "Prime Video",
+      "Apple TV",
+      "Apple"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 9,
+    "scopeVerified": true,
+    "scopeSignals": 7,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 7,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "info@frankrodfilms.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/frankrodfilms/",
+    "instagramHandle": "frankrodfilms",
+    "instagramBio": "See Instagram photos and videos from Frank Rod (@frankrodfilms)",
+    "instagramFollowers": "34K",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": "https://www.youtube.com/@FrankRod",
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [
+          "info@frankrodfilms.com",
+          "info@frankrofilms.com"
+        ],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/frankrodfilms/",
+          "facebook": null,
+          "twitter": null,
+          "youtube": "https://www.youtube.com/@FrankRod",
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/frankrodfilms/",
+        "igHandle": "frankrodfilms",
+        "igFollowers": "558",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "frankrodfilms",
+        "followers": "34K",
+        "email": null,
+        "phone": null,
+        "triedHandles": 15
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": []
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "info@frankrodfilms.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactVenues": 2,
+    "manualNote": "Email generico (info@frankrodfilms.com) — contactar tambien por Instagram @frankrodfilms",
+    "whoisCheckPending": true,
+    "contactPath": "company_fallback",
+    "tier": "tier2",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-29",
+    "approved": false
+  },
+  {
+    "companyName": "Ocean Music",
+    "website": "https://oceanmusic.es",
+    "country": "Colombia",
+    "industry": "music",
+    "summary": "Ocean Music Discográfica. Nos encargamos de supervisar y organizar cada movimiento profesional de cada uno de nuestros artistas.",
+    "notableClients": [
+      "Sony",
+      "Sony Music"
+    ],
+    "recentProjects": [],
+    "estimatedSize": "mid",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 9,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 9,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": null,
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "premium_clients",
+      "mid_size_team",
+      "high_ent_signals"
+    ],
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": "direccionocean@gmail.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/ocean_music_oficial/",
+    "instagramHandle": "ocean_music_oficial",
+    "instagramBio": "See Instagram photos and videos from OCEAN STUDIO (@oceanmusicstudio)",
+    "instagramFollowers": "1,835",
+    "facebookUrl": "https://www.facebook.com/grupooceanoficial/",
+    "twitterUrl": "https://twitter.com/groupoceanmusic",
+    "youtubeUrl": "https://www.youtube.com/channel/UCXgPxiSUbWvx-Aw3QQTaA2Q",
+    "vimeoUrl": null,
+    "contactPhone": null,
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "direccionocean@gmail.com",
+          "contratacionoceanmusic@gmail.com"
+        ],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/ocean_music_oficial/",
+          "facebook": "https://www.facebook.com/grupooceanoficial/",
+          "twitter": "https://twitter.com/groupoceanmusic",
+          "youtube": "https://www.youtube.com/channel/UCXgPxiSUbWvx-Aw3QQTaA2Q",
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/ocean_music_oficial/",
+        "igHandle": "ocean_music_oficial",
+        "igFollowers": "1,835",
+        "socialEmail": "direccionocean@gmail.com",
+        "socialPhone": null
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "direccionocean@gmail.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "isAdjacent": true,
+    "adjacentIndustry": "music_label",
+    "instagramDM": null,
+    "readyToSend": false,
+    "contactDecisionPower": null,
+    "whyThisLead": null,
+    "actionBlock": null,
+    "conversationAngle": null,
+    "channelPriority": null,
+    "emailCercana": null,
+    "emailFormal": null,
+    "instagramPlaybook": null,
+    "whatsappMessage": null,
+    "linkedinPlaybook": null,
+    "outreachSequence": null,
+    "keyInsight": null,
+    "_aiFailReason": "ai_timeout",
+    "_aiApiMsg": "canceled",
+    "source_date": "2026-04-29",
+    "approved": false
+  }
+]

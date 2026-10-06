@@ -1,0 +1,1 @@
+{"company":"Nébula","person":"La chica de Nébula","what_they_said":"La empresa ya trabaja con otra agencia y no tiene interés por ahora.","response_type":"already_has_vendor","secondary_type":"not_interested","temperature":"cold","suggested_next_action":"Anotar en el CRM para hacer seguimiento en seis meses."}

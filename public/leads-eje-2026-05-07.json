@@ -1,0 +1,333 @@
+[
+  {
+    "companyName": "ECOCUYO",
+    "website": "https://ecocuyo.com",
+    "country": "Argentina",
+    "industry": "services",
+    "summary": "Wispro, la software factory que nació en Mendoza y se convirtió en .... Tecnología | 23 sep 2024 Wispro, la software factory que nació en Mendoza y se convirtió en líder de Latinoamérica Está presente en 30 países y su servicio se orienta a brindar soluciones de avanzada en redes y telecomunicaciones. Wispro, la software factory que nació en Mendoza y se convirtió en ....",
+    "notableClients": [],
+    "recentProjects": [
+      "Coraje",
+      "de lujo desembarca en Mendoza"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 8,
+    "scopeVerified": false,
+    "scopeSignals": 0,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 0,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [
+      {
+        "id": "partnerships",
+        "evidence": "alianza estratégica"
+      }
+    ],
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": "Hola Miguel,\n\nVi que Wispro maneja operaciones en 30 países desde Mendoza, y en software factories con esa cobertura regional la entrada de oportunidades nuevas suele ser muy irregular.\n\nSoy Emiliano del equipo de EJE.\n\nTrabajamos con empresas B2B que venden servicios o productos de alto valor, ayudandolas a que su pipeline sea mas constante y predecible. El foco esta en generar conversaciones relevantes con la gente correcta, no en volumen innecesario de contactos.\n\nEso termina generando semanas donde el pipeline está saturado de reuniones, y otros períodos dependiendo completamente del timing de contactos por referidos.\n\nLo que termina marcando la diferencia no es cerrar bien, sino saber cuantas conversaciones nuevas van a entrar cada semana.\n\nSi tiene sentido, les muestro en 10 minutos como lo estan trabajando empresas parecidas, y ven si aplica o no a su caso.\n\nSaludos,\nEmiliano\nEquipo EJE\ncontacto@ejetheagency.com",
+    "pitchEmailEN": null,
+    "fitVerified": false,
+    "fitSignals": 0,
+    "fitReasons": [
+      "fit_not_configured",
+      "scoring_fail:below_min:dmAccessibility=1"
+    ],
+    "ejeScores": {
+      "painClarity": 4,
+      "monetization": 5,
+      "dmAccessibility": 5,
+      "commercialMaturity": 5,
+      "specificityPotential": 3,
+      "average": 4.4
+    },
+    "scoringPass": true,
+    "scoringReason": "scoring_pass",
+    "_companyNameSource": "domain_canonical",
+    "contactName": "Miguel Urmeneta",
+    "contactTitle": "gerente general",
+    "contactEmail": "diario@ecocuyo.com",
+    "contactLinkedIn": null,
+    "contactConfidence": "website_direct",
+    "contactSource": "website",
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/ecocuyodiario/",
+    "instagramHandle": "ecocuyodiario",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/ecocuyo",
+    "twitterUrl": "https://twitter.com/ecocuyodiario",
+    "youtubeUrl": "https://www.youtube.com/channel/UCDBdhCxdsQK08cvesZmIMwA",
+    "vimeoUrl": null,
+    "contactPhone": "20260507183721",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "nothing",
+        "emailsChecked": 2
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "diario@ecocuyo.com",
+          "comercial@ecocuyo.com"
+        ],
+        "genericEmails": [],
+        "phones": [
+          "20260507183721"
+        ],
+        "name": "Miguel Urmeneta",
+        "social": {
+          "instagram": "https://www.instagram.com/ecocuyodiario/",
+          "facebook": "https://www.facebook.com/ecocuyo",
+          "twitter": "https://twitter.com/ecocuyodiario",
+          "youtube": "https://www.youtube.com/channel/UCDBdhCxdsQK08cvesZmIMwA",
+          "vimeo": null,
+          "instagramScore": 2
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "diario@ecocuyo.com",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/ecocuyodiario/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Miguel Urmeneta"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": "diario@ecocuyo.com",
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/ecocuyodiario",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 4,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "observation": "Vi que Wispro maneja operaciones en 30 países desde Mendoza, y en software factories con esa cobertura regional la entrada de oportunidades nuevas suele ser muy irregular.",
+    "relevance": "Eso termina generando semanas donde el pipeline está saturado de reuniones, y otros períodos dependiendo completamente del timing de contactos por referidos.",
+    "emailCercana": "Hola Miguel,\n\nVi que Wispro maneja operaciones en 30 países desde Mendoza, y en software factories con esa cobertura regional la entrada de oportunidades nuevas suele ser muy irregular.\n\nSoy Emiliano del equipo de EJE.\n\nTrabajamos con empresas B2B que venden servicios o productos de alto valor, ayudandolas a que su pipeline sea mas constante y predecible. El foco esta en generar conversaciones relevantes con la gente correcta, no en volumen innecesario de contactos.\n\nEso termina generando semanas donde el pipeline está saturado de reuniones, y otros períodos dependiendo completamente del timing de contactos por referidos.\n\nLo que termina marcando la diferencia no es cerrar bien, sino saber cuantas conversaciones nuevas van a entrar cada semana.\n\nSi tiene sentido, les muestro en 10 minutos como lo estan trabajando empresas parecidas, y ven si aplica o no a su caso.\n\nSaludos,\nEmiliano\nEquipo EJE\ncontacto@ejetheagency.com",
+    "emailFormal": "Estimado/a Miguel,\n\nVi que Wispro maneja operaciones en 30 países desde Mendoza, y en software factories con esa cobertura regional la entrada de oportunidades nuevas suele ser muy irregular.\n\nSoy Emiliano del equipo de EJE.\n\nTrabajamos con empresas B2B que venden servicios o productos de alto valor, ayudandolas a que su pipeline sea mas constante y predecible. El foco esta en generar conversaciones relevantes con la gente correcta, no en volumen innecesario de contactos.\n\nEso termina generando semanas donde el pipeline está saturado de reuniones, y otros períodos dependiendo completamente del timing de contactos por referidos.\n\nLo que termina marcando la diferencia no es cerrar bien, sino saber cuantas conversaciones nuevas van a entrar cada semana.\n\nSi tiene sentido, les muestro en 10 minutos como lo estan trabajando empresas parecidas, y ven si aplica o no a su caso.\n\nQuedo atento,\nEmiliano\nEquipo EJE\ncontacto@ejetheagency.com",
+    "readyToSend": true,
+    "_specAnchors": [
+      "summary:mendoza"
+    ],
+    "_specReason": "specific",
+    "source_date": "2026-05-07",
+    "approved": true
+  },
+  {
+    "companyName": "Nearshore Software Development in Mexico",
+    "website": "https://sciodev.com",
+    "country": "LATAM",
+    "industry": "services",
+    "summary": "Build high-performing engineering teams in LATAM with Scio, a trusted nearshore partner for U.S. companies seeking skilled, easy-to-work-with developers.",
+    "notableClients": [
+      "Paramount",
+      "Facebook"
+    ],
+    "recentProjects": [
+      "Scio"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 5,
+    "scopeVerified": false,
+    "scopeSignals": 0,
+    "scopeLabel": "b2b",
+    "entertainmentVerified": false,
+    "entertainmentSignals": 0,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": null,
+    "approachAngle": null,
+    "pitchEmailES": "Hola Srinivasan,\n\nVi que construyen equipos de desarrollo en LATAM para empresas estadounidenses, y en nearshore el flujo de conversaciones nuevas tiende a ser muy irregular.\n\nSoy Emiliano del equipo de EJE.\n\nTrabajamos con empresas B2B que venden servicios o productos de alto valor, ayudandolas a que su pipeline sea mas constante y predecible. El foco esta en generar conversaciones relevantes con la gente correcta, no en volumen innecesario de contactos.\n\nEso genera meses donde el pipeline comercial está lleno y otros donde dependen completamente del timing de los referidos para llenar la agenda.\n\nLo que termina marcando la diferencia no es cerrar bien, sino saber cuantas conversaciones nuevas van a entrar cada semana.\n\nSi tiene sentido, les muestro en 10 minutos como lo estan trabajando empresas parecidas, y ven si aplica o no a su caso.\n\nSaludos,\nEmiliano\nEquipo EJE\ncontacto@ejetheagency.com",
+    "pitchEmailEN": null,
+    "fitVerified": false,
+    "fitSignals": 0,
+    "fitReasons": [
+      "fit_not_configured",
+      "scoring_fail:below_min:dmAccessibility=1"
+    ],
+    "ejeScores": {
+      "painClarity": 4,
+      "monetization": 4,
+      "dmAccessibility": 5,
+      "commercialMaturity": 3,
+      "specificityPotential": 5,
+      "average": 4.2
+    },
+    "scoringPass": true,
+    "scoringReason": "scoring_pass",
+    "contactName": "Srinivasan Rangarajan",
+    "contactTitle": "CTO/Founder",
+    "contactEmail": "acruz@sciodev.com",
+    "contactLinkedIn": "http://www.linkedin.com/in/srinivasanpr",
+    "contactConfidence": "confirmed",
+    "contactSource": "hunter_domain",
+    "contactStatus": null,
+    "instagramUrl": null,
+    "instagramHandle": null,
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": "https://www.facebook.com/Scio.consulting/",
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": null,
+    "contactPhone": "00.0000000",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "name_only",
+        "name": "Srinivasan Rangarajan"
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "found": "named_contact",
+        "name": "Adolfo Cruz",
+        "title": "PMO Director",
+        "email": "acruz@sciodev.com"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": "Jeff Hagins",
+        "social": {
+          "instagram": "https://www.instagram.com/scio.team/",
+          "facebook": "https://www.facebook.com/Scio.consulting/",
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 1
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": "humancapital@sciodev.com",
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/improvingnearshore/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "00.0000000"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": null,
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": null,
+    "contactPath": "decision_maker_email",
+    "tier": "tier1",
+    "observation": "Vi que construyen equipos de desarrollo en LATAM para empresas estadounidenses, y en nearshore el flujo de conversaciones nuevas tiende a ser muy irregular.",
+    "relevance": "Eso genera meses donde el pipeline comercial está lleno y otros donde dependen completamente del timing de los referidos para llenar la agenda.",
+    "emailCercana": "Hola Srinivasan,\n\nVi que construyen equipos de desarrollo en LATAM para empresas estadounidenses, y en nearshore el flujo de conversaciones nuevas tiende a ser muy irregular.\n\nSoy Emiliano del equipo de EJE.\n\nTrabajamos con empresas B2B que venden servicios o productos de alto valor, ayudandolas a que su pipeline sea mas constante y predecible. El foco esta en generar conversaciones relevantes con la gente correcta, no en volumen innecesario de contactos.\n\nEso genera meses donde el pipeline comercial está lleno y otros donde dependen completamente del timing de los referidos para llenar la agenda.\n\nLo que termina marcando la diferencia no es cerrar bien, sino saber cuantas conversaciones nuevas van a entrar cada semana.\n\nSi tiene sentido, les muestro en 10 minutos como lo estan trabajando empresas parecidas, y ven si aplica o no a su caso.\n\nSaludos,\nEmiliano\nEquipo EJE\ncontacto@ejetheagency.com",
+    "emailFormal": "Estimado/a Srinivasan,\n\nVi que construyen equipos de desarrollo en LATAM para empresas estadounidenses, y en nearshore el flujo de conversaciones nuevas tiende a ser muy irregular.\n\nSoy Emiliano del equipo de EJE.\n\nTrabajamos con empresas B2B que venden servicios o productos de alto valor, ayudandolas a que su pipeline sea mas constante y predecible. El foco esta en generar conversaciones relevantes con la gente correcta, no en volumen innecesario de contactos.\n\nEso genera meses donde el pipeline comercial está lleno y otros donde dependen completamente del timing de los referidos para llenar la agenda.\n\nLo que termina marcando la diferencia no es cerrar bien, sino saber cuantas conversaciones nuevas van a entrar cada semana.\n\nSi tiene sentido, les muestro en 10 minutos como lo estan trabajando empresas parecidas, y ven si aplica o no a su caso.\n\nQuedo atento,\nEmiliano\nEquipo EJE\ncontacto@ejetheagency.com",
+    "readyToSend": true,
+    "_specAnchors": [
+      "brand:nearshore",
+      "summary:nearshore"
+    ],
+    "_specReason": "specific",
+    "source_date": "2026-05-07",
+    "approved": true
+  }
+]

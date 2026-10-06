@@ -1,0 +1,962 @@
+[
+  {
+    "companyName": "Cinestación",
+    "website": "https://cinestacion.cl",
+    "country": "Chile",
+    "industry": "film",
+    "_seedSource": true,
+    "_seedConfidence": "high",
+    "searchQuery": "SEED:Cinestación",
+    "summary": "Cinestación is a production company.",
+    "notableClients": [
+      "Facebook"
+    ],
+    "recentProjects": [
+      "by Cinestación",
+      "del 35o",
+      "será presentada por el director"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 8,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": "Cinestación es una productora audiovisual chilena de 6 personas que trabaja con marcas reconocidas. Están presentando proyectos dirigidos internamente con marca propia.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola equipo de Cinestación! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Cinestación y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que están desarrollando proyectos propios como 'del 35o' mientras atienden clientes corporativos, dos tipos de producciones con estructuras de presupuesto completamente distintas.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 3,
+    "fitReasons": [
+      "multiple_projects",
+      "premium_clients",
+      "mid_size_team"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": null,
+    "contactLinkedIn": null,
+    "contactConfidence": "not_found",
+    "contactSource": null,
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/cinestacion/",
+    "instagramHandle": "cinestacion",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/240978191",
+    "contactPhone": "100597393",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "error": "Attempted to use detached Frame '9FBD3CEA3677DA7E0548BB07C4B83A5E'."
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": []
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": null,
+        "gmbOwner": null
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": null,
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 8
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": []
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "email_error": "Navigation timeout of 8000 ms exceeded"
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/cinestacion/"
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "100597393"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": false,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "blog_error": "Navigation timeout of 8000 ms exceeded"
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/240978191"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": null,
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/cinestaci-n",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 6,
+    "contactVenues": 0,
+    "whoisCheckPending": true,
+    "contactPath": "ig_only",
+    "tier": "tier3",
+    "_streams": [
+      "ig",
+      "linkedin"
+    ],
+    "_streamCount": 2,
+    "_credibilitySignals": [
+      "operator-seed"
+    ],
+    "_credibilityPass": true,
+    "_credibilityReason": "seed_bypass",
+    "_domainCoherent": true,
+    "_domainCoherenceReason": "matched:domain-in-brand,brand-in-domain,firstword-in-domain,5char-prefix-match",
+    "instagramDM": "Hola! Vi su trabajo con marcas reconocidas y los proyectos propios que están desarrollando. Me imagino que manejar presupuestos entre cliente y producciones internas debe ser todo un tema. ¿Cómo lo organizan?",
+    "readyToSend": true,
+    "contactDecisionPower": "Bajo",
+    "contactWhyThisPerson": "Sin contacto identificado, probablemente fundador o socio que puede aprobar herramientas de producción.",
+    "whyThisLead": [
+      "Productora mid-size con múltiples proyectos (del 35o, by Cinestación) que necesita organización",
+      "Cliente demuestra capacidad de trabajar con marcas digitales exigentes",
+      "6 empleados es el tamaño perfecto para necesitar software pero poder implementarlo rápido"
+    ],
+    "actionBlock": [
+      "Conectar en y hacer engagement genuino con sus posts recientes",
+      "como canal primario por ser productora visual",
+      "Tono casual chileno, enfoque en eficiencia operacional"
+    ],
+    "conversationAngle": "Productoras como la suya que manejan proyectos propios y clientes al mismo tiempo necesitan separar muy bien los números para no mezclar presupuestos.",
+    "channelPriority": {
+      "primario": "Instagram",
+      "secundario": "WhatsApp",
+      "opcional": "LinkedIn"
+    },
+    "specificLine": "Vimos que están desarrollando proyectos propios como 'del 35o' mientras atienden clientes como Facebook, dos tipos de producciones con estructuras de presupuesto completamente distintas.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola equipo de Cinestación! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Cinestación y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que están desarrollando proyectos propios como 'del 35o' mientras atienden clientes corporativos, dos tipos de producciones con estructuras de presupuesto completamente distintas.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado equipo,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que están desarrollando proyectos propios como 'del 35o' mientras atienden clientes corporativos, dos tipos de producciones con estructuras de presupuesto completamente distintas.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": {
+      "paso1": "Seguir @cinestacion",
+      "paso2": "Dar like a sus ultimos 3 posts",
+      "paso3": "Comentar algo específico sobre la calidad visual o técnica de su último proyecto",
+      "dm": "Hola! Vi su trabajo con marcas reconocidas y los proyectos propios que están desarrollando. Me imagino que manejar presupuestos entre cliente y producciones internas debe ser todo un tema. ¿Cómo lo organizan?"
+    },
+    "whatsappMessage": "Hola desde EJE! Vimos el trabajo de Cinestación y nos llamó la atención cómo combinan proyectos propios con clientes. ¿Cómo manejan los presupuestos cuando tienen las dos cosas corriendo? Seguro tienen algún sistema interesante.",
+    "linkedinPlaybook": {
+      "connectionNote": "Productora chilena con proyectos interesantes, me gustaría conectar",
+      "followUp": "Hola! Vi que manejan tanto proyectos propios como trabajos para clientes. ¿Cómo organizan los presupuestos cuando tienen ambos tipos corriendo? Debe ser todo un desafío operacional."
+    },
+    "outreachSequence": [
+      "Dia 1: Seguir y engagement en",
+      "Dia 2: DM casual en preguntando por organización de presupuestos",
+      "Dia 4: de seguimiento si no responde IG",
+      "Dia 7: LinkedIn connection como último recurso"
+    ],
+    "keyInsight": "Productora con mix de trabajo propio y clientes necesita separar presupuestos claramente, pain point directo para UnaBase.",
+    "source_date": "2026-05-20",
+    "approved": false
+  },
+  {
+    "companyName": "Bengala",
+    "website": "https://bengalafilms.com",
+    "country": "Mexico",
+    "industry": "film",
+    "_seedSource": true,
+    "_seedConfidence": "operator-verified",
+    "searchQuery": "SEED:Bengala",
+    "summary": "Bengala is a production company.",
+    "notableClients": [],
+    "recentProjects": [
+      "by Bengala"
+    ],
+    "estimatedSize": "mid",
+    "unabaseScore": 5,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": "Bengala es una productora cinematográfica mexicana con 37 empleados enfocada en producción de contenido audiovisual. Operan desde México con presencia en redes sociales activa bajo @bengala_films.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola Ángel! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Bengala y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon 37 personas en el equipo, seguramente manejan varios proyectos de film en paralelo y el control de presupuestos en Excel se vuelve un dolor de cabeza cuando los ritmos de producción se cruzan.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": true,
+    "fitSignals": 1,
+    "fitReasons": [
+      "mid_size_team"
+    ],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "contactName": "Ángel Molero",
+    "contactTitle": "fundador",
+    "contactEmail": null,
+    "contactLinkedIn": null,
+    "contactConfidence": "not_found",
+    "contactSource": null,
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/bengala_films/",
+    "instagramHandle": "bengala_films",
+    "instagramBio": null,
+    "instagramFollowers": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/352149831",
+    "contactPhone": "809-690-5655",
+    "emailPatterns": [
+      "angel@bengalafilms.com",
+      "angel.molero@bengalafilms.com",
+      "a.molero@bengalafilms.com"
+    ],
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 14,
+        "personalEmails": [],
+        "genericEmails": [],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": null,
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null
+        }
+      },
+      {
+        "step": 4,
+        "name": "News/Press",
+        "started": true
+      },
+      {
+        "step": 4,
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": 5,
+        "name": "LinkedIn DDG",
+        "started": true
+      },
+      {
+        "step": 5,
+        "found": "nothing"
+      },
+      {
+        "step": 6,
+        "name": "DDG Email",
+        "started": true
+      },
+      {
+        "step": 6,
+        "emails": [
+          "ctanosservicios@fuimosbengala.com"
+        ]
+      },
+      {
+        "step": "A",
+        "name": "Industry DBs",
+        "started": true
+      },
+      {
+        "step": "A",
+        "name": null,
+        "emails": []
+      },
+      {
+        "step": "B",
+        "name": "Press/Awards",
+        "started": true
+      },
+      {
+        "step": "B",
+        "name": "Ángel Molero",
+        "emails": []
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": null,
+        "igHandle": null,
+        "igFollowers": null,
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "C",
+        "name": "Extra Social",
+        "started": true
+      },
+      {
+        "step": "C",
+        "tiktokEmail": null,
+        "waPhone": null,
+        "gmbPhone": "809-690-5655",
+        "gmbOwner": null
+      },
+      {
+        "step": "D",
+        "name": "Name→Email",
+        "started": true
+      },
+      {
+        "step": "D",
+        "patterns": [
+          "angel@bengalafilms.com",
+          "angel.molero@bengalafilms.com",
+          "a.molero@bengalafilms.com"
+        ],
+        "via": "pattern"
+      },
+      {
+        "step": 9,
+        "name": "Hunter Find",
+        "started": true
+      },
+      {
+        "step": 9,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": "ig_exhaustive",
+        "handle": "bengala___",
+        "followers": null,
+        "email": null,
+        "phone": null,
+        "triedHandles": 6
+      },
+      {
+        "step": "phone_exhaustive",
+        "found": [
+          "809-690-5655"
+        ]
+      },
+      {
+        "step": "ig_verify",
+        "handle": "bengala___",
+        "verified": false,
+        "reason": "fetch_error:Attempted to use detached Frame 'A4AB2B6BADF86860728B12D0B28",
+        "evidence": []
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_ig": "https://www.instagram.com/bengala.healthy/"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": false,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Ángel Molero"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/352149831"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": null,
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": false,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Ángel Molero"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/352149831"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": null,
+          "additional": 0,
+          "upgraded": false
+        }
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": false,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "Ángel Molero"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/352149831"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": null,
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/bengalainmobiliaria",
+    "apolloCompanyPhone": "123-456-7890",
+    "apolloEmployeeCount": 37,
+    "contactVenues": 1,
+    "_igVerificationReason": "operator-verified-seed",
+    "whoisCheckPending": true,
+    "_igVerified": true,
+    "_igVerificationEvidence": [
+      "bio:brand",
+      "title:brand"
+    ],
+    "_igVerifiedManually": true,
+    "contactPath": "ig_only",
+    "tier": "tier3",
+    "_streams": [
+      "ig",
+      "linkedin"
+    ],
+    "_streamCount": 2,
+    "_credibilitySignals": [
+      "operator-seed"
+    ],
+    "_credibilityPass": true,
+    "_credibilityReason": "seed_bypass",
+    "_domainCoherent": true,
+    "_domainCoherenceReason": "matched:brand-in-domain,firstword-in-domain,5char-prefix-match",
+    "instagramDM": "Hola Ángel! Soy Scarlett de EJE. Vi que Bengala maneja varias producciones simultáneas - seguramente conocés el dolor de organizar presupuestos entre proyectos. ¿Te interesaría ver cómo otras productoras están resolviendo esto?",
+    "readyToSend": true,
+    "contactDecisionPower": "Alto",
+    "contactWhyThisPerson": "Como fundador de Bengala, Ángel tiene autoridad directa sobre decisiones de herramientas operacionales y presupuestación.",
+    "whyThisLead": [
+      "Productora mid-size con 37 empleados indica múltiples proyectos simultáneos que requieren control presupuestario",
+      "Escala de operación sugiere presupuestos complejos que exceden capacidades de Excel",
+      "Fundador accesible con pain point directo en organización financiera de producciones"
+    ],
+    "actionBlock": [
+      "Contactar hoy vía aprovechando número disponible",
+      "Seguir en @bengala_films para generar awareness",
+      "Usar tono profesional pero directo, enfocado en eficiencia operacional"
+    ],
+    "conversationAngle": "Con 37 personas y múltiples producciones corriendo, seguramente tienen el dolor de coordinar presupuestos entre proyectos sin perderse en hojas de Excel infinitas.",
+    "channelPriority": {
+      "primario": "WhatsApp",
+      "secundario": "Instagram DM",
+      "opcional": "LinkedIn"
+    },
+    "specificLine": "Con 37 personas en el equipo, seguramente manejan varios proyectos de film en paralelo y el control de presupuestos en Excel se vuelve un dolor de cabeza cuando los ritmos de producción se cruzan.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola Ángel! Como estas? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Bengala y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon 37 personas en el equipo, seguramente manejan varios proyectos de film en paralelo y el control de presupuestos en Excel se vuelve un dolor de cabeza cuando los ritmos de producción se cruzan.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado/a Ángel,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nCon 37 personas en el equipo, seguramente manejan varios proyectos de film en paralelo y el control de presupuestos en Excel se vuelve un dolor de cabeza cuando los ritmos de producción se cruzan.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": {
+      "paso1": "Seguir @bengala_films",
+      "paso2": "Dar like a sus ultimos 3 posts",
+      "paso3": "Comentar algo como 'Excelente producción, se nota el nivel de detalle'",
+      "dm": "Hola Ángel! Soy Scarlett de EJE. Vi que Bengala maneja varias producciones simultáneas - seguramente conocés el dolor de organizar presupuestos entre proyectos. ¿Te interesaría ver cómo otras productoras están resolviendo esto?"
+    },
+    "whatsappMessage": "Hola Ángel, soy Scarlett de EJE. Vi que Bengala tiene un equipo sólido de 37 personas - seguramente manejan múltiples producciones y conocés el dolor de coordinar presupuestos entre proyectos. ¿Te interesa ver cómo otras productoras están organizando esto de forma más eficiente?",
+    "linkedinPlaybook": {
+      "connectionNote": "Hola Ángel, me interesa conectar sobre temas de producción audiovisual",
+      "followUp": "Gracias por conectar! Con la escala que maneja Bengala, seguramente conocés el desafío de organizar presupuestos entre múltiples producciones. Me gustaría mostrarte cómo otras productoras están resolviendo esto."
+    },
+    "outreachSequence": [
+      "Dia 1: directo con mensaje personalizado",
+      "Dia 2: Follow en + engagement con posts",
+      "Dia 4: DM en si no responde",
+      "Dia 7: Conexión LinkedIn como último recurso"
+    ],
+    "keyInsight": "Fundador accesible con número directo, escala mid-size perfecta para UnaBase, y pain point obvio de coordinación presupuestaria.",
+    "source_date": "2026-05-20",
+    "approved": false
+  },
+  {
+    "companyName": "Wood Producciones",
+    "website": "https://woodproducciones.cl",
+    "country": "Chile",
+    "industry": "film",
+    "_seedSource": true,
+    "_seedConfidence": "operator-verified",
+    "searchQuery": "SEED:Wood Producciones",
+    "summary": "Woodproducciones materializa ideas creativas en proyectos de calidad para cine tv y publicidad",
+    "notableClients": [],
+    "recentProjects": [
+      "Los 80"
+    ],
+    "estimatedSize": "small",
+    "unabaseScore": 3,
+    "scopeVerified": true,
+    "scopeSignals": 4,
+    "scopeLabel": "entertainment",
+    "entertainmentVerified": true,
+    "entertainmentSignals": 4,
+    "nicheVerified": true,
+    "nicheReason": "niche_confirmed",
+    "ejeSignals": [],
+    "companyBrief": "Wood Producciones es una productora chilena que materializa ideas creativas para cine, TV y publicidad, con un equipo de 17 personas. Tienen presencia sólida en redes con 14K seguidores en y están involucrados en producciones como 'Los 80'.",
+    "approachAngle": null,
+    "pitchEmailES": "Hola equipo de Wood Producciones! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Wood Producciones y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que manejan producción para cine, TV y publicidad simultáneamente, tres formatos con estructuras presupuestarias y ritmos de caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "pitchEmailEN": null,
+    "fitVerified": false,
+    "fitSignals": 0,
+    "fitReasons": [],
+    "ejeScores": null,
+    "scoringPass": true,
+    "scoringReason": "scoring_not_configured",
+    "contactName": null,
+    "contactTitle": null,
+    "contactEmail": null,
+    "contactLinkedIn": null,
+    "contactConfidence": null,
+    "contactSource": null,
+    "contactStatus": null,
+    "instagramUrl": "https://www.instagram.com/woodproducciones/",
+    "instagramHandle": "woodproducciones",
+    "instagramBio": "See Instagram photos and videos from ᴡᴏᴏᴅ 🎬 (@woodproducciones)",
+    "instagramFollowers": "14K",
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "youtubeUrl": null,
+    "vimeoUrl": "https://vimeo.com/442914571",
+    "contactPhone": "300077225",
+    "emailPatterns": null,
+    "scoutLog": [
+      {
+        "step": 1,
+        "name": "Apollo Pro",
+        "started": true
+      },
+      {
+        "step": 1,
+        "found": "org_only",
+        "name": null
+      },
+      {
+        "step": 2,
+        "name": "Hunter.io",
+        "started": true
+      },
+      {
+        "step": 2,
+        "error": "Request failed with status code 429"
+      },
+      {
+        "step": 3,
+        "name": "Website Crawl",
+        "started": true
+      },
+      {
+        "step": 3,
+        "pagesScanned": 16,
+        "personalEmails": [
+          "susana.parra@awood.cl",
+          "luis@awood.cl",
+          "judith@awood.cl",
+          "max@mariawood.cl",
+          "millaray@awood.cl"
+        ],
+        "genericEmails": [
+          "contacto@awood.cl",
+          "info@woodproducciones.cl"
+        ],
+        "phones": [],
+        "name": null,
+        "social": {
+          "instagram": "https://www.instagram.com/woodproducciones/",
+          "facebook": null,
+          "twitter": null,
+          "youtube": null,
+          "vimeo": null,
+          "instagramScore": 3
+        }
+      },
+      {
+        "step": 8,
+        "name": "Social Scan",
+        "started": true
+      },
+      {
+        "step": 8,
+        "igUrl": "https://www.instagram.com/woodproducciones/",
+        "igHandle": "woodproducciones",
+        "igFollowers": "14K",
+        "socialEmail": null,
+        "socialPhone": null
+      },
+      {
+        "step": "deep_rescue",
+        "started": true
+      },
+      {
+        "step": "deep_rescue",
+        "found_email": "contacto@awood.cl",
+        "pages_crawled": 19
+      },
+      {
+        "step": "deep_rescue",
+        "found_phone": "300077225"
+      },
+      {
+        "step": "deep_rescue",
+        "final": {
+          "email": true,
+          "ig": true,
+          "phone": true
+        }
+      },
+      {
+        "step": "founder_recovery",
+        "started": true,
+        "name": "(none)"
+      },
+      {
+        "step": "founder_recovery",
+        "company_ig_tagged": []
+      },
+      {
+        "step": "alt_paths",
+        "started": true
+      },
+      {
+        "step": "alt_paths",
+        "vimeo": "https://vimeo.com/442914571"
+      },
+      {
+        "step": "alt_paths",
+        "done": true,
+        "additional_found": 0
+      },
+      {
+        "step": "founder_recovery",
+        "final": {
+          "email": null,
+          "additional": 0,
+          "upgraded": false
+        }
+      }
+    ],
+    "apolloCompanyLinkedIn": "http://www.linkedin.com/company/wood-producciones",
+    "apolloCompanyPhone": null,
+    "apolloEmployeeCount": 17,
+    "_igVerified": true,
+    "_igVerificationEvidence": [
+      "website-linked"
+    ],
+    "_igVerificationReason": "operator-verified-seed",
+    "whoisCheckPending": true,
+    "_igVerifiedManually": true,
+    "contactPath": "ig_only",
+    "tier": "tier3",
+    "_streams": [
+      "ig",
+      "linkedin"
+    ],
+    "_streamCount": 2,
+    "_credibilitySignals": [
+      "operator-seed"
+    ],
+    "_credibilityPass": true,
+    "_credibilityReason": "seed_bypass",
+    "_domainCoherent": true,
+    "_domainCoherenceReason": "matched:domain-in-brand,brand-in-domain,firstword-in-domain,5char-prefix-match",
+    "instagramDM": "Hola! Vi su trabajo en Los 80 y me llamó la atención cómo manejan proyectos tan diversos (cine, TV, publicidad). ¿Cómo organizan los presupuestos cuando tienen varios formatos corriendo al mismo tiempo?",
+    "readyToSend": true,
+    "contactDecisionPower": "Bajo",
+    "contactWhyThisPerson": "Sin información del contacto específico, pero al ser una empresa pequeña de 17 personas, cualquier contacto directo probablemente tenga acceso a decisores.",
+    "whyThisLead": [
+      "Manejan múltiples formatos (cine, TV, publicidad) que requieren estructuras presupuestarias distintas",
+      "Empresa pequeña (17 empleados) con necesidad de eficiencia operacional",
+      "Productora multi-formato típicamente maneja varios proyectos simultáneos con complejidad presupuestaria"
+    ],
+    "actionBlock": [
+      "Contactar vía al 300077225 con mensaje casual",
+      "como canal secundario aprovechando sus 14K seguidores",
+      "Tono profesional pero directo, enfocado en eficiencia operacional"
+    ],
+    "conversationAngle": "Productoras como ustedes que manejan cine, TV y publicidad simultáneamente suelen tener el dolor de cuadrar presupuestos entre formatos con ritmos de caja completamente distintos.",
+    "channelPriority": {
+      "primario": "WhatsApp",
+      "secundario": "Instagram",
+      "opcional": "LinkedIn"
+    },
+    "specificLine": "Vimos que manejan producción para cine, TV y publicidad simultáneamente - tres formatos con estructuras presupuestarias y ritmos de caja completamente distintos.",
+    "observation": null,
+    "relevance": null,
+    "emailCercana": "Hola equipo de Wood Producciones! Como estan? Soy Scarlett del equipo de UnaBase.\n\nEstabamos viendo el trabajo que hacen en Wood Producciones y conectamos.\n\nTrabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que manejan producción para cine, TV y publicidad simultáneamente, tres formatos con estructuras presupuestarias y ritmos de caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nSaludos,\nScarlett\nEquipo UnaBase",
+    "emailFormal": "Estimado equipo,\n\nSoy Scarlett del equipo de UnaBase. Trabajamos con más de 300 empresas en la industria creativa, ayudandoles a ordenar y visualizar presupuestos de producción sin fricción, para productoras con múltiples proyectos en paralelo.\n\nVi que manejan producción para cine, TV y publicidad simultáneamente, tres formatos con estructuras presupuestarias y ritmos de caja completamente distintos.\n\nte muestro en 10 min cómo lo están usando otras productoras.\n\nQuedo atento,\nScarlett\nEquipo UnaBase",
+    "instagramPlaybook": {
+      "paso1": "Seguir @woodproducciones",
+      "paso2": "Dar like a sus últimos 3 posts",
+      "paso3": "Comentar algo específico sobre su trabajo multi-formato o el proyecto Los 80",
+      "dm": "Hola! Vi su trabajo en Los 80 y me llamó la atención cómo manejan proyectos tan diversos (cine, TV, publicidad). ¿Cómo organizan los presupuestos cuando tienen varios formatos corriendo al mismo tiempo?"
+    },
+    "whatsappMessage": "Hola! Soy Scarlett, trabajo con productoras audiovisuales. Vi que Wood maneja cine, TV y publicidad simultáneamente. ¿Cómo están organizando los presupuestos cuando tienen varios proyectos corriendo al mismo tiempo? Es un dolor súper común en la industria.",
+    "linkedinPlaybook": {
+      "connectionNote": "Hola! Me interesa conectar con productoras multi-formato como Wood Producciones.",
+      "followUp": "Gracias por conectar! Vi que manejan proyectos diversos desde cine hasta publicidad. Me gustaría conocer cómo organizan la parte presupuestaria con formatos tan distintos corriendo en paralelo."
+    },
+    "outreachSequence": [
+      "Día 1: Mensaje casual preguntando por organización presupuestaria",
+      "Día 2: Follow-up con like + comentario específico",
+      "Día 4: DM mencionando el trabajo multi-formato",
+      "Día 7: LinkedIn connection + mensaje sobre eficiencia presupuestaria"
+    ],
+    "keyInsight": "Productora multi-formato pequeña con necesidad clara de eficiencia en gestión presupuestaria entre proyectos diversos.",
+    "source_date": "2026-05-20",
+    "approved": false
+  }
+]

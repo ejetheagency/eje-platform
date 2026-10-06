@@ -1,0 +1,143 @@
+{
+  "domain": "woofilms.tv",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:34:40.981Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://woofilms.tv",
+        "https://woofilms.tv/contacto",
+        "https://woofilms.tv/contact",
+        "https://woofilms.tv/contact-us",
+        "https://woofilms.tv/nosotros",
+        "https://woofilms.tv/about",
+        "https://woofilms.tv/about-us",
+        "https://woofilms.tv/equipo",
+        "https://woofilms.tv/team",
+        "https://woofilms.tv/quienes-somos",
+        "https://woofilms.tv/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "ptoro@mrwoo.tv",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": false,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "vanessa@mrwoo.tv",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": false,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          },
+          {
+            "email": "rob@woofilms.tv",
+            "tier": "DERIVED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "apollo"
+            ],
+            "pages": 0
+          }
+        ],
+        "igs": [],
+        "linkedins": [],
+        "phones": [],
+        "dms": [
+          {
+            "name": "Pamela Toro Moreno",
+            "title": "Executive Producer",
+            "email": "ptoro@mrwoo.tv",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/pamela-toro-moreno-140b1728",
+            "source": "apollo"
+          },
+          {
+            "name": "Vanessa Castro",
+            "title": "Executive Producer",
+            "email": "vanessa@mrwoo.tv",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/vanessa-castro-b676a9a3",
+            "source": "apollo"
+          },
+          {
+            "name": "Veronica Novelo",
+            "title": "Executive Producer",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/veronica-novelo-3aa9438",
+            "source": "apollo"
+          },
+          {
+            "name": "Rob Cubero",
+            "title": "Executive Producer of Development",
+            "email": "rob@woofilms.tv",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/rob-cubero-79b78b6b",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "ptoro@mrwoo.tv",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": null,
+        "additionalContacts": [
+          {
+            "name": "Pamela Toro Moreno",
+            "title": "Executive Producer",
+            "email": "ptoro@mrwoo.tv",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/pamela-toro-moreno-140b1728",
+            "source": "apollo"
+          },
+          {
+            "name": "Vanessa Castro",
+            "title": "Executive Producer",
+            "email": "vanessa@mrwoo.tv",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/vanessa-castro-b676a9a3",
+            "source": "apollo"
+          },
+          {
+            "name": "Veronica Novelo",
+            "title": "Executive Producer",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/veronica-novelo-3aa9438",
+            "source": "apollo"
+          },
+          {
+            "name": "Rob Cubero",
+            "title": "Executive Producer of Development",
+            "email": "rob@woofilms.tv",
+            "email_status": "extrapolated",
+            "linkedin": "http://www.linkedin.com/in/rob-cubero-79b78b6b",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "ptoro@mrwoo.tv",
+          "current_contactName": "Pamela Toro Moreno",
+          "current_ig": "woofilmstv",
+          "current_status": null
+        }
+      }
+    }
+  ]
+}

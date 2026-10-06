@@ -1,0 +1,146 @@
+{
+  "domain": "altanafilms.com",
+  "runs": [
+    {
+      "collectedAt": "2026-05-28T21:38:11.820Z",
+      "method": "puppeteer+cheerio",
+      "apollo": true,
+      "pagesVisited": [
+        "https://altanafilms.com",
+        "https://altanafilms.com/contacto",
+        "https://altanafilms.com/contact",
+        "https://altanafilms.com/contact-us",
+        "https://altanafilms.com/nosotros",
+        "https://altanafilms.com/about",
+        "https://altanafilms.com/about-us",
+        "https://altanafilms.com/equipo",
+        "https://altanafilms.com/team",
+        "https://altanafilms.com/quienes-somos",
+        "https://altanafilms.com/somos"
+      ],
+      "candidates": {
+        "emails": [
+          {
+            "email": "pedro@altanafilms.com",
+            "tier": "VERIFIED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible",
+              "apollo"
+            ],
+            "pages": 1
+          },
+          {
+            "email": "info@altanafilms.com",
+            "tier": "PUBLISHED",
+            "isRole": true,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 2
+          },
+          {
+            "email": "julieta@altanafilms.com",
+            "tier": "PUBLISHED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 1
+          },
+          {
+            "email": "ebacher@altanafilms.com",
+            "tier": "PUBLISHED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "mailto",
+              "visible"
+            ],
+            "pages": 1
+          },
+          {
+            "email": "webmaster@altanafilms.com",
+            "tier": "CORROBORATED",
+            "isRole": false,
+            "domainMatch": true,
+            "methods": [
+              "visible"
+            ],
+            "pages": 9
+          }
+        ],
+        "igs": [
+          {
+            "handle": "altanafilms",
+            "tier": "PUBLISHED",
+            "footerCanonical": true,
+            "sources": [
+              "https://altanafilms.com",
+              "https://altanafilms.com/contact"
+            ]
+          }
+        ],
+        "linkedins": [],
+        "phones": [],
+        "dms": [
+          {
+            "name": "Enrique Bacher",
+            "title": "Owner",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/enrique-bacher-4a268a1a",
+            "source": "apollo"
+          },
+          {
+            "name": "Pedro Cannavo",
+            "title": "Head of Production",
+            "email": "pedro@altanafilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/pedro-cannav%c3%b3-88413225",
+            "source": "apollo"
+          }
+        ]
+      },
+      "proposal": {
+        "note": "REPORT-ONLY — not applied. Requires safety-gate approval.",
+        "primaryEmailCandidate": {
+          "email": "pedro@altanafilms.com",
+          "tier": "VERIFIED",
+          "role": false
+        },
+        "canonicalIG": "altanafilms",
+        "additionalContacts": [
+          {
+            "name": "Enrique Bacher",
+            "title": "Owner",
+            "email": null,
+            "email_status": "unavailable",
+            "linkedin": "http://www.linkedin.com/in/enrique-bacher-4a268a1a",
+            "source": "apollo"
+          },
+          {
+            "name": "Pedro Cannavo",
+            "title": "Head of Production",
+            "email": "pedro@altanafilms.com",
+            "email_status": "verified",
+            "linkedin": "http://www.linkedin.com/in/pedro-cannav%c3%b3-88413225",
+            "source": "apollo"
+          }
+        ],
+        "vsCurrent": {
+          "current_contactEmail": "pedro@altanafilms.com",
+          "current_contactName": "Pedro Cannavo",
+          "current_ig": "altanafilms",
+          "current_status": null
+        }
+      }
+    }
+  ]
+}
