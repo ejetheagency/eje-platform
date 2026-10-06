@@ -61,6 +61,26 @@ def passes_lead_row(row):
     return real_website(ld.get("website") or (row.get("id") or ""))
 
 
+def enforce_ready_invariant(client_id=None):
+    """Operator rule: a shippable (READY) card with NO verified email must NOT exist. It either goes BACK to the
+    factory (PARKED -> re-enrich, when there is a named decisor to find an email for) or to the TRASH (DISCARDED,
+    when there is no decisor = dead). Keeps the factory-side READY state honest so a no-email card can never leak."""
+    from factory.packages import lead_state
+    q = ("client_id=eq.%s&" % client_id if client_id else "") + "state=eq.READY&select=id,contact_id"
+    recirc = trashed = 0
+    for r in db.select_all("client_leads", q):
+        ct = (db.select("contacts", "id=eq.%s&select=full_name,email,email_status" % r["contact_id"]) or [{}])[0] if r.get("contact_id") else {}
+        if passes_contact(ct):
+            continue
+        if (ct.get("full_name") or "").strip():
+            lead_state.move(r["id"], "PARKED", reason="invariant: READY without verified email -> back to factory")
+            recirc += 1
+        else:
+            lead_state.move(r["id"], "DISCARDED", reason="invariant: READY without decisor+email -> trash")
+            trashed += 1
+    return {"client_id": client_id or "ALL", "recirculated": recirc, "trashed": trashed}
+
+
 def clean_surface(client_id):
     """Scrub the client-facing `leads` table: DELETE pure junk (no decisor AND no email), HOLD the partially-complete
     (future-date so they never show/release until finished) — so the client view only ever contains TSA-passing leads."""

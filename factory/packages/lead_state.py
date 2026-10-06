@@ -17,7 +17,7 @@ ALLOWED = {
     "T2_ENRICHING": {"GATE_CHECK", "DISCARDED"},   # DISCARDED = excluded chain/franchise caught at Gate A
     "GATE_CHECK":   {"READY", "T1_ENRICHING", "T3_REASONING", "PARKED"},
     "T3_REASONING": {"GATE_CHECK"},
-    "READY":        {"DELIVERED"},
+    "READY":        {"DELIVERED", "PARKED", "DISCARDED"},  # TSA re-inspection can send a bad READY back to the factory or trash
     "PARKED":       {"T1_ENRICHING", "GATE_CHECK"},  # re-enrich OR re-gate (e.g. email just got verified)
     "DISCARDED":    set(),
     "DELIVERED":    set(),

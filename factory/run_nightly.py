@@ -68,6 +68,11 @@ def run(client=None, max_leads=None):
         out["sends_reconciled"] = reconcile_sends.reconcile(client="eje", apply=True).get("recorded", 0)
     except Exception:
         pass
+    try:  # INVARIANT: no READY (shippable) card may exist without a verified email -> back to factory or trash.
+        from factory.workers import tsa
+        out["ready_invariant"] = tsa.enforce_ready_invariant(client_id=client)
+    except Exception as e:
+        out["ready_invariant"] = {"error": str(e)[:150]}
     reps = reports.build_all() if not client else [reports.build(client)]
     out["reports"] = {r["client_id"]: r["count"] for r in reps}
     try:  # bridge: publish READY factory leads -> the `leads` table the app reads (contact cards for full-access clients)
