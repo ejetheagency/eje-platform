@@ -7,9 +7,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 from factory import run_nightly
 
-VERSION = "2026-10-06-2upexc"  # bump each deploy to verify it landed via /health
+VERSION = "2026-10-06-miami2am"  # bump each deploy to verify it landed via /health
 PORT = int(os.environ.get("PORT", "8080"))
-RUN_HOUR_UTC = int(os.environ.get("FACTORY_RUN_HOUR_UTC", "9"))
+# Nightly run at 2 AM Miami (operator's night). 06:00 UTC = 2 AM EDT / 1 AM EST — deep night Miami year-round,
+# and well before the 8 AM Ecuador report SLA (06:00 UTC = 1 AM Ecuador). Override per-env with FACTORY_RUN_HOUR_UTC.
+RUN_HOUR_UTC = int(os.environ.get("FACTORY_RUN_HOUR_UTC", "6"))
 RUN_SECRET = os.environ.get("FACTORY_RUN_SECRET", "")
 _state = {"version": VERSION, "last_run": None, "last_result": None, "running": False, "run_hour_utc": RUN_HOUR_UTC}
 _last_run_date = None
