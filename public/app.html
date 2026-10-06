@@ -1151,6 +1151,11 @@
     function fmtDur(ms){ ms=Math.abs(ms); var d=Math.floor(ms/DAY),h=Math.floor((ms%DAY)/36e5),m=Math.floor((ms%36e5)/6e4);
       if(d>=1) return d+'d'+(h?' '+h+'h':''); if(h>=1) return h+'h'+(m?' '+m+'m':''); return (m||1)+'m'; }
     function firstName(l){ return (l.contactName||'').split(/\s+/)[0]||''; }
+    // TSA (client surface): a company with NO real website OR NO email is NOT shippable. A synthetic '2up-' slug / no-TLD is NOT a website.
+    var _BADHOST={'facebook.com':1,'instagram.com':1,'linkedin.com':1,'twitter.com':1,'x.com':1,'tiktok.com':1,'wa.me':1,'whatsapp.com':1,'linktr.ee':1,'sites.google.com':1,'wixsite.com':1,'bit.ly':1,'youtube.com':1};
+    function _realDom(d){ d=(d||'').toLowerCase().replace(/^www\./,''); return !!d && d.indexOf('2up-')!==0 && d.indexOf(' ')<0 && /^[a-z0-9][a-z0-9-]*(\.[a-z0-9-]+)*\.[a-z]{2,}$/.test(d) && !_BADHOST[d]; }
+    function _realWebsite(w){ return _realDom((w||'').toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0]); }
+    function _shippable(l){ return !!(l.contactName||l.decisor) && !!l.contactEmail && !l.emailBounced && _realWebsite(l.website||l._key||''); }
     // TEMPLATE FLOOR: a card must NEVER show an empty message. If a lead has a per-lead template stored (lead_data
     // .sectorTemplate, set by the factory from the client's icp_config), merge it; else a warm generic merge. The
     // AI-composed pitch (pitchEmailES) always wins when present -- this is only the floor so nothing renders blank.
@@ -1445,7 +1450,7 @@
       else { var tdc=ejeTodayET(); rep=rep.filter(function(l){ var sd=l.source_date||'';
         // DAILY REPORT SLA: exactly TODAY's dated batch (no carry-forward pile, no future) = 20/day, no more no less.
         // + TSA surface guard: a CLIENT never sees a lead without a named decisor AND an email. Non-negotiable.
-        return sd===tdc && !!(l.contactName||l.decisor) && !!l.contactEmail; }); dstr=tdc; }
+        return sd===tdc && _shippable(l); }); dstr=tdc; }
       // Dedup by canonical key (domain): a lead must never show twice, even if a send ever wrote a second row.
       var _sk={}; rep=rep.filter(function(l){var k=decDom(l.website)||l.id||l.companyName; if(_sk[k])return false; _sk[k]=1; return true;});
       rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
@@ -1659,6 +1664,7 @@
     function norm2(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
     function render(){
       var src=(UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)||[]);
+      if(!ISEJE) src=src.filter(_shippable);  // TSA: clients never see a lead without real website + email + decisor
       if(!src.length){return;}
       var si=document.getElementById('dec-search'); var q=norm2(si?si.value:'');
       var pairs=src.filter(function(l){ if(!q)return true;
@@ -1672,7 +1678,7 @@
           +'<span class="dec-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</span>'
           +'<span class="dec-main"><span class="dec-co">'+esc(l.companyName)+'</span>'
           +'<span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
-          +'<span class="dec-ch">'+ch+'</span>'+(l.website?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')
+          +'<span class="dec-ch">'+ch+'</span>'+((l.website&&_realWebsite(l.website))?'<span class="dec-ext" data-url="'+esc(l.website)+'" title="Abrir sitio actual">↗</span>':'')
           +statusChip(l)
           +'<span class="dec-score">'+esc(l.score||'')+'</span></button>';
       }).join('')||'<div class="tq-empty">Sin resultados.</div>';
@@ -1722,7 +1728,7 @@
         +'</div><div class="c-body"><div class="c-rail">'
         +rrow('Decisor',esc(l.contactName||'—'))
         +rrow('Email',l.contactEmail?'<a class="link" href="mailto:'+esc(l.contactEmail)+'">'+esc(l.contactEmail)+'</a>':'—')
-        +(l.website?rrow('Sitio web','<a class="link ext" href="'+esc(l.website)+'" target="_blank" rel="noopener">'+esc(decDom(l.website)||l.website)+' ↗</a>'):'')
+        +((l.website&&_realWebsite(l.website))?rrow('Sitio web','<a class="link ext" href="'+esc(l.website)+'" target="_blank" rel="noopener">'+esc(decDom(l.website)||l.website)+' ↗</a>'):'')
         +(l.instagramHandle?rrow('Instagram','<a class="link ext" href="https://instagram.com/'+esc(l.instagramHandle)+'" target="_blank" rel="noopener">@'+esc(l.instagramHandle)+(l.instagramFollowers?' · '+fmtK(l.instagramFollowers):'')+' ↗</a>'):'')
         +(credits.length?rrow('Créditos',esc(credits.slice(0,2).join(' · '))):'')
         +rrow('País',flag(l.country)+' '+esc(l.country))

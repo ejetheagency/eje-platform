@@ -5,6 +5,7 @@
 # fail at max cycles -> PARKED. LLM-for-ambiguous escalation (T3) is a later phase.
 import json, os
 from factory.packages import db, lead_state
+from factory.workers import tsa
 
 MAX_CYCLES = 3
 _TH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "thresholds.json")
@@ -64,7 +65,7 @@ def _run_one(cl):
     min_ch, req_ch = _channels_cfg(cl["client_id"])
     gates = [
         ("company_name",    bool(co.get("name"))),
-        ("web_presence",    bool(co.get("website") or co.get("domain") or co.get("instagram") or co.get("linkedin"))),
+        ("real_website",    tsa.real_website(co.get("website") or "") or tsa.real_domain(co.get("domain") or "")),
         ("decision_maker",  bool(ct.get("full_name"))),
         ("email_deliverable", bool(ct.get("email")) and ct.get("email_status") not in ("invalid", "bounced")),
         # VERIFIED (email_verified_at) or VERIFIED_SOFT (catch-all whose identity is corroborated) or ICP allows catch-all.

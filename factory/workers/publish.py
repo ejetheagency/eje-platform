@@ -59,7 +59,7 @@ def publish(client_id, report_date=None):
         co = (db.select("companies",
                         "id=eq.%s&select=name,domain,website,instagram,linkedin,brief,logo_url,country,industry" % cl["company_id"]) or [{}])[0]
         dom = (co.get("domain") or "").lower().strip()
-        if not dom or dom in GENERIC_DOMAINS:  # a lead keyed by facebook.com/instagram.com etc. is junk data, not a company
+        if not dom or dom in GENERIC_DOMAINS or (tsa and not tsa.real_domain(dom)):  # TSA: no REAL website -> not shippable
             skipped += 1
             continue
         ct = {}

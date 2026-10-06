@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 from factory import run_nightly
 
-VERSION = "2026-10-06-tsa-hardgate"  # bump each deploy to verify it landed via /health
+VERSION = "2026-10-06-shipgate"  # bump each deploy to verify it landed via /health
 PORT = int(os.environ.get("PORT", "8080"))
 RUN_HOUR_UTC = int(os.environ.get("FACTORY_RUN_HOUR_UTC", "9"))
 RUN_SECRET = os.environ.get("FACTORY_RUN_SECRET", "")
