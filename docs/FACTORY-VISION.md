@@ -20,6 +20,40 @@ The visual: ~100 of the most capable people, each at full potential, collaborati
 
 ---
 
+## 0b. THE CIRCLE (the governing shape — every mechanism serves this)
+
+The factory is a **closed loop, not a pipeline.** A lead enters the circle and keeps moving around it,
+accumulating evidence, until it earns one of exactly **two sanctioned exits — and no other way out exists:**
+
+1. **Fully enriched → READY/DELIVERED** (out the "win" door).
+2. **Proven useless → DISCARDED, WITH recorded cause** (out the "proven" door).
+
+Everything in between **re-circulates.** A lead that fails a gate is not dropped — it loops back for another
+enrichment pass down a *different* route. **"Leaks only where they are needed"** means the only places a lead
+leaves the circle are those two doors; any other exit is a bug, not a design.
+
+**The two laws that make this real:**
+
+- **No premature death.** A lead may not be proclaimed useless on thin evidence. Discard requires BOTH (a) a
+  genuine TSA failure after honest attempts (no real website AND no findable email AND no decisor, per the
+  client's ICP), AND (b) a recorded cause (`hold_reason` / `quality_flags`). **A cycle-0, score-below-floor,
+  no-reason discard is forbidden** — that lead has no evidence yet; it must loop, not leave.
+- **Evidence density = priority.** The more evidence we already hold on a lead (findings count, cycles survived,
+  signals), the **higher** its priority to finish — it is closest to READY and carries the most sunk work. The
+  queue pulls high-evidence leads first; it never scores a lead *down* for data we simply have not mined yet.
+
+**Why this is also the yield fix (not just philosophy):** 20-READY/client/night is gated by *conversion*, not
+sourcing. Every premature leak (terminal cycle-0 discard, a parked lead that can't loop back, a found email never
+promoted) is conversion thrown away. Sealing the circle's illegitimate leaks raises conversion directly; the
+route-yield brain then optimizes *which* route each re-circulation should take. Brain-over-leaky-pipe only
+optimizes the leak.
+
+**Evidence snapshot (2026-10-06, the leaks found):** reenrich_parked was 400-erroring every night (parked leads
+couldn't loop — FIXED); 116/183 2uplatam discards were cycle-0 terminal with no cause (illegitimate leaks);
+195/395 leads never cycled once. The factory was linear-with-early-exit. Making it circular is the active build.
+
+---
+
 ## 1. Departments → what each one IS in the system
 
 Legend: **[exists]** today · **[partial]** some pieces exist · **[to build]** the real work ahead.
