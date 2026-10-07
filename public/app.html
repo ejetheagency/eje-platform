@@ -1239,8 +1239,16 @@
       // Plain mailto: fast, opens the browser's default mail handler with the message ready. To get the small
       // Gmail compose popup (WITH signature) instead of Apple Mail, set Chrome/Gmail as the OS default mail handler.
       var _mt=l.contactEmail?('mailto:'+l.contactEmail+(ISEJE?('?subject='+encodeURIComponent(_subj)+'&body='+encodeURIComponent(dd.text)):'')):'';
-      return {ch:'email',title:'Playbook · Email',target:l.contactEmail||'—',link:_mt,
-        steps:['Redactá a '+(l.contactEmail||'—')+(l.companyEmail?(' (CC '+l.companyEmail+')'):'')+'.','Pegá el borrador de abajo, revisá nombre y empresa.',(c.kind==='first'?'Enviá el primer email.':'Enviá el seguimiento — tono corto, un solo ask: la llamada.')],
+      // 2uplatam has no desktop mail client wired, so mailto: opens nothing -> open his Titan webmail instead.
+      // The send button already copies the draft; he pastes it into a new compose and sends to the email shown.
+      var _emLink=(EJE_CLIENT==='2uplatam')?'https://secureserver.titan.email/mail/':_mt;
+      var _emSteps=(EJE_CLIENT==='2uplatam')
+        ?['El borrador ya quedó copiado al tocar enviar. Se abre tu correo Titan en otra pestaña.',
+          'En Titan: Redactar → pegá el borrador. Para: '+(l.contactEmail||'—')+(_subj?('. Asunto: '+_subj):'')+'.',
+          (c.kind==='first'?'Revisá nombre y empresa, y enviá el primer email.':'Enviá el seguimiento — tono corto, un solo ask: la llamada.')]
+        :['Redactá a '+(l.contactEmail||'—')+(l.companyEmail?(' (CC '+l.companyEmail+')'):'')+'.','Pegá el borrador de abajo, revisá nombre y empresa.',(c.kind==='first'?'Enviá el primer email.':'Enviá el seguimiento — tono corto, un solo ask: la llamada.')];
+      return {ch:'email',title:'Playbook · Email',target:l.contactEmail||'—',link:_emLink,
+        steps:_emSteps,
         draft:dd.text}; }
     function loadUniverse(){
       if(!window.__ejeSB) return Promise.resolve();
@@ -1542,7 +1550,7 @@
           var sub=document.getElementById('rep-sub'); if(sub&&d&&d.report_date) sub.textContent='Reporte del '+d.report_date+' · listos para contactar.';
           if(!leads.length){ host.innerHTML='<div class="seg-empty"><div class="t">Tu reporte se está construyendo</div>Cada noche el sistema busca, verifica y prepara leads premium con el decisor y un mensaje listo. Vuelve pronto.</div>'; return; }
           host.innerHTML='<div class="rep-head"><div class="rep-h-t">Leads premium listos para contactar</div><div class="rep-h-s">'+leads.length+' leads · '+(st.with_email||0)+' con email verificado · '+(st.pitch_ready||0)+' con mensaje listo</div></div><div class="rep-grid">'+leads.map(repCard).join('')+'</div>';
-          host.querySelectorAll('.rep-send').forEach(function(b){ b.addEventListener('click',function(){ try{navigator.clipboard.writeText(b.dataset.pitch||'');}catch(e){} var ch=b.dataset.ch,em=b.dataset.email,ig=b.dataset.ig; var link=(ch==='instagram'&&ig)?('https://instagram.com/'+ig):(em?('mailto:'+em):''); if(link) window.open(link,'_blank','noopener'); b.textContent='Copiado ✓'; b.classList.add('done'); }); });
+          host.querySelectorAll('.rep-send').forEach(function(b){ b.addEventListener('click',function(){ try{navigator.clipboard.writeText(b.dataset.pitch||'');}catch(e){} var ch=b.dataset.ch,em=b.dataset.email,ig=b.dataset.ig; var _eml=(EJE_CLIENT==='2uplatam')?'https://secureserver.titan.email/mail/':(em?('mailto:'+em):''); var link=(ch==='instagram'&&ig)?('https://instagram.com/'+ig):_eml; if(link) window.open(link,'_blank','noopener'); b.textContent='Copiado ✓'; b.classList.add('done'); }); });
         }).catch(function(){ host.innerHTML='<div class="tq-empty" style="padding:14px 4px">No pude cargar el reporte. Reintentá.</div>'; });
     }
     function renderSeguimiento(){
