@@ -933,8 +933,7 @@
           window.__ejeAuthed=true; window.__ejeEmail=em; window.__ejeToken=session.access_token;
           window.__ejeIsAdmin=!!me.isAdmin;
           if(me.isAdmin){var _no=document.getElementById('nav-ops'); if(_no) _no.style.display='flex';}
-          var _cc2up=false; try{_cc2up=(localStorage.getItem('eje_ws')==='2uplatam');}catch(e){}  // in-scope (CLIENTCLEAN lives in the other IIFE)
-          if(_cc2up){ document.querySelectorAll('[data-view="reporte"]').forEach(function(_rt){_rt.style.display='none';}); }  // "Reporte" no tiene sentido para el cliente
+          if(!me.isAdmin){ document.querySelectorAll('[data-view="reporte"]').forEach(function(_rt){_rt.style.display='none';}); }  // "Reporte" no tiene sentido para ningún cliente (solo admin)
           // A "library" client (e.g. eje_productoras) is a lead database/ASSET, not a profile you switch into.
           // Keep it OUT of the workspace switcher; expose it separately for the admin Lead Library view.
           var allWs=me.workspaces||[];
@@ -1095,7 +1094,7 @@
     var ISEJE=(EJE_CLIENT==='eje'); // EJE Outreach workspace: cadence is IG DM then a 2nd email, then stop (no WhatsApp/monthly).
     // Minimal client view (2uplatam): el cliente SOLO ve su reporte entregado (leads aprobados), nunca la pool cruda
     // ni reportes de otros días, ni tabs internas (Reporte). Mantiene la vista limpia para revisar con un colega.
-    var CLIENTCLEAN=(EJE_CLIENT==='2uplatam');
+    function CLIENTCLEAN(){ return window.__ejeIsAdmin===false; }  // vista limpia para CUALQUIER cliente (no-admin): solo su reporte entregado, sin pool ni Reporte
     var DORMANT_MS=30*DAY; // last touch older than this -> revival bucket, NOT "urgente"
     var MSGS={}, UNIVERSE=[], BYKEY={};
     // EJE cadence (doctrine 2026-10-05): 4 toques principales -> T1 email -> T2 IG/WA (+2d) -> T3 2º email (+5d)
@@ -1679,7 +1678,7 @@
     function render(){
       var src=(UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)||[]);
       if(!ISEJE) src=src.filter(_shippable);  // TSA: clients never see a lead without real website + email + decisor
-      if(CLIENTCLEAN) src=src.filter(function(l){return l.approved===true;});  // cliente ve SOLO su reporte entregado, no la pool
+      if(CLIENTCLEAN()) src=src.filter(function(l){return l.approved===true;});  // cliente ve SOLO su reporte entregado, no la pool
       if(!src.length){return;}
       var si=document.getElementById('dec-search'); var q=norm2(si?si.value:'');
       var pairs=src.filter(function(l){ if(!q)return true;
@@ -1877,7 +1876,7 @@
     function renderHistorialEje(body){
       function paint(){
         var src=(UNIVERSE&&UNIVERSE.length)?UNIVERSE:[];
-        if(CLIENTCLEAN) src=src.filter(function(l){return l.approved===true;});  // cliente ve SOLO su reporte entregado (hoy), no días viejos ni pool
+        if(CLIENTCLEAN()) src=src.filter(function(l){return l.approved===true;});  // cliente ve SOLO su reporte entregado (hoy), no días viejos ni pool
         var byDate={}; src.forEach(function(l){ var d=l.source_date||(l.lead_data&&l.lead_data.source_date)||'(sin fecha)'; (byDate[d]=byDate[d]||[]).push(l); });
         var dates=Object.keys(byDate).sort(function(a,b){return a<b?1:(a>b?-1:0);});
         var sub=document.getElementById('hist-sub'); if(sub) sub.textContent=dates.length+' días · toca un día para ver empresas y quién respondió';
@@ -1938,7 +1937,7 @@
       if(EJE_CLIENT!=='eje_productoras'){
         loadStatus().then(function(){ return loadUniverse(); }).then(function(){
           DATA={date:new Date().toISOString().slice(0,10),leads:(UNIVERSE||[]).slice()};
-          var _n=(CLIENTCLEAN?(UNIVERSE||[]).filter(function(l){return l.approved===true;}):(UNIVERSE||[])).length;
+          var _n=(CLIENTCLEAN()?(UNIVERSE||[]).filter(function(l){return l.approved===true;}):(UNIVERSE||[])).length;
           var gs=document.getElementById('greetSub'); if(gs) gs.textContent=(ISEJE?'EJE Outreach · ':'')+_n+' decisores en seguimiento';
           if(ISEJE){ var ap=document.querySelector('.autopilot'); if(ap) ap.style.display='none'; }
           var dct=document.querySelector('.nav-item[data-view="decisores"] .ct'); if(dct) dct.textContent=_n;
