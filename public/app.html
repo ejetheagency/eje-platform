@@ -1473,17 +1473,13 @@
       // EJE: Hoy is a DAILY REPORT (leads whose send date is today), highest priority first. Older days live in Historial.
       var rep=DATA.leads.slice(), dstr=DATA.date;
       if(ISEJE){ var td=ejeTodayET(); rep=rep.filter(function(l){return (l.source_date||'')===td;}); dstr=td; }
-      else { var tdc=ejeTodayET();
-        // Hoy = TODAY's dated batch (the fresh 20) PLUS earlier UNCONTACTED leads that carry forward, never future.
-        // Carry-forward is capped to a 10-day window so an old workspace can never pile months of leads into Hoy.
+      else { var tdc=ejeTodayET(); rep=rep.filter(function(l){ var sd=l.source_date||'';
+        // DAILY REPORT SLA: exactly TODAY's dated batch (no carry-forward pile, no future) = 20/day, rolls at 8 AM.
         // + TSA surface guard: a CLIENT never sees a lead without a named decisor AND an email. Non-negotiable.
-        var _floor=new Date(Date.now()-10*864e5).toISOString().slice(0,10);
-        rep=rep.filter(function(l){ var sd=l.source_date||'';
-          return sd && sd<=tdc && sd>=_floor && _shippable(l) && (sd===tdc || statusOf(l)==='none'); }); dstr=tdc; }
+        return sd===tdc && _shippable(l); }); dstr=tdc; }
       // Dedup by canonical key (domain): a lead must never show twice, even if a send ever wrote a second row.
       var _sk={}; rep=rep.filter(function(l){var k=decDom(l.website)||l.id||l.companyName; if(_sk[k])return false; _sk[k]=1; return true;});
-      // Today's fresh batch first (by fit), then carried-forward uncontacted leads (by fit).
-      rep.sort(function(a,b){var at=(a.source_date===dstr)?1:0,bt=(b.source_date===dstr)?1:0; return bt-at||(b.score||0)-(a.score||0);});
+      rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
       var sent=rep.filter(function(l){return statusOf(l)!=='none';}).length, pend=rep.length-sent;
       var sub=document.getElementById('hoy-sub');
       if(sub) sub.innerHTML=(rep.length? ('<b>'+pend+'</b> '+(pend===1?'conversación por iniciar':'conversaciones por iniciar')+' hoy · '+sent+'/'+rep.length+' ya contactadas · '+esc(dstr)) : 'Sin reporte para hoy.');
