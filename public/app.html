@@ -1755,7 +1755,7 @@
       var credits=(l._verifiedCredits||l.verifiedCredits||[]);
       var addl=(l.additionalContacts||[]);
       var addlHtml=addl.length?('<div style="margin-top:14px">'+addl.map(function(c){return '<div class="row"><div class="k">'+esc(c.title||'Contacto')+'</div><div class="v">'+esc(c.name||'—')+(c.email?' · <span class="link">'+esc(c.email)+'</span>':'')+'</div></div>';}).join('')+'</div>'):'';
-      var _actualBox='<div style="margin-top:10px"><div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;display:flex;gap:7px;align-items:center">Lo que realmente enviaste<span class="actual-ok" style="color:var(--cool);opacity:0;transition:opacity .2s">guardado ✓</span></div><textarea class="actual-ta" rows="2" style="width:100%;box-sizing:border-box;border:1px solid var(--line-2);border-radius:9px;background:transparent;color:var(--ink);font-family:inherit;font-size:12.5px;line-height:1.5;padding:8px 10px;resize:none" placeholder="pegá el mensaje real para aprender tu voz…"></textarea></div>';
+      var _actualBox='<div style="margin-top:10px"><div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;display:flex;gap:7px;align-items:center">Lo que realmente enviaste<span class="actual-ok" style="color:var(--cool);opacity:0;transition:opacity .2s">guardado ✓</span></div><textarea class="actual-ta" rows="2" style="width:100%;box-sizing:border-box;border:1px solid var(--line-2);border-radius:9px;background:transparent;color:var(--ink);font-family:inherit;font-size:12.5px;line-height:1.5;padding:8px 10px;resize:none" placeholder="pegá aquí el mensaje real que enviaste…"></textarea><div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between;gap:8px"><span class="actual-saved-note" style="font-size:11px;color:var(--ok,#1a9e4b);font-weight:600"></span><button type="button" class="btn pri act-save-sent" style="font-size:12px;padding:7px 16px">Guardar lo enviado</button></div></div>';
       var html='<button class="dc-back">&larr; Decisores</button>'
         +'<div class="card"><div class="c-head">'
         +'<div class="c-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</div>'
@@ -1811,6 +1811,20 @@
       if(bAlt) bAlt.addEventListener('click',function(){try{navigator.clipboard.writeText(_pb.altDraft||'');}catch(e){} if(_pb.link) window.open(_pb.link,'_blank','noopener'); bAlt.textContent='Copiado y abierto ✓'; bAlt.classList.add('done');});
       var taAct=cardWrap.querySelector('.actual-ta'),okAct=cardWrap.querySelector('.actual-ok');
       if(taAct) taAct.addEventListener('blur',function(){var txt=(taAct.value||'').trim();if(!txt||txt===taAct._last)return;taAct._last=txt;var d=l._key||decDom(l.website);var sit=(cadOf(l)||{}).kind||'first';if(window.__ejeSB&&canWrite()){window.__ejeSB.from('sent_actuals').insert({client_id:EJE_CLIENT,lead_id:d,company:l.companyName||'',user_name:EJE_USER,channel:(_cad.channel||'email'),situation:sit,message_text:txt}).then(function(r){if(r&&r.error)return;if(okAct){okAct.style.opacity='1';setTimeout(function(){okAct.style.opacity='0';},2000);}});}else if(okAct){okAct.style.opacity='1';}});
+      // EXPLICIT save of what was actually sent -> sent_actuals. Clear, persistent confirmation so the client KNOWS it is logged.
+      var bSaveSent=cardWrap.querySelector('.act-save-sent'), noteSent=cardWrap.querySelector('.actual-saved-note');
+      if(bSaveSent) bSaveSent.addEventListener('click',function(){
+        var txt=(taAct&&taAct.value||'').trim();
+        if(!txt){ toast('Pegá primero lo que enviaste'); if(taAct)taAct.focus(); return; }
+        var d=l._key||decDom(l.website); var sit=(cadOf(l)||{}).kind||'first';
+        function done(local){ if(taAct)taAct._last=txt; if(noteSent)noteSent.textContent=local?'Guardado (demo) ✓':'Guardado y registrado ✓'; if(okAct)okAct.style.opacity='1'; bSaveSent.textContent='Guardado ✓'; setTimeout(function(){bSaveSent.textContent='Guardar lo enviado';},2500); }
+        if(window.__ejeSB&&canWrite()){
+          window.__ejeSB.from('sent_actuals').insert({client_id:EJE_CLIENT,lead_id:d,company:l.companyName||'',user_name:EJE_USER,channel:(_cad.channel||'email'),situation:sit,message_text:txt}).then(function(r){
+            if(r&&r.error){ toast('No se pudo guardar, reintentá'); return; }
+            done(false); toast('Guardado · lo estamos registrando');
+          });
+        } else { done(true); toast('Guardado localmente (demo)'); }
+      });
       var bBad=cardWrap.querySelector('.bad-ig');
       if(bBad) bBad.addEventListener('click',function(){
         l.instagramHandle=''; l.instagramKind=''; l.igBad=true;
