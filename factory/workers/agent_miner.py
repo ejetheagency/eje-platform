@@ -16,6 +16,15 @@ _IG = re.compile(r'instagram\.com/([A-Za-z0-9_.]{2,30})', re.I)
 _JUNK = ("sentry", "wixpress", "example.com", "ejemplo.com", "ejemplo.", "dominio.com", "domain.com", "tucorreo",
          "youremail", "your-email", "email@email", "correo@correo", "nombre@", "@2x", ".png", ".jpg", "@sentry")
 _SOCIAL = ("facebook.com", "instagram.com", "linkedin.com", "twitter.com", "x.com", "youtube.com", "tiktok.com", "wikipedia.org", "google.")
+# Institutional / aggregator / non-business domains -> hard reject BEFORE the ICP-fit judge (a university thesis
+# repository, a govt site, or a marketplace is never a 1-3 employee owner-led company, no matter the page text).
+_NONBIZ = (".edu", ".gob", ".gov", "repositorio", "universidad", "biblioteca", "wikipedia", "mercadolibre",
+           "paginasamarillas", "amarillas.", "directorio", "guiatelefonica", ".mil", "scielo", "dspace")
+
+
+def _is_nonbiz(dom):
+    d = (dom or "").lower()
+    return any(t in d for t in _NONBIZ)
 
 
 def _fetch(url):
@@ -123,6 +132,9 @@ def icp_fit(company, text, icp_cfg, client_id):
     icp = icp_cfg.get("icp", "")
     disq = "; ".join(icp_cfg.get("disqualifiers", []))
     prompt = ('Eres un filtro de ICP estricto. ICP objetivo: %s\nDESCARTA si aplica cualquiera: %s\n'
+              'DESCARTA SIEMPRE (no es empresa comercial pequena con dueno): universidad, biblioteca, repositorio '
+              'o tesis academica, entidad de gobierno, ONG/fundacion, marketplace, directorio o guia, medio de '
+              'prensa, o cualquier institucion. Debe ser un NEGOCIO con dueno/a que vende un producto o servicio.\n'
               'Del texto del negocio "%s", decide si CALZA. Solo JSON: {"fit":true/false,"reason":"<=12 palabras"}.\n%s'
               % (icp, disq, company, (text or "")[:2500]))
     try:
@@ -162,7 +174,7 @@ def lane_linkedin(name, company, client_id):
     return ""
 
 
-def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_query_cap=3):
+def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_query_cap=3, max_examine=150):
     """FULLY-ENRICHED, ICP-ALIGNED batch: loop the client's ICP queries -> mine -> gate (named decisor + MV-valid
     email + >=2 channels + ICP-fit) -> dedup -> accumulate n. per_query_cap spreads the batch across sectors
     (VARIETY) instead of over-concentrating on one vein. Returns the finished cards + a per-stage tally."""
@@ -187,10 +199,15 @@ def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_que
             for card in mine_vein(q, city, client_id, want=8):
                 if len(out) >= n or kept_here >= cap:
                     break
+                if tally["mined"] >= max_examine:          # hard per-run ceiling (cost guardrail) — stop even if short
+                    _log("max_examine %d reached — stopping run" % max_examine)
+                    return {"cards": out, "tally": tally}
                 tally["mined"] += 1
                 dom = _domain(card.get("website"))
                 if not dom or dom in seen:
                     tally["dup"] += 1; continue
+                if _is_nonbiz(dom):                       # institutional/aggregator domain -> never a small business
+                    tally["off_icp"] += 1; continue
                 if not card.get("decisor_name"):
                     tally["no_decisor"] += 1; continue
                 if not card.get("emails_found"):
@@ -228,6 +245,71 @@ def mine_vein(sector, city, client_id, want=8):
         c = mine_business(re.split(r'[|\-–—:]', title)[0].strip(), city, client_id, known_site=link)
         cards.append(c)
     return cards
+
+
+def _merge(tpl, card):
+    out = tpl or ""
+    for k, v in (("{nombre}", (card.get("decisor_name") or "").split(" ")[0]), ("{empresa}", card.get("query") or ""),
+                 ("{name}", (card.get("decisor_name") or "").split(" ")[0]), ("{company}", card.get("query") or "")):
+        out = out.replace(k, v)
+    return out
+
+
+def publish_batch(client_id, cards, report_date, approved=False):
+    """Write fully-enriched mined cards into the `leads` table in the app's shape. approved=False => STAGED
+    (pending the operator's gate / not on Hoy); approved=True => live on Hoy. Idempotent upsert by domain."""
+    try:
+        from factory.workers import tsa
+    except Exception:
+        tsa = None
+    c = db.select("clients", "id=eq.%s&select=icp_config" % client_id)
+    ic = (c[0].get("icp_config") or {}) if c else {}
+    geo = ic.get("geo") or ""
+    ft = ic.get("outreach_first_touch") or ""
+    sender = ic.get("sender_name") or ""
+    import datetime
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    existing = {r["id"]: r for r in db.select_all("leads", "client_id=eq.%s&select=id,status,source_date" % client_id)}
+    n = 0
+    for card in cards:
+        dom = card.get("_domain") or _domain(card.get("website"))
+        if not dom:
+            continue
+        site = card.get("website") or ""
+        real = site if (not tsa or tsa.real_website(site)) else ""
+        ld = {
+            "_key": dom, "companyName": card.get("query") or dom, "contactName": card.get("decisor_name") or "",
+            "contactEmail": card.get("email_verified") or "", "contactTitle": card.get("decisor_role") or "",
+            "country": geo, "website": real, "instagramHandle": card.get("instagram") or "",
+            "instagramKind": "profile" if card.get("instagram") else "", "instagramFollowers": 0,
+            "contactLinkedIn": card.get("linkedin") or "", "whatsapp": card.get("whatsapp") or "",
+            "pitchEmailES": _merge(ft, card), "sender": sender, "whyICP": card.get("icp_reason") or "",
+            "companyEmail": None, "score": 0, "source_date": report_date, "additionalContacts": [],
+            "_verifiedCredits": [card.get("email_verified")] if card.get("email_verified") else [],
+            "approved": bool(approved), "approvedBy": "miner-haiku" if approved else None,
+            "approvedAt": now if approved else None, "source": "agent_miner",
+        }
+        base = {"company": card.get("query") or dom, "contact_name": card.get("decisor_name") or None,
+                "contact_email": card.get("email_verified") or None, "lead_data": ld, "updated_at": now}
+        if dom in existing:
+            db.update("leads", "id=eq.%s&client_id=eq.%s" % (dom, client_id), base)
+        else:
+            row = dict(base); row.update({"id": dom, "client_id": client_id, "status": "none", "source_date": report_date})
+            try:
+                db.insert("leads", row, returning=False)
+            except Exception:
+                db.update("leads", "id=eq.%s&client_id=eq.%s" % (dom, client_id), base)
+        n += 1
+    return {"client_id": client_id, "published": n, "report_date": report_date, "approved": approved}
+
+
+def mine_and_publish(client_id, n, report_date, approved=False, publish=True):
+    """One call for the nightly: mine n fully-enriched ICP-aligned cards and (optionally) publish them STAGED."""
+    res = mine_report(client_id, n=n)
+    out = {"tally": res["tally"], "cards": len(res["cards"])}
+    if publish and res["cards"]:
+        out["publish"] = publish_batch(client_id, res["cards"], report_date, approved=approved)
+    return out
 
 
 if __name__ == "__main__":
