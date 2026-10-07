@@ -66,9 +66,13 @@ def publish(client_id, report_date=None):
             continue
         ct = {}
         if cl.get("contact_id"):
-            ct = (db.select("contacts", "id=eq.%s&select=full_name,title,email,phone" % cl["contact_id"]) or [{}])[0]
+            ct = (db.select("contacts", "id=eq.%s&select=full_name,title,email,phone,instagram,linkedin_url" % cl["contact_id"]) or [{}])[0]
         sigs = db.select("signals", "company_id=eq.%s&select=type&limit=5" % cl["company_id"])
         if not tsa.passes_contact(ct):  # TSA: never publish a lead without a named decisor + non-bounced email
+            skipped += 1
+            continue
+        chan_ok, _chan_why = tsa.channels_ok(ct, co, ic)  # MULTI-CHANNEL gate: >= min_channels + required (per ICP)
+        if not chan_ok:
             skipped += 1
             continue
         comp = cl.get("composed") or {}
@@ -87,7 +91,8 @@ def publish(client_id, report_date=None):
             "country": co.get("country") or geo, "website": (co.get("website") if (tsa and tsa.real_website(co.get("website") or "")) else ""),  # REAL website or EMPTY — never fabricate from a synthetic domain
             "industry": co.get("industry") or "", "instagramHandle": co.get("instagram") or "",
             "instagramKind": "profile" if co.get("instagram") else "", "instagramFollowers": 0,
-            "contactLinkedIn": co.get("linkedin") or "",
+            "contactLinkedIn": ct.get("linkedin_url") or co.get("linkedin") or "",
+            "whatsapp": ct.get("phone") or "",  # WhatsApp micro-route (wa.me/tel regex) — the deep channel
             "pitchEmailES": _pitch_text(comp) or _merge(tpl, co, ct, sender), "sectorTemplate": tpl, "sender": sender,
             "instagramDM": _merge(ig_t, co, ct, sender), "followupEmail": _merge(fu_t, co, ct, sender), "linkedinDM": _merge(li_t, co, ct, sender),
             "companyBrief": co.get("brief") or "",

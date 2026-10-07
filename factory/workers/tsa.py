@@ -61,6 +61,36 @@ def passes_lead_row(row):
     return real_website(ld.get("website") or (row.get("id") or ""))
 
 
+def channels(ct, company=None):
+    """Count the REACHABLE channels on a card (multi-channel doctrine). email(verified/found) + instagram +
+    linkedin + phone/whatsapp. Returns the set of channel names present."""
+    ct = ct or {}; company = company or {}
+    chans = set()
+    if ct.get("email") and ct.get("email_status") not in ("invalid", "bounced"):
+        chans.add("email")
+    if ct.get("instagram") or company.get("instagram"):
+        chans.add("instagram")
+    if ct.get("linkedin_url") or company.get("linkedin"):
+        chans.add("linkedin")
+    if ct.get("phone"):
+        chans.add("phone")  # phone == WhatsApp for LatAm small biz
+    return chans
+
+
+def channels_ok(ct, company, icp_config=None):
+    """Multi-channel READY gate (operator standard): a card needs >= min_channels (default 2), and every channel in
+    the client's required_channels (e.g. EJE requires 'instagram'). Config-driven per ICP; email is always implied."""
+    icp = icp_config or {}
+    have = channels(ct, company)
+    min_ch = int(icp.get("min_channels", 2))
+    required = set(icp.get("required_channels") or [])
+    if required and not required.issubset(have):
+        return False, "missing required channel(s): %s" % ",".join(sorted(required - have))
+    if len(have) < min_ch:
+        return False, "only %d channel(s) (<%d): %s" % (len(have), min_ch, ",".join(sorted(have)))
+    return True, "ok (%s)" % ",".join(sorted(have))
+
+
 def enforce_ready_invariant(client_id=None):
     """Operator rule: a shippable (READY) card with NO verified email must NOT exist. It either goes BACK to the
     factory (PARKED -> re-enrich, when there is a named decisor to find an email for) or to the TRASH (DISCARDED,

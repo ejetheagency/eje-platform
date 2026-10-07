@@ -75,6 +75,12 @@ def run(client=None, max_leads=None):
         out["ready_invariant"] = {"error": str(e)[:150]}
     reps = reports.build_all() if not client else [reports.build(client)]
     out["reports"] = {r["client_id"]: r["count"] for r in reps}
+    try:  # WHATSAPP micro-route (deterministic wa.me/tel regex) -> adds the deep channel to shippable leads BEFORE
+          # publish, so the card ships multi-channel. Measured ~53% yield on 2uplatam's real pool (LatAm-primary).
+        from factory.workers import whatsapp_find
+        out["whatsapp"] = {c: whatsapp_find.sweep(c, apply=True) for c in ([client] if client else [x["id"] for x in db.select("clients", "select=id")])}
+    except Exception as e:
+        out["whatsapp"] = {"error": str(e)[:150]}
     try:  # bridge: publish READY factory leads -> the `leads` table the app reads (contact cards for full-access clients)
         from factory.workers import publish
         out["published"] = publish.publish_full_access(only=client if client else None)
