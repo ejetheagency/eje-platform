@@ -933,7 +933,8 @@
           window.__ejeAuthed=true; window.__ejeEmail=em; window.__ejeToken=session.access_token;
           window.__ejeIsAdmin=!!me.isAdmin;
           if(me.isAdmin){var _no=document.getElementById('nav-ops'); if(_no) _no.style.display='flex';}
-          if(CLIENTCLEAN){ document.querySelectorAll('[data-view="reporte"]').forEach(function(_rt){_rt.style.display='none';}); }  // "Reporte" no tiene sentido para el cliente
+          var _cc2up=false; try{_cc2up=(localStorage.getItem('eje_ws')==='2uplatam');}catch(e){}  // in-scope (CLIENTCLEAN lives in the other IIFE)
+          if(_cc2up){ document.querySelectorAll('[data-view="reporte"]').forEach(function(_rt){_rt.style.display='none';}); }  // "Reporte" no tiene sentido para el cliente
           // A "library" client (e.g. eje_productoras) is a lead database/ASSET, not a profile you switch into.
           // Keep it OUT of the workspace switcher; expose it separately for the admin Lead Library view.
           var allWs=me.workspaces||[];
