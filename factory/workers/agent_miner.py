@@ -69,10 +69,12 @@ def _discover_emails(site, query, city, client_id):
     return found[:6]
 
 
-def _owner_from_text(company, text, client_id):
-    prompt = ("From this web text about the business \"%s\", extract the OWNER/FOUNDER's full name and role ONLY if a "
-              "specific real person is clearly named as owner/founder/dueño/dueña/fundador/a/CEO. Do NOT invent. "
-              'JSON only: {"name":"<full name or empty>","role":"<role or empty>"}.\n%s') % (company, (text or "")[:3000])
+def _owner_from_text(company, text, client_id, roles=None):
+    roles = roles or "owner/founder/dueño/dueña/fundador/CEO/gerente general/gerente financiero/CFO/director"
+    prompt = ("From this web text about the business \"%s\", extract the DECISION-MAKER's full name and role ONLY if a "
+              "specific real person is clearly named in one of these roles: %s. Prefer owner/founder; a general "
+              "manager or CFO also counts. Do NOT invent, do NOT return an IT/systems person. "
+              'JSON only: {"name":"<full name or empty>","role":"<role or empty>"}.\n%s') % (company, roles, (text or "")[:3000])
     try:
         out = cheap_llm.generate(prompt, client_id=client_id, job_type="agent_owner", judge=True)
         t = out.get("text") or ""
@@ -84,7 +86,7 @@ def _owner_from_text(company, text, client_id):
         return {}
 
 
-def mine_business(query, city, client_id, known_site=None):
+def mine_business(query, city, client_id, known_site=None, roles=None):
     """Research ONE business end to end -> candidate card. query = business name or 'sector ciudad'."""
     site = known_site
     if not site:
@@ -105,14 +107,14 @@ def mine_business(query, city, client_id, known_site=None):
         ig = [h for h in ig if h.lower() not in ("p", "reel", "explore", "accounts")]
         if ig:
             card["instagram"] = "@" + ig[0]
-        own = _owner_from_text(query, re.sub(r'<[^>]+>', ' ', html), client_id)
+        own = _owner_from_text(query, re.sub(r'<[^>]+>', ' ', html), client_id, roles=roles)
         if own:
             card.update({"decisor_name": own["name"], "decisor_role": own.get("role", "")}); card["sources"].append("site")
     # owner not on site -> press search
     if not card["decisor_name"]:
         sr = serper.search('"%s" %s (fundadora OR fundador OR dueña OR dueño OR propietaria OR CEO)' % (query, city), num=7, client_id=client_id)
         snips = " ".join(((r.get("title") or "") + " " + (r.get("snippet") or "")) for r in (sr.get("results") or [])[:7])
-        own = _owner_from_text(query, snips, client_id)
+        own = _owner_from_text(query, snips, client_id, roles=roles)
         if own:
             card.update({"decisor_name": own["name"], "decisor_role": own.get("role", "")}); card["sources"].append("press")
     if not card["emails_found"]:  # on-site extraction empty -> contacto pages + targeted search
@@ -181,6 +183,7 @@ def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_que
     c = db.select("clients", "id=eq.%s&select=icp_config" % client_id)
     icp_cfg = (c[0].get("icp_config") or {}) if c else {}
     queries = queries or icp_cfg.get("discovery_queries") or []
+    roles = icp_cfg.get("decisor")
     seen = set(x["id"] for x in db.select_all("leads", "client_id=eq.%s&select=id" % client_id))
     tally = {"mined": 0, "no_decisor": 0, "no_valid_email": 0, "thin_channels": 0, "off_icp": 0, "dup": 0, "kept": 0}
     out = []
@@ -196,7 +199,7 @@ def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_que
                 break
             kept_here = 0
             _log("vein (p%d): %s" % (_pass, q))
-            for card in mine_vein(q, city, client_id, want=8):
+            for card in mine_vein(q, city, client_id, want=8, roles=roles):
                 if len(out) >= n or kept_here >= cap:
                     break
                 if tally["mined"] >= max_examine:          # hard per-run ceiling (cost guardrail) — stop even if short
@@ -229,7 +232,7 @@ def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_que
     return {"cards": out, "tally": tally}
 
 
-def mine_vein(sector, city, client_id, want=8):
+def mine_vein(sector, city, client_id, want=8, roles=None):
     """Discover businesses in a vein and research each -> candidate cards (the competent discovery+enrich in one)."""
     sr = serper.search('%s %s' % (sector, city), num=min(want * 2, 20), client_id=client_id)
     sites, seen = [], set()
@@ -242,7 +245,7 @@ def mine_vein(sector, city, client_id, want=8):
             break
     cards = []
     for title, link in sites:
-        c = mine_business(re.split(r'[|\-–—:]', title)[0].strip(), city, client_id, known_site=link)
+        c = mine_business(re.split(r'[|\-–—:]', title)[0].strip(), city, client_id, known_site=link, roles=roles)
         cards.append(c)
     return cards
 
@@ -274,6 +277,8 @@ def publish_batch(client_id, cards, report_date, approved=False):
     for card in cards:
         dom = card.get("_domain") or _domain(card.get("website"))
         if not dom:
+            continue
+        if not (card.get("decisor_name") or "").strip():   # LOCKED RULE: never publish a card without a named decisor
             continue
         site = card.get("website") or ""
         real = site if (not tsa or tsa.real_website(site)) else ""
