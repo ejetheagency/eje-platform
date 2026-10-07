@@ -91,6 +91,11 @@ def run(client=None, max_leads=None):
         out["released"] = release.schedule_all(only=client if client else None)
     except Exception as e:
         out["released"] = {"error": str(e)[:150]}
+    try:  # THE DAILY GUARANTEE: verify every paying client's Hoy hit its target; alert (notify) on any shortfall
+        from factory.workers import sla_check
+        out["sla"] = sla_check.enforce(only=client if client else None)
+    except Exception as e:
+        out["sla"] = {"error": str(e)[:150]}
     try:
         snap = admin.snapshot()
         out["pool"] = snap["pool"]
