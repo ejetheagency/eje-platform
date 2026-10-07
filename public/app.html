@@ -1243,7 +1243,7 @@
       // then this opens Titan's "Redactar" already filled. The bare webmail URL could NOT prefill (just opened the inbox).
       var _mt=l.contactEmail?('mailto:'+l.contactEmail+((ISEJE||_IS2UP)?('?subject='+encodeURIComponent(_subj)+'&body='+encodeURIComponent(dd.text)):'')):'';
       var _emSteps=_IS2UP
-        ?['Al tocar enviar se abre Titan en "Redactar" ya con destinatario, asunto y mensaje (el borrador también queda copiado).',
+        ?['Al tocar enviar se abre tu app de correo en "Redactar" ya con destinatario, asunto y mensaje (el borrador también queda copiado).',
           'Revisá nombre y empresa, y enviá a '+(l.contactEmail||'—')+'.',
           (c.kind==='first'?'Es el primer email.':'Es el seguimiento — tono corto, un solo ask: la llamada.')]
         :['Redactá a '+(l.contactEmail||'—')+(l.companyEmail?(' (CC '+l.companyEmail+')'):'')+'.','Pegá el borrador de abajo, revisá nombre y empresa.',(c.kind==='first'?'Enviá el primer email.':'Enviá el seguimiento — tono corto, un solo ask: la llamada.')];
