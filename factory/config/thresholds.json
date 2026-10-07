@@ -1,8 +1,6 @@
 {
   "_comment": "Scoring + routing thresholds. Founder tunes these. score is 0-100.",
-  "_spend_guardrails": "FD cost protections. monthly_global_spend_cap_usd = hard ceiling on ALL paid API spend/month (Haiku+serper+MV+hunter+apollo all gate on budget.can_spend against this). At the cap, paid calls are DENIED (factory keeps running on free routes). kill_switch_paid_spend=true = emergency brake, stops ALL paid spend instantly. MTD spend historically ~$1.43, miner-nightly projects ~$60-90/mo for 2 clients, so 100 is protective headroom — raise when scaling clients.",
-  "monthly_global_spend_cap_usd": 100,
-  "kill_switch_paid_spend": false,
+  "_spend_guardrails_note": "Spend caps live in config/budgets.json (that is what budget.can_spend reads), NOT here. See budgets.json: daily/monthly global caps + kill switch, sized to unit economics.",
   "discard_floor": 30,
   "_junk_floor_comment": "Doctrine 0b: stay-vs-discard is the QUALITY axis, not completeness. A lead is early-killed ONLY when its COMPANY quality (fit+brief+signals+web-presence, NOT contact data) is below junk_floor — i.e. no positive evidence it's a good target. Conservative: 8 = discard only total-blank leads (zero fit/signal/presence/brief). Raise as cheap junk detectors (dead-site, off-ICP classifier) come online to leak more junk earlier and save more Tier-2 spend.",
   "junk_floor": 8,

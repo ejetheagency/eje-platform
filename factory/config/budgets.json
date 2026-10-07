@@ -1,8 +1,8 @@
 {
-  "_comment": "Factory budgets + caps. Numbers are placeholders; the founder sets real values. A cap of 0 means 'no limit set' (allow). Switch to YAML when pyyaml + capacity.yaml land.",
+  "_comment": "Factory budgets + caps SIZED TO UNIT ECONOMICS. 1 client pays $200/mo, so paid-API spend must stay a small fraction. Real measured spend ~$1.43/mo, so these have big headroom AND force max-free-min-paid: if a nightly run approaches the cap, make it cheaper (fewer Haiku/paid calls), do NOT raise the cap. daily cap = no single NIGHT can burst (every paid call gates on budget.can_spend; at the cap paid calls are DENIED, factory keeps running on free routes). Raise proportionally as PAYING clients are added (~10-15% of each client's fee). kill_switch_paid_spend=true = emergency brake.",
   "kill_switch_paid_spend": false,
-  "daily_global_spend_cap_usd": 0,
-  "monthly_global_spend_cap_usd": 200,
+  "daily_global_spend_cap_usd": 3,
+  "monthly_global_spend_cap_usd": 30,
   "max_cost_ratio": 0.20,
   "forecast_window_days": 10,
   "plans": {

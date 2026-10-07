@@ -43,8 +43,13 @@ def _month_start_iso():
     return now.replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()
 
 
-def _spent(provider=None, client_id=None):
-    q = "select=usd_cost&created_at=gte.%s" % _ts(_month_start_iso())
+def _day_start_iso():
+    now = datetime.datetime.now(datetime.timezone.utc)
+    return now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+
+
+def _spent(provider=None, client_id=None, since=None):
+    q = "select=usd_cost&created_at=gte.%s" % _ts(since or _month_start_iso())
     if provider:
         q += "&provider=eq.%s" % provider
     if client_id:
@@ -59,6 +64,9 @@ def can_spend(client_id, provider, est_usd):
     if cfg.get("kill_switch_paid_spend"):
         return (False, "kill switch on")
     est = float(est_usd or 0)
+    dcap = float(cfg.get("daily_global_spend_cap_usd") or 0)   # per-NIGHT ceiling: no single run/night can burst
+    if dcap and _spent(since=_day_start_iso()) + est > dcap:
+        return (False, "global daily cap $%.2f reached" % dcap)
     gcap = float(cfg.get("monthly_global_spend_cap_usd") or 0)
     if gcap and _spent() + est > gcap:
         return (False, "global monthly cap $%.2f reached" % gcap)
