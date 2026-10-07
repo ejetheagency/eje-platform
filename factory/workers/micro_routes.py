@@ -163,8 +163,10 @@ def sweep(client_id, max_leads=12, apply=False):
         co = (db.select("companies", "id=eq.%s&select=id,name,domain,website" % r["company_id"]) or [{}])[0]
         res = find_email(co, ct, client_id, icp)
         if res:
+            import datetime
             db.update("contacts", "id=eq.%s" % r["contact_id"],
-                      {"email": res["email"], "email_status": "verified", "email_source": "micro_" + res["lane"]})
+                      {"email": res["email"], "email_status": "verified", "email_source": "micro_" + res["lane"],
+                       "email_verified_at": datetime.datetime.now(datetime.timezone.utc).isoformat()})  # stamp so the READY gate sees it (bug: was missing -> finds parked)
             try:
                 if r["state"] in ("PARKED", "T2_ENRICHING", "SCORED"):
                     lead_state.move(r["id"], "GATE_CHECK", reason="email via micro-route %s (tier %d)" % (res["lane"], res["tier"]))
