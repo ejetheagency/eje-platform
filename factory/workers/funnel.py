@@ -25,11 +25,12 @@ def compute(client_id, since_iso, discovered=0, published=0):
     since = "checked_at=gte.%s" % since_iso  # gate_results stamps the gate run as checked_at (not created_at)
     gr = lambda gate, passed=None: _c("gate_results", "%s&gate=eq.%s&%s%s" % (
         base, gate, since, ("&passed=is.%s" % ("true" if passed else "false")) if passed is not None else ""))
-    # NET-NEW tonight (operator, 2026-10-08): the 3-night gate counts ONLY auto_approved_tonight. We filter approvals
-    # by approvedAt (the stamp written when a card is approved), NOT updated_at, so a prior-night card that merely got
-    # re-touched tonight is NOT miscounted as new. The hand-staged buffer is reported separately as CONTEXT and never
-    # counts toward the gate (it is already approved=true and would otherwise show green every night regardless).
-    auto_tonight = _c("leads", "%s&lead_data->>approvedBy=eq.auto&lead_data->>approvedAt=gte.%s" % (base, since_iso))
+    # NET-NEW tonight (operator, 2026-10-08, corrected after Night 1): the 3-night gate counts ONLY auto_approved_tonight.
+    # We key on the IMMUTABLE created_at column, not approvedAt — publish.py re-stamps approvedAt=now on existing approved
+    # cards every run, which inflated Night 1 to 50 when only 15 were real. publish.py auto-approves ONLY brand-new cards
+    # (prev is None), so "created tonight AND approvedBy=auto" is exactly the true net-new. The hand-staged buffer is
+    # reported separately as CONTEXT and never counts toward the gate.
+    auto_tonight = _c("leads", "%s&lead_data->>approvedBy=eq.auto&created_at=gte.%s" % (base, since_iso))
     miner_tonight = _c("leads", "%s&lead_data->>source=eq.agent_miner&updated_at=gte.%s" % (base, since_iso))
     buffer_approved = _c("leads", "%s&lead_data->>approved=eq.true" % base)  # whole-pool snapshot — CONTEXT only
     f = {

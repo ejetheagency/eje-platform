@@ -44,7 +44,7 @@ def publish(client_id, report_date=None):
     report_date = report_date or _today()
     rows = db.select_all("client_leads",
                          "client_id=eq.%s&state=eq.READY&select=id,company_id,contact_id,score,composed" % client_id)
-    existing = {r["id"]: r for r in db.select_all("leads", "client_id=eq.%s&select=id,status,source_date,approved:lead_data->>approved" % client_id)}
+    existing = {r["id"]: r for r in db.select_all("leads", "client_id=eq.%s&select=id,status,source_date,approved:lead_data->>approved,approvedBy:lead_data->>approvedBy,approvedAt:lead_data->>approvedAt" % client_id)}
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     ic = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
     geo = ic.get("geo") or ""
@@ -94,7 +94,10 @@ def publish(client_id, report_date=None):
             appr, appr_by, appr_at = True, "auto", now
         else:
             appr = (prev.get("approved") == "true")
-            appr_by, appr_at = ("auto" if appr else None), (now if appr else None)
+            # PRESERVE the original approver + approval time — never re-stamp approvedAt=now on an existing card
+            # (that overwrote the true approval date every run and inflated the net-new count; Night 1: 50 vs real 15).
+            appr_by = (prev.get("approvedBy") if appr else None)
+            appr_at = (prev.get("approvedAt") if appr else None)
         ld = {
             "_key": dom, "companyName": co.get("name"), "contactName": ct.get("full_name") or "",
             "contactEmail": ct.get("email") or "", "contactTitle": ct.get("title") or "",

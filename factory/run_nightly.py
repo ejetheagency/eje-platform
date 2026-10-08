@@ -152,9 +152,11 @@ def run(client=None, max_leads=None):
                 step("miner")
                 budget.activate_pool("miner")
                 try:
+                    # deadline anchored to MINER START, not run start: the drain (1000+ jobs) runs first and would
+                    # otherwise eat the whole 90-min budget, leaving the miner 0 time (Night 1: mined=0, stopped=deadline).
                     out["miner"] = agent_miner.mine_and_publish(
                         "2uplatam", 20, report_date=datetime.date.today().isoformat(), approved=False,
-                        deadline_ts=_t0 + MINER_DEADLINE_SECS)
+                        deadline_ts=time.time() + MINER_DEADLINE_SECS)
                 finally:
                     budget.deactivate_pool()
         except Exception as e:
