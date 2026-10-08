@@ -1545,7 +1545,7 @@
           // Reportes programados: por cliente, cada fecha con lo LISTO (aprobado) vs ARMÁNDOSE (staged). Hoy y futuros.
           var up=o.upcoming||{}; var _tdy=ejeTodayET();
           var sched='<div class="ops-sec">Reportes programados · listos vs armándose</div>';
-          var cids=Object.keys(up).sort();
+          var cids=Object.keys(up).filter(function(cid){return cid!=='eje_library'&&cid!=='eje_productoras';}).sort();  // libraries are assets, not report pipelines
           if(!cids.length){ sched+='<div class="tq-empty" style="padding:6px 2px">Sin reportes programados.</div>'; }
           else cids.forEach(function(cid){
             var dts=up[cid]; var dk=Object.keys(dts).sort();
