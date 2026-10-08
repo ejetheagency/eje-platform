@@ -1581,7 +1581,6 @@
     }
     // REPORTE (admin): the curated reports from the leads table, ORGANIZED BY DATE (today + upcoming), only
     // ready/composed leads (approved + with a message). Building/staged leads live in Ops, not here.
-    function _repMap(l){ return {company:l.companyName,decisor:l.contactName,title:l.contactTitle,email:l.contactEmail,pitch:l.pitchEmailES,instagram:l.instagramHandle,score:l.score,channel:(cadOf(l)||{}).channel||'email',why_now:(l.whyICP?[l.whyICP]:[]),logo_url:l.logo_url}; }
     function renderReporte(){
       var host=document.getElementById('rep-host'); if(!host) return;
       if(!UNIVERSE||!UNIVERSE.length){ host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Cargando reporte…</div>'; loadUniverse().then(function(){ if(document.getElementById('view-reporte')&&document.getElementById('view-reporte').classList.contains('on')) renderReporte(); }); return; }
@@ -1595,9 +1594,15 @@
       var chips='<div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px">'+dates.map(function(d){var on=(d===sel);return '<button class="rep-tab" data-d="'+esc(d)+'" style="font-size:12.5px;font-weight:650;padding:7px 13px;border-radius:999px;cursor:pointer;border:1px solid var(--line);background:'+(on?'var(--acct,#2da2bb)':'transparent')+';color:'+(on?'#fff':'var(--ink)')+'">'+(d===td?'Hoy':esc(d))+' · '+byDate[d].length+'</button>';}).join('')+'</div>';
       var ls=byDate[sel].slice().sort(function(a,b){return (b.score||0)-(a.score||0);});
       var lab=(sel===td)?('Hoy · '+esc(sel)):esc(sel);
-      host.innerHTML=chips+'<div class="rep-head"><div class="rep-h-t">📅 Reporte '+lab+'</div><div class="rep-h-s">'+ls.length+' leads listos · mensaje compuesto</div></div><div class="rep-grid">'+ls.map(_repMap).map(repCard).join('')+'</div>';
+      // compact rows (Decisores style); click opens the FULL card (same aesthetic as Hoy), back returns here.
+      var rows=ls.map(function(l){var d=l._key||decDom(l.website); var ch=chLabel((cadOf(l)||{}).channel||'email');
+        return '<button class="dec-row" data-key="'+esc(d)+'"><span class="dec-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</span>'
+          +'<span class="dec-main"><span class="dec-co">'+esc(l.companyName)+'</span><span class="dec-meta">'+flag(l.country)+' '+esc(l.contactName||'—')+'</span></span>'
+          +'<span class="dec-ch">'+ch+'</span>'+statusChip(l)+'<span class="dec-score">'+esc(l.score||'')+'</span></button>';
+      }).join('');
+      host.innerHTML=chips+'<div class="rep-head"><div class="rep-h-t">📅 Reporte '+lab+'</div><div class="rep-h-s">'+ls.length+' leads listos · mensaje compuesto</div></div><div style="display:flex;flex-direction:column;gap:8px">'+rows+'</div>';
       host.querySelectorAll('.rep-tab').forEach(function(b){ b.addEventListener('click',function(){ window.__repSel=b.dataset.d; renderReporte(); }); });
-      host.querySelectorAll('.rep-send').forEach(function(b){ b.addEventListener('click',function(){ try{navigator.clipboard.writeText(b.dataset.pitch||'');}catch(e){} var ch=b.dataset.ch,em=b.dataset.email,ig=b.dataset.ig; var _eml=em?('mailto:'+em+'?body='+encodeURIComponent(b.dataset.pitch||'')):''; var link=(ch==='instagram'&&ig)?('https://instagram.com/'+ig):_eml; if(link) window.open(link,'_blank','noopener'); b.textContent='Copiado ✓'; b.classList.add('done'); }); });
+      host.querySelectorAll('.dec-row').forEach(function(r,i){ r.addEventListener('click',function(){ var l=BYKEY[r.dataset.key]||ls[i]; if(!l)return; var nav=document.querySelector('.nav-item[data-view="decisores"]')||document.querySelector('.mob-item[data-view="decisores"]'); if(nav)nav.click(); openCardNav(l,ls,i,'reporte'); }); });
     }
     function renderSeguimiento(){
       var body=document.getElementById('seg-list'); if(!body) return;
@@ -1781,7 +1786,7 @@
       var addl=(l.additionalContacts||[]);
       var addlHtml=addl.length?('<div style="margin-top:14px">'+addl.map(function(c){return '<div class="row"><div class="k">'+esc(c.title||'Contacto')+'</div><div class="v">'+esc(c.name||'—')+(c.email?' · <span class="link">'+esc(c.email)+'</span>':'')+'</div></div>';}).join('')+'</div>'):'';
       var _actualBox='<div style="margin-top:10px"><div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;display:flex;gap:7px;align-items:center">Lo que realmente enviaste<span class="actual-ok" style="color:var(--cool);opacity:0;transition:opacity .2s">guardado ✓</span></div><textarea class="actual-ta" rows="2" style="width:100%;box-sizing:border-box;border:1px solid var(--line-2);border-radius:9px;background:transparent;color:var(--ink);font-family:inherit;font-size:12.5px;line-height:1.5;padding:8px 10px;resize:none" placeholder="pegá aquí el mensaje real que enviaste…"></textarea><div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between;gap:8px"><span class="actual-saved-note" style="font-size:11px;color:var(--ok,#1a9e4b);font-weight:600"></span><button type="button" class="btn pri act-save-sent" style="font-size:12px;padding:7px 16px">Guardar lo enviado</button></div></div>';
-      var html='<button class="dc-back">&larr; Decisores</button>'
+      var html='<button class="dc-back">&larr; '+(_navBack==='reporte'?'Reporte':(_navBack==='hoy'?'Hoy':(_navBack==='tareas'?'Tareas':'Decisores')))+'</button>'
         +'<div class="card"><div class="c-head">'
         +'<div class="c-av" style="'+monoStyle(l.companyName)+'">'+esc(initials(l.companyName))+avImg(l)+'</div>'
         +'<div><div class="c-name">'+esc(l.companyName)+' '+statusChip(l)+'</div><div class="c-sub">'+flag(l.country)+' '+esc(l.country)+' · '+esc(l.contactName||'—')+(l.contactTitle?', '+esc(l.contactTitle):'')+'</div></div>'
