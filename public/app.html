@@ -1502,8 +1502,10 @@
         // DAILY REPORT SLA: exactly TODAY's dated batch (no carry-forward pile, no future) = 20/day, rolls at 8 AM.
         // + TSA surface guard: a CLIENT never sees a lead without a named decisor AND an email. Non-negotiable.
         return sd===tdc && _shippable(l); }); dstr=tdc; }
-      // Dedup by canonical key (domain): a lead must never show twice, even if a send ever wrote a second row.
-      var _sk={}; rep=rep.filter(function(l){var k=decDom(l.website)||l.id||l.companyName; if(_sk[k])return false; _sk[k]=1; return true;});
+      // Dedup by CONTACT (email), not domain (operator rule 2026-10-08): distinct enriched decisors at the SAME org
+      // each get their own card; a literal duplicate row for the same person (same email) still collapses. The _shippable
+      // filter above already guarantees every lead here has an email, so the email key is always present. Falls back to id/domain.
+      var _sk={}; rep=rep.filter(function(l){var k=((l.contactEmail||'').trim().toLowerCase())||l.id||decDom(l.website)||l.companyName; if(_sk[k])return false; _sk[k]=1; return true;});
       rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
       var sent=rep.filter(function(l){return statusOf(l)!=='none';}).length, pend=rep.length-sent;
       var sub=document.getElementById('hoy-sub');
