@@ -27,7 +27,7 @@ def _fetch(url):
 
 
 def enrich(company_id):
-    rows = db.select("companies", "id=eq.%s&select=domain,website,name,instagram" % company_id)
+    rows = db.select("companies", "id=eq.%s&select=domain,website,name,instagram,linkedin" % company_id)
     if not rows:
         return {"ok": False, "reason": "no company"}
     co = rows[0]
@@ -73,5 +73,13 @@ def enrich(company_id):
         }, returning=False)
     if found.get("instagram") and not co.get("instagram"):
         db.update("companies", "id=eq.%s" % company_id, {"instagram": found["instagram"]})
+    # BUG FIX (2026-10-07): promote LinkedIn to companies.linkedin like Instagram above, so the channel gate counts
+    # it. Before this, site_enrich wrote linkedin ONLY to enrichment_findings -> the gate never saw it -> leads with
+    # a real company LinkedIn still parked at the channel bar.
+    if found.get("linkedin") and not co.get("linkedin"):
+        try:
+            db.update("companies", "id=eq.%s" % company_id, {"linkedin": found["linkedin"]})
+        except Exception:
+            pass
     budget.log_cost(PROVIDER, EST_USD, company_id=company_id, job_type="enrich_t1", estimated=False)
     return {"ok": True, "found": list(found.keys())}

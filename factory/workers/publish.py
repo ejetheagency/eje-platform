@@ -44,7 +44,8 @@ def publish(client_id, report_date=None):
     report_date = report_date or _today()
     rows = db.select_all("client_leads",
                          "client_id=eq.%s&state=eq.READY&select=id,company_id,contact_id,score,composed" % client_id)
-    existing = {r["id"]: r for r in db.select_all("leads", "client_id=eq.%s&select=id,status,source_date" % client_id)}
+    existing = {r["id"]: r for r in db.select_all("leads", "client_id=eq.%s&select=id,status,source_date,approved:lead_data->>approved" % client_id)}
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     ic = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
     geo = ic.get("geo") or ""
     tpl = ic.get("outreach_first_touch") or ""
@@ -85,6 +86,15 @@ def publish(client_id, report_date=None):
         prev = existing.get(dom)
         sd = (prev or {}).get("source_date") or report_date
         status = (prev or {}).get("status") or "none"
+        # AUTO-APPROVAL (operator, 2026-10-07): a lead that passes every gate (it is here = it passed tsa.passes_contact
+        # + channels_ok above) is auto-approved so the nightly actually ships; flagged "auto" for the operator's
+        # spot-check. EXISTING cards PRESERVE the operator's decision (never re-flip a card they rejected in review);
+        # only NEW gate-passing cards are auto-approved.
+        if prev is None:
+            appr, appr_by, appr_at = True, "auto", now
+        else:
+            appr = (prev.get("approved") == "true")
+            appr_by, appr_at = ("auto" if appr else None), (now if appr else None)
         ld = {
             "_key": dom, "companyName": co.get("name"), "contactName": ct.get("full_name") or "",
             "contactEmail": ct.get("email") or "", "contactTitle": ct.get("title") or "",
@@ -96,9 +106,11 @@ def publish(client_id, report_date=None):
             "pitchEmailES": _pitch_text(comp) or _merge(tpl, co, ct, sender), "sectorTemplate": tpl, "sender": sender,
             "instagramDM": _merge(ig_t, co, ct, sender), "followupEmail": _merge(fu_t, co, ct, sender), "linkedinDM": _merge(li_t, co, ct, sender),
             "companyBrief": co.get("brief") or "",
+            "logo": co.get("logo_url") or "",  # real logo from the nightly logo.resolve (so the card + validator have it)
             "whyICP": "", "companyEmail": None, "score": fscore,
             "source_date": sd, "whyNow": [s["type"] for s in (sigs or [])],
             "additionalContacts": [], "_verifiedCredits": [],
+            "approved": appr, "approvedBy": appr_by, "approvedAt": appr_at, "source": "nightly",
         }
         base = {"company": co.get("name") or dom, "contact_name": ct.get("full_name") or None,
                 "contact_email": ct.get("email") or None, "score": fscore,

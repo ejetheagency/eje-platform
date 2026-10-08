@@ -58,7 +58,9 @@ def _company_website(cid):
 def sweep(client_id=None, limit=60, apply=False):
     """REAL measurement/enrichment: run the WhatsApp micro-route over this client's shippable leads' companies.
     apply=True also writes the number to the contact (phone) + logs an enrichment_finding. Returns actual yield."""
-    q = ("client_id=eq.%s&" % client_id if client_id else "") + "state=in.(READY,DELIVERED)&contact_id=not.is.null&select=id,company_id,contact_id&limit=%d" % limit
+    # Pre-gate states included (2026-10-07): find WhatsApp BEFORE the channel gate so it can clear the bar, not only
+    # on already-READY leads. contact_id must exist (we write the number to the contact's phone).
+    q = ("client_id=eq.%s&" % client_id if client_id else "") + "state=in.(SCORED,T2_ENRICHING,GATE_CHECK,PARKED,READY,DELIVERED)&contact_id=not.is.null&select=id,company_id,contact_id&limit=%d" % limit
     rows = db.select_all("client_leads", q)
     out = {"checked": 0, "found": 0, "by_via": {}, "examples": []}
     for r in rows:

@@ -52,6 +52,24 @@ def _run_one(cl):
 
     allow_catch_all = _allow_catch_all(cl["client_id"])
     soft = ct.get("email_status") in ("catch_all", "catch_all_suspected") and (allow_catch_all or _soft_ok(cl, ct))
+    # BUG FIX (2026-10-07): run the WhatsApp micro-route BEFORE the channel count, not after READY. A lead with a
+    # named decisor + verified email but no 2nd channel used to PARK here while its WhatsApp sat unfetched on the
+    # company site. Now we fetch it at gate time (only when the contact has no phone yet), so WhatsApp can be the
+    # channel that clears the bar. Deterministic (wa.me/tel regex), free, no LLM.
+    if cl.get("contact_id") and not ct.get("phone"):
+        site = co.get("website") or co.get("domain")
+        if site:
+            try:
+                from factory.workers import whatsapp_find
+                wa = whatsapp_find.find(site)
+                if wa.get("whatsapp"):
+                    db.update("contacts", "id=eq.%s" % cl["contact_id"], {"phone": wa["whatsapp"]})
+                    ct["phone"] = wa["whatsapp"]
+                    db.insert("enrichment_findings", {"company_id": cl["company_id"], "field": "whatsapp",
+                              "value": wa["whatsapp"], "source": "whatsapp_" + wa.get("via", "gate"),
+                              "pivot_name": "whatsapp_find_gate"}, returning=False)
+            except Exception:
+                pass
     # channel bar: count the distinct outreach channels present (website is NOT a channel).
     chans = set()
     if ct.get("email") and ct.get("email_status") not in ("invalid", "bounced"):

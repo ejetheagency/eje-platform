@@ -1,13 +1,15 @@
 # factory/run_nightly.py  —  THE NIGHT SHIFT. run() is callable (by the service / cron); main() is the CLI.
 #   discovery -> enqueue -> drain -> reports -> ops snapshot. Idempotent, safe to run anytime.
 #   python3 -m factory.run_nightly [--client <id>] [--max <N>]
-import sys, json
+import sys, json, datetime
 from factory.workers import scheduler, runner, reports, admin, discovery
 from factory.packages import db, queue
 
 
 def run(client=None, max_leads=None):
     out = {"discovery": {}, "jobs": 0, "reports": {}}
+    _since = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")  # night window start (for the funnel)
+    out["run_started"] = _since
     out["reaped"] = queue.reap()  # re-queue any jobs orphaned by a dead worker before processing
     try:  # item 6: operator hand-enriched leads (seeds/<client>.csv) enter the NORMAL chain, nothing skips a gate
         from factory.workers import seed_import
@@ -55,6 +57,12 @@ def run(client=None, max_leads=None):
         out["reenriched"] = reverify.reenrich_parked(client_id=client)
     except Exception:
         pass
+    try:  # WHATSAPP micro-route BEFORE the gates (not after READY, bug fix 2026-10-07): find wa.me/tel on carryover
+          # pre-gate leads so WhatsApp can clear the >=2-channel bar. Same-night leads are covered inline in gates._run_one.
+        from factory.workers import whatsapp_find
+        out["whatsapp"] = {c: whatsapp_find.sweep(c, apply=True) for c in ([client] if client else [x["id"] for x in db.select("clients", "select=id")])}
+    except Exception as e:
+        out["whatsapp"] = {"error": str(e)[:150]}
     drained = runner.drain_concurrent(workers=4)  # concurrent workers (atomic claim) = faster nightly runs
     out["jobs"] = len(drained)
     try:  # capture inbound email replies for EJE's own outreach (agency inbox) -> engagement + learning
@@ -75,12 +83,6 @@ def run(client=None, max_leads=None):
         out["ready_invariant"] = {"error": str(e)[:150]}
     reps = reports.build_all() if not client else [reports.build(client)]
     out["reports"] = {r["client_id"]: r["count"] for r in reps}
-    try:  # WHATSAPP micro-route (deterministic wa.me/tel regex) -> adds the deep channel to shippable leads BEFORE
-          # publish, so the card ships multi-channel. Measured ~53% yield on 2uplatam's real pool (LatAm-primary).
-        from factory.workers import whatsapp_find
-        out["whatsapp"] = {c: whatsapp_find.sweep(c, apply=True) for c in ([client] if client else [x["id"] for x in db.select("clients", "select=id")])}
-    except Exception as e:
-        out["whatsapp"] = {"error": str(e)[:150]}
     try:  # bridge: publish READY factory leads -> the `leads` table the app reads (contact cards for full-access clients)
         from factory.workers import publish
         out["published"] = publish.publish_full_access(only=client if client else None)
@@ -91,6 +93,14 @@ def run(client=None, max_leads=None):
         out["released"] = release.schedule_all(only=client if client else None)
     except Exception as e:
         out["released"] = {"error": str(e)[:150]}
+    try:  # MINER EXPERIMENT (2026-10-07): the serper+judgment miner, wired for ONE client (2uplatam), capped at 20,
+          # STAGED (approved=False, source=agent_miner) for side-by-side review vs a manual run. If quality matches,
+          # it becomes the main discovery lane. Runs only on the full run or a 2uplatam-scoped run.
+        if client is None or client == "2uplatam":
+            from factory.workers import agent_miner
+            out["miner"] = agent_miner.mine_and_publish("2uplatam", 20, report_date=datetime.date.today().isoformat(), approved=False)
+    except Exception as e:
+        out["miner"] = {"error": str(e)[:150]}
     try:  # THE DAILY GUARANTEE: verify every paying client's Hoy hit its target; alert (notify) on any shortfall
         from factory.workers import sla_check
         out["sla"] = sla_check.enforce(only=client if client else None)
@@ -103,6 +113,22 @@ def run(client=None, max_leads=None):
         out["spend_today_usd"] = snap["spend_today_usd"]
     except Exception:
         pass
+    try:  # THE ONLY STATUS REPORT (operator, 2026-10-07): one funnel line per client, emailed with the run.
+        from factory.workers import funnel
+        from factory.packages import notify
+        pubd = out.get("published") or {}
+        results = {}
+        if isinstance(pubd, dict) and "error" not in pubd:
+            for cid, pres in pubd.items():
+                disc = (out.get("discovery") or {}).get(cid, 0)
+                pcount = pres.get("published", 0) if isinstance(pres, dict) else 0
+                results[cid] = funnel.compute(cid, _since, discovered=disc, published=pcount)
+        if results:
+            subject, body = funnel.report(results)
+            notify.notify(subject, body)
+            out["funnel"] = {cid: r["funnel"] for cid, r in results.items()}
+    except Exception as e:
+        out["funnel"] = {"error": str(e)[:150]}
     return out
 
 

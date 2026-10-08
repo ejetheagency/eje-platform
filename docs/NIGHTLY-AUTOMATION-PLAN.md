@@ -174,6 +174,21 @@ Traced from the live code (2026-10-07). This is the real machine, with file:line
 | `approved=true` | **NO** | manual-only (`agent_miner.py:294`); SLA needs it |
 
 ### 3.4 The plan to make it run (ordered; keystone first)
+
+> **STATUS 2026-10-07 (cont.15) - WIRED, pending the 3-night proof.** Operator froze all new providers/docs/features
+> until the nightly shows approved leads 3 nights running. Shipped this session: (1) **funnel email** per client per
+> night via `funnel.py`+`notify` (counts only: discovered->enriched->named->email->verified->channels->READY->
+> published->approved + card-valid %); (2) **Places key CONFIRMED in Railway** (trace #1 was a local artifact - prod
+> discovery works); (3) **miner wired** - `agent_miner.mine_and_publish("2uplatam",20,approved=False,source=agent_miner)`
+> in `run_nightly` for side-by-side vs a manual run; (4) **3 wiring bugs fixed** - LinkedIn now promoted to
+> `companies.linkedin` (`site_enrich.py`), WhatsApp runs BEFORE gates (inline in `gates._run_one` + pre-drain sweep),
+> channel gate uses client config (`2uplatam.icp_config.channels={min:2,required:[]}`); (5) **auto-approval** - new
+> gate-passing cards get `approved=true, approvedBy=auto` in `publish.py` (existing cards preserve the operator's
+> decision); (6) **quality standard as code** - `card_validator.py` (named, email, 2+ channels, logo, hook fact,
+> per-channel scripts) reported as a nightly %. KNOWN remaining depth gap the validator exposes: `hook_fact` +
+> `whatsappMessage` not generated yet (deferred behind the 3-night gate). NEXT: watch 3 funnel emails; if miner
+> quality matches the manual run, make it the main lane.
+
 **Keystone - WIRE the miner that already works.** `agent_miner` already does serper discovery + raw-fetch + cheap-LLM
 judgment + compose + `publish_batch(approved=True)`. The single highest-leverage move is to **call
 `agent_miner.mine_and_publish` from `run_nightly` as the net-new SOURCE** (per client, sized by the same
