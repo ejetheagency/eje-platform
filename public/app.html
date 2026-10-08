@@ -1542,7 +1542,16 @@
           var prov='<div class="ops-sec">Proveedores (gasto del mes vs tope)</div><div class="ops-prov">'+(o.providers||[]).map(function(p){var cap=p.monthly_cap_usd,sp=p.spent_month||0;var pct=cap?Math.min(100,Math.round(sp/cap*100)):0;var cls=pct>=90?'crit':(pct>=70?'warn':'');return '<div class="ops-prow"><span>'+esc(p.provider)+'</span><span class="ops-bar">'+(cap?'<i class="'+cls+'" style="width:'+pct+'%"></i>':'')+'</span><span class="amt">$'+sp+(cap?(' / $'+cap):' · libre')+'</span></div>';}).join('')+'</div>';
           var pipe='<div class="ops-sec">Pipeline</div><div class="ops-pills">'+(o.lead_states||[]).map(function(s){return '<span class="ops-pill">'+esc(s.state)+' <b>'+s.n+'</b></span>';}).join('')+(o.queue||[]).filter(function(q){return q.n>0;}).map(function(q){return '<span class="ops-pill">cola:'+esc(q.status)+' <b>'+q.n+'</b></span>';}).join('')+'</div>';
           var cli='<div class="ops-sec">Clientes</div><table class="ops-ctab"><tr><th>Cliente</th><th>READY</th><th>Entregados</th><th>Total</th></tr>'+(o.clients||[]).map(function(c){return '<tr><td>'+esc(c.client_id)+'</td><td class="rd">'+(c.ready||0)+'</td><td>'+(c.delivered||0)+'</td><td>'+(c.total||0)+'</td></tr>';}).join('')+'</table>';
-          host.innerHTML=top+prov+pipe+cli;
+          // Reportes programados: por cliente, cada fecha con lo LISTO (aprobado) vs ARMÁNDOSE (staged). Hoy y futuros.
+          var up=o.upcoming||{}; var _tdy=ejeTodayET();
+          var sched='<div class="ops-sec">Reportes programados · listos vs armándose</div>';
+          var cids=Object.keys(up).sort();
+          if(!cids.length){ sched+='<div class="tq-empty" style="padding:6px 2px">Sin reportes programados.</div>'; }
+          else cids.forEach(function(cid){
+            var dts=up[cid]; var dk=Object.keys(dts).sort();
+            sched+='<div style="margin:5px 0 9px"><div style="font-weight:650;font-size:12.5px;margin-bottom:4px">'+esc(cid)+'</div><div class="ops-pills">'+dk.map(function(d){var x=dts[d];var isToday=(d===_tdy);var lbl=(isToday?'hoy':d)+' · '+x.ready+' listos'+(x.building?(' · '+x.building+' armando'):'');return '<span class="ops-pill"'+(isToday?' style="background:color-mix(in srgb,var(--ok,#1a9e4b) 14%,transparent);color:#1a9e4b"':'')+'>'+esc(lbl)+'</span>';}).join('')+'</div></div>';
+          });
+          host.innerHTML=top+prov+pipe+sched+cli;
         }).catch(function(){host.innerHTML='<div class="tq-empty" style="padding:14px 4px">No pude cargar Ops.</div>';});
     }
     function renderOps(){
