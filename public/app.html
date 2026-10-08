@@ -945,8 +945,11 @@
           }
           window.__ejeAuthed=true; window.__ejeEmail=em; window.__ejeToken=session.access_token;
           window.__ejeIsAdmin=!!me.isAdmin;
-          if(me.isAdmin){var _no=document.getElementById('nav-ops'); if(_no) _no.style.display='flex';}
-          if(!me.isAdmin){ ['reporte','historial','seguimiento','ops'].forEach(function(_v){ document.querySelectorAll('[data-view="'+_v+'"]').forEach(function(_t){_t.style.display='none';}); }); }  // cliente ve SOLO lo util: Hoy, Tareas, Decisores, Ajustes. Reporte/Historial/Seguimiento/Ops son internos.
+          window.__ejePreviewClient=(!!me.isAdmin && localStorage.getItem('eje_preview_client')==='1'); // admin QA: see EXACTLY the client view
+          var _asClient=(!me.isAdmin)||window.__ejePreviewClient;
+          if(me.isAdmin && !window.__ejePreviewClient){var _no=document.getElementById('nav-ops'); if(_no) _no.style.display='flex';}
+          if(_asClient){ ['reporte','historial','seguimiento','ops'].forEach(function(_v){ document.querySelectorAll('[data-view="'+_v+'"]').forEach(function(_t){_t.style.display='none';}); }); }  // cliente (o admin en preview) ve SOLO lo util: Hoy, Tareas, Decisores, Ajustes
+          if(me.isAdmin){ var _pb=document.createElement('button'); _pb.textContent=window.__ejePreviewClient?'↩ Volver a vista admin':'👁 Ver como cliente'; _pb.style.cssText='position:fixed;left:16px;bottom:58px;z-index:9999;font-size:12px;font-weight:650;padding:8px 12px;border-radius:9px;border:1px solid var(--line);background:'+(window.__ejePreviewClient?'#2da2bb':'#fff')+';color:'+(window.__ejePreviewClient?'#fff':'#222')+';cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.14)'; _pb.addEventListener('click',function(){ if(window.__ejePreviewClient){localStorage.removeItem('eje_preview_client');}else{localStorage.setItem('eje_preview_client','1');} location.reload(); }); document.body.appendChild(_pb); }
           // A "library" client (e.g. eje_productoras) is a lead database/ASSET, not a profile you switch into.
           // Keep it OUT of the workspace switcher; expose it separately for the admin Lead Library view.
           var allWs=me.workspaces||[];
@@ -1107,7 +1110,7 @@
     var ISEJE=(EJE_CLIENT==='eje'); // EJE Outreach workspace: cadence is IG DM then a 2nd email, then stop (no WhatsApp/monthly).
     // Minimal client view (2uplatam): el cliente SOLO ve su reporte entregado (leads aprobados), nunca la pool cruda
     // ni reportes de otros días, ni tabs internas (Reporte). Mantiene la vista limpia para revisar con un colega.
-    function CLIENTCLEAN(){ return window.__ejeIsAdmin===false; }  // vista limpia para CUALQUIER cliente (no-admin): solo su reporte entregado, sin pool ni Reporte
+    function CLIENTCLEAN(){ return window.__ejeIsAdmin===false || window.__ejePreviewClient===true; }  // vista limpia para cliente (o admin en "Ver como cliente"): solo lo entregado, sin pool
     var DORMANT_MS=30*DAY; // last touch older than this -> revival bucket, NOT "urgente"
     var MSGS={}, UNIVERSE=[], BYKEY={};
     // EJE cadence (doctrine 2026-10-05): 4 toques principales -> T1 email -> T2 IG/WA (+2d) -> T3 2º email (+5d)
