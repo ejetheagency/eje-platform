@@ -4,7 +4,7 @@
 # Per business: find the real site -> extract email (gmail/contacto) + WhatsApp (wa.me) + IG (regex) -> find the OWNER
 # (site text via cheap LLM, else press-search). Returns a candidate card; the normal gates (MV-verify/dedup/country)
 # run downstream. This is the agent-driven worker the rigid provider-chain pipeline was missing.
-import re, ssl, json, urllib.request
+import re, ssl, json, time, urllib.request
 from factory.providers import serper, cheap_llm, millionverifier
 from factory.packages import db
 
@@ -176,10 +176,12 @@ def lane_linkedin(name, company, client_id):
     return ""
 
 
-def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_query_cap=3, max_examine=150):
+def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_query_cap=3, max_examine=150, deadline_ts=None):
     """FULLY-ENRICHED, ICP-ALIGNED batch: loop the client's ICP queries -> mine -> gate (named decisor + MV-valid
     email + >=2 channels + ICP-fit) -> dedup -> accumulate n. per_query_cap spreads the batch across sectors
-    (VARIETY) instead of over-concentrating on one vein. Returns the finished cards + a per-stage tally."""
+    (VARIETY) instead of over-concentrating on one vein. Returns the finished cards + a per-stage tally.
+    deadline_ts (epoch secs, operator 2026-10-08): hard wall-clock stop checked between veins and between cards so
+    the miner can never overrun the night; it returns partial work with tally['stopped']='deadline'."""
     c = db.select("clients", "id=eq.%s&select=icp_config" % client_id)
     icp_cfg = (c[0].get("icp_config") or {}) if c else {}
     queries = queries or icp_cfg.get("discovery_queries") or []
@@ -197,11 +199,19 @@ def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_que
         for q in queries:
             if len(out) >= n:
                 break
+            if deadline_ts and time.time() > deadline_ts:  # wall-clock wall: stop between veins
+                _log("deadline reached — stopping run (%d/%d so far)" % (len(out), n))
+                tally["stopped"] = "deadline"
+                return {"cards": out, "tally": tally}
             kept_here = 0
             _log("vein (p%d): %s" % (_pass, q))
             for card in mine_vein(q, city, client_id, want=8, roles=roles):
                 if len(out) >= n or kept_here >= cap:
                     break
+                if deadline_ts and time.time() > deadline_ts:  # wall-clock wall: stop mid-vein too
+                    _log("deadline reached mid-vein — stopping run (%d/%d so far)" % (len(out), n))
+                    tally["stopped"] = "deadline"
+                    return {"cards": out, "tally": tally}
                 if tally["mined"] >= max_examine:          # hard per-run ceiling (cost guardrail) — stop even if short
                     _log("max_examine %d reached — stopping run" % max_examine)
                     return {"cards": out, "tally": tally}
@@ -308,10 +318,11 @@ def publish_batch(client_id, cards, report_date, approved=False):
     return {"client_id": client_id, "published": n, "report_date": report_date, "approved": approved}
 
 
-def mine_and_publish(client_id, n, report_date, approved=False, publish=True):
-    """One call for the nightly: mine n fully-enriched ICP-aligned cards and (optionally) publish them STAGED."""
-    res = mine_report(client_id, n=n)
-    out = {"tally": res["tally"], "cards": len(res["cards"])}
+def mine_and_publish(client_id, n, report_date, approved=False, publish=True, deadline_ts=None):
+    """One call for the nightly: mine n fully-enriched ICP-aligned cards and (optionally) publish them STAGED.
+    deadline_ts = hard wall-clock stop (epoch secs) passed through to mine_report."""
+    res = mine_report(client_id, n=n, deadline_ts=deadline_ts)
+    out = {"tally": res["tally"], "cards": len(res["cards"]), "stopped": res["tally"].get("stopped")}
     if publish and res["cards"]:
         out["publish"] = publish_batch(client_id, res["cards"], report_date, approved=approved)
     return out

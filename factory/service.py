@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 from factory import run_nightly
 
-VERSION = "2026-10-07-whatsapp-channels"  # bump each deploy to verify it landed via /health
+VERSION = "2026-10-08-preflight-honest-funnel"  # bump each deploy to verify it landed via /health
 PORT = int(os.environ.get("PORT", "8080"))
 # Nightly run at 2 AM Miami (operator's night). 06:00 UTC = 2 AM EDT / 1 AM EST — deep night Miami year-round,
 # and well before the 8 AM Ecuador report SLA (06:00 UTC = 1 AM Ecuador). Override per-env with FACTORY_RUN_HOUR_UTC.
@@ -55,6 +55,14 @@ class H(BaseHTTPRequestHandler):
             mx = qs.get("max", [None])[0]
             threading.Thread(target=_run, kwargs={"client": client, "max_leads": int(mx) if mx else None}, daemon=True).start()
             return self._json({"started": True, "client": client, "max": mx})
+        if u.path.startswith("/preflight"):  # verify the 4 night-killers against THIS (live) env; &test=1 sends one email
+            if not RUN_SECRET or qs.get("key", [None])[0] != RUN_SECRET:
+                return self._json({"error": "forbidden"}, 403)
+            try:
+                from factory.workers import preflight
+                return self._json(preflight.check(send_test=qs.get("test", ["0"])[0] in ("1", "true")))
+            except Exception as e:
+                return self._json({"ok": False, "error": str(e)}, 500)
         return self._json({"service": "eje-factory", **_state})
 
     def _json(self, d, code=200):

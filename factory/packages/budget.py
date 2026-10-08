@@ -4,13 +4,48 @@
 # kill switch + global monthly cap + per-provider monthly cap (from provider_accounts). Per-call price
 # estimates live in config/prices.json (read via price()/prices()). Plan-level per-client budgets and
 # the full acquire/settle allocator (TREASURY.md) are a later phase.
-import os, json, datetime
+import os, json, datetime, threading
 from urllib.parse import quote
 from factory.packages import db
 
 
 def _ts(iso):
     return quote(iso, safe="")  # encode '+' in the tz offset so PostgREST doesn't read it as a space
+
+
+# RESERVED SLICES (operator, 2026-10-08): carve part of the daily global cap for ONE consumer so upstream steps
+# can't eat the whole budget before it runs. The miner runs LAST among paid consumers, so without this a heavy
+# drain/micro-route night would leave it $0 and it would silently produce 0. reserve("miner", 1.5) => upstream is
+# limited to (cap - 1.5); the miner itself (when its pool is active) sees the full cap, so >=1.5 is always free for it.
+# _ACTIVE is thread-local: drain's worker threads never activate a pool (they're "upstream"); the miner activates on
+# its own single thread. NEVER raises; no cap is ever RAISED by this, only redistributed.
+_ACTIVE = threading.local()
+_RESERVED = {}  # pool_tag -> reserved usd
+
+
+def reserve(tag, usd):
+    _RESERVED[tag] = float(usd or 0)
+
+
+def activate_pool(tag):
+    _ACTIVE.pool = tag
+
+
+def deactivate_pool():
+    _ACTIVE.pool = None
+
+
+def _active_pool():
+    return getattr(_ACTIVE, "pool", None)
+
+
+def spent_today():
+    """Cumulative USD spent since 00:00 UTC today (the per-night window). Public read for the run's spend trace."""
+    return _spent(since=_day_start_iso())
+
+
+def daily_cap():
+    return float(_cfg().get("daily_global_spend_cap_usd") or 0)
 
 _CFG_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "budgets.json")
 
@@ -65,8 +100,14 @@ def can_spend(client_id, provider, est_usd):
         return (False, "kill switch on")
     est = float(est_usd or 0)
     dcap = float(cfg.get("daily_global_spend_cap_usd") or 0)   # per-NIGHT ceiling: no single run/night can burst
-    if dcap and _spent(since=_day_start_iso()) + est > dcap:
-        return (False, "global daily cap $%.2f reached" % dcap)
+    if dcap:
+        active = _active_pool()
+        total_reserved = sum(_RESERVED.values())
+        # The active reserved consumer (miner) sees the FULL cap; everyone else (upstream) is capped at (cap - reserved)
+        # so the reserved slice is always free when the consumer runs. No cap is raised — only redistributed.
+        eff = dcap if (active and active in _RESERVED) else max(0.0, dcap - total_reserved)
+        if _spent(since=_day_start_iso()) + est > eff:
+            return (False, "global daily cap $%.2f reached (effective $%.2f for pool=%s)" % (dcap, eff, active or "upstream"))
     gcap = float(cfg.get("monthly_global_spend_cap_usd") or 0)
     if gcap and _spent() + est > gcap:
         return (False, "global monthly cap $%.2f reached" % gcap)
