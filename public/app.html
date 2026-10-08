@@ -1121,10 +1121,19 @@
     // Tras el T5 el lead RE-INGRESA a la factory (enriquecimiento de canal alterno). Canales con fallback IG->LinkedIn->WA->email.
     function cadNext(n){
       if(n<=1) return {touch:1,label:'1er toque',channel:'email',iv:0};
-      if(n===2) return {touch:2,label:'2º toque',channel:'ig',iv:2*DAY};    // 2º canal: IG (o WhatsApp si no hay IG)
-      if(n===3) return {touch:3,label:'3er toque',channel:'email',iv:5*DAY};  // 2º email
-      if(n===4) return {touch:4,label:'4º toque',channel:'ig',iv:7*DAY};    // EJE: re-toque IG + email (~1 sem si sigue en silencio). IG/WhatsApp SÍ permiten doble toque.
-      if(n===5) return {touch:5,label:'5º toque LinkedIn',channel:'li',iv:5*DAY};  // LinkedIn = toque FINAL, un solo disparo (NO es plataforma de doble toque)
+      if(ISEJE){ // EJE doctrine (unchanged): IG-first exhaust -> voice-memo close
+        if(n===2) return {touch:2,label:'2º toque',channel:'ig',iv:2*DAY};
+        if(n===3) return {touch:3,label:'3er toque',channel:'email',iv:5*DAY};
+        if(n===4) return {touch:4,label:'4º toque',channel:'ig',iv:7*DAY};
+        if(n===5) return {touch:5,label:'5º toque LinkedIn',channel:'li',iv:5*DAY};
+        return {touch:n,label:'Mensual',channel:'email',iv:30*DAY};
+      }
+      // Non-EJE: WhatsApp-FORWARD multichannel. WhatsApp is the most relevant channel, so it is the primary 2nd touch
+      // right after the first email; IG then LinkedIn follow; WhatsApp is also a first-class fallback (see resolveCh).
+      if(n===2) return {touch:2,label:'2º toque WhatsApp',channel:'wa',iv:2*DAY};
+      if(n===3) return {touch:3,label:'3er toque Instagram',channel:'ig',iv:4*DAY};
+      if(n===4) return {touch:4,label:'4º toque',channel:'email',iv:7*DAY};  // 2º email
+      if(n===5) return {touch:5,label:'5º toque LinkedIn',channel:'li',iv:5*DAY};
       return {touch:n,label:'Mensual',channel:'email',iv:30*DAY};
     }
     function chLabel(ch){ return ch==='ig'?'IG':ch==='wa'?'WA':ch==='li'?'LinkedIn':ch==='call'?'Llamada':'Email'; }
@@ -1138,9 +1147,12 @@
         if(ch==='li'&&!li) return wa?'wa':'hold';   // LinkedIn = toque final; sin perfil -> HOLD (no repetir IG del toque 4)
         if(ch==='wa'&&!wa) return ig?'ig':(li?'li':'hold');
         return ch; }
-      if(ch==='ig'&&!ig) return li?'li':'email';   // non-EJE (productoras) keeps the legacy email fallback
-      if(ch==='li'&&!li) return 'email';
-      if(ch==='wa'&&!wa) return 'email'; return ch; }
+      // non-EJE: WhatsApp is a FIRST-CLASS channel. Each non-email touch falls back preferring WhatsApp, then the
+      // others, then email as last resort (so a WhatsApp-capable lead is always reached on WhatsApp).
+      if(ch==='wa'&&!wa) return ig?'ig':(li?'li':'email');
+      if(ch==='ig'&&!ig) return wa?'wa':(li?'li':'email');
+      if(ch==='li'&&!li) return wa?'wa':'email';
+      return ch; }
     function cadOf(l){
       var d=l._key||decDom(l.website); var st=(d&&STATUS[d])||l.status||'none';
       var ts=(MSGS[d]||[]).slice().sort(function(a,b){return a-b;});
