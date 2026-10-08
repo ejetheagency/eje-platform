@@ -99,6 +99,7 @@ We have 3 email routes (site, search_email, pattern) and we rank them on RAW can
   inbox) so the ratio tells the truth about quality + tier-2 messages always name the person.
 
 ## STILL OPEN (pending builds, newest first)
+- **IDEA — activation-gated drip (operator, 2026-10-07):** if a client does NOT action all 20 of today's report, the NEXT report does not release. Two wins: (1) don't waste fresh leads on clients who aren't using them; (2) incentivize finishing the day's reach-out. **CRITICAL caveat (operator):** apply ONLY to the FIRST-TOUCH drip (the new 20). NEVER gate follow-ups / Tareas — those are the service they paid for; blocking them would withhold what they bought. Refinements to decide when building: define "actioned" (status≠none / a send logged); add a grace window (don't hard-block a client mid-day or on a late start); likely a SOFT gate first (warn "termina los de hoy para recibir los de mañana") before a hard stop; weekends/holidays exempt. Mechanism fits the existing release model (pre-staged future `source_date` + the 8 AM rollover) — the gate just holds the next day's release until the prior day's first-touches are complete.
 - **Tier label** (1 personal / 2 company inbox) — honest ratio + tier-2 names the person. Pairs with NEXT BUILD.
 - **More micro-route lanes** (compounding) — add + let VERIFIED-yield ranking pick winners (needs NEXT BUILD first).
 - **Doc hierarchy cleanup** (awaiting operator nod): supersede ENRICHMENT_MASTER_PLAN, retire SESSION_STATE; PLAN=anchor, FACTORY-VISION=doctrine.
