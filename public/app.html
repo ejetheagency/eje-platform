@@ -1111,6 +1111,9 @@
     // Minimal client view (2uplatam): el cliente SOLO ve su reporte entregado (leads aprobados), nunca la pool cruda
     // ni reportes de otros días, ni tabs internas (Reporte). Mantiene la vista limpia para revisar con un colega.
     function CLIENTCLEAN(){ return window.__ejeIsAdmin===false || window.__ejePreviewClient===true; }  // vista limpia para cliente (o admin en "Ver como cliente"): solo lo entregado, sin pool
+    // A client only ever sees DELIVERED leads: approved AND source_date<=today. Surface guard applied at every
+    // client-visible render (Decisores/Tareas), so no merge path (active batch, report files) can leak the pool.
+    function _deliveredToClient(l){ if(!CLIENTCLEAN()) return true; var sd=(l&&l.source_date)||''; return !!(l&&l.approved) && sd!=='' && sd<=ejeTodayET(); }
     var DORMANT_MS=30*DAY; // last touch older than this -> revival bucket, NOT "urgente"
     var MSGS={}, UNIVERSE=[], BYKEY={};
     // EJE cadence (doctrine 2026-10-05): 4 toques principales -> T1 email -> T2 IG/WA (+2d) -> T3 2º email (+5d)
@@ -1359,7 +1362,7 @@
     function stageCard(icon,label,list,amber){ return '<div class="ac-card ac-stage'+(amber?' amber':'')+'"><div class="acl">'+ICN[icon]+label+'</div><div class="acn">'+list.length+'</div><div class="acs">'+(/ensual/i.test(label)?'en ciclo mensual':'decisores esperando')+'</div>'+(list.length?avStack(list):'')+'</div>'; }
     function renderAccion(){
       var body=document.getElementById('tareas-body'); if(!body) return;
-      var uni=(UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)?DATA.leads.map(function(l){return Object.assign({_key:decDom(l.website)},l);}):[]);
+      var uni=((UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)?DATA.leads.map(function(l){return Object.assign({_key:decDom(l.website)},l);}):[])).filter(_deliveredToClient);
       if(!uni.length){ body.innerHTML='<div class="tq-empty">Cargando cola…</div>'; return; }
       // EJE: Tareas is ONLY follow-ups for already-contacted leads. First touches live in Hoy (their send day), never here.
       // Tareas = SEGUIMIENTOS (follow-ups) only, for EVERY workspace and viewer (admin included). First-touches
@@ -1699,7 +1702,7 @@
     function toast(m){var t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},1800);}
     function norm2(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
     function render(){
-      var src=(UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)||[]);
+      var src=((UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)||[])).filter(_deliveredToClient);
       if(!ISEJE) src=src.filter(_shippable);  // TSA: clients never see a lead without real website + email + decisor
       if(CLIENTCLEAN()) src=src.filter(function(l){return l.approved===true;});  // cliente ve SOLO su reporte entregado, no la pool
       if(!src.length){return;}
