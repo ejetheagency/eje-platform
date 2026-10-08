@@ -1579,18 +1579,23 @@
         +((l.pitch||l.email)?'<button class="rep-send" data-pitch="'+esc(l.pitch||'')+'" data-email="'+esc(l.email||'')+'" data-ig="'+esc(l.instagram||'')+'" data-ch="'+esc(ch)+'">Copiar mensaje y abrir '+(ch==='instagram'?'Instagram':'correo')+'</button>':'')
         +'</div>';
     }
+    // REPORTE (admin): the curated reports from the leads table, ORGANIZED BY DATE (today + upcoming), only
+    // ready/composed leads (approved + with a message). Building/staged leads live in Ops, not here.
+    function _repMap(l){ return {company:l.companyName,decisor:l.contactName,title:l.contactTitle,email:l.contactEmail,pitch:l.pitchEmailES,instagram:l.instagramHandle,score:l.score,channel:(cadOf(l)||{}).channel||'email',why_now:(l.whyICP?[l.whyICP]:[]),logo_url:l.logo_url}; }
     function renderReporte(){
       var host=document.getElementById('rep-host'); if(!host) return;
-      host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Cargando reporte…</div>';
-      fetch('/api/report?client_id='+encodeURIComponent(EJE_CLIENT),{headers:{Authorization:'Bearer '+(window.__ejeToken||'')}})
-        .then(function(r){return r.ok?r.json():null;}).then(function(d){
-          var rep=(d&&d.report)||{leads:[]}, leads=rep.leads||[], st=rep.stats||{};
-          var ctn=document.getElementById('rep-ct'); if(ctn) ctn.textContent=leads.length||'';
-          var sub=document.getElementById('rep-sub'); if(sub&&d&&d.report_date) sub.textContent='Reporte del '+d.report_date+' · listos para contactar.';
-          if(!leads.length){ host.innerHTML='<div class="seg-empty"><div class="t">Tu reporte se está construyendo</div>Cada noche el sistema busca, verifica y prepara leads premium con el decisor y un mensaje listo. Vuelve pronto.</div>'; return; }
-          host.innerHTML='<div class="rep-head"><div class="rep-h-t">Leads premium listos para contactar</div><div class="rep-h-s">'+leads.length+' leads · '+(st.with_email||0)+' con email verificado · '+(st.pitch_ready||0)+' con mensaje listo</div></div><div class="rep-grid">'+leads.map(repCard).join('')+'</div>';
-          host.querySelectorAll('.rep-send').forEach(function(b){ b.addEventListener('click',function(){ try{navigator.clipboard.writeText(b.dataset.pitch||'');}catch(e){} var ch=b.dataset.ch,em=b.dataset.email,ig=b.dataset.ig; var _eml=em?('mailto:'+em+'?body='+encodeURIComponent(b.dataset.pitch||'')):''; var link=(ch==='instagram'&&ig)?('https://instagram.com/'+ig):_eml; if(link) window.open(link,'_blank','noopener'); b.textContent='Copiado ✓'; b.classList.add('done'); }); });
-        }).catch(function(){ host.innerHTML='<div class="tq-empty" style="padding:14px 4px">No pude cargar el reporte. Reintentá.</div>'; });
+      if(!UNIVERSE||!UNIVERSE.length){ host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Cargando reporte…</div>'; loadUniverse().then(function(){ if(document.getElementById('view-reporte')&&document.getElementById('view-reporte').classList.contains('on')) renderReporte(); }); return; }
+      var td=ejeTodayET(), byDate={};
+      UNIVERSE.forEach(function(l){ if(!l.approved) return; var d=l.source_date||''; if(!d||d<td) return; if(!(l.pitchEmailES||'').trim()) return; (byDate[d]=byDate[d]||[]).push(l); });
+      var dates=Object.keys(byDate).sort();
+      var ctn=document.getElementById('rep-ct'); if(ctn) ctn.textContent=dates.reduce(function(a,d){return a+byDate[d].length;},0)||'';
+      if(!dates.length){ host.innerHTML='<div class="seg-empty"><div class="t">Sin reportes listos</div>Los reportes de hoy y próximos días aparecen aquí, organizados por fecha, cuando están armados. Mirá el pipeline en Ops.</div>'; return; }
+      host.innerHTML=dates.map(function(d){
+        var ls=byDate[d].slice().sort(function(a,b){return (b.score||0)-(a.score||0);});
+        var lab=(d===td)?('Hoy · '+esc(d)):esc(d);
+        return '<div class="rep-head"><div class="rep-h-t">📅 Reporte '+lab+'</div><div class="rep-h-s">'+ls.length+' leads listos · mensaje compuesto</div></div><div class="rep-grid">'+ls.map(_repMap).map(repCard).join('')+'</div>';
+      }).join('');
+      host.querySelectorAll('.rep-send').forEach(function(b){ b.addEventListener('click',function(){ try{navigator.clipboard.writeText(b.dataset.pitch||'');}catch(e){} var ch=b.dataset.ch,em=b.dataset.email,ig=b.dataset.ig; var _eml=em?('mailto:'+em+'?body='+encodeURIComponent(b.dataset.pitch||'')):''; var link=(ch==='instagram'&&ig)?('https://instagram.com/'+ig):_eml; if(link) window.open(link,'_blank','noopener'); b.textContent='Copiado ✓'; b.classList.add('done'); }); });
     }
     function renderSeguimiento(){
       var body=document.getElementById('seg-list'); if(!body) return;
