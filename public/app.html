@@ -1589,12 +1589,14 @@
       UNIVERSE.forEach(function(l){ if(!l.approved) return; var d=l.source_date||''; if(!d||d<td) return; if(!(l.pitchEmailES||'').trim()) return; (byDate[d]=byDate[d]||[]).push(l); });
       var dates=Object.keys(byDate).sort();
       var ctn=document.getElementById('rep-ct'); if(ctn) ctn.textContent=dates.reduce(function(a,d){return a+byDate[d].length;},0)||'';
-      if(!dates.length){ host.innerHTML='<div class="seg-empty"><div class="t">Sin reportes listos</div>Los reportes de hoy y próximos días aparecen aquí, organizados por fecha, cuando están armados. Mirá el pipeline en Ops.</div>'; return; }
-      host.innerHTML=dates.map(function(d){
-        var ls=byDate[d].slice().sort(function(a,b){return (b.score||0)-(a.score||0);});
-        var lab=(d===td)?('Hoy · '+esc(d)):esc(d);
-        return '<div class="rep-head"><div class="rep-h-t">📅 Reporte '+lab+'</div><div class="rep-h-s">'+ls.length+' leads listos · mensaje compuesto</div></div><div class="rep-grid">'+ls.map(_repMap).map(repCard).join('')+'</div>';
-      }).join('');
+      if(!dates.length){ host.innerHTML='<div class="seg-empty"><div class="t">Sin reportes listos</div>Los reportes de hoy y próximos días aparecen aquí cuando están armados. Mirá el pipeline en Ops.</div>'; return; }
+      // one report at a time: a selector of dates, then that report's section below.
+      var sel=(window.__repSel&&byDate[window.__repSel])?window.__repSel:dates[0];
+      var chips='<div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px">'+dates.map(function(d){var on=(d===sel);return '<button class="rep-tab" data-d="'+esc(d)+'" style="font-size:12.5px;font-weight:650;padding:7px 13px;border-radius:999px;cursor:pointer;border:1px solid var(--line);background:'+(on?'var(--acct,#2da2bb)':'transparent')+';color:'+(on?'#fff':'var(--ink)')+'">'+(d===td?'Hoy':esc(d))+' · '+byDate[d].length+'</button>';}).join('')+'</div>';
+      var ls=byDate[sel].slice().sort(function(a,b){return (b.score||0)-(a.score||0);});
+      var lab=(sel===td)?('Hoy · '+esc(sel)):esc(sel);
+      host.innerHTML=chips+'<div class="rep-head"><div class="rep-h-t">📅 Reporte '+lab+'</div><div class="rep-h-s">'+ls.length+' leads listos · mensaje compuesto</div></div><div class="rep-grid">'+ls.map(_repMap).map(repCard).join('')+'</div>';
+      host.querySelectorAll('.rep-tab').forEach(function(b){ b.addEventListener('click',function(){ window.__repSel=b.dataset.d; renderReporte(); }); });
       host.querySelectorAll('.rep-send').forEach(function(b){ b.addEventListener('click',function(){ try{navigator.clipboard.writeText(b.dataset.pitch||'');}catch(e){} var ch=b.dataset.ch,em=b.dataset.email,ig=b.dataset.ig; var _eml=em?('mailto:'+em+'?body='+encodeURIComponent(b.dataset.pitch||'')):''; var link=(ch==='instagram'&&ig)?('https://instagram.com/'+ig):_eml; if(link) window.open(link,'_blank','noopener'); b.textContent='Copiado ✓'; b.classList.add('done'); }); });
     }
     function renderSeguimiento(){
