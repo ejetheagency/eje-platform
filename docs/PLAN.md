@@ -59,19 +59,24 @@ ICP, at what cost) — you cannot "repeat high-yield routes" until you can measu
 registry (`strategies`) → selector the miners consult → 3-rate instrumentation (named/emailed/replied per
 route+ICP) → the Innovations write-back that proposes + tests new routes. **Everything else is drift; this is north.**
 
-## RIGHT NOW (the single most current truth — refreshed 2026-10-07 cont.15)
+## RIGHT NOW (the single most current truth — refreshed 2026-10-08 cont.16)
 
 **⛔ GOVERNING FREEZE (operator, cont.15): NO new providers, docs, or features until the nightly shows APPROVED leads 3 nights in a row.** The whole focus is proving the autonomous pipeline ships. Everything below the "nightly ship" work waits.
 
-**THE NIGHTLY IS NOW WIRED TO SHIP — pending the 3-night proof (cont.15).** Spec + trace: `docs/NIGHTLY-AUTOMATION-PLAN.md`. Shipped + verified read-only against prod, deployed for tonight's 2 AM run:
-- **Funnel email = the ONLY status report** (`funnel.py` + `notify`): one line per client per night, counts only — discovered → enriched → named → email → verified → channels → READY → published → approved, plus card-valid %. Live-tested OK.
+**cont.16 (2026-10-08) — THE GATE METRIC WAS A FALSE POSITIVE; now it is honest, and the run is crash-proofed. Deployed (commit `c47f6b2`, Railway build `2026-10-08-preflight-honest-funnel`, all preflight PASS live). This is the last change before tonight's 06:00 UTC run.**
+- **Honest gate (the critical fix):** the old funnel counted `approved=true` as a WHOLE-POOL snapshot, so the ~118-lead hand-staged buffer made it read "118 approved" green every night REGARDLESS of autonomous output — the 3-night proof would have passed on the manual buffer. Fixed (`funnel.py`): the gate now counts **ONLY net-new auto-approved tonight** (`approvedBy=auto` AND `approvedAt >= run start`, so a re-touched prior-night card is not miscounted). **Gate = auto-approved-tonight > 0, three nights running.** The buffer is printed as CONTEXT, never counted. The miner's output is a SEPARATE staged line (`source=agent_miner`, `approved=false`) — judged by hand, it never counts toward the gate.
+- **Crash still emails (`run_nightly.py`):** a top-level guard + per-step `last_step` tracker means any exception still sends the funnel email with `RUN DIED at <step>: <error>`. Silence is never an outcome — during the proof window "no email" can no longer be confused with "found nothing".
+- **Budget reserve + trace:** the miner runs LAST among paid consumers and was at risk of a $0 silent night; it now holds a reserved **$1.50** slice of the $3 daily cap (thread-local active-pool in `budget.py`; upstream capped at `cap-reserve`). The email carries a per-step spend trace + which step tripped the cap. No cap raised.
+- **Preflight (`preflight.py` + `/preflight` endpoint):** Serper / Places / MV-credits / Gmail checked at run start, reported as the email's FIRST line. Verified live now: all PASS, MV credits **9,581**, test email sent OK.
+- **Miner 90-min hard timeout:** stops between veins/cards and reports how far it got (`agent_miner.mine_report(deadline_ts=...)`).
+- **Funnel email = the ONLY status report** (`funnel.py` + `notify`): one block per client per night, counts only — discovered → enriched → named → email → verified → channels → READY → published, then NET-NEW (auto-approved tonight / miner staged tonight / buffer context), plus card-valid %. Live-tested OK.
 - **Places key CONFIRMED set in Railway prod** (`eje-factory`) — the trace's "#1 cause (no key)" was a LOCAL-shell artifact; prod discovery works (matches the Oct 2→3 run of 80). Corrects `NIGHTLY-AUTOMATION-PLAN.md` §3.2.
 - **Miner wired for ONE client (2uplatam)**: `agent_miner.mine_and_publish("2uplatam", 20, approved=False, source=agent_miner)` in `run_nightly`. Staged for side-by-side vs a manual run; if quality matches → it becomes the main discovery lane.
 - **3 wiring bugs FIXED**: LinkedIn now promoted to `companies.linkedin` (`site_enrich.py`); WhatsApp runs BEFORE the gate (inline in `gates._run_one` + pre-drain sweep), not post-READY; channel gate reads client config — set `2uplatam.icp_config.channels = {min:2, required:[]}` (was `None` → silently forced Instagram-required → starved).
 - **Auto-approval (operator policy)**: a NEW card that passes every hard gate is auto-approved, flagged `approvedBy:"auto"` (operator spot-checks); EXISTING cards preserve the operator's decision (never re-flip a rejected card). Manual-only approval guaranteed zero — this is the fix.
 - **Quality standard = CODE, not a prompt** (`card_validator.py`): named decisor, verified/soft email, 2+ channels, logo, hook fact, per-channel scripts → reported as a nightly %.
 - **DEFERRED behind the freeze (the depth gap the validator exposes):** the nightly still does NOT generate a `hook_fact` or a `whatsappMessage` (~53% of cards fail on those). **HOLD decision (cont.15):** do NOT fix before the first proof run — neither affects the APPROVED count (what the 3-night gate proves), and a cheap `hook_fact` from the company brief would VIOLATE the hook-fact rule (a description is not a qualifying hook). Fix with data after we read the funnels.
-- **NEXT = watch 3 nightly funnel emails.** 3 green (positive approved) nights → unfreeze + (a) compare miner vs manual quality, (b) build the deferred depth (hook_fact from real signals + whatsappMessage template).
+- **NEXT = watch 3 nightly funnel emails.** 3 nights of **auto-approved-tonight > 0** (the honest gate, cont.16) → unfreeze + (a) compare miner vs manual quality, (b) build the deferred depth (hook_fact from real signals + whatsappMessage template).
 
 ### Prior truth (cont.14 — the manual buffer, still valid underneath cont.15)
 

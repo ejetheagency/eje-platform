@@ -20,6 +20,6 @@ Follow these every session, starting 2026-10-04. Goal: a new session starts from
 ## Hard facts that never need re-deriving (keep here so we stop looking them up)
 - Supabase prod ref: `ogdsuztzhmnnjolilsuo`, table `leads` (legacy) + factory tables. PostgREST caps at 1000 rows: paginate (`db.select_all`).
 - Deploy: commit changed files by name + `git push origin main`. Vercel serves `app.ejetheagency.com`; Railway auto-deploys the factory from the Dockerfile. Never `git add public/*.json`.
-- Factory health: https://factory-production-1e7c.up.railway.app ; nightly self-runs at 09:00 UTC (`run_hour_utc`).
+- Factory health: https://factory-production-1e7c.up.railway.app ; nightly self-runs at 06:00 UTC (= 2 AM Miami), set by Railway `FACTORY_RUN_HOUR_UTC=6` (live-confirmed 2026-10-08). `GET /preflight?key=SECRET` checks Serper/Places/MV-credits/Gmail.
 - Clients live: `2uplatam` (legacy surface, leave alone), `eje` (EJE's own), `altavia` (demo, one week). Discovery reads `clients.icp_config` only.
 - No em dashes, ever. Company email: contact@ejetheagency.com.
