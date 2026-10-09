@@ -38,12 +38,46 @@ def main():
               "Socia", "Socio", "Dueña", "Dueno", "Fundadora", "Fundador", "CEO",
               "Propietaria", "propietario", "Chef copropietario", "Director General", "Gerente General"):
         check("owner-level: %s" % t, bool(fit._OWNER.search(t.lower())))
-    # "Director/a" splits by WHAT is being directed: the organization or the unit we sell to (owner-tier) vs a
+    # "Director/a" splits by WHAT is being directed: the organization or the unit we sell to (decisor) vs a
     # craft inside someone else's company (mid). This is the one judgment in the repair, so it is pinned here.
-    for t in ("Director de Carrera de Administracion de Empresas (sede Cuenca)", "Directora de Carrera",
-              "Director de Escuela de Negocios", "Jefe de Carrera", "Director Ejecutivo", "Directora Ejecutiva",
-              "Director de Posgrado", "Director de Departamento"):
-        check("owner-level (directs the unit): %s" % t, bool(fit._OWNER.search(t.lower())))
+    for t in ("Director Ejecutivo", "Directora Ejecutiva"):
+        check("owner-level: %s" % t, bool(fit._OWNER.search(t.lower())))
+
+    # --- ACADEMIC AUTHORITY TIER: scores as decisor (the unit's budget holder), without being owner-level ---
+    def academic(t):
+        return bool(fit._ACADEMIC.search(fit._strip_accents(t).lower()))
+
+    for t in ("Coordinador Academico (carreras de Marketing)", "Coordinadora Académica", "Coordinador de Carrera",
+              "Coordinadora de Programa", "Jefe de Departamento", "Jefa de Departamento", "Jefe de Carrera",
+              "Director de Escuela de Negocios", "Directora de Carrera de Administracion", "Director de Facultad",
+              "Director de Posgrado", "Director de Departamento",
+              "Director de Carrera de Administracion de Empresas (sede Cuenca)"):
+        check("academic authority (decisor): %s" % t[:48], academic(t))
+    check("accented and unaccented behave identically",
+          academic("Coordinadora Académica") == academic("Coordinadora Academica") is True)
+    # Teaching or researching is not deciding. These stay mid, i.e. below the fit floor on their own.
+    for t in ("Docente", "Docente-investigador de la Facultad de Ciencias", "Docente investigador", "Profesor",
+              "Profesora titular de la Facultad"):
+        check("NOT academic authority (teaches, does not decide): %s" % t[:44], not academic(t))
+    # "titular" = owner in business Spanish, TENURE in academia. The owner pattern has matched it for far longer
+    # than universities have been in the ICP, so without disambiguation every tenured professor read as an owner.
+    check("'Profesora titular' is NOT an owner (academic tenure)",
+          score({"domain": "u.edu.ec"}, {"full_name": "Silvia Norona", "title": "Profesora titular de la Facultad"}) < 60)
+    check("'Titular de la empresa' IS still an owner",
+          score({"domain": "x.com.ec"}, {"full_name": "Luis Paz", "title": "Titular de la empresa"}) >= 60)
+    check("a genuine owner who also teaches stays owner-level",
+          score({"domain": "x.com.ec"}, {"full_name": "Ana Vera", "title": "Dueña y profesora"}) >=
+          score({"domain": "x.com.ec"}, {"full_name": "Ana Vera", "title": "Dueña"}))
+    check("authority wins when a card says both: 'Docente y Coordinador de Carrera'",
+          academic("Docente y Coordinador de Carrera"))
+    for t in ("Coordinador de Redes Sociales", "Coordinadora de Emprendimiento e Innovacion", "Director de Arte"):
+        check("NOT academic authority (not an academic unit): %s" % t[:44], not academic(t))
+    check("a Docente-investigador stays below the fit floor",
+          score({"domain": "u.edu.ec"}, {"full_name": "Cesar Guerrero",
+                                         "title": "Docente-investigador de la Facultad de Ciencias"}) < 60)
+    check("a Coordinador Academico clears the fit floor",
+          score({"domain": "u.edu.ec", "linkedin": "x"},
+                {"full_name": "Oscar Calderon", "title": "Coordinador Academico (carreras de Marketing)"}) >= 60)
     for t in ("Director de Arte", "Director de Marketing", "Director Creativo", "Directora de Comunicaciones"):
         check("mid-level (directs a craft): %s" % t,
               bool(fit._MID.search(t.lower())) and not fit._OWNER.search(t.lower()))
