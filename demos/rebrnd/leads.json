@@ -8,7 +8,17 @@
     "regla_puertas": "Las puertas son quien contrata a un productor de evento: RR.HH. o Capital Humano de planta, comunicación interna, marketing, gerencia de planta y compras. La dirección general aparece solo como contexto, nunca como puerta 1.",
     "regla_correos": "publicado = aparece tal cual en una fuente pública. buzón de área = correo de departamento publicado por la empresa. patrón inferido = construido a partir de otro correo publicado del mismo dominio, y se marca para verificar antes de enviar.",
     "temporada_objetivo": "2026-12-15",
-    "regla_vigencia": "Regla de vigencia: cualquier persona cuya fuente más reciente sea anterior a 2023 queda fuera. Ya descartamos así a una gerente de RR.HH. de Copamex que salió de la empresa en 2013. Las fuentes de directorio comercial no traen fecha: esas quedan marcadas 'verificar vigencia' y se confirman por teléfono antes de enviar."
+    "regla_vigencia": "Regla de vigencia: cualquier persona cuya fuente más reciente sea anterior a 2023 queda fuera. Ya descartamos así a una gerente de RR.HH. de Copamex que salió de la empresa en 2013. Las fuentes de directorio comercial no traen fecha: esas quedan marcadas 'verificar vigencia' y se confirman por teléfono antes de enviar.",
+    "voice_samples": [
+      {
+        "uso": "puerta 1",
+        "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
+      },
+      {
+        "uso": "puertas 2+",
+        "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Le escribi a <puerta 1> hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
+      }
+    ]
   },
   "empresas": [
     {
@@ -99,8 +109,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Qué tal, Mónica. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que juntar a todo Gonher en una posada es todo un operativo. Hacemos foto, video y dron de eso. ¿Este año ya tienen quién lo cubra?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Mónica, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -138,8 +148,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal, Raúl. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Raúl, aqui Carlos de @rebrnd. Le escribi a Mónica Sánchez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           },
           "evidencia": {
             "nombre": {
@@ -176,8 +186,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Mónica Sánchez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         },
         {
@@ -202,8 +212,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Mónica Sánchez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         },
         {
@@ -226,8 +236,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Mónica Sánchez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         }
       ],
@@ -260,11 +270,11 @@
         ]
       ],
       "fact": {
-        "patron": "B + escena",
-        "texto": "Trabajamos seguido dentro de plantas y me imagino que juntar a todo Gonher en una posada es todo un operativo.",
+        "patron": "plantilla",
+        "texto": "Sin hook que pase el test de 'y eso qué': va la plantilla tal cual.",
         "fuente": null,
         "fecha": null,
-        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
+        "nota": "Plantilla de voz del cliente sin hook. Mismo mensaje entre cuentas: es una plantilla humana, no variación artificial."
       }
     },
     {
@@ -355,8 +365,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Hola, Karla. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que juntar a producción y a la división de materiales avanzados en una sola posada no es cosa de un día. Hacemos foto, video y dron de eso. ¿Eso lo ves tú o alguien de comunicación?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Karla, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -405,8 +415,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola, Ramiro. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Ramiro, aqui Carlos de @rebrnd. Le escribi a Karla Fabiola hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           },
           "_cuenta": "confirmado"
         },
@@ -432,8 +442,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Karla Fabiola hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         },
         {
@@ -458,8 +468,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Karla Fabiola hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         }
       ],
@@ -508,11 +518,11 @@
         ]
       ],
       "fact": {
-        "patron": "B + escena",
-        "texto": "Trabajamos seguido dentro de plantas y me imagino que juntar a producción y a la división de materiales avanzados en una sola posada no es cosa de un día.",
+        "patron": "plantilla",
+        "texto": "Sin hook que pase el test de 'y eso qué': va la plantilla tal cual.",
         "fuente": null,
         "fecha": null,
-        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
+        "nota": "Plantilla de voz del cliente sin hook. Mismo mensaje entre cuentas: es una plantilla humana, no variación artificial."
       }
     },
     {
@@ -600,8 +610,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Hola, Carlos. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que en planta de alimentos diciembre es temporada alta y la posada se agenda con pinzas. Hacemos foto, video y dron de eso. ¿Quién lo está viendo este año?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Carlos, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -639,8 +649,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola, Mayra. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Mayra, aqui Carlos de @rebrnd. Le escribi a Carlos Jiménez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           },
           "evidencia": {
             "nombre": {
@@ -677,8 +687,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Carlos Jiménez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           }
         },
         {
@@ -701,8 +711,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Carlos Jiménez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           }
         }
       ],
@@ -735,11 +745,11 @@
         ]
       ],
       "fact": {
-        "patron": "B + escena",
-        "texto": "Trabajamos seguido dentro de plantas y me imagino que en planta de alimentos diciembre es temporada alta y la posada se agenda con pinzas.",
+        "patron": "plantilla",
+        "texto": "Sin hook que pase el test de 'y eso qué': va la plantilla tal cual.",
         "fuente": null,
         "fecha": null,
-        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
+        "nota": "Plantilla de voz del cliente sin hook. Mismo mensaje entre cuentas: es una plantilla humana, no variación artificial."
       }
     },
     {
@@ -827,8 +837,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Qué tal, Dulcinea. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que con la operación corriendo todos los días, la posada no junta a todos al mismo tiempo. Hacemos foto, video y dron de eso. ¿Está definido o todavía se puede proponer?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Dulcinea, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -865,8 +875,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal, Reynold. Le escribí a Dulcinea Florencia hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Reynold, aqui Carlos de @rebrnd. Le escribi a Dulcinea Florencia hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           },
           "evidencia": {
             "nombre": {
@@ -901,8 +911,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Dulcinea Florencia hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Dulcinea Florencia hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         }
       ],
@@ -935,11 +945,11 @@
         ]
       ],
       "fact": {
-        "patron": "B + escena",
-        "texto": "Trabajamos seguido dentro de plantas y me imagino que con la operación corriendo todos los días, la posada no junta a todos al mismo tiempo.",
+        "patron": "plantilla",
+        "texto": "Sin hook que pase el test de 'y eso qué': va la plantilla tal cual.",
         "fuente": null,
         "fecha": null,
-        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
+        "nota": "Plantilla de voz del cliente sin hook. Mismo mensaje entre cuentas: es una plantilla humana, no variación artificial."
       }
     },
     {
@@ -1027,8 +1037,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Qué tal, Marialba. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que en una metalúrgica que no para, la posada termina haciéndose por turnos. Hacemos foto, video y dron de eso. ¿Ya tienen proveedor o sigue abierto?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Marialba, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -1066,8 +1076,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal, Mirta. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Mirta, aqui Carlos de @rebrnd. Le escribi a Marialba Ramírez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           },
           "evidencia": {
             "nombre": {
@@ -1105,8 +1115,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal, Luis. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Luis, aqui Carlos de @rebrnd. Le escribi a Marialba Ramírez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           },
           "evidencia": {
             "nombre": {
@@ -1144,8 +1154,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal, Jisela. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Jisela, aqui Carlos de @rebrnd. Le escribi a Marialba Ramírez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           },
           "evidencia": {
             "nombre": {
@@ -1182,8 +1192,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Marialba Ramírez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         },
         {
@@ -1205,8 +1215,8 @@
           "mensaje": {
             "canal": "linkedin",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Marialba Ramírez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         }
       ],
@@ -1256,11 +1266,11 @@
         ]
       ],
       "fact": {
-        "patron": "B + escena",
-        "texto": "Trabajamos seguido dentro de plantas y me imagino que en una metalúrgica que no para, la posada termina haciéndose por turnos.",
+        "patron": "plantilla",
+        "texto": "Sin hook que pase el test de 'y eso qué': va la plantilla tal cual.",
         "fuente": null,
         "fecha": null,
-        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
+        "nota": "Plantilla de voz del cliente sin hook. Mismo mensaje entre cuentas: es una plantilla humana, no variación artificial."
       }
     },
     {
@@ -1348,8 +1358,8 @@
           "mensaje": {
             "canal": "linkedin",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Qué tal, Patricio. Te escribo en frío porque vi que están buscando a alguien que lleve bienestar y recreación en la planta. Nosotros hacemos foto, video y dron de eventos de planta. ¿Lo graban internamente o con alguien de fuera?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Patricio, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que estan buscando a alguien que lleve bienestar y recreacion en la planta y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -1386,8 +1396,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Patricio Murga hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Patricio Murga hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           }
         },
         {
@@ -1409,8 +1419,8 @@
           "mensaje": {
             "canal": "linkedin",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Patricio Murga hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Patricio Murga hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           }
         }
       ],
@@ -1456,11 +1466,11 @@
         ]
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "A",
+        "texto": "vi que estan buscando a alguien que lleve bienestar y recreacion en la planta",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Hook real insertado en la plantilla de voz del cliente."
       }
     },
     {
@@ -1569,8 +1579,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Su posada del año pasado",
-            "cuerpo": "Hola, Diana. Vi que el año pasado hicieron su posada el 13 de diciembre y hasta invitaron a sus proveedores. Nosotros hacemos foto, video y dron de eventos de planta. ¿Este año repiten proveedor o está abierto?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Diana, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que el año pasado hicieron su posada el 13 de diciembre y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "_cuenta": "confirmado"
         },
@@ -1593,8 +1603,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Diana Romero hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         },
         {
@@ -1618,8 +1628,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Diana Romero hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           }
         },
         {
@@ -1644,8 +1654,8 @@
           "mensaje": {
             "canal": "linkedin",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola, Marcelo. Le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Marcelo, aqui Carlos de @rebrnd. Le escribi a Diana Romero hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
           },
           "evidencia": {
             "nombre": {
@@ -1702,10 +1712,10 @@
       ],
       "fact": {
         "patron": "A",
-        "texto": "Vi que el año pasado hicieron su posada el 13 de diciembre y hasta invitaron a sus proveedores.",
+        "texto": "vi que el año pasado hicieron su posada el 13 de diciembre",
         "fuente": "https://www.threads.com/@lacaseteramx/post/DSQdMncCcGw/gracias-a-frisa-por-invitarnos-ayer-a-su-posada",
         "fecha": "2025-12-14",
-        "nota": "post público de un proveedor que asistió, con fotos, no del canal propio de FRISA. Es un hecho fechado y específico, y así se etiqueta."
+        "nota": "Hook real insertado en la plantilla de voz del cliente."
       }
     },
     {
@@ -1796,8 +1806,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Hola, Enrique. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que con Absteel, ABINSA y ABTUBE por separado, la posada o es una sola grande o son tres chicas. Hacemos foto, video y dron de eso. ¿Ya está asignado o todavía lo están viendo?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Enrique, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -1835,8 +1845,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Enrique Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Enrique Medina hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           }
         }
       ],
@@ -1876,11 +1886,11 @@
         "Resultado: 1 correo personal contable. Queda por debajo del objetivo de 2 y se reporta como hueco, no como completo."
       ],
       "fact": {
-        "patron": "B + escena",
-        "texto": "Trabajamos seguido dentro de plantas y me imagino que con Absteel, ABINSA y ABTUBE por separado, la posada o es una sola grande o son tres chicas.",
+        "patron": "plantilla",
+        "texto": "Sin hook que pase el test de 'y eso qué': va la plantilla tal cual.",
         "fuente": null,
         "fecha": null,
-        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
+        "nota": "Plantilla de voz del cliente sin hook. Mismo mensaje entre cuentas: es una plantilla humana, no variación artificial."
       }
     },
     {
@@ -1972,8 +1982,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Qué tal, Arturo. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que con la corrugadora, la recicladora y el corporativo, la posada no cae en una sola sede. Hacemos foto, video y dron de eso. ¿Lo arman ustedes o lo contratan?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Arturo, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -2022,8 +2032,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal, Jaime. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Jaime, aqui Carlos de @rebrnd. Le escribi a Arturo Medina hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           },
           "_cuenta": "confirmado"
         },
@@ -2061,8 +2071,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal, José. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola José, aqui Carlos de @rebrnd. Le escribi a Arturo Medina hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           },
           "_cuenta": "confirmado"
         },
@@ -2088,8 +2098,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Qué tal. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola que tal, aqui Carlos de @rebrnd. Le escribi a Arturo Medina hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           }
         }
       ],
@@ -2132,11 +2142,11 @@
         ]
       ],
       "fact": {
-        "patron": "B + escena",
-        "texto": "Trabajamos seguido dentro de plantas y me imagino que con la corrugadora, la recicladora y el corporativo, la posada no cae en una sola sede.",
+        "patron": "plantilla",
+        "texto": "Sin hook que pase el test de 'y eso qué': va la plantilla tal cual.",
         "fuente": null,
         "fecha": null,
-        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
+        "nota": "Plantilla de voz del cliente sin hook. Mismo mensaje entre cuentas: es una plantilla humana, no variación artificial."
       }
     },
     {
@@ -2243,8 +2253,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Hola, Francisco. Te escribo en frío porque vi que están buscando a alguien de capacitación y desarrollo para Apodaca. Nosotros hacemos foto, video y dron de eventos de planta. ¿Eso cae en tu área o en otra?\n\nCarlos, REBRND"
+            "asunto": "eventos internos",
+            "cuerpo": "Hola Francisco, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que estan buscando a alguien de capacitacion y desarrollo para apodaca y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           }
         },
         {
@@ -2281,8 +2291,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola, Manuel. Le escribí a Francisco de hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "asunto": "seguimiento, eventos internos",
+            "cuerpo": "Hola Manuel, aqui Carlos de @rebrnd. Le escribi a Francisco de hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           }
         }
       ],
@@ -2322,11 +2332,11 @@
         "Tamaño de la planta de Apodaca: no publicado."
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "A",
+        "texto": "vi que estan buscando a alguien de capacitacion y desarrollo para apodaca",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Hook real insertado en la plantilla de voz del cliente."
       }
     }
   ],

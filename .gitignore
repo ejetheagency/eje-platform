@@ -12,3 +12,6 @@ CREDENTIALS.local.md
 
 __pycache__/
 *.pyc
+
+# harness mirror of .claude/skills; the canonical skill lives in .claude/skills
+.agents/

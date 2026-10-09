@@ -147,42 +147,48 @@ Do this per company, as a research step, not as a writing step.
 quién lo cubra?, ¿eso lo ves tú?*. This is the default for **all demos and client messages** and changes only if a
 client's `config.json` overrides it. Do not switch register by channel.
 
-**Max 4 sentences.** The offer is **one plain line** ("hacemos foto, video y dron de eventos de planta"): no
-feature list, no brand-introduction paragraph, **never the sender's city** when it differs from the prospect's
-region. Lead with the edge, not with geography. Sound like a person: "Qué tal" / "Hola", short sentences, one
-casual aside allowed. Use accents on names (Mónica, Raúl) unless a signature spells it otherwise.
+Keep it short, the length of the client's own sample. **Never the sender's city** when it differs from the
+prospect's region. No feature list and no brand-introduction paragraph beyond what the client's sample carries.
 
-- **Door 1, Patrón A:** greeting + the one real observation + offer line + Patrón C question.
-- **Door 1, Patrón B:** honest cold open **plus ONE true why-them clause**:
-  *"Te escribo en frío porque vi que este año inauguraron la planta de Apodaca, y esas son de las fechas que vale
-  la pena tener bien grabadas."* The why-them line comes from a real company moment worth filming: anniversary
-  year, plant inauguration or expansion this year, a family-day or recognition program on their careers page, a
-  recent award. **One clause, plain words, no numbers, no inference about what it means for them.**
+- **THE MESSAGES ARE NOT YOURS TO WRITE.** Templates come from the client's own voice samples, stored in
+  `config.json` under **`voice_samples`** (one for door 1, one for doors 2+). The system **only fills the
+  variables** and, when a hook passes the "so what" test, swaps it into the same sentence in the same tone.
+  **It never writes the voice itself and never rephrases for variety.**
+  **If a client has no voice samples, ASK FOR THEM before generating any message.** Do not invent a voice to fill
+  the gap: a generated voice is the thing that reads as AI, no matter how good the phrasing is.
 
-- **THE "SO WHAT" TEST, applied to every why-them line.** Reading it, the recipient must think *"ah, that is why
-  he is writing me"*. True is not enough. "Tienen una página de reclutamiento", "mantienen sus redes activas" and
-  "traen reclutamiento abierto" are all true and all meaningless: they do not connect to why this company would
-  want its event filmed. If the line does not make that connection, it fails and gets cut.
+- **Keep the client's imperfections.** If they write without accents, in lowercase, with run-on sentences, keep it.
+  "aqui", "en frio", "revise la compañia", a lowercase "te envio mas info por aqui?" are the signal that a person
+  wrote it. Correcting their Spanish is how a human template turns back into an AI message. Proper names keep
+  their accents (Mónica, Raúl); the client's own words keep the client's spelling.
 
-- **FALLBACK when no fact passes: the sender's own truth + an imagined scene**, framed as imagining and **never as
-  fact**: *"Trabajamos seguido dentro de plantas y me imagino que juntar a todo <empresa> en una posada es todo un
-  operativo."* The scene must be **specific to that company's real shape** (its number of plants, its shifts, its
-  business units, its plazas, its sector), never generic. A scene that would fit any company is the same template
-  failure in a different costume. This fallback is preferred over a weak fact.
+- **The same message across companies is FINE.** It is a human template, which is exactly what a person sending
+  twenty messages a day actually uses. Artificial variation is a tell, not a feature. Do not vary wording to make
+  messages look different.
 
-- **NO LOCALITY CLAIMS** ("aquí", "aquí en el área", "a la vuelta") unless the sender is actually local to the
-  prospect's region. Writing "aquí en el área" from another city is simply false and it is the kind of lie a
-  prospect catches instantly.
-- **NO TWO DOOR-1 MESSAGES MAY SHARE THEIR FIRST TWO SENTENCES.** Ten identical openers is a template, and the
-  prospect sees it immediately. **Vary the capacity close too**: "¿ya tienen quién lo cubra?", "¿eso lo ves tú o
-  alguien de comunicación?", "¿lo graban internamente o con alguien de fuera?", "¿ya está asignado o todavía lo
-  están viendo?", "¿lo arman ustedes o lo contratan?".
-- **Patrón C close:** a capacity question that can be answered with a no. **Never "¿te interesa?"**
-- **Doors 2+, Patrón H only:** *"Le escribí a <nombre> hace unos días sobre <tema> y no he tenido respuesta, lo
-  cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?"*
-  It must be **inclusive and never imply going over door 1's head**, and **never imply door 1 agreed to anything**.
-  Banned: "me permito escribirle a usted directo".
-- Doors 2+ **never repeat door 1's pitch** and never repeat the brand paragraph.
+- **THE "SO WHAT" TEST, for the optional hook.** A hook replaces one clause of the template only if, reading it,
+  the recipient thinks *"ah, that is why he is writing me"*. True is not enough: "tienen una página de
+  reclutamiento" and "mantienen sus redes activas" are true and meaningless. If no hook passes, **send the
+  template as written**. Expect most companies to have no hook.
+
+- **NO LOCALITY CLAIMS** ("aquí", "aquí en el área") unless the sender is actually local to the prospect's region.
+
+- **The close comes from the client's sample too.** Whatever question their own message ends on is the close.
+  The only constraint: it must be answerable with a no, and it is **never "¿te interesa?"**.
+- **Doors 2+ use the client's second sample**, the one that names door 1 and hands the choice to the reader. It
+  must be **inclusive, never imply going over door 1's head**, and **never imply door 1 agreed to anything**.
+  Match the pronoun to door 1's gender ("sigo con ella o contigo?" / "sigo con el o contigo?").
+  Banned in any register: "me permito escribirle a usted directo".
+
+**Worked example (REBRND, Oct 2026).** The client's own two samples, filled with variables only:
+> *Door 1:* "Hola <nombre>, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un
+> perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos
+> ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
+> *Door 1 with a hook that passed:* same text with "entiendo que hacen eventos internos" replaced by
+> "vi que el año pasado hicieron su posada el 13 de diciembre".
+> *Doors 2+:* "Hola <nombre>, aqui Carlos de @rebrnd. Le escribi a <puerta 1> hace unos dias sobre los eventos
+> internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
+Note the missing accents and the lowercase: that is the client's hand and it stays.
 
 ## Step 7d: unknown plant size
 
@@ -195,9 +201,8 @@ the company.**
 1. Per company: **its own hook with source** and a **"Por qué ahora"** tied to a filmable or time-bound moment
    (plant opening, expansion, anniversary, hiring wave, a past posada or family day they posted publicly).
    No leftovers from a previous prospect's research.
-2. Per door: **its own message**, written to the patterns in step 7c (max 4 sentences, Patrón A or B on door 1,
-   Patrón H on doors 2+, Patrón C close). **Doors 2 and 3 name door 1**, so the name circulates inside the account
-   without ever implying that person agreed to anything.
+2. Per door: the client's template with variables filled (step 7c). **Doors 2 and 3 name door 1**, so the name
+   circulates inside the account without ever implying that person agreed to anything.
 3. **"Ruta sugerida"** per account: order of doors and channels, each with a one-line reason.
 4. **Contextual coach bubbles**: by company size, by channel, by door type. Any number shown needs a public source
    link or the label **"estimado inicial, el sistema lo ajusta con tus respuestas"**. No invented statistics.

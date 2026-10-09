@@ -21,5 +21,18 @@
     "contacto_whatsapp": "https://wa.me/17867846899",
     "referido": "¿Conoces a alguien que venda a industria y le serviría esto? Preséntanos y te lo agradecemos."
   },
-  "_regla_precios": "NUNCA poner precios en la página. El precio se habla en la llamada."
+  "_regla_precios": "NUNCA poner precios en la página. El precio se habla en la llamada.",
+  "remitente": "Carlos",
+  "marca_handle": "rebrnd",
+  "voice_samples": [
+    {
+      "uso": "puerta 1",
+      "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
+    },
+    {
+      "uso": "puertas 2+",
+      "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Le escribi a <puerta 1> hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
+    }
+  ],
+  "_regla_voz": "La voz la pone el cliente. El sistema solo rellena variables y, si un hook pasa el test de 'y eso qué', lo mete en la misma frase. Nunca escribe la voz ni varía los mensajes por variar."
 }
