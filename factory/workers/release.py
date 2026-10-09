@@ -332,6 +332,21 @@ def lock_report(client_id, date_iso, by="operator", apply=False):
             "line": "%s %s: %d cards locked%s" % (client_id, date_iso, len(cards), "" if apply else "  (DRY RUN)")}
 
 
+def unlock_report(client_id, date_iso, apply=False):
+    """Release a lock so the gate reassembles that day again. A lock with no way out would be a one-way door:
+    a stale one could stop a day from ever rebuilding (PLAN item 9b makes past-dated locks expire by themselves)."""
+    rows = db.select_all("leads", "client_id=eq.%s&source_date=eq.%s&select=%s" % (client_id, date_iso, LEAD_COLS))
+    cards = [r for r in rows if _ld(r).get("reportLocked")]
+    if apply:
+        for r in cards:
+            ld = _ld(r)
+            for k in ("reportLocked", "reportLockedBy", "reportLockedAt"):
+                ld.pop(k, None)
+            db.update("leads", "id=eq.%s&client_id=eq.%s" % (r["id"], client_id), {"lead_data": ld})
+    return {"client_id": client_id, "date": date_iso, "applied": bool(apply), "unlocked": len(cards),
+            "line": "%s %s: %d cards unlocked%s" % (client_id, date_iso, len(cards), "" if apply else "  (DRY RUN)")}
+
+
 def undeliver(client_id, lead_id, reason="", by="operator", apply=False, t=None):
     """Take back a card the client NEVER ACTED ON and return it to the pool (operator 2026-10-09).
 
