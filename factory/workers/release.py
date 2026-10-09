@@ -6,13 +6,14 @@
 # Non-destructive: already-released leads (source_date <= today) KEEP their date (a lead a client already saw never
 # vanishes); only unreleased leads (no date or future) are (re)scheduled, filling each day up to the cap.
 import datetime
-from factory.packages import db
+from factory.packages import db, calendar_bd as cal
 from factory.workers import tsa
 
 
 def schedule(client_id, per_day=None, start_date=None):
     ic = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
     per_day = int(per_day or ic.get("ready_leads_per_day") or 20)
+    country = ic.get("geo")  # business-day calendar: never deliver on a weekend / country holiday
     today = datetime.date.today()
     if start_date:
         start = datetime.date.fromisoformat(start_date)
@@ -32,14 +33,18 @@ def schedule(client_id, per_day=None, start_date=None):
         if not tsa.passes_lead_row(r):
             continue  # TSA: never put an incomplete lead into a client's report
         sd = r.get("source_date") or ""
-        if sd and start.isoformat() <= sd <= today.isoformat():   # released within the valid window -> keep (don't vanish)
+        # KEEP: a lead already delivered (<= today, never vanish) OR a future lead already on a valid BUSINESS day
+        # (preserve the curated future batches). RE-DRIP only: future leads on a non-business day (holiday/weekend) or
+        # leads with no date — they relocate to the next open business day, nothing lost or duplicated.
+        if sd and ((start.isoformat() <= sd <= today.isoformat()) or
+                   (sd > today.isoformat() and cal.is_business_day(sd, country))):
             used[sd] = used.get(sd, 0) + 1
         else:
             unreleased.append(r)
     day = start
     n = 0
     for r in unreleased:
-        while used.get(day.isoformat(), 0) >= per_day:
+        while used.get(day.isoformat(), 0) >= per_day or not cal.is_business_day(day, country):  # skip full + non-business days
             day = day + datetime.timedelta(days=1)
         d = day.isoformat()
         used[d] = used.get(d, 0) + 1

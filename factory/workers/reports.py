@@ -2,7 +2,7 @@
 # Report worker (D9). Precomputes a per-client daily report of READY leads into the `reports` table.
 # The web app ONLY reads this payload (no computation in the request path). Run on the scheduler's tick.
 import datetime
-from factory.packages import db
+from factory.packages import db, calendar_bd as cal
 
 
 def _today():
@@ -11,6 +11,10 @@ def _today():
 
 def build(client_id, report_date=None):
     report_date = report_date or _today()
+    # BUSINESS-DAY calendar: no report on a weekend / country holiday (the content delivers on the next business day).
+    country = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {}).get("geo")
+    if not cal.is_business_day(report_date, country):
+        return {"client_id": client_id, "report_date": report_date, "count": 0, "skipped": "non-business day"}
     leads = db.select("client_leads",
                       "client_id=eq.%s&state=eq.READY&select=id,company_id,contact_id,score,composed&order=score.desc&limit=200" % client_id)
     items = []

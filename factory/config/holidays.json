@@ -1,0 +1,22 @@
+{
+  "_doc": "Per-country public holidays (YYYY-MM-DD). Weekends (Sat/Sun) are ALWAYS non-business and need no entry here. A client's country comes from clients.icp_config.geo. Used by factory/packages/calendar_bd.py + release.py + reports.py so a client never gets a report on a non-business day; the content delivers on the next business day instead. Add years/countries as clients are added.",
+  "Ecuador": [
+    "2026-01-01", "2026-02-16", "2026-02-17", "2026-04-03", "2026-05-01",
+    "2026-05-24", "2026-08-10", "2026-10-09", "2026-11-02", "2026-11-03", "2026-12-25"
+  ],
+  "Mexico": [
+    "2026-01-01", "2026-02-02", "2026-03-16", "2026-05-01", "2026-09-16",
+    "2026-11-16", "2026-12-25"
+  ],
+  "Colombia": [
+    "2026-01-01", "2026-01-12", "2026-03-23", "2026-04-02", "2026-04-03",
+    "2026-05-01", "2026-05-18", "2026-06-08", "2026-06-15", "2026-06-29",
+    "2026-07-20", "2026-08-07", "2026-08-17", "2026-10-12", "2026-11-02",
+    "2026-11-16", "2026-12-08", "2026-12-25"
+  ],
+  "Chile": [
+    "2026-01-01", "2026-04-03", "2026-05-01", "2026-05-21", "2026-06-29",
+    "2026-07-16", "2026-08-15", "2026-09-18", "2026-09-19", "2026-10-12",
+    "2026-10-31", "2026-11-01", "2026-12-08", "2026-12-25"
+  ]
+}
