@@ -16,6 +16,16 @@ and raises the mine→finished (quality) ratio by itself.** That one honest numb
   Doctrine = `docs/FACTORY-VISION.md` (THE CIRCLE). Honest current truth: TSA is not yet tight (junk still slips,
   ICP drifts, mine→finished ratio is ~2%) — that gap IS the work.
 
+## ⛔ HARD RULE — writing to a paying client's report (operator 2026-10-08, non-negotiable)
+A paying client's report (e.g. **2uplatam / Fernando**) is **PRODUCTION, not a workspace.** Before ANY insert/update
+to a client's `leads`:
+1. **BACKUP first** — `python3 -m factory.workers.report_guard <client>` snapshots all their leads to
+   `~/claude/eje-leads/report-backups/` so every write is reversible.
+2. **DEDUP check** — `report_guard.dedup(client, candidates)` against the client's existing pool (domain + email +
+   company name); write ONLY `dedup['new']`. Never re-add or clobber an existing lead.
+3. **Never during a mixed session** — don't edit a production report in the same session that's also doing other
+   work (nightly, EJE, sourcing). One pipe at a time. (This rule exists because skipping it clobbered 5 records.)
+
 This repo (GitHub `eje-platform`) hosts **two things that share one codebase + one Supabase project**
 (`ogdsuztzhmnnjolilsuo`, `leads` table): the legacy productora cockpit (built for a former client) AND EJE's own product.
 Deploy = commit the changed file(s) by name + `git push origin main` (Vercel auto-deploys; live at `app.ejetheagency.com`).

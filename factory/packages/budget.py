@@ -98,6 +98,8 @@ def can_spend(client_id, provider, est_usd):
     cfg = _cfg()
     if cfg.get("kill_switch_paid_spend"):
         return (False, "kill switch on")
+    if provider in (cfg.get("disabled_providers") or []):  # operator turned this provider OFF (dead/flaky/out of credits)
+        return (False, "provider %s disabled in config" % provider)
     est = float(est_usd or 0)
     dcap = float(cfg.get("daily_global_spend_cap_usd") or 0)   # per-NIGHT ceiling: no single run/night can burst
     if dcap:
