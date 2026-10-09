@@ -144,6 +144,11 @@ def run(client=None, max_leads=None):
             step("release"); out["released"] = release.schedule_all(only=client if client else None)
         except Exception as e:
             out["released"] = {"error": str(e)[:150]}
+        try:  # DELIVERED LEDGER: record newly-delivered contacts (client_deliveries = source of truth for counts)
+            from factory.workers import deliveries
+            step("deliveries_sync"); out["deliveries"] = deliveries.sync_all()
+        except Exception as e:
+            out["deliveries"] = {"error": str(e)[:150]}
         try:  # MINER EXPERIMENT (2026-10-07): serper+judgment miner, wired for ONE client (2uplatam), capped at 20,
               # STAGED (approved=False) for hand review vs a manual run. Reserved $1.50 slice of the daily cap + a 90-min
               # hard wall-clock stop. Stays staged: it NEVER counts toward the 3-night auto-approved gate.

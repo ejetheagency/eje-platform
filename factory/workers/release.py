@@ -7,7 +7,7 @@
 # vanishes); only unreleased leads (no date or future) are (re)scheduled, filling each day up to the cap.
 import datetime
 from factory.packages import db, calendar_bd as cal
-from factory.workers import tsa
+from factory.workers import tsa, deliveries
 
 
 def schedule(client_id, per_day=None, start_date=None):
@@ -27,11 +27,18 @@ def schedule(client_id, per_day=None, start_date=None):
             except Exception:
                 pass
     rows = db.select_all("leads", "client_id=eq.%s&status=eq.none&select=id,score,source_date,contact_name,contact_email,lead_data&order=score.desc" % client_id)
+    try:  # DELIVERED LEDGER: a contact delivered to this client ONCE, EVER — never schedule it again
+        delivered = deliveries.delivered_keys(client_id)
+    except Exception:
+        delivered = set()
     used = {}            # date -> count already placed (released leads reserve their day's capacity)
     unreleased = []
     for r in rows:
         if not tsa.passes_lead_row(r):
             continue  # TSA: never put an incomplete lead into a client's report
+        ck = ((r.get("lead_data") or {}).get("contactEmail") or r.get("contact_email") or "").strip().lower()
+        if ck and ck in delivered:
+            continue  # already delivered to this client -> never re-schedule (no duplicate contact in any report)
         sd = r.get("source_date") or ""
         # KEEP: a lead already delivered (<= today, never vanish) OR a future lead already on a valid BUSINESS day
         # (preserve the curated future batches). RE-DRIP only: future leads on a non-business day (holiday/weekend) or

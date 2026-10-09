@@ -1740,6 +1740,9 @@
       var src=((UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)||[])).filter(_deliveredToClient);
       if(!ISEJE) src=src.filter(_shippable);  // TSA: clients never see a lead without real website + email + decisor
       if(CLIENTCLEAN()) src=src.filter(function(l){return l.approved===true;});  // cliente ve SOLO su reporte entregado, no la pool
+      // DELIVERED LEDGER (client_deliveries): a contact is delivered ONCE, ever. Decisores = distinct delivered
+      // contacts, so collapse duplicate contact rows to one card (matches the ledger count; 2uplatam = 41, not 54).
+      if(!ISEJE){ var _ddk={}; src=src.filter(function(l){ var k=(l.contactEmail||'').trim().toLowerCase()||l._key||decDom(l.website); if(k&&_ddk[k])return false; if(k)_ddk[k]=1; return true; }); }
       if(!src.length){return;}
       var si=document.getElementById('dec-search'); var q=norm2(si?si.value:'');
       var pairs=src.filter(function(l){ if(!q)return true;
