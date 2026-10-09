@@ -220,9 +220,25 @@ def run(client=None, max_leads=None):
                         results[cid] = funnel.compute(cid, _since, discovered=(out.get("discovery") or {}).get(cid, 0), published=0)
                     except Exception:
                         pass
+            # QUEUE ITEM 0b: the machine reports itself. Full golden suite per client + the health numbers, in the
+            # FIRST lines of this email, and a SEPARATE alert email if anything is red. Guarded: a broken review
+            # must never cost us the funnel email (silence is never an outcome).
+            rev = None
+            try:
+                from factory.workers import nightly_review
+                rev = nightly_review.review(release=out.get("released"), funnel_results=results, fatal=fatal,
+                                            preflight_line=pre_line)
+                out["review"] = {"red": rev["red"], "lines": rev["lines"]}
+            except Exception as e:
+                out["review"] = {"error": str(e)[:200]}
             subject, body = funnel.report(results, preflight_line=pre_line, spend_trace=spend_trace, fatal=fatal,
-                                          release=out.get("released"))
+                                          release=out.get("released"),
+                                          review_lines=(rev or {}).get("lines"))
+            if rev and rev["red"]:
+                subject = "RED: " + subject
             notify.notify(subject, body)
+            if rev and rev.get("alert_subject"):   # the second, rarer email: only ever sent when something is wrong
+                notify.notify(rev["alert_subject"], rev["alert_body"])
             out["funnel"] = {cid: r["funnel"] for cid, r in results.items()}
             out["spend_trace"] = spend_trace
         except Exception as e:

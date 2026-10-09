@@ -391,17 +391,28 @@ RULES = [
 ]
 
 
-def run():
-    rows = _leads()
-    results = []
-    for name, fn in RULES:
-        try:
-            ok, detail = fn(rows)
-        except Exception as e:
-            ok, detail = False, "check error: %s" % str(e)[:80]
-        results.append((name, ok, detail))
-        print("[%s] %s  (%s)" % ("PASS" if ok else "FAIL", name, detail))
-    print("\n%d/%d PASS  [client=%s]" % (sum(1 for _, ok, _ in results if ok), len(results), CLIENT))
+def run(client_id=None, echo=True):
+    """Run every rule. client_id overrides the GOLDEN_CLIENT default for this call (the nightly review runs the
+    suite per client, so the target cannot be import-time-only). A rule that THROWS counts as a FAIL and says so:
+    a check that cannot run is not a check that passed."""
+    global CLIENT
+    prev, results = CLIENT, []
+    if client_id:
+        CLIENT = client_id
+    try:
+        rows = _leads()
+        for name, fn in RULES:
+            try:
+                ok, detail = fn(rows)
+            except Exception as e:
+                ok, detail = False, "check error: %s" % str(e)[:80]
+            results.append((name, ok, detail))
+            if echo:
+                print("[%s] %s  (%s)" % ("PASS" if ok else "FAIL", name, detail))
+        if echo:
+            print("\n%d/%d PASS  [client=%s]" % (sum(1 for _, ok, _ in results if ok), len(results), CLIENT))
+    finally:
+        CLIENT = prev
     return results
 
 

@@ -34,13 +34,13 @@ def compute(client_id, since_iso, discovered=0, published=0):
     gr = lambda gate, passed=None: _c("gate_results", "%s&gate=eq.%s&%s%s" % (
         base, gate, since, ("&passed=is.%s" % ("true" if passed else "false")) if passed is not None else ""))
     # NET-NEW tonight (operator, 2026-10-08, corrected after Night 1): the 3-night gate counts ONLY auto_approved_tonight.
-    # We key on the IMMUTABLE created_at column, not approvedAt — publish.py re-stamps approvedAt=now on existing approved
+    # We key on the IMMUTABLE created_at column, not approvedAt: publish.py re-stamps approvedAt=now on existing approved
     # cards every run, which inflated Night 1 to 50 when only 15 were real. publish.py auto-approves ONLY brand-new cards
     # (prev is None), so "created tonight AND approvedBy=auto" is exactly the true net-new. The hand-staged buffer is
     # reported separately as CONTEXT and never counts toward the gate.
     auto_tonight = _c("leads", "%s&lead_data->>approvedBy=eq.auto&created_at=gte.%s" % (base, since_iso))
     miner_tonight = _c("leads", "%s&lead_data->>source=eq.agent_miner&updated_at=gte.%s" % (base, since_iso))
-    buffer_approved = _c("leads", "%s&lead_data->>approved=eq.true" % base)  # whole-pool snapshot — CONTEXT only
+    buffer_approved = _c("leads", "%s&lead_data->>approved=eq.true" % base)  # whole-pool snapshot, CONTEXT only
     f = {
         "discovered": discovered,                                  # tonight (from the run's pool_floor)
         "enriched":   gr("company_name"),                          # tonight: reached the gates = was enriched
@@ -75,7 +75,7 @@ def line(client_id, res):
     v = res["validator"]
     order = ["discovered", "enriched", "named", "email", "verified", "channels", "ready", "published"]
     core = " | ".join("%s %s" % (k, _n(f[k])) for k in order)
-    net = "auto-approved tonight %s | miner staged tonight %s | (buffer approved %s — NOT counted)" % (
+    net = "auto-approved tonight %s | miner staged tonight %s | (buffer approved %s, NOT counted)" % (
         _n(f.get("auto_approved_tonight")), _n(f.get("miner_staged_tonight")), _n(f.get("buffer_approved")))
     miss = ", ".join("%s %d" % (k, n) for k, n in list(v["missing_tally"].items())[:4])
     qual = "cards valid %d%% (%d/%d)%s" % (v["pct"], v["passed"], v["total"], ("; missing: " + miss) if miss else "")
@@ -105,10 +105,12 @@ def release_lines(release):
     return out if len(out) > 1 else []
 
 
-def report(clients_results, preflight_line=None, spend_trace=None, fatal=None, release=None):
+def report(clients_results, preflight_line=None, spend_trace=None, fatal=None, release=None, review_lines=None):
     """clients_results = {client_id: compute()-result}. Returns (subject, body) for notify().
     preflight_line = the first-line pre-flight string; spend_trace = list of per-step spend strings;
     release = assemble_all()'s result (tomorrow's report + short flag);
+    review_lines = nightly_review.review()'s block, which opens the email (queue item 0b): the golden verdict +
+      health numbers the operator decides on in 10 minutes. It goes FIRST, above the funnel detail;
     fatal = {"step","error"} if the run crashed (the email still goes out, silence is never an outcome)."""
     lines = [line(cid, res) for cid, res in clients_results.items()]
     total_auto = sum((res["funnel"].get("auto_approved_tonight") or 0) for res in clients_results.values())
@@ -116,14 +118,16 @@ def report(clients_results, preflight_line=None, spend_trace=None, fatal=None, r
     head = []
     if preflight_line:
         head.append(preflight_line)
-    head.append("GATE (auto-approved tonight > 0): %s  —  %d auto-approved across %d client(s)" % (
+    head.append("GATE (auto-approved tonight > 0): %s  (%d auto-approved across %d client(s))" % (
         gate, total_auto, len(clients_results)))
     if fatal:
-        subject = "NIGHTLY CRASHED at %s — gate %s (%d auto-approved)" % (fatal.get("step"), gate, total_auto)
+        subject = "NIGHTLY CRASHED at %s, gate %s (%d auto-approved)" % (fatal.get("step"), gate, total_auto)
         head.insert(0, "RUN DIED at %s: %s" % (fatal.get("step"), fatal.get("error")))
     else:
-        subject = "nightly: %d auto-approved tonight — gate %s" % (total_auto, gate)
+        subject = "nightly: %d auto-approved tonight, gate %s" % (total_auto, gate)
     parts = ["EJE factory night funnel (NET-NEW only; buffer shown for context, NOT counted)", ""]
+    if review_lines:                       # queue item 0b: the review block opens the email, above everything else
+        parts += list(review_lines) + ["", "-" * 72, ""]
     parts += head + [""] + lines
     rl = release_lines(release)
     if rl:
@@ -133,5 +137,5 @@ def report(clients_results, preflight_line=None, spend_trace=None, fatal=None, r
     parts += ["",
               "Stages: discovered -> enriched -> named -> email -> verified -> channels -> READY -> published",
               "Gate = auto-approved tonight (approvedBy=auto, approvedAt >= run start), three nights in a row.",
-              "Miner stays STAGED (approved=false) — judged by hand; it never counts toward the gate."]
+              "Miner stays STAGED (approved=false), judged by hand; it never counts toward the gate."]
     return subject, "\n".join(parts)
