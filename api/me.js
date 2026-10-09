@@ -16,6 +16,9 @@ module.exports = async (req, res) => {
     const ids = ctx.clientIds.map((c) => `"${c}"`).join(",");
     workspaces = await db.select("clients", `id=in.(${ids})&select=id,name,icp_config`);
   }
+  // OFF switch (operator 2026-10-08): an archived client is not openable by anyone — drop it from the switcher
+  // for admin AND members (archive, not delete; the row still exists).
+  workspaces = workspaces.filter((w) => !(w.icp_config && w.icp_config.archived));
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");

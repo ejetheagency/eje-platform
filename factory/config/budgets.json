@@ -3,6 +3,8 @@
   "kill_switch_paid_spend": false,
   "_disabled_note": "Providers turned OFF (operator 2026-10-08): hunter=out of free credits; prospeo+apollo=deprecated endpoints (migration not worth it, free plans block people-search). Better 3 providers that work than 7 that flake. Re-enable by removing from the list once fixed/refilled. Serper is NOT disabled (operator refilling credits).",
   "disabled_providers": ["hunter", "prospeo", "apollo"],
+  "_nightly_call_caps_note": "Hard per-NIGHT COUNT cap per provider (operator 2026-10-08), enforced in budget.can_spend ON TOP of the USD caps. serper=1000 searches/night: a runaway miner loop can't burn the night's search budget even though each search is ~$0.001. 0/absent = no count cap.",
+  "provider_nightly_call_caps": { "serper": 1000 },
   "daily_global_spend_cap_usd": 3,
   "monthly_global_spend_cap_usd": 30,
   "max_cost_ratio": 0.2,

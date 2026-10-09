@@ -26,6 +26,17 @@ to a client's `leads`:
 3. **Never during a mixed session** — don't edit a production report in the same session that's also doing other
    work (nightly, EJE, sourcing). One pipe at a time. (This rule exists because skipping it clobbered 5 records.)
 
+## ⛔ SPEND RULES (operator 2026-10-08, non-negotiable)
+Paid-API spend must stay a small fraction of a client's fee. Two layers, both real:
+1. **Manual Claude sessions (this agent) use WEB FETCH ONLY — never a paid API.** Do NOT call Serper, Hunter,
+   Prospeo, Apollo, MillionVerifier, Places-Details or any metered endpoint by hand. Enrich with WebFetch/WebSearch
+   and reasoning; the paid providers belong to the autonomous nightly, which is budget-gated. (This keeps per-lead
+   cost at the factory, where the caps live, and stops ad-hoc credit burn.)
+2. **The nightly factory is enforced in code** (`factory/packages/budget.py`, `config/budgets.json`): a kill switch,
+   a $3/night + $30/month USD cap, a per-provider nightly COUNT cap (**serper ≤ 1000 searches/night**), and in the
+   miner: **paid search runs ONLY on ICP-passed companies** and **never re-searches a company already in the pool**.
+   Never RAISE a cap to make a run fit — make the run cheaper. The funnel email shows serper searches + cost/shipped lead.
+
 ## ⛔ CHANGE PROTOCOL — 2uplatam (paying client), enforced (operator 2026-10-08)
 For ANY change touching 2uplatam, in this exact order:
 1. **BEFORE:** run `python3 -m factory.checks.golden_2uplatam` (record PASS/FAIL) **and** `python3 -m factory.workers.report_guard 2uplatam` (backup).

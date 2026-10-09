@@ -6,7 +6,7 @@
 # run downstream. This is the agent-driven worker the rigid provider-chain pipeline was missing.
 import re, ssl, json, time, urllib.request
 from factory.providers import serper, cheap_llm, millionverifier
-from factory.packages import db
+from factory.packages import db, icp_filters
 
 _CTX = ssl.create_default_context(); _CTX.check_hostname = False; _CTX.verify_mode = ssl.CERT_NONE
 _UA = {"User-Agent": "Mozilla/5.0 (compatible; EJEFactory/1.0)"}
@@ -96,8 +96,13 @@ def mine_business(query, city, client_id, known_site=None, roles=None):
             if link and not any(s in link for s in _SOCIAL):
                 site = link; break
     card = {"query": query, "city": city, "website": site or "", "decisor_name": "", "decisor_role": "",
-            "emails_found": [], "instagram": "", "whatsapp": "", "sources": []}
+            "emails_found": [], "instagram": "", "whatsapp": "", "sources": [], "_officp": ""}
     html = _fetch(site) if site else ""
+    # SPEND RULE (operator 2026-10-08): paid SEARCH runs ONLY on ICP-passed companies. Decide ICP from the html we
+    # ALREADY fetched (no second GET); off-ICP cards still get the FREE on-page extraction, but the paid serper lanes
+    # (press-owner, email discovery, LinkedIn) are skipped — the downstream ICP judge drops them anyway.
+    off_icp, off_reason = icp_filters.is_chain_text(query, site or "", html)
+    card["_officp"] = off_reason if off_icp else ""
     if html:
         card["emails_found"] = _emails(html)
         wa = _WA.findall(html)
@@ -110,14 +115,14 @@ def mine_business(query, city, client_id, known_site=None, roles=None):
         own = _owner_from_text(query, re.sub(r'<[^>]+>', ' ', html), client_id, roles=roles)
         if own:
             card.update({"decisor_name": own["name"], "decisor_role": own.get("role", "")}); card["sources"].append("site")
-    # owner not on site -> press search
-    if not card["decisor_name"]:
+    # owner not on site -> press search (PAID; ICP-passed companies only)
+    if not off_icp and not card["decisor_name"]:
         sr = serper.search('"%s" %s (fundadora OR fundador OR dueña OR dueño OR propietaria OR CEO)' % (query, city), num=7, client_id=client_id)
         snips = " ".join(((r.get("title") or "") + " " + (r.get("snippet") or "")) for r in (sr.get("results") or [])[:7])
         own = _owner_from_text(query, snips, client_id, roles=roles)
         if own:
             card.update({"decisor_name": own["name"], "decisor_role": own.get("role", "")}); card["sources"].append("press")
-    if not card["emails_found"]:  # on-site extraction empty -> contacto pages + targeted search
+    if not off_icp and not card["emails_found"]:  # on-site extraction empty -> contacto pages + targeted search (PAID)
         em = _discover_emails(site, query, city, client_id)
         if em:
             card["emails_found"] = em; card["sources"].append("email_discovery")
@@ -205,7 +210,7 @@ def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_que
                 return {"cards": out, "tally": tally}
             kept_here = 0
             _log("vein (p%d): %s" % (_pass, q))
-            for card in mine_vein(q, city, client_id, want=8, roles=roles):
+            for card in mine_vein(q, city, client_id, want=8, roles=roles, known=seen):
                 if len(out) >= n or kept_here >= cap:
                     break
                 if deadline_ts and time.time() > deadline_ts:  # wall-clock wall: stop mid-vein too
@@ -220,6 +225,8 @@ def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_que
                 if not dom or dom in seen:
                     tally["dup"] += 1; continue
                 if _is_nonbiz(dom):                       # institutional/aggregator domain -> never a small business
+                    tally["off_icp"] += 1; continue
+                if card.get("_officp"):                    # ICP filter failed in mine_business (no paid search spent) -> drop
                     tally["off_icp"] += 1; continue
                 if not card.get("decisor_name"):
                     tally["no_decisor"] += 1; continue
@@ -242,15 +249,27 @@ def mine_report(client_id, n=20, city="Ecuador", queries=None, log=None, per_que
     return {"cards": out, "tally": tally}
 
 
-def mine_vein(sector, city, client_id, want=8, roles=None):
-    """Discover businesses in a vein and research each -> candidate cards (the competent discovery+enrich in one)."""
+def mine_vein(sector, city, client_id, want=8, roles=None, known=None):
+    """Discover businesses in a vein and research each -> candidate cards (the competent discovery+enrich in one).
+    The vein discovery search itself is allowed (it's how we find companies); per-company PAID search is then gated:
+      - known = domains already in this client's pool -> SKIP (spend rule: never re-search a company we already have)
+      - fetch-free ICP filter (known brand/chain/off-ICP entity) -> SKIP (spend rule: paid search on ICP-passed only).
+    The homepage franchise-language slice of the ICP filter runs inside mine_business on the html it already fetched."""
+    known = known or set()
     sr = serper.search('%s %s' % (sector, city), num=min(want * 2, 20), client_id=client_id)
     sites, seen = [], set()
     for r in (sr.get("results") or []):
         link = r.get("link") or ""
-        host = re.sub(r'^https?://(www\.)?', '', link).split("/")[0]
-        if link and host and host not in seen and not any(s in link for s in _SOCIAL):
-            seen.add(host); sites.append((r.get("title") or host, link))
+        host = re.sub(r'^https?://(www\.)?', '', link).split("/")[0].lower()
+        if not (link and host) or host in seen or any(s in link for s in _SOCIAL):
+            continue
+        if host in known:                          # already a lead for this client -> no paid re-search
+            continue
+        title = r.get("title") or host
+        off, _ = icp_filters.officp_by_name_domain(title, link)
+        if off:                                     # off-ICP by name/domain (fetch-free) -> no paid per-company search
+            continue
+        seen.add(host); sites.append((title, link))
         if len(sites) >= want:
             break
     cards = []

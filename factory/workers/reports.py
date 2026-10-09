@@ -51,8 +51,9 @@ def build(client_id, report_date=None):
 
 
 def build_all(report_date=None):
-    clients = db.select("clients", "select=id")
-    return [build(c["id"], report_date) for c in clients]
+    from factory.workers import client_status
+    clients = db.select("clients", "select=id,icp_config")
+    return [build(c["id"], report_date) for c in clients if not client_status.is_archived(c.get("icp_config"))]
 
 
 if __name__ == "__main__":

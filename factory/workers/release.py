@@ -65,8 +65,10 @@ def schedule(client_id, per_day=None, start_date=None):
 
 def schedule_all(only=None):
     """Drip-schedule client workspaces that have a daily cap (ready_leads_per_day), excluding EJE's own + the library."""
+    from factory.workers import client_status
     targets = [c["id"] for c in db.select("clients", "select=id,icp_config")
-               if (c.get("icp_config") or {}).get("ready_leads_per_day") and c["id"] not in ("eje", "eje_productoras")]
+               if (c.get("icp_config") or {}).get("ready_leads_per_day") and c["id"] not in ("eje", "eje_productoras")
+               and not client_status.is_archived(c.get("icp_config"))]
     if only:
         targets = [t for t in targets if t == only]
     return {cid: schedule(cid) for cid in targets}

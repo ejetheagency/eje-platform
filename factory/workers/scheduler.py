@@ -35,9 +35,12 @@ def pool_floor(client_id=None):
     default_rld = cfg.get("default_ready_leads_per_day", 20)
     clients = db.select("clients", ("id=eq.%s&" % client_id if client_id else "") + "select=id,icp_config")
     out = []
+    from factory.workers import client_status
     for c in clients:
         cid = c["id"]
         icp = c.get("icp_config") or {}
+        if client_status.is_archived(icp):   # OFF: archived client -> no discovery at all (kept, not deleted)
+            continue
         if not icp.get("icp"):          # skip library / no-ICP clients
             continue
         # FD: don't even discover for a paused (idle non-paying demo) client — no queue churn, no spend. Kept, not deleted.
@@ -77,9 +80,14 @@ def pool_floor(client_id=None):
 
 
 def tick(client_id=None, limit=1000):
+    from factory.workers import client_status
     q = "state=eq.DISCOVERED&select=id,client_id,company_id&limit=%d" % limit
     if client_id:
         q += "&client_id=eq.%s" % client_id
+    else:  # OFF: never enqueue enrichment for an archived client's leftover DISCOVERED leads
+        arch = client_status.archived_ids()
+        if arch:
+            q += "&client_id=not.in.(%s)" % ",".join(arch)
     discovered = db.select("client_leads", q)
     for cl in discovered:
         queue.enqueue("enrich_t1", client_id=cl["client_id"], company_id=cl["company_id"], client_lead_id=cl["id"])

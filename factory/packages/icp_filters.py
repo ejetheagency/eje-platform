@@ -79,17 +79,38 @@ def _known_brand(name):
     return False
 
 
-def is_chain(name, website):
-    # Returns (excluded, reason). PRECISE exclusion: known global brands/chains, off-ICP entity types
-    # (schools/chambers/associations/government), and EXPLICIT franchise/network language on the site.
-    # Deliberately does NOT exclude generic single-token names or "mentions N countries" (those over-removed
-    # real small agencies).
+def officp_by_name_domain(name, website):
+    # FETCH-FREE slice of the ICP filter: known global brand/chain, off-ICP entity name
+    # (school/chamber/association/government), or an edu/gov domain. No network call, so it can gate
+    # PAID per-company search BEFORE any fetch (the franchise-language check needs the homepage html).
     if _known_brand(name):
         return (True, "known global brand/chain")
     if _OFF_ICP_NAME.search(name or ""):
         return (True, "off-ICP entity (school/chamber/association/government)")
     if _OFF_ICP_DOM.search(website or ""):
         return (True, "off-ICP domain (edu/gov)")
+    return (False, None)
+
+
+def is_chain_text(name, website, html):
+    # Same verdict as is_chain but uses ALREADY-FETCHED html instead of fetching again — lets the miner enforce
+    # "paid search only on ICP-passed companies" without a second homepage GET in the hot loop.
+    off, reason = officp_by_name_domain(name, website)
+    if off:
+        return (True, reason)
+    if html and _CHAIN_KW.search(html.lower()):
+        return (True, "franchise/chain/network language on site")
+    return (False, None)
+
+
+def is_chain(name, website):
+    # Returns (excluded, reason). PRECISE exclusion: known global brands/chains, off-ICP entity types
+    # (schools/chambers/associations/government), and EXPLICIT franchise/network language on the site.
+    # Deliberately does NOT exclude generic single-token names or "mentions N countries" (those over-removed
+    # real small agencies).
+    off, reason = officp_by_name_domain(name, website)
+    if off:
+        return (True, reason)
     txt = _homepage(website)
     if txt and _CHAIN_KW.search(txt):
         return (True, "franchise/chain/network language on site")

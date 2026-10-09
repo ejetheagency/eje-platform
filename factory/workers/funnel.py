@@ -15,6 +15,14 @@ def _c(table, q):
         return None
 
 
+def _sum_usd(q):
+    try:
+        rows = db.select_all("cost_ledger", q + "&select=usd_cost")
+        return sum(float(r.get("usd_cost") or 0) for r in rows)
+    except Exception:
+        return None
+
+
 def _n(v):
     return "?" if v is None else str(v)
 
@@ -46,6 +54,13 @@ def compute(client_id, since_iso, discovered=0, published=0):
         "miner_staged_tonight":  miner_tonight,   # NET-NEW: staged (approved=false), judged by hand tomorrow
         "buffer_approved":       buffer_approved, # CONTEXT ONLY: hand-staged pool, NEVER counts toward the gate
     }
+    # SPEND VISIBILITY (operator 2026-10-08): serper searches burned tonight + cost per shipped lead, per client.
+    serper_n = _c("cost_ledger", "%s&provider=eq.serper&created_at=gte.%s" % (base, since_iso))
+    spend_tonight = _sum_usd("%s&created_at=gte.%s" % (base, since_iso))
+    f["serper_searches"] = serper_n
+    f["spend_tonight_usd"] = round(spend_tonight, 4) if spend_tonight is not None else None
+    f["cost_per_shipped_usd"] = (round(spend_tonight / published, 4)
+                                 if (spend_tonight is not None and published) else None)
     # card-validator over tonight's published/updated cards (quality % the operator spot-checks)
     try:
         rows = db.select_all("leads", "%s&updated_at=gte.%s&select=lead_data" % (base, since_iso))
@@ -64,7 +79,11 @@ def line(client_id, res):
         _n(f.get("auto_approved_tonight")), _n(f.get("miner_staged_tonight")), _n(f.get("buffer_approved")))
     miss = ", ".join("%s %d" % (k, n) for k, n in list(v["missing_tally"].items())[:4])
     qual = "cards valid %d%% (%d/%d)%s" % (v["pct"], v["passed"], v["total"], ("; missing: " + miss) if miss else "")
-    return "%s:\n  funnel: %s\n  NET-NEW: %s\n  quality: %s" % (client_id, core, net, qual)
+    spend = "serper searches %s | spend tonight $%s | cost/shipped lead %s" % (
+        _n(f.get("serper_searches")),
+        ("%.4f" % f["spend_tonight_usd"]) if f.get("spend_tonight_usd") is not None else "?",
+        ("$%.4f" % f["cost_per_shipped_usd"]) if f.get("cost_per_shipped_usd") is not None else "n/a (0 shipped)")
+    return "%s:\n  funnel: %s\n  NET-NEW: %s\n  spend: %s\n  quality: %s" % (client_id, core, net, spend, qual)
 
 
 def report(clients_results, preflight_line=None, spend_trace=None, fatal=None):

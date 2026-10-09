@@ -86,6 +86,29 @@ def r7_no_scheduled_repeats_delivered(rows):
     return not repeats, "%d scheduled cards, %d repeat a delivered contact" % (len(sched), len(repeats))
 
 
+def r8_serper_nightly_cap():
+    # SPEND RULE (operator 2026-10-08): serper is capped at <=1000 searches/night in code (protects the $3 cap +
+    # the miner's reserved slice that 2uplatam's self-production depends on). The cap must exist and be sane.
+    from factory.packages import budget
+    cap = int((budget._cfg().get("provider_nightly_call_caps") or {}).get("serper") or 0)
+    return (0 < cap <= 1000), "serper nightly call cap = %s (expect 1..1000)" % (cap or "none")
+
+
+def r9_archived_clients_off():
+    # OFF SWITCH (operator 2026-10-08): altavia is archived (FD stop); archived clients must never leak into the
+    # nightly release/discovery targets (re-derived read-only with release.schedule_all's own predicate).
+    from factory.workers import client_status
+    cs = db.select("clients", "select=id,icp_config")
+    arch = [c["id"] for c in cs if client_status.is_archived(c.get("icp_config"))]
+    targets = [c["id"] for c in cs
+               if (c.get("icp_config") or {}).get("ready_leads_per_day") and c["id"] not in ("eje", "eje_productoras")
+               and not client_status.is_archived(c.get("icp_config"))]
+    leaked = [a for a in arch if a in targets]
+    altavia_off = "altavia" in arch
+    return (altavia_off and not leaked), "archived=%s; altavia_off=%s; leaked into targets=%s" % (
+        arch or "none", altavia_off, leaked or "none")
+
+
 RULES = [
     ("client view only shows delivered contacts", lambda rows: r1_only_delivered_contacts(rows)),
     ("Decisores tab == count of distinct delivered contacts (reads client_deliveries)", lambda rows: r2_decisores_from_ledger(rows)),
@@ -94,6 +117,8 @@ RULES = [
     ("no report on non-business days", lambda rows: r5_no_report_on_non_business_days(rows)),
     ("required tabs and buttons exist in the client view", lambda rows: r6_client_tabs_and_buttons_exist()),
     ("no scheduled card repeats a delivered contact", lambda rows: r7_no_scheduled_repeats_delivered(rows)),
+    ("serper nightly search cap configured (<=1000)", lambda rows: r8_serper_nightly_cap()),
+    ("archived clients are OFF (altavia; none leak into nightly targets)", lambda rows: r9_archived_clients_off()),
 ]
 
 

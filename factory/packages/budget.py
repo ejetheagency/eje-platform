@@ -44,6 +44,15 @@ def spent_today():
     return _spent(since=_day_start_iso())
 
 
+def calls_today(provider):
+    """Count of logged paid calls for a provider since 00:00 UTC today (the per-night window). Public read:
+    the serper search-count cap + the funnel's 'serper searches used' line both use this."""
+    try:
+        return db.count("cost_ledger", "provider=eq.%s&created_at=gte.%s" % (provider, _ts(_day_start_iso())))
+    except Exception:
+        return 0
+
+
 def daily_cap():
     return float(_cfg().get("daily_global_spend_cap_usd") or 0)
 
@@ -100,6 +109,12 @@ def can_spend(client_id, provider, est_usd):
         return (False, "kill switch on")
     if provider in (cfg.get("disabled_providers") or []):  # operator turned this provider OFF (dead/flaky/out of credits)
         return (False, "provider %s disabled in config" % provider)
+    # SPEND RULE (operator 2026-10-08): hard per-NIGHT COUNT cap per provider (e.g. serper 1000 searches/night), on
+    # top of the USD cap. A single runaway loop can't burn the night's search budget even if each call is cheap.
+    ncaps = cfg.get("provider_nightly_call_caps") or {}
+    ncap = int(ncaps.get(provider) or 0)
+    if ncap and calls_today(provider) >= ncap:
+        return (False, "%s nightly call cap %d reached" % (provider, ncap))
     est = float(est_usd or 0)
     dcap = float(cfg.get("daily_global_spend_cap_usd") or 0)   # per-NIGHT ceiling: no single run/night can burst
     if dcap:

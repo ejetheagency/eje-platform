@@ -40,6 +40,17 @@ def all_status():
     return [status(c["id"]) for c in db.select("clients", "select=id")]
 
 
+def is_archived(icp):
+    """OFF switch (operator 2026-10-08): an archived client is fully disabled — no discovery, enrichment, spend,
+    reports, release or login. The row + its leads are KEPT (archive, not delete), reversible by clearing the flag."""
+    return bool((icp or {}).get("archived"))
+
+
+def archived_ids():
+    return [c["id"] for c in db.select("clients", "select=id,icp_config")
+            if is_archived(c.get("icp_config"))]
+
+
 def spend_allowed(client_id):
     """FD hook: False when this client's policy is 'paused' (idle demo / operator-stopped). Paying clients always True."""
     if not client_id:
