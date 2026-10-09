@@ -26,6 +26,14 @@ to a client's `leads`:
 3. **Never during a mixed session** — don't edit a production report in the same session that's also doing other
    work (nightly, EJE, sourcing). One pipe at a time. (This rule exists because skipping it clobbered 5 records.)
 
+## ⛔ CHANGE PROTOCOL — 2uplatam (paying client), enforced (operator 2026-10-08)
+For ANY change touching 2uplatam, in this exact order:
+1. **BEFORE:** run `python3 -m factory.checks.golden_2uplatam` (record PASS/FAIL) **and** `python3 -m factory.workers.report_guard 2uplatam` (backup).
+2. Make **exactly ONE change** (test it on the hidden **`2uplatam_staging`** clone first).
+3. **AFTER:** re-run the golden checks.
+4. **Any rule that NEWLY fails => automatically restore from the report_guard backup** and tell the operator which rule broke. Never leave a new FAIL standing.
+5. **Every fix ADDS its rule** to `factory/checks/golden_2uplatam.py` (the net only grows).
+
 This repo (GitHub `eje-platform`) hosts **two things that share one codebase + one Supabase project**
 (`ogdsuztzhmnnjolilsuo`, `leads` table): the legacy productora cockpit (built for a former client) AND EJE's own product.
 Deploy = commit the changed file(s) by name + `git push origin main` (Vercel auto-deploys; live at `app.ejetheagency.com`).
