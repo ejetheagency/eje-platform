@@ -8,6 +8,7 @@
 import os, re, datetime
 from factory.packages import db, calendar_bd as cal
 from factory.workers import deliveries
+from factory.workers.release import HOLD_DATE   # ONE source for TSA's never-show sentinel, not a second copy
 
 CLIENT = os.environ.get("GOLDEN_CLIENT", "2uplatam")
 COUNTRY = "Ecuador"
@@ -352,19 +353,16 @@ def r17_report_tabs_on_screen(rows):
         dict(sorted(tabs.items())), vol, nxt, oversize or "none", beyond or "none", pool_hidden)
 
 
-def r19_no_unapproved_card_holds_a_holiday_date(rows):
-    """An un-approved card is invisible to the client, so a report date on it is meaningless now and a trap later:
-    the day it is approved it reads as DELIVERED on that past date, unseen. The leak left 4 such rows on the Oct 9
-    holiday (queue item 0 pooled them). Scoped to NON-BUSINESS-day dates, which is the leak's own signature."""
-    bad = sorted(r["id"] for r in rows
+def r19_unapproved_cards_hold_no_date(rows):
+    """UN-APPROVED MEANS NO DATE. An un-approved card is invisible to the client (app.html demands `approved`), so a
+    report date on it is meaningless now and a trap later: the day it is approved it reads as DELIVERED on that past
+    date, unseen by anyone. Tightened 2026-10-09 from "no non-business-day date" (the leak's signature, 4 rows) to
+    the whole invariant, once the remaining business-day rows were pooled too: there is now nothing to name, so the
+    rule enforces the condition instead of reporting it. `2099-01-01` is TSA's never-show sentinel, not a report."""
+    bad = sorted("%s@%s" % (r["id"], r["source_date"]) for r in rows
                  if (r.get("source_date") or "") and not (r.get("lead_data") or {}).get("approved")
-                 and r["source_date"] != "2099-01-01"
-                 and not cal.is_business_day(r["source_date"], COUNTRY))
-    other = sorted("%s@%s" % (r["id"], r["source_date"]) for r in rows
-                   if (r.get("source_date") or "") and not (r.get("lead_data") or {}).get("approved")
-                   and r["source_date"] != "2099-01-01" and cal.is_business_day(r["source_date"], COUNTRY))
-    return not bad, "%d un-approved cards hold a non-business-day date%s (%d hold a business-day date, same class, not in scope: %s)" % (
-        len(bad), "" if not bad else ": %s" % bad, len(other), other or "none")
+                 and r["source_date"] != HOLD_DATE)
+    return not bad, "%d un-approved cards hold a report date%s" % (len(bad), ": %s" % bad if bad else " (none, the invariant holds)")
 
 
 RULES = [
@@ -388,7 +386,7 @@ RULES = [
     ("client Decisores: sidebar badge == page header == ledger (one source)", lambda rows: r15_client_counts_single_source(rows)),
     # NEW 2026-10-09 (the Oct 9 holiday leak taken back):
     ("no un-actioned card stays delivered on a non-business day", lambda rows: r18_no_unactioned_card_stays_delivered_on_a_holiday(rows)),
-    ("no un-approved card holds a non-business-day report date", lambda rows: r19_no_unapproved_card_holds_a_holiday_date(rows)),
+    ("un-approved cards hold no report date", lambda rows: r19_unapproved_cards_hold_no_date(rows)),
     ("live deployed app.html matches repo (no stale screen)", lambda rows: r14_live_deploy_matches_repo()),
 ]
 
