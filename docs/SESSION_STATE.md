@@ -22,12 +22,20 @@ The single current-truth page. Read this + `docs/PLAN.md` queue, then work. Doct
 - **Never the same PERSON twice: one contact = one card, whatever the channel.** Channels (email/WA/IG/LinkedIn) are attributes ON a card, never separate cards. (Today's admin bug: Efrén Avilés/ECOTEC and Xavier Ordeñana/ESPOL each render as two cards — one "Email · Nuevo", one "WA · Contactado".)
 - **Fit floor = 60.** Fernando gets **20 per business day**; if the gates leave a day short, the factory **refills to 20 with leads that pass**. Never pad with low-fit (<60) or unshippable cards.
 
-## Count render paths (client view) — the 54-vs-41 root cause (found 2026-10-08)
-Client-facing counts are computed in MULTIPLE functions with DIFFERENT formulas (must become ONE):
-- **Decisores SIDEBAR badge** `.nav-item[data-view=decisores] .ct` → `load()` [app.html:2026], value `_n` = `UNIVERSE.filter(approved).length` — **NO email dedup → 54**. Same `_n` feeds the **home greeting** `#greetSub` [app.html:2024].
-- **Decisores PAGE header** `#dec-sub` → `renderDecisores()` [app.html:1752], email-deduped [app.html:1745] — **→ 41** (= ledger).
-- Other per-view counts each computed locally: Hoy badge `#hoy-ct` [1513], Hoy header `#hoy-sub` [1511], Tareas badge [1399]+header [1398], Reporte badge `#rep-ct` [1604]+header [1617], Seguimiento `#seg-ct` [1631].
-- **Fix (cleanup #2):** one `clientCounts()` source (ledger-equivalent, email-deduped); every badge/header/greeting reads from it. No one-line pointer exists yet (no shared fn), so NOT patched this session.
+## Count render paths (client view) — FIXED by cleanup #2 (2026-10-09, deployed `1e247ec`)
+`clientCounts()` is now the ONE source (app.html): Decisores/Hoy/Reporte + every badge, page header and greeting read it; counts recompute on every view change (`window.__ejeSyncBadges`, hooked in `go()`), which also fixes admin showing 0/blank. Person = `contactEmail` lowercased (= `client_deliveries` ledger key); dedup collapses a person to ONE card and MERGES channels (WA/IG/LinkedIn) as attributes. Reporte is now person-deduped too (Efrén Avilés/ECOTEC, Xavier Ordeñana/ESPOL appear once). Counts labeled **cliente ve** vs **pipeline**. Golden **r15 PASS** (screen-level: live one-source + value==ledger==41); **r14 PASS** (live==repo). Decisores sidebar badge now = **41**.
+
+## Deploys + Vercel (2026-10-09)
+- **Git auto-deploy FIXED.** Root cause: the project's Ignored Build Step was `git diff --quiet HEAD^ HEAD -- public vercel.json` → it canceled every commit that didn't touch `public/` or `vercel.json` (so `api/` + docs + factory never deployed). Changed to `-- public api vercel.json`. Proven: git push `50eb52f`/`1e247ec` built → READY → promoted to app.ejetheagency.com on their own (src=git, no CLI).
+- **Build cost finding (read-only):** builds are already fast (~6.6s avg) and install-free (no package.json/lockfile/node_modules; buildCommand/installCommand = None). The $24.78 Build-CPU-Minutes is from **build machine = `turbo` (fixed)** × high deploy volume (~100 deploys in 3 days). Fix = switch build machine to standard/basic + batch pushes (the Ignored Build Step already skips non-Vercel commits). NOT changed (read-only analysis).
+
+## Queue: PURGE UNABASE (former client) — Step 1 inventory done 2026-10-09, Step 2 awaits operator OK
+Former-client (UnaBase/Scarlett) footprint to archive (not delete) / rename:
+- **DB:** `eje_productoras` = **931** legacy productora leads (the UnaBase DB). `user_name='scarlett'` is stamped on messages_sent **2173/2319**, actions **1586/1644**, status_history **119/124**, sent_actuals **40/40** — because `EJE_USER='scarlett'` is HARD-CODED (app.html:1044); fixing that hardcode is in queue item 4 (Intelligence).
+- **Static:** 141 `public/*.json` legacy report files + `reports-manifest.json` (106 batches, client_id=None) + `public/campana-altcanal.html`.
+- **Active code:** app.html hardcoded greeting "Buen día, Scarlett." (1044/695; overwritten to "Buen día." for non-eje), Scarlett-signed templates (1219/1224/1235, unabase_default cadence), `scripts/reset-bounced-status.js` + `apply-bounced-recovery.js`. docs/: 15 files.
+- **External names:** Vercel project **`unabase-app`** (+ alias unabase-app.vercel.app) and local repo dir `~/claude/unabase-app` still say unabase. GitHub (`eje-platform`), Railway (`eje-factory`), Supabase (opaque ref) are already clean.
+- **Step 2 (after OK):** archive legacy data, remove code refs, rename Vercel project, confirm app.ejetheagency.com keeps working. Golden: zero "unabase"/"scarlett" in active code and in anything a client sees.
 
 ## Hard rules (non-negotiable; enforced in CLAUDE.md)
 1. **One change per session.**

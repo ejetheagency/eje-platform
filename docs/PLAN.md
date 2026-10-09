@@ -46,6 +46,11 @@ those move up and finance/intelligence/endpoint/compartments move down.
 
 ---
 
+## 2uplatam ACCOUNT-CLEANUP TRACK (separate from the queue above)
+Done: **#1** Vercel git auto-deploy fixed (Ignored Build Step now watches `public api vercel.json`; proven via git push). **#2** ONE `clientCounts()` source + one-person-one-card (deployed `1e247ec`, golden r15 PASS, badge=41).
+Open (each ONE change, golden before/after, staging first): **#3** Hoy reads DB not legacy manifest · **#4** release exactly 20 shippable/day, refill shortfalls with passing leads (no low-fit/unshippable padding) [golden r10] · **#5** fit-score<60 gate at approve/schedule [golden r11] · **#6** non-university company caps enforced at release [golden r12] · **#7** (dropped — universities in-ICP, no cap) · **#8** harden admin count labels.
+New: **PURGE UNABASE** (former client) — Step 1 inventory done (see SESSION_STATE); Step 2 (archive/remove/rename) awaits operator OK. **VERCEL COST** — switch build machine turbo→standard + batch pushes (~$24.78 Build-CPU-Minutes from turbo×volume).
+
 ## RETIRED THIS SESSION (done, do not redo)
 **Spend rules + Altavia off + sends trace (old item 1), 2026-10-08:**
 - Spend rules ENFORCED IN CODE: serper **≤1000 searches/night** (`budget.provider_nightly_call_caps`, gated in
