@@ -35,6 +35,38 @@ def _delivered(rows):
     return [r for r in rows if (r.get("lead_data") or {}).get("approved") and (r.get("source_date") or "") <= TODAY]
 
 
+# ── SCREEN-LEVEL (operator 2026-10-08): the client-facing rules must check WHAT THE CLIENT SEES, not a parallel
+# DB query that can pass while the screen is wrong. These mirror app.html's EXACT client render algorithm:
+#   today = ejeTodayET() (America/Santiago, rolls at 08:00 Chile) — app.html:1320
+#   delivered = approved && source_date<=today                    — app.html:1116/1302
+#   Decisores = dedup by (contactEmail.lower() || domain)          — app.html:1745
+def _today_chile():
+    import zoneinfo
+    now = datetime.datetime.now(zoneinfo.ZoneInfo("America/Santiago"))
+    d = now.date() - datetime.timedelta(days=1) if now.hour < 8 else now.date()
+    return d.isoformat()
+
+
+def _dom(r):
+    return str(r.get("id") or "").lower()
+
+
+def _screen_delivered(rows):
+    t = _today_chile()
+    return [r for r in rows if (r.get("lead_data") or {}).get("approved") and (r.get("source_date") or "") and (r.get("source_date") or "") <= t]
+
+
+def _screen_decisores(rows):
+    # EXACT app.html dedup: key = contactEmail.lower() OR domain fallback.
+    seen, n = set(), 0
+    for r in _screen_delivered(rows):
+        k = _ckey(r) or _dom(r)
+        if k in seen:
+            continue
+        seen.add(k); n += 1
+    return n
+
+
 def r1_only_delivered_contacts(rows):
     d = _delivered(rows)
     bad = [r for r in d if not _shippable(r.get("lead_data") or {})]
@@ -42,10 +74,12 @@ def r1_only_delivered_contacts(rows):
 
 
 def r2_decisores_from_ledger(rows):
-    # Decisores reads ONLY from client_deliveries; it must equal the distinct delivered contacts derived from leads.
+    # SCREEN-LEVEL: the number app.html actually renders in Decisores (its exact filter+dedup, Chile-today) must
+    # equal the ledger. This FAILS if the dedup regresses (screen shows raw 54) — a DB-only query would still pass.
     ledger = deliveries.count(CLIENT)
-    distinct = len({_ckey(r) for r in _delivered(rows) if _shippable(r.get("lead_data") or {})})
-    return ledger == distinct, "Decisores (client_deliveries) = %d, distinct delivered contacts = %d" % (ledger, distinct)
+    screen = _screen_decisores(rows)
+    raw = len(_screen_delivered(rows))
+    return ledger == screen, "ledger=%d, screen-Decisores(app algo)=%d, raw delivered rows=%d" % (ledger, screen, raw)
 
 
 def r3_ledger_no_duplicates():
@@ -109,6 +143,91 @@ def r9_archived_clients_off():
         arch or "none", altavia_off, leaked or "none")
 
 
+def _contract_volume():
+    ic = (db.select("clients", "id=eq.%s&select=icp_config" % CLIENT) or [{}])[0].get("icp_config") or {}
+    return int(ic.get("ready_leads_per_day") or 0)
+
+
+def _approved_shippable(rows):
+    return [r for r in rows if (r.get("lead_data") or {}).get("approved") and _shippable(r.get("lead_data") or {})]
+
+
+def r10_report_size_equals_contract(rows):
+    # NEW (operator 2026-10-08, expected FAIL): each future report date delivers EXACTLY the contract daily volume.
+    vol = _contract_volume()
+    import collections
+    g = collections.Counter(r.get("source_date") for r in _approved_shippable(rows) if (r.get("source_date") or "") > _today_chile())
+    bad = {d: n for d, n in g.items() if n != vol}
+    return (vol > 0 and not bad), "contract=%d/day; off-size future reports=%s" % (vol, dict(sorted(bad.items())) or "none")
+
+
+def r11_no_card_below_fit_60(rows):
+    # NEW (expected FAIL): no delivered-or-scheduled card ships with fit score < 60.
+    def score(r):
+        ld = r.get("lead_data") or {}
+        try:
+            return float(ld.get("score") or r.get("score") or 0)
+        except Exception:
+            return 0
+    low = [r for r in _approved_shippable(rows) if score(r) < 60]
+    return not low, "%d cards with fit<60 (e.g. %s)" % (len(low), ", ".join("%s=%s" % ((r.get("lead_data") or {}).get("companyName") or r.get("id"), int(score(r))) for r in sorted(low, key=score)[:6]) or "none")
+
+
+def r12_company_contact_caps(rows):
+    # NEW (expected FAIL): max 1 contact per company per report (source_date) AND max 2 per company overall.
+    import collections, re
+    def ck(r):
+        c = ((r.get("lead_data") or {}).get("companyName") or r.get("company") or "").lower()
+        c = re.sub(r"\b(sa|s\.a\.|ltda|cia|c\.a\.|inc|llc|corp|group|grupo|del ecuador|ecuador)\b", "", c)
+        return re.sub(r"[^a-z0-9]+", "", c)
+    sh = _approved_shippable(rows)
+    per_report = collections.Counter((ck(r), r.get("source_date")) for r in sh)
+    overall = collections.Counter(ck(r) for r in sh)
+    dup_report = {k: n for k, n in per_report.items() if n > 1 and k[0]}
+    over_overall = {k: n for k, n in overall.items() if n > 2 and k}
+    ok = not dup_report and not over_overall
+    return ok, "same-company-same-report=%d, company>2-overall=%d (e.g. %s)" % (
+        len(dup_report), len(over_overall),
+        ", ".join("%s x%d" % (k, n) for k, n in sorted(over_overall.items(), key=lambda kv: -kv[1])[:5]) or "none")
+
+
+def r13_admin_labels_client_vs_pipeline():
+    # NEW (expected FAIL): every count in the ADMIN view is labeled whether it is what "cliente ve" vs the full "pipeline".
+    try:
+        html = open(APP, encoding="utf-8").read().lower()
+    except Exception as e:
+        return False, "cannot read app.html: %s" % e
+    has = ("cliente ve" in html) and ("pipeline" in html)
+    return has, "admin counts labeled cliente-ve/pipeline: %s" % ("yes" if has else "NO (counts are ambiguous across views)")
+
+
+def r15_client_counts_single_source(rows):
+    # SCREEN-LEVEL (operator 2026-10-08): the two client Decisores render paths must agree AND equal the ledger.
+    #   SIDEBAR badge  = load() app.html:2026 -> _n = UNIVERSE.filter(approved).length (NO email dedup)
+    #   PAGE header    = renderDecisores app.html:1752 -> email-deduped (app.html:1745)
+    # FAILs while they use different formulas (badge 54 vs header 41); PASSes once both read one source == ledger.
+    badge = len(_screen_delivered(rows))       # mirrors the no-dedup badge formula
+    header = _screen_decisores(rows)           # mirrors the deduped page-header formula
+    ledger = deliveries.count(CLIENT)
+    ok = (badge == header == ledger)
+    return ok, "sidebar badge=%d, page header=%d, ledger=%d%s" % (
+        badge, header, ledger, "" if ok else "  <-- diverge: counts not from ONE function")
+
+
+def r14_live_deploy_matches_repo():
+    # SCREEN-LEVEL deploy freshness: the app.html the CLIENT actually loads must be the repo's current app.html,
+    # so no rule can pass while the live screen runs stale code (the 54-vs-41 incident = stale/other render path).
+    import hashlib, urllib.request
+    try:
+        local = open(APP, "rb").read()
+        req = urllib.request.Request("https://app.ejetheagency.com/app.html", headers={"User-Agent": "golden/1.0", "Cache-Control": "no-cache"})
+        live = urllib.request.urlopen(req, timeout=20).read()
+    except Exception as e:
+        return False, "cannot fetch live app.html: %s" % str(e)[:80]
+    lh, vh = hashlib.sha256(local).hexdigest()[:12], hashlib.sha256(live).hexdigest()[:12]
+    return lh == vh, "repo app.html %s vs live %s (%s)" % (lh, vh, "match" if lh == vh else "STALE DEPLOY — client runs old code")
+
+
 RULES = [
     ("client view only shows delivered contacts", lambda rows: r1_only_delivered_contacts(rows)),
     ("Decisores tab == count of distinct delivered contacts (reads client_deliveries)", lambda rows: r2_decisores_from_ledger(rows)),
@@ -119,6 +238,13 @@ RULES = [
     ("no scheduled card repeats a delivered contact", lambda rows: r7_no_scheduled_repeats_delivered(rows)),
     ("serper nightly search cap configured (<=1000)", lambda rows: r8_serper_nightly_cap()),
     ("archived clients are OFF (altavia; none leak into nightly targets)", lambda rows: r9_archived_clients_off()),
+    # NEW 2026-10-08 (expected FAIL until the account cleanup is approved + applied):
+    ("report size == contract daily volume", lambda rows: r10_report_size_equals_contract(rows)),
+    ("no delivered/scheduled card with fit score < 60", lambda rows: r11_no_card_below_fit_60(rows)),
+    ("max 1 contact/company/report and max 2/company overall", lambda rows: r12_company_contact_caps(rows)),
+    ("admin view labels every count cliente-ve vs pipeline", lambda rows: r13_admin_labels_client_vs_pipeline()),
+    ("client Decisores: sidebar badge == page header == ledger (one source)", lambda rows: r15_client_counts_single_source(rows)),
+    ("live deployed app.html matches repo (no stale screen)", lambda rows: r14_live_deploy_matches_repo()),
 ]
 
 

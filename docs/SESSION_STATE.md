@@ -17,6 +17,18 @@ The single current-truth page. Read this + `docs/PLAN.md` queue, then work. Doct
 - **Chatmuyo** — proposal sent, awaiting response.
 - **Altavia** — **OFF (archived 2026-10-08)**. `icp_config.archived=true` + `spend_policy=paused` (kept, not deleted; 57 leads retained). **Spend tonight = $0 is already guaranteed** by the deployed pause logic (`pool_floor` + `can_spend` skip paused non-paying clients) — verified $0, 0 rows today. The new archived skips in `reports.build_all`/`release.schedule_all`/`scheduler.tick`/`api/me.js` (no reports, no login/switcher) are **written but go live on deploy**. Reversible by clearing the flag.
 
+## Account decisions (operator 2026-10-08, 2uplatam) — these shape the cleanup
+- **Universities are IN ICP, no cap, no % limit** (Fernando uses them for partnerships). Several contacts per university are fine. **Company caps apply ONLY to non-university companies: max 1 per report, max 2 overall.**
+- **Never the same PERSON twice: one contact = one card, whatever the channel.** Channels (email/WA/IG/LinkedIn) are attributes ON a card, never separate cards. (Today's admin bug: Efrén Avilés/ECOTEC and Xavier Ordeñana/ESPOL each render as two cards — one "Email · Nuevo", one "WA · Contactado".)
+- **Fit floor = 60.** Fernando gets **20 per business day**; if the gates leave a day short, the factory **refills to 20 with leads that pass**. Never pad with low-fit (<60) or unshippable cards.
+
+## Count render paths (client view) — the 54-vs-41 root cause (found 2026-10-08)
+Client-facing counts are computed in MULTIPLE functions with DIFFERENT formulas (must become ONE):
+- **Decisores SIDEBAR badge** `.nav-item[data-view=decisores] .ct` → `load()` [app.html:2026], value `_n` = `UNIVERSE.filter(approved).length` — **NO email dedup → 54**. Same `_n` feeds the **home greeting** `#greetSub` [app.html:2024].
+- **Decisores PAGE header** `#dec-sub` → `renderDecisores()` [app.html:1752], email-deduped [app.html:1745] — **→ 41** (= ledger).
+- Other per-view counts each computed locally: Hoy badge `#hoy-ct` [1513], Hoy header `#hoy-sub` [1511], Tareas badge [1399]+header [1398], Reporte badge `#rep-ct` [1604]+header [1617], Seguimiento `#seg-ct` [1631].
+- **Fix (cleanup #2):** one `clientCounts()` source (ledger-equivalent, email-deduped); every badge/header/greeting reads from it. No one-line pointer exists yet (no shared fn), so NOT patched this session.
+
 ## Hard rules (non-negotiable; enforced in CLAUDE.md)
 1. **One change per session.**
 2. **Golden checks before AND after; any new FAIL → auto-restore from backup + name the broken rule.**
