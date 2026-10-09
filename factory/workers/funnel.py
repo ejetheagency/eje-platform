@@ -86,10 +86,30 @@ def line(client_id, res):
     return "%s:\n  funnel: %s\n  NET-NEW: %s\n  spend: %s\n  quality: %s" % (client_id, core, net, spend, qual)
 
 
-def report(clients_results, preflight_line=None, spend_trace=None, fatal=None):
+def release_lines(release):
+    """The release gate, in the email: what tomorrow's report actually is, and whether it came up SHORT.
+    A short report is never padded (fit floor 60), so the email has to say it out loud."""
+    if not isinstance(release, dict) or not release:
+        return []
+    out = ["release gate (next report = top N of the ranked pool; never padded):"]
+    for cid, r in release.items():
+        if not isinstance(r, dict):
+            continue
+        if r.get("error"):
+            out.append("  %s: ERROR %s" % (cid, r["error"]))
+            continue
+        out.append("  " + (r.get("line") or cid))
+        if r.get("short"):
+            out.append("    SHORT: %d of %d. Nothing else in the pool clears fit>=60 + the company caps. "
+                       "Mine/enrich net-new, do NOT lower the floor." % (r.get("shipped", 0), r.get("target_size", 0)))
+    return out if len(out) > 1 else []
+
+
+def report(clients_results, preflight_line=None, spend_trace=None, fatal=None, release=None):
     """clients_results = {client_id: compute()-result}. Returns (subject, body) for notify().
     preflight_line = the first-line pre-flight string; spend_trace = list of per-step spend strings;
-    fatal = {"step","error"} if the run crashed (the email still goes out — silence is never an outcome)."""
+    release = assemble_all()'s result (tomorrow's report + short flag);
+    fatal = {"step","error"} if the run crashed (the email still goes out, silence is never an outcome)."""
     lines = [line(cid, res) for cid, res in clients_results.items()]
     total_auto = sum((res["funnel"].get("auto_approved_tonight") or 0) for res in clients_results.values())
     gate = "PASS" if total_auto > 0 else "FAIL"
@@ -105,6 +125,9 @@ def report(clients_results, preflight_line=None, spend_trace=None, fatal=None):
         subject = "nightly: %d auto-approved tonight — gate %s" % (total_auto, gate)
     parts = ["EJE factory night funnel (NET-NEW only; buffer shown for context, NOT counted)", ""]
     parts += head + [""] + lines
+    rl = release_lines(release)
+    if rl:
+        parts += [""] + rl
     if spend_trace:
         parts += ["", "spend trace (cumulative USD today, per step):"] + list(spend_trace)
     parts += ["",

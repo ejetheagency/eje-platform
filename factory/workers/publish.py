@@ -2,8 +2,11 @@
 # Bridge: factory output (client_leads READY + companies/contacts + composed) -> the legacy `leads` table that
 # app.html reads for each client workspace. WITHOUT this, new factory leads never reach the app: reports.build only
 # precomputes the `reports` table, which no client view consumes. This publishes each READY lead as a contact card.
-# Idempotent + non-destructive: upsert by (client_id, id=domain). NEW cards get source_date=report_date + status
-# 'none'; EXISTING rows keep the operator's status + source_date, only lead_data/score/contact are refreshed.
+# Idempotent + non-destructive: upsert by (client_id, id=domain). NEW cards enter the POOL (source_date = NULL,
+# status 'none'): publishing a card makes it SHIPPABLE, not SHIPPED. release.py's gate is the only way into a
+# client's report, so a card can never land on Hoy the night it was published (that leak dated new cards today,
+# which is how a report landed on a national holiday). EXISTING rows keep the operator's status + source_date,
+# only lead_data/score/contact are refreshed.
 # run_nightly scopes this to access=='full' clients so legacy surfaces (2uplatam) and EJE's own pool are untouched.
 import datetime
 from factory.packages import db
@@ -16,10 +19,6 @@ except Exception:
 GENERIC_DOMAINS = {"facebook.com", "m.facebook.com", "business.facebook.com", "instagram.com", "linkedin.com",
                    "twitter.com", "x.com", "youtube.com", "tiktok.com", "wa.me", "whatsapp.com", "linktr.ee",
                    "google.com", "sites.google.com", "wixsite.com", "bit.ly"}
-
-
-def _today():
-    return datetime.date.today().isoformat()
 
 
 def _pitch_text(comp):
@@ -40,8 +39,7 @@ def _merge(tpl, co, ct, sender=""):
             .replace("{sender}", sender or "el equipo").replace("{brands}", "la tuya"))
 
 
-def publish(client_id, report_date=None):
-    report_date = report_date or _today()
+def publish(client_id):
     rows = db.select_all("client_leads",
                          "client_id=eq.%s&state=eq.READY&select=id,company_id,contact_id,score,composed" % client_id)
     existing = {r["id"]: r for r in db.select_all("leads", "client_id=eq.%s&select=id,status,source_date,approved:lead_data->>approved,approvedBy:lead_data->>approvedBy,approvedAt:lead_data->>approvedAt" % client_id)}
@@ -84,7 +82,7 @@ def publish(client_id, report_date=None):
         except Exception:
             fscore = int(cl.get("score") or 0)
         prev = existing.get(dom)
-        sd = (prev or {}).get("source_date") or report_date
+        sd = (prev or {}).get("source_date")   # NEW card -> None = in the pool, waiting for the release gate
         status = (prev or {}).get("status") or "none"
         # AUTO-APPROVAL (operator, 2026-10-07): a lead that passes every gate (it is here = it passed tsa.passes_contact
         # + channels_ok above) is auto-approved so the nightly actually ships; flagged "auto" for the operator's
@@ -111,7 +109,7 @@ def publish(client_id, report_date=None):
             "companyBrief": co.get("brief") or "",
             "logo": co.get("logo_url") or "",  # real logo from the nightly logo.resolve (so the card + validator have it)
             "whyICP": "", "companyEmail": None, "score": fscore,
-            "source_date": sd, "whyNow": [s["type"] for s in (sigs or [])],
+            "source_date": sd or "", "whyNow": [s["type"] for s in (sigs or [])],
             "additionalContacts": [], "_verifiedCredits": [],
             "approved": appr, "approvedBy": appr_by, "approvedAt": appr_at, "source": "nightly",
         }
@@ -135,10 +133,10 @@ def publish(client_id, report_date=None):
     return {"client_id": client_id, "published": published, "added": added, "skipped": skipped}
 
 
-def publish_full_access(report_date=None, only=None):
+def publish_full_access(only=None):
     """Publish for every access=='full' client (the client workspaces the app surfaces from the factory)."""
     fulls = [c["id"] for c in db.select("clients", "select=id,icp_config")
              if (c.get("icp_config") or {}).get("access") == "full"]
     if only:
         fulls = [c for c in fulls if c == only]
-    return {cid: publish(cid, report_date=report_date) for cid in fulls}
+    return {cid: publish(cid) for cid in fulls}

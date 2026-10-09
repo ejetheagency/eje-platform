@@ -1050,7 +1050,9 @@
     // CRITICAL: messages_sent/actions/status_history/notes all have a FK to leads(id).
     // Must upsert the lead row BEFORE any child write, or the insert is rejected (409)
     // and progress silently vanishes. Mirrors the classic cockpit's sbUpsertLead.
-    function sbUpsertLead(id,l){var sb=window.__ejeSB;return sb.from('leads').upsert({id:id,company:l.companyName||'',contact_name:l.contactName||null,contact_email:l.contactEmail||null,contact_phone:l.contactPhone||null,country:l.country||null,score:Math.round(l.score||0),source_date:l.source_date||new Date().toISOString().slice(0,10),lead_data:l,updated_at:new Date().toISOString(),client_id:EJE_CLIENT},{onConflict:'id'});}
+    // source_date: NEVER default to today — a card with no date is POOL (release.py's gate decides when it ships);
+    // stamping today here would push an unranked pooled card straight into the client's report behind the gate.
+    function sbUpsertLead(id,l){var sb=window.__ejeSB;return sb.from('leads').upsert({id:id,company:l.companyName||'',contact_name:l.contactName||null,contact_email:l.contactEmail||null,contact_phone:l.contactPhone||null,country:l.country||null,score:Math.round(l.score||0),source_date:l.source_date||null,lead_data:l,updated_at:new Date().toISOString(),client_id:EJE_CLIENT},{onConflict:'id'});}
     function sbSetStatus(id,status){var sb=window.__ejeSB;return sb.from('leads').update({status:status,updated_at:new Date().toISOString()}).eq('id',id).eq('client_id',EJE_CLIENT);}
     function reRender(){ render(); if(typeof renderAccion==='function') renderAccion(); if(typeof renderHoy==='function') renderHoy(); }
     function markStatus(l,status,label,note){
@@ -1972,8 +1974,11 @@
     function renderHistorialEje(body){
       function paint(){
         var src=(UNIVERSE&&UNIVERSE.length)?UNIVERSE:[];
-        if(CLIENTCLEAN()) src=src.filter(function(l){return l.approved===true;});  // cliente ve SOLO su reporte entregado (hoy), no días viejos ni pool
-        var byDate={}; src.forEach(function(l){ var d=l.source_date||(l.lead_data&&l.lead_data.source_date)||'(sin fecha)'; (byDate[d]=byDate[d]||[]).push(l); });
+        // RELEASE GATE (2026-10-09): a report = one dated day. A card with NO date is POOL (enriched, waiting to be
+        // ranked into the next report) and is never a report tab: the client never sees it, the admin sees it
+        // grouped as the pool, not as a day.
+        if(CLIENTCLEAN()) src=src.filter(function(l){return l.approved===true && !!(l.source_date||(l.lead_data&&l.lead_data.source_date));});
+        var byDate={}; src.forEach(function(l){ var d=l.source_date||(l.lead_data&&l.lead_data.source_date)||'Pool · sin reporte'; (byDate[d]=byDate[d]||[]).push(l); });
         var dates=Object.keys(byDate).sort(function(a,b){return a<b?1:(a>b?-1:0);});
         var sub=document.getElementById('hist-sub'); if(sub) sub.textContent=dates.length+' días · toca un día para ver empresas y quién respondió';
         if(!dates.length){ body.innerHTML='<div class="tq-empty">Aún no hay envíos registrados.</div>'; return; }

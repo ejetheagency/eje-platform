@@ -1,74 +1,282 @@
 # factory/workers/release.py
-# Daily-report DRIP. A client's deliverable leads are RELEASED ~N/day (ready_leads_per_day) across dates, so the
-# client sees a dated report of N/day instead of the whole pool at once. Uncontacted leads (status none), best-first
-# by score, get source_dates starting from the client's go-live (contract.term_start) or today, N per date. The app's
-# Hoy shows source_date <= today (released); future dates are held "for next reports".
-# Non-destructive: already-released leads (source_date <= today) KEEP their date (a lead a client already saw never
-# vanishes); only unreleased leads (no date or future) are (re)scheduled, filling each day up to the cap.
-import datetime
+# THE RELEASE GATE — just-in-time report assembly (operator 2026-10-09; replaces the old pre-scheduling DRIP).
+#
+# WHY: the drip assigned source_dates days ahead, so a report was frozen the night it was dripped. Cards that were
+# the best available on Tuesday still shipped on Friday after the pool had better ones, short days got padded with
+# whatever was left, and low-fit cards rode along because they already had a date. A report must be the BEST 20 the
+# pool can offer on the morning it ships, not the leftovers of an old night.
+#
+# THE MODEL (two states, one date field):
+#   POOL   = source_date IS NULL. Enriched, gate-passed, waiting. Invisible to the client (app.html's
+#            _deliveredToClient demands a non-empty source_date), re-ranked every night, nothing expires.
+#   REPORT = source_date = one business day. The ONLY way into a client's report is this gate.
+#   DELIVERED = source_date <= today. Frozen forever: a card the client has already seen never moves and never
+#            vanishes (it is in client_deliveries, which is what the Decisores count reads).
+#
+# EVERY NIGHT, per client: return every undelivered dated card to the pool, rank the whole pool against the client's
+# CURRENT ICP, and build ONLY the next business day's report from the top N. Rules, all enforced below:
+#   - fit >= FIT_FLOOR (60). A card under the floor never ships; it stays pooled and is re-ranked tomorrow.
+#   - one person = one card (dedup by contact email, inside the report and against the delivered ledger).
+#   - company caps: a NON-university company gets max 1 card per report and max 2 across all reports ever.
+#     Universities are EXEMPT (operator 2026-10-09: in-ICP, partnership play, several contacts are fine).
+#   - NEVER pad: if fewer than N clear the bar, the report ships short and says so (the funnel email flags it).
+#   - operator veto: lead_data.vetoed drops a card out of the report and out of the pool, permanently; the next
+#     best card takes its place on the next assembly (which is the same night, so a veto is same-day effective).
+#
+# FIT is the card's OWN score (lead_data.score) — the one number the client's card shows, golden r11 checks and this
+# ranker sorts by. One source, no second opinion computed in the dark.
+#
+#   python3 -m factory.workers.release <client>                  # assemble the next business day (dry-run preview)
+#   python3 -m factory.workers.release <client> --apply
+#   python3 -m factory.workers.release <client> --veto <lead_id> "reason"
+import datetime, re
 from factory.packages import db, calendar_bd as cal
 from factory.workers import tsa, deliveries
 
+FIT_FLOOR = 60          # operator 2026-10-09: no card below this ships, ever. Not a knob to open on a short day.
+HOLD_DATE = "2099-01-01"  # TSA's "never show" sentinel (tsa.clean_surface) — not a report, never un-scheduled here
 
-def schedule(client_id, per_day=None, start_date=None):
+_UNI = re.compile(r"universidad|university|\bespol\b|\bespae\b|\busfq\b|\buda\b|polit[eé]cnica|escuela polit|"
+                  r"instituto|college|facultad|campus", re.I)
+_CO_NOISE = re.compile(r"\b(sa|s\.a\.|ltda|cia|c\.a\.|inc|llc|corp|group|grupo|del ecuador|ecuador)\b")
+
+LEAD_COLS = "id,company,contact_name,contact_email,score,status,source_date,updated_at,lead_data"
+
+
+def _ld(r):
+    return r.get("lead_data") or {}
+
+
+def company_key(r):
+    c = _CO_NOISE.sub("", (_ld(r).get("companyName") or r.get("company") or "").lower())
+    return re.sub(r"[^a-z0-9]+", "", c)
+
+
+def is_university(r):
+    return bool(_UNI.search(_ld(r).get("companyName") or r.get("company") or ""))
+
+
+def contact_key(r):
+    return ((_ld(r).get("contactEmail") or r.get("contact_email") or "")).strip().lower()
+
+
+def fit_of(r):
+    """The card's fit against the client's ICP: lead_data.score (what the card shows, what golden r11 reads)."""
+    try:
+        return int(float(_ld(r).get("score") or r.get("score") or 0))
+    except Exception:
+        return 0
+
+
+def channels_of(r):
+    """Reachable channels on the card (multi-channel doctrine): email + IG + LinkedIn + WhatsApp."""
+    ld = _ld(r)
+    n = 1 if (r.get("contact_email") or ld.get("contactEmail")) else 0
+    if ld.get("instagramHandle"):
+        n += 1
+    if ld.get("contactLinkedIn") or ld.get("companyLinkedIn"):
+        n += 1
+    if ld.get("whatsapp"):
+        n += 1
+    return n
+
+
+def completeness_of(r):
+    """How finished the card is: the five fields that decide whether it reads as a real decisor card on screen."""
+    ld = _ld(r)
+    return sum(1 for v in (ld.get("logo"), ld.get("companyBrief"), ld.get("website"),
+                           ld.get("contactTitle"), ld.get("pitchEmailES")) if (v or "").strip())
+
+
+def freshness_of(r):
+    """Signal freshness: a card carrying why-now signals, enriched recently, outranks an equal-fit stale one."""
+    ld = _ld(r)
+    s = 5 if (ld.get("whyNow") or []) else 0
+    up = (r.get("updated_at") or "")[:10]
+    if up:
+        try:
+            age = (datetime.date.today() - datetime.date.fromisoformat(up)).days
+            s += 3 if age <= 14 else (1 if age <= 45 else 0)
+        except Exception:
+            pass
+    return s
+
+
+def rank_of(r):
+    """Rank = fit (primary, and the only floor) + the operator's three tie-breakers, all additive and visible."""
+    return fit_of(r) + 4 * channels_of(r) + 2 * completeness_of(r) + freshness_of(r)
+
+
+def _why_not(r, delivered_keys, today):
+    """Why this card is not a candidate for the next report. None = eligible."""
+    ld = _ld(r)
+    if (r.get("status") or "none") != "none":
+        return "already in the lifecycle (%s)" % r.get("status")
+    if ld.get("vetoed"):
+        return "vetoed by operator"
+    if not ld.get("approved"):
+        return "not approved (staged for review)"
+    if not tsa.passes_lead_row(r):
+        return "not shippable (TSA: decisor + verified email)"
+    sd = r.get("source_date") or ""
+    if sd and sd <= today:
+        return "already delivered"
+    if contact_key(r) in delivered_keys:
+        return "this person was already delivered"
+    if fit_of(r) < FIT_FLOOR:
+        return "fit < %d" % FIT_FLOOR
+    return None
+
+
+def _config(client_id):
     ic = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
-    per_day = int(per_day or ic.get("ready_leads_per_day") or 20)
-    country = ic.get("geo")  # business-day calendar: never deliver on a weekend / country holiday
-    today = datetime.date.today()
-    if start_date:
-        start = datetime.date.fromisoformat(start_date)
-    else:
-        start = today
-        cs = (ic.get("contract") or {}).get("term_start")
-        if cs:
-            try:
-                d = datetime.date.fromisoformat(cs)
-                start = d if d > today else today
-            except Exception:
-                pass
-    rows = db.select_all("leads", "client_id=eq.%s&status=eq.none&select=id,score,source_date,contact_name,contact_email,lead_data&order=score.desc" % client_id)
-    try:  # DELIVERED LEDGER: a contact delivered to this client ONCE, EVER — never schedule it again
+    return int(ic.get("ready_leads_per_day") or 20), ic.get("geo")
+
+
+def pool(client_id):
+    """The ranked pool: every card that COULD ship in the next report, best first, plus why the rest cannot."""
+    today = datetime.date.today().isoformat()
+    rows = db.select_all("leads", "client_id=eq.%s&select=%s" % (client_id, LEAD_COLS))
+    try:
         delivered = deliveries.delivered_keys(client_id)
     except Exception:
         delivered = set()
-    used = {}            # date -> count already placed (released leads reserve their day's capacity)
-    unreleased = []
+    ranked, rejected = [], {}
     for r in rows:
-        if not tsa.passes_lead_row(r):
-            continue  # TSA: never put an incomplete lead into a client's report
-        ck = ((r.get("lead_data") or {}).get("contactEmail") or r.get("contact_email") or "").strip().lower()
-        if ck and ck in delivered:
-            continue  # already delivered to this client -> never re-schedule (no duplicate contact in any report)
-        sd = r.get("source_date") or ""
-        # KEEP: a lead already delivered (<= today, never vanish) OR a future lead already on a valid BUSINESS day
-        # (preserve the curated future batches). RE-DRIP only: future leads on a non-business day (holiday/weekend) or
-        # leads with no date — they relocate to the next open business day, nothing lost or duplicated.
-        if sd and ((start.isoformat() <= sd <= today.isoformat()) or
-                   (sd > today.isoformat() and cal.is_business_day(sd, country))):
-            used[sd] = used.get(sd, 0) + 1
+        why = _why_not(r, delivered, today)
+        if why:
+            rejected[why.split(" (")[0]] = rejected.get(why.split(" (")[0], 0) + 1
         else:
-            unreleased.append(r)
-    day = start
-    n = 0
-    for r in unreleased:
-        while used.get(day.isoformat(), 0) >= per_day or not cal.is_business_day(day, country):  # skip full + non-business days
-            day = day + datetime.timedelta(days=1)
-        d = day.isoformat()
-        used[d] = used.get(d, 0) + 1
-        ld = r.get("lead_data") or {}
-        ld["source_date"] = d
-        db.update("leads", "id=eq.%s&client_id=eq.%s" % (r["id"], client_id), {"source_date": d, "lead_data": ld})
-        n += 1
-    last = max(used.keys()) if used else start.isoformat()
-    return {"client_id": client_id, "rescheduled": n, "per_day": per_day, "from": start.isoformat(), "through": last}
+            ranked.append(r)
+    ranked.sort(key=lambda r: (-rank_of(r), -fit_of(r), r["id"]))
+    return {"rows": rows, "ranked": ranked, "rejected": rejected, "today": today, "delivered_keys": delivered}
 
 
-def schedule_all(only=None):
-    """Drip-schedule client workspaces that have a daily cap (ready_leads_per_day), excluding EJE's own + the library."""
+def assemble(client_id, target_date=None, apply=False):
+    """Build ONE report: the next business day, top N of the ranked pool, caps + dedup + fit floor enforced.
+    Idempotent: every undelivered dated card goes back to the pool first, so re-running rebuilds the same report
+    from the same pool. Delivered cards (source_date <= today) are never touched."""
+    per_day, country = _config(client_id)
+    p = pool(client_id)
+    today = p["today"]
+    target = target_date or cal.next_business_day(datetime.date.today(), country).isoformat()
+    if not cal.is_business_day(target, country):
+        return {"client_id": client_id, "error": "%s is not a business day in %s" % (target, country)}
+
+    # 1) UN-SCHEDULE: nothing keeps a future date. A report is assembled, never inherited.
+    returned = [r for r in p["rows"]
+                if (r.get("source_date") or "") > today and (r.get("source_date") or "") != HOLD_DATE
+                and not _ld(r).get("tsa_held")]
+    if apply:
+        for r in returned:
+            _set_date(client_id, r, None)
+
+    # 2) COUNT WHAT IS ALREADY OUT: company caps count across every report ever delivered.
+    delivered_rows = [r for r in p["rows"] if (r.get("source_date") or "") and (r.get("source_date") or "") <= today
+                      and _ld(r).get("approved") and tsa.passes_lead_row(r)]
+    overall = {}
+    for r in delivered_rows:
+        if not is_university(r):
+            k = company_key(r)
+            overall[k] = overall.get(k, 0) + 1
+
+    # 3) FILL the target day from the top of the pool.
+    picked, in_report_companies, seen_people, blocked = [], set(), set(p["delivered_keys"]), {}
+    for r in p["ranked"]:
+        if len(picked) >= per_day:
+            break
+        ck, k, uni = contact_key(r), company_key(r), is_university(r)
+        if ck and ck in seen_people:
+            blocked["one person = one card"] = blocked.get("one person = one card", 0) + 1
+            continue
+        if not uni and k:
+            if k in in_report_companies:
+                blocked["max 1 per company per report"] = blocked.get("max 1 per company per report", 0) + 1
+                continue
+            if overall.get(k, 0) >= 2:
+                blocked["max 2 per company overall"] = blocked.get("max 2 per company overall", 0) + 1
+                continue
+        picked.append(r)
+        if ck:
+            seen_people.add(ck)
+        if not uni and k:
+            in_report_companies.add(k)
+            overall[k] = overall.get(k, 0) + 1
+    if apply:
+        for r in picked:
+            _set_date(client_id, r, target)
+
+    short = max(0, per_day - len(picked))
+    eligible_left = len(p["ranked"]) - len(picked)
+    out = {
+        "client_id": client_id, "target_date": target, "applied": bool(apply),
+        "shipped": len(picked), "target_size": per_day, "short": short,
+        "lowest_fit": min([fit_of(r) for r in picked], default=None),
+        "highest_fit": max([fit_of(r) for r in picked], default=None),
+        "universities": sum(1 for r in picked if is_university(r)),
+        "returned_to_pool": len(returned),
+        "pool_eligible_after": eligible_left,
+        "days_covered": round(eligible_left / float(per_day), 1) if per_day else 0,
+        "pool_blocked_by_caps": blocked, "pool_rejected": p["rejected"],
+        "cards": [{"id": r["id"], "company": _ld(r).get("companyName") or r.get("company"),
+                   "contact": _ld(r).get("contactName") or r.get("contact_name"),
+                   "fit": fit_of(r), "rank": rank_of(r), "uni": is_university(r)} for r in picked],
+    }
+    out["line"] = "release %s %s: %d/%d cards (fit %s-%s, %d universities), pool %d eligible = %.1f more days%s" % (
+        client_id, target, out["shipped"], per_day, out["lowest_fit"], out["highest_fit"], out["universities"],
+        eligible_left, out["days_covered"], "" if not short else "  <-- SHORT by %d, NOT padded (nothing else clears fit>=%d)" % (short, FIT_FLOOR))
+    return out
+
+
+def _set_date(client_id, row, date_iso):
+    """Move a card between the pool (None) and a report (a business day). lead_data.source_date mirrors the column
+    because app.html falls back to it when reading a card. A card in a report is by definition not TSA-held."""
+    ld = _ld(row)
+    ld["source_date"] = date_iso or ""
+    if date_iso:
+        ld.pop("tsa_held", None)
+    db.update("leads", "id=eq.%s&client_id=eq.%s" % (row["id"], client_id),
+              {"source_date": date_iso, "lead_data": ld})
+
+
+def veto(client_id, lead_id, reason="", by="operator"):
+    """Operator veto: this card never ships. Out of the next report immediately (back to no date) and out of the
+    pool permanently; the next best card replaces it on the next assembly."""
+    rows = db.select("leads", "id=eq.%s&client_id=eq.%s&select=%s" % (lead_id, client_id, LEAD_COLS))
+    if not rows:
+        return {"error": "no such lead for %s: %s" % (client_id, lead_id)}
+    r = rows[0]
+    today = datetime.date.today().isoformat()
+    if (r.get("source_date") or "") and (r.get("source_date") or "") <= today:
+        return {"error": "%s was already delivered on %s — a card the client has seen cannot be vetoed"
+                         % (lead_id, r["source_date"])}
+    ld = _ld(r)
+    ld.update({"vetoed": True, "vetoReason": reason, "vetoedBy": by,
+               "vetoedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(), "source_date": ""})
+    db.update("leads", "id=eq.%s&client_id=eq.%s" % (lead_id, client_id), {"source_date": None, "lead_data": ld})
+    return {"client_id": client_id, "lead_id": lead_id, "vetoed": True, "reason": reason,
+            "line": "vetoed %s (%s) — out of the report and the pool; re-assemble to backfill" % (lead_id, reason or "no reason given")}
+
+
+def assemble_all(only=None, apply=True):
+    """Assemble the next business day's report for every client with a daily volume (EJE's own pool + the library
+    are not client reports; archived clients are OFF)."""
     from factory.workers import client_status
     targets = [c["id"] for c in db.select("clients", "select=id,icp_config")
                if (c.get("icp_config") or {}).get("ready_leads_per_day") and c["id"] not in ("eje", "eje_productoras")
                and not client_status.is_archived(c.get("icp_config"))]
     if only:
         targets = [t for t in targets if t == only]
-    return {cid: schedule(cid) for cid in targets}
+    return {cid: assemble(cid, apply=apply) for cid in targets}
+
+
+if __name__ == "__main__":
+    import sys, json
+    cid = sys.argv[1] if len(sys.argv) > 1 else "2uplatam"
+    if "--veto" in sys.argv:
+        i = sys.argv.index("--veto")
+        print(json.dumps(veto(cid, sys.argv[i + 1], sys.argv[i + 2] if len(sys.argv) > i + 2 else ""), indent=2))
+    else:
+        res = assemble(cid, apply="--apply" in sys.argv)
+        print(json.dumps(res, indent=2, ensure_ascii=False))
+        print(res.get("line") or res.get("error"))

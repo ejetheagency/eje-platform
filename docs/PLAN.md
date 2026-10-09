@@ -17,10 +17,12 @@ client-report write; staging first. END every session by updating `SESSION_STATE
 **The factory produces 2uplatam's 20/day on its own by Wed Oct 14 night.** (Buffer ends Oct 16.)
 
 ## ORDERED QUEUE (one change per session, in this order)
-1. **Release gate = just-in-time report assembly.** Build only the NEXT business day's report from the **top 20 of the
-   ranked pool**; send Oct 13-15's pre-scheduled cards **back to the pool**; Monday's report is rebuilt fresh. (Fixes
-   the padded / low-fit future tabs = golden r10 + r11.)
-2. **Hoy reads the DB,** not the legacy `reports-manifest` static files.
+1. **Hoy reads the DB,** not the legacy `reports-manifest` static files.
+2. **Repair `fit.fit_score`** (uncovered by the release gate, which now depends on fit being true): read geo from the
+   card/`lead_data` instead of the usually-empty `companies.country`; add the missing decisor titles (Decano, Rector,
+   Vicerrector, Decana); stop scoring an empty title as 0 seniority on a one-person business. Then **re-score the pool
+   and compare against the hand/hybrid scores** before letting the computed score drive the gate. Golden: the ranker's
+   top 20 does not change character when fit is recomputed.
 3. **Name-step rule.** A decisor name counts ONLY if a role word (dueño/fundador/director/CEO/owner) sits next to it on
    the company's OWN site or its LinkedIn — never from testimonials/client lists.
 4. **4x discovery for SMB ICPs.** `scheduler.pool_floor` keeps the pool at **2-3 days of reports** for small-business ICPs.
@@ -35,6 +37,13 @@ client-report write; staging first. END every session by updating `SESSION_STATE
 ---
 
 ## DONE (do not redo)
+- **Release gate = just-in-time assembly (2026-10-09, queue item 1):** `release.py` rewritten from the pre-scheduling
+  drip into the gate (pool / report / delivered; next business day only; top 20 of the ranked pool; fit floor 60;
+  one person one card; non-uni company caps; never padded; operator veto + automatic backfill). `publish.py` now
+  pools new cards instead of dating them (that leak is what delivered a report on the Oct 9 holiday). Funnel email
+  prints the next report + a SHORT flag. Monday Oct 12 rebuilt: fit 84-96, zero cards under 60 (was 14 under 60);
+  Oct 13-15 back to the pool. Golden grew to 17 (r16 next-report-is-top-of-pool, r17 screen-level report tabs);
+  16/17 PASS. Details + the fit-score defects it uncovered: `docs/SESSION_STATE.md`.
 - **Cleanup #2 (2026-10-09):** ONE `clientCounts()` source + one-person-one-card, counts labeled cliente-ve/pipeline (deployed `1e247ec`; golden r15 PASS; Decisores badge = 41).
 - **Cleanup #1 (2026-10-09):** Vercel git auto-deploy fixed (Ignore step `public api vercel.json`); proven via git push. Vercel build-cost analysis (turbo × volume; operator switches turbo→standard).
 - **Spend rules + Altavia off + sends trace (2026-10-08):** serper ≤1000/night, paid search only on ICP-passed, no re-search of pooled domains, funnel shows serper+cost/lead (all in code, live); CLAUDE.md SPEND RULES (manual = web-fetch only); Altavia archived OFF ($0 spend); golden grew (serper cap, archived-off, screen-level r2/r14/r15, university-exempt r12). Sends traced: recorded in `messages_sent`+`sent_actuals` (email); replies not yet captured (item 7); identity hard-coded (item 5).

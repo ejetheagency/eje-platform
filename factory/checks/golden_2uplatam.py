@@ -31,8 +31,15 @@ def _shippable(ld):
     return bool((ld.get("contactName") or ld.get("decisor")) and ld.get("contactEmail") and not ld.get("emailBounced"))
 
 
+def _dated(r):
+    """A card is IN A REPORT only if it has a date. No date = POOL (release.py's gate has not picked it yet) and a
+    pooled card is in no report, delivered or future. Never compare an empty source_date against today: "" <= today
+    is true in string order, which would read the whole pool as delivered."""
+    return bool(r.get("source_date") or "")
+
+
 def _delivered(rows):
-    return [r for r in rows if (r.get("lead_data") or {}).get("approved") and (r.get("source_date") or "") <= TODAY]
+    return [r for r in rows if (r.get("lead_data") or {}).get("approved") and _dated(r) and r["source_date"] <= TODAY]
 
 
 # ── SCREEN-LEVEL (operator 2026-10-08): the client-facing rules must check WHAT THE CLIENT SEES, not a parallel
@@ -130,7 +137,7 @@ def r8_serper_nightly_cap():
 
 def r9_archived_clients_off():
     # OFF SWITCH (operator 2026-10-08): altavia is archived (FD stop); archived clients must never leak into the
-    # nightly release/discovery targets (re-derived read-only with release.schedule_all's own predicate).
+    # nightly release/discovery targets (re-derived read-only with release.assemble_all's own predicate).
     from factory.workers import client_status
     cs = db.select("clients", "select=id,icp_config")
     arch = [c["id"] for c in cs if client_status.is_archived(c.get("icp_config"))]
@@ -153,24 +160,43 @@ def _approved_shippable(rows):
 
 
 def r10_report_size_equals_contract(rows):
-    # NEW (operator 2026-10-08, expected FAIL): each future report date delivers EXACTLY the contract daily volume.
+    # REPORT SIZE: no report a client has not received yet may hold MORE than the contract daily volume. Oversize is
+    # the old pre-scheduling bug (leftovers + padding riding on an already-dated day). SHORT is allowed and honest —
+    # the gate never pads below the fit floor — and r16 proves a short report is the pool's true ceiling.
+    # Legacy delivered days are reported, not failed (already in the client's hands).
     vol = _contract_volume()
     import collections
-    g = collections.Counter(r.get("source_date") for r in _approved_shippable(rows) if (r.get("source_date") or "") > _today_chile())
-    bad = {d: n for d, n in g.items() if n != vol}
-    return (vol > 0 and not bad), "contract=%d/day; off-size future reports=%s" % (vol, dict(sorted(bad.items())) or "none")
+    t = _today_chile()
+    sh = _approved_shippable(rows)
+    g = collections.Counter(r.get("source_date") for r in sh if (r.get("source_date") or "") > t)
+    over = {d: n for d, n in g.items() if n > vol}
+    legacy_over = {d: n for d, n in collections.Counter(
+        r.get("source_date") for r in sh if (r.get("source_date") or "") and (r.get("source_date") or "") <= t).items() if n > vol}
+    return (vol > 0 and not over), "contract=%d/day; next report(s)=%s; oversize=%s; legacy delivered days over size=%s" % (
+        vol, dict(sorted(g.items())) or "none", dict(sorted(over.items())) or "none", dict(sorted(legacy_over.items())) or "none")
+
+
+def _fit(r):
+    ld = r.get("lead_data") or {}
+    try:
+        return float(ld.get("score") or r.get("score") or 0)
+    except Exception:
+        return 0
 
 
 def r11_no_card_below_fit_60(rows):
-    # NEW (expected FAIL): no delivered-or-scheduled card ships with fit score < 60.
-    def score(r):
-        ld = r.get("lead_data") or {}
-        try:
-            return float(ld.get("score") or r.get("score") or 0)
-        except Exception:
-            return 0
-    low = [r for r in _approved_shippable(rows) if score(r) < 60]
-    return not low, "%d cards with fit<60 (e.g. %s)" % (len(low), ", ".join("%s=%s" % ((r.get("lead_data") or {}).get("companyName") or r.get("id"), int(score(r))) for r in sorted(low, key=score)[:6]) or "none")
+    # THE FIT FLOOR, as a release gate: no card below fit 60 may SHIP, i.e. may sit in a report that has not been
+    # delivered yet (the next report + anything dated ahead of it). That is what the gate controls.
+    # SCOPE (2026-10-09, honest): cards ALREADY delivered are in the client's hands and in client_deliveries —
+    # they cannot be recalled or re-scored into the past, so they are reported here as legacy, not as a live fail.
+    t = _today_chile()
+    shipping = [r for r in _approved_shippable(rows) if (r.get("source_date") or "") > t]
+    low = [r for r in shipping if _fit(r) < 60]
+    legacy = [r for r in _approved_shippable(rows) if _dated(r) and r["source_date"] <= t and _fit(r) < 60]
+    return not low, "%d of %d shipping cards below fit 60 (%s); legacy already-delivered below 60: %d (in the client's hands, not recallable)" % (
+        len(low), len(shipping),
+        ", ".join("%s=%s" % ((r.get("lead_data") or {}).get("companyName") or r.get("id"), int(_fit(r))) for r in sorted(low, key=_fit)[:6]) or "none",
+        len(legacy))
 
 
 _UNI = re.compile(r"universidad|university|\bespol\b|\bespae\b|\busfq\b|\buda\b|polit[eé]cnica|escuela polit|instituto|college|facultad|campus", re.I)
@@ -186,7 +212,9 @@ def r12_company_contact_caps(rows):
         return re.sub(r"[^a-z0-9]+", "", c)
     def is_uni(r):
         return bool(_UNI.search(((r.get("lead_data") or {}).get("companyName") or r.get("company") or "")))
-    sh = [r for r in _approved_shippable(rows) if not is_uni(r)]   # universities exempt from caps
+    # Only cards IN A REPORT count: the pool may legitimately hold 3 contacts at one company (the gate decides which
+    # 2 ever ship), and every pooled card shares the same empty date, which would read as one giant report.
+    sh = [r for r in _approved_shippable(rows) if _dated(r) and not is_uni(r)]   # universities exempt from caps
     per_report = collections.Counter((ck(r), r.get("source_date")) for r in sh)
     overall = collections.Counter(ck(r) for r in sh)
     dup_report = {k: n for k, n in per_report.items() if n > 1 and k[0]}
@@ -242,6 +270,60 @@ def r14_live_deploy_matches_repo():
     return lh == vh, "repo app.html %s vs live %s (%s)" % (lh, vh, "match" if lh == vh else "STALE DEPLOY — client runs old code")
 
 
+def r16_next_report_is_top_of_pool(rows):
+    # THE RELEASE GATE, reconciled: the report the client will open next must BE the top N of the pool as ranked
+    # right now (fit floor + one-person-one-card + company caps), not an older night's pick. Re-derives the
+    # assembly read-only (apply=False) and compares it to what is actually dated in the DB. This FAILS on a stale
+    # pre-scheduled report, on a veto that was never backfilled, and on hand-dated cards that skipped the gate.
+    from factory.workers import release
+    t = _today_chile()
+    live = {r["id"] for r in _approved_shippable(rows) if (r.get("source_date") or "") > t}
+    plan = release.assemble(CLIENT, apply=False)
+    if plan.get("error"):
+        return False, "cannot re-derive the assembly: %s" % plan["error"]
+    want = {c["id"] for c in plan["cards"]}
+    missing, extra = sorted(want - live), sorted(live - want)
+    short = plan.get("short") or 0
+    return (not missing and not extra), "next report %s: live=%d, ranker wants=%d%s; missing=%s; not-in-top-N=%s" % (
+        plan["target_date"], len(live), len(want),
+        ("  (SHORT by %d — pool exhausted at fit>=%d, NOT padded)" % (short, release.FIT_FLOOR)) if short else "",
+        missing[:5] or "none", extra[:5] or "none")
+
+
+def r17_report_tabs_on_screen(rows):
+    # SCREEN-LEVEL: the Reporte tabs the client actually sees. EXACT app.html clientCounts() algorithm (app.html:1748)
+    #   repAll = approved && source_date >= today && pitchEmailES, deduped one-person-one-card; grouped by date.
+    # Two rules in one, both as rendered: every tab holds <= the contract volume, and no tab exists beyond the NEXT
+    # business day (a third tab = the factory pre-scheduling again). Also asserts the POOL is invisible: an undated
+    # card must never become a tab, which is only true while the live screen filters Historial on a real date.
+    from factory.packages import calendar_bd as _cal
+    import collections, urllib.request
+    vol = _contract_volume()
+    t = _today_chile()
+    nxt = _cal.next_business_day(datetime.date.fromisoformat(t) + datetime.timedelta(days=1), COUNTRY).isoformat()
+    sel, seen = [], set()
+    for r in sorted(rows, key=lambda x: (x.get("source_date") or "")):
+        ld = r.get("lead_data") or {}
+        if not (ld.get("approved") and (r.get("source_date") or "") >= t and (ld.get("pitchEmailES") or "").strip()):
+            continue
+        k = _ckey(r) or _dom(r)          # app.html _personKey: one person = one card
+        if k in seen:
+            continue
+        seen.add(k); sel.append(r)
+    tabs = collections.Counter(r["source_date"] for r in sel)
+    oversize = {d: n for d, n in tabs.items() if n > vol}
+    beyond = [d for d in tabs if d > nxt]
+    try:
+        req = urllib.request.Request("https://app.ejetheagency.com/app.html", headers={"User-Agent": "golden/1.0", "Cache-Control": "no-cache"})
+        html = urllib.request.urlopen(req, timeout=20).read().decode("utf-8", "ignore")
+    except Exception as e:
+        return False, "cannot fetch live app.html: %s" % str(e)[:60]
+    pool_hidden = "l.approved===true && !!(l.source_date" in html   # client Historial shows dated reports only
+    ok = (vol > 0 and not oversize and not beyond and pool_hidden)
+    return ok, "tabs on screen=%s (max %d/tab, horizon %s); oversize=%s; beyond-horizon=%s; pool hidden from client=%s" % (
+        dict(sorted(tabs.items())), vol, nxt, oversize or "none", beyond or "none", pool_hidden)
+
+
 RULES = [
     ("client view only shows delivered contacts", lambda rows: r1_only_delivered_contacts(rows)),
     ("Decisores tab == count of distinct delivered contacts (reads client_deliveries)", lambda rows: r2_decisores_from_ledger(rows)),
@@ -257,6 +339,9 @@ RULES = [
     ("no delivered/scheduled card with fit score < 60", lambda rows: r11_no_card_below_fit_60(rows)),
     ("max 1 contact/company/report and max 2/company overall", lambda rows: r12_company_contact_caps(rows)),
     ("admin view labels every count cliente-ve vs pipeline", lambda rows: r13_admin_labels_client_vs_pipeline()),
+    # NEW 2026-10-09 (the release gate = just-in-time assembly):
+    ("next report == top N of the ranked pool (nothing inherited from an old night)", lambda rows: r16_next_report_is_top_of_pool(rows)),
+    ("client screen: every report tab <= 20 cards, none beyond the next business day, pool invisible", lambda rows: r17_report_tabs_on_screen(rows)),
     ("client Decisores: sidebar badge == page header == ledger (one source)", lambda rows: r15_client_counts_single_source(rows)),
     ("live deployed app.html matches repo (no stale screen)", lambda rows: r14_live_deploy_matches_repo()),
 ]

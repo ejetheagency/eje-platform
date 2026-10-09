@@ -139,9 +139,11 @@ def run(client=None, max_leads=None):
             step("publish"); out["published"] = publish.publish_full_access(only=client if client else None)
         except Exception as e:
             out["published"] = {"error": str(e)[:150]}
-        try:  # daily-report DRIP: date uncontacted leads N/day so clients see a dated report, not the whole pool at once
+        try:  # RELEASE GATE: just-in-time assembly — build ONLY the next business day's report from the top 20 of
+              # the ranked pool (fit >= 60, one person one card, company caps, never padded). Undelivered dated
+              # cards go back to the pool and are re-ranked; delivered cards are frozen.
             from factory.workers import release
-            step("release"); out["released"] = release.schedule_all(only=client if client else None)
+            step("release"); out["released"] = release.assemble_all(only=client if client else None)
         except Exception as e:
             out["released"] = {"error": str(e)[:150]}
         try:  # DELIVERED LEDGER: record newly-delivered contacts (client_deliveries = source of truth for counts)
@@ -218,7 +220,8 @@ def run(client=None, max_leads=None):
                         results[cid] = funnel.compute(cid, _since, discovered=(out.get("discovery") or {}).get(cid, 0), published=0)
                     except Exception:
                         pass
-            subject, body = funnel.report(results, preflight_line=pre_line, spend_trace=spend_trace, fatal=fatal)
+            subject, body = funnel.report(results, preflight_line=pre_line, spend_trace=spend_trace, fatal=fatal,
+                                          release=out.get("released"))
             notify.notify(subject, body)
             out["funnel"] = {cid: r["funnel"] for cid, r in results.items()}
             out["spend_trace"] = spend_trace
