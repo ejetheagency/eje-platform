@@ -352,6 +352,21 @@ def r17_report_tabs_on_screen(rows):
         dict(sorted(tabs.items())), vol, nxt, oversize or "none", beyond or "none", pool_hidden)
 
 
+def r19_no_unapproved_card_holds_a_holiday_date(rows):
+    """An un-approved card is invisible to the client, so a report date on it is meaningless now and a trap later:
+    the day it is approved it reads as DELIVERED on that past date, unseen. The leak left 4 such rows on the Oct 9
+    holiday (queue item 0 pooled them). Scoped to NON-BUSINESS-day dates, which is the leak's own signature."""
+    bad = sorted(r["id"] for r in rows
+                 if (r.get("source_date") or "") and not (r.get("lead_data") or {}).get("approved")
+                 and r["source_date"] != "2099-01-01"
+                 and not cal.is_business_day(r["source_date"], COUNTRY))
+    other = sorted("%s@%s" % (r["id"], r["source_date"]) for r in rows
+                   if (r.get("source_date") or "") and not (r.get("lead_data") or {}).get("approved")
+                   and r["source_date"] != "2099-01-01" and cal.is_business_day(r["source_date"], COUNTRY))
+    return not bad, "%d un-approved cards hold a non-business-day date%s (%d hold a business-day date, same class, not in scope: %s)" % (
+        len(bad), "" if not bad else ": %s" % bad, len(other), other or "none")
+
+
 RULES = [
     ("client view only shows delivered contacts", lambda rows: r1_only_delivered_contacts(rows)),
     ("Decisores tab == count of distinct delivered contacts (reads client_deliveries)", lambda rows: r2_decisores_from_ledger(rows)),
@@ -373,6 +388,7 @@ RULES = [
     ("client Decisores: sidebar badge == page header == ledger (one source)", lambda rows: r15_client_counts_single_source(rows)),
     # NEW 2026-10-09 (the Oct 9 holiday leak taken back):
     ("no un-actioned card stays delivered on a non-business day", lambda rows: r18_no_unactioned_card_stays_delivered_on_a_holiday(rows)),
+    ("no un-approved card holds a non-business-day report date", lambda rows: r19_no_unapproved_card_holds_a_holiday_date(rows)),
     ("live deployed app.html matches repo (no stale screen)", lambda rows: r14_live_deploy_matches_repo()),
 ]
 

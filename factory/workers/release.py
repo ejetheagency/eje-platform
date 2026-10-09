@@ -303,6 +303,30 @@ def undeliver(client_id, lead_id, reason="", by="operator", apply=False, t=None)
             "line": "un-delivered %s (was %s, never actioned) -> pool; ledger rows removed %d" % (lead_id, sd, removed)}
 
 
+def pool_dated_unapproved(client_id, date_iso, reason="", by="operator", apply=False):
+    """Return to the pool every UN-APPROVED card holding a given report date (operator 2026-10-09, queue item 0).
+
+    An un-approved card is invisible to the client (app.html demands `approved`), so a report date on it means
+    nothing today and is a trap tomorrow: the day it gets approved it instantly reads as DELIVERED on that past
+    date, with no one having ever seen it. The Oct 9 publish leak left 4 such rows on the Ecuador holiday.
+    Un-approved means no date. This touches no client-visible card: an approved row on the date is skipped."""
+    rows = db.select_all("leads", "client_id=eq.%s&source_date=eq.%s&select=%s" % (client_id, date_iso, LEAD_COLS))
+    targets = [r for r in rows if not _ld(r).get("approved")]
+    skipped = [r["id"] for r in rows if _ld(r).get("approved")]
+    for r in targets:
+        if apply:
+            ld = _ld(r)
+            ld["source_date"] = ""
+            ld["pooledFrom"] = {"wasDate": date_iso, "reason": reason, "by": by,
+                                "at": datetime.datetime.now(datetime.timezone.utc).isoformat()}
+            db.update("leads", "id=eq.%s&client_id=eq.%s" % (r["id"], client_id),
+                      {"source_date": None, "lead_data": ld})
+    return {"client_id": client_id, "date": date_iso, "applied": bool(apply),
+            "pooled": sorted(r["id"] for r in targets), "left_alone_approved": sorted(skipped),
+            "line": "%s %s: %d un-approved cards -> pool, %d approved left alone%s" % (
+                client_id, date_iso, len(targets), len(skipped), "" if apply else "  (DRY RUN)")}
+
+
 def undeliver_date(client_id, date_iso, reason="", by="operator", apply=False):
     """Take back every UN-ACTIONED card delivered on one date (the leak case: a whole report on a non-business
     day). Cards the client acted on are listed and LEFT delivered. Backs the ledger up before touching it."""
