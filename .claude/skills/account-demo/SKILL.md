@@ -166,10 +166,18 @@ prospect's region. No feature list and no brand-introduction paragraph beyond wh
   twenty messages a day actually uses. Artificial variation is a tell, not a feature. Do not vary wording to make
   messages look different.
 
-- **THE "SO WHAT" TEST, for the optional hook.** A hook replaces one clause of the template only if, reading it,
-  the recipient thinks *"ah, that is why he is writing me"*. True is not enough: "tienen una página de
-  reclutamiento" and "mantienen sus redes activas" are true and meaningless. If no hook passes, **send the
-  template as written**. Expect most companies to have no hook.
+- **THE "SO WHAT" TEST, for the optional hook.** A hook earns a place in the template only if, reading it, the
+  recipient thinks *"ah, that is why he is writing me"*. True is not enough: "tienen una página de reclutamiento"
+  and "mantienen sus redes activas" are true and meaningless. If no hook passes, **send the template as written**.
+  Expect most companies to have no hook.
+
+- **HOOK PLACEMENT: insert, never replace.** The hook goes **immediately before** the sentence that names the
+  service, never in its place, so the pronoun that follows ("con eso") still points at the service and not at the
+  hook. Replacing the clause silently changes what is being offered: a posada hook became an offer to help with
+  *last year's posada*, and a hiring hook read as an offer to *fill their job opening*. Keep the hook short and
+  plain so it reads as an aside, not as the subject of the sentence.
+  Correct: *"...clientes que tengo hoy. <hook>, entiendo que hacen eventos internos y nosotros eventualmente
+  podemos ayudar con eso. te envio..."*
 
 - **NO LOCALITY CLAIMS** ("aquí", "aquí en el área") unless the sender is actually local to the prospect's region.
 

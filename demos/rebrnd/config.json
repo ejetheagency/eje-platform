@@ -32,6 +32,10 @@
     {
       "uso": "puertas 2+",
       "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Le escribi a <puerta 1> hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
+    },
+    {
+      "uso": "puerta 1 con hook",
+      "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. <hook>, entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
     }
   ],
   "_regla_voz": "La voz la pone el cliente. El sistema solo rellena variables y, si un hook pasa el test de 'y eso qué', lo mete en la misma frase. Nunca escribe la voz ni varía los mensajes por variar."

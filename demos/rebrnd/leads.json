@@ -17,6 +17,10 @@
       {
         "uso": "puertas 2+",
         "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Le escribi a <puerta 1> hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con ella o contigo?"
+      },
+      {
+        "uso": "puerta 1 con hook",
+        "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. <hook>, entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
       }
     ]
   },
@@ -1359,7 +1363,7 @@
             "canal": "linkedin",
             "trato": "tú",
             "asunto": "eventos internos",
-            "cuerpo": "Hola Patricio, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que estan buscando a alguien que lleve bienestar y recreacion en la planta y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
+            "cuerpo": "Hola Patricio, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que estan armando el area de bienestar, entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "evidencia": {
             "nombre": {
@@ -1467,10 +1471,10 @@
       ],
       "fact": {
         "patron": "A",
-        "texto": "vi que estan buscando a alguien que lleve bienestar y recreacion en la planta",
+        "texto": "vi que estan armando el area de bienestar",
         "fuente": null,
         "fecha": null,
-        "nota": "Hook real insertado en la plantilla de voz del cliente."
+        "nota": "Hook real insertado ANTES de la frase de eventos internos, para que 'eso' siga apuntando al evento y no al hook."
       }
     },
     {
@@ -1580,7 +1584,7 @@
             "canal": "email",
             "trato": "tú",
             "asunto": "eventos internos",
-            "cuerpo": "Hola Diana, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que el año pasado hicieron su posada el 13 de diciembre y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
+            "cuerpo": "Hola Diana, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que hacen su posada cada diciembre, entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           },
           "_cuenta": "confirmado"
         },
@@ -1712,10 +1716,10 @@
       ],
       "fact": {
         "patron": "A",
-        "texto": "vi que el año pasado hicieron su posada el 13 de diciembre",
+        "texto": "vi que hacen su posada cada diciembre",
         "fuente": "https://www.threads.com/@lacaseteramx/post/DSQdMncCcGw/gracias-a-frisa-por-invitarnos-ayer-a-su-posada",
         "fecha": "2025-12-14",
-        "nota": "Hook real insertado en la plantilla de voz del cliente."
+        "nota": "Hook real insertado ANTES de la frase de eventos internos, para que 'eso' siga apuntando al evento y no al hook."
       }
     },
     {
@@ -2254,7 +2258,7 @@
             "canal": "email",
             "trato": "tú",
             "asunto": "eventos internos",
-            "cuerpo": "Hola Francisco, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que estan buscando a alguien de capacitacion y desarrollo para apodaca y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
+            "cuerpo": "Hola Francisco, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que estan armando el area de capacitacion, entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
           }
         },
         {
@@ -2333,10 +2337,10 @@
       ],
       "fact": {
         "patron": "A",
-        "texto": "vi que estan buscando a alguien de capacitacion y desarrollo para apodaca",
+        "texto": "vi que estan armando el area de capacitacion",
         "fuente": null,
         "fecha": null,
-        "nota": "Hook real insertado en la plantilla de voz del cliente."
+        "nota": "Hook real insertado ANTES de la frase de eventos internos, para que 'eso' siga apuntando al evento y no al hook."
       }
     }
   ],
