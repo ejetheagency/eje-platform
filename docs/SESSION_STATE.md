@@ -1,4 +1,4 @@
-# SESSION_STATE — one page, start here (updated 2026-10-09, after queue item 1)
+# SESSION_STATE — one page, start here (updated 2026-10-09, after the Oct 9 leak take-back)
 
 The single current-truth page. Read this + `docs/PLAN.md` queue, then work. Doctrine = `CLAUDE.md` GOAL block.
 
@@ -17,19 +17,36 @@ The single current-truth page. Read this + `docs/PLAN.md` queue, then work. Doct
   report and the pool for good; the next assembly backfills with the next best. A delivered card cannot be vetoed.
   (No veto button in the app yet, CLI only.)
 - **Monday 2026-10-12 rebuilt by the gate:** 20 cards, **fit 84-96** (was 20 cards, fit 8-96 with **14 below 60**),
-  **12 universities** (was 5). Pool after the rebuild: **76 approved undated**, of which **44 eligible now = 2.2 more
-  report days**. Oct 13-15's pre-scheduled cards are back in the pool. **No delivered card moved** (ledger = 51).
+  **12 universities** (was 5). Oct 13-15's pre-scheduled cards are back in the pool. Monday's 20 did **not** change
+  when the Oct 9 cards returned (r16 PASS: it is still the top 20 of the ranked pool, no re-assembly needed).
+  Pool now: **86 approved undated**, of which **65 eligible = 3.2 more report days**.
+- **The Oct 9 holiday report is TAKEN BACK (2026-10-09).** All **10** cards the leak published on the Ecuador holiday
+  were **never actioned** by Fernando (zero rows in `messages_sent` / `sent_actuals` / `actions` / `status_history` /
+  `engagement_events` / `tracked_leads`, all `status=none`; there is **no card-open log**, so "did he open it" is
+  **not knowable** and was not counted either way). All 10 were un-delivered: `source_date` → NULL (**pool, invisible
+  to the client**), ledger rows deleted, reason logged to `report-backups/undelivered.jsonl`, `approved` kept so the
+  gate can re-ship them on a real business day **if they rank**. **1 of the 10 (nadiavaro.com, fit 81) is eligible now;
+  9 sit pooled below the fit floor.** **Decisores 51 → 41.** Golden **18/18, r5 PASS** (new rule r18).
+  `release.undeliver` / `undeliver_date` **refuse** to take back a card the client acted on, whatever dated it.
+- **Ledger bug fixed in the same change:** `deliveries.delivered_leads` tested `(source_date or "") <= today`, and
+  `"" <= today` is TRUE in string order, so the **whole invisible pool read as delivered**. Tonight's
+  `sync_all()` would have written **55 pooled cards** into the ledger (Decisores 41 → ~96) and frozen the pool as
+  "delivered". Now it requires a non-empty date. Without this the take-back would have been undone at 06:00 UTC.
 - **One source for client counts:** `clientCounts()` in `public/app.html` feeds every Decisores/Hoy/Reporte badge, page header and greeting; recomputes on every view change. **Decisores = 41.** **One person = one card** (dedup by `contactEmail` = ledger key; WA/IG/LinkedIn merged as attributes on the one card). Counts labeled **cliente ve** vs **pipeline**. (deployed `1e247ec`)
 - **Vercel git auto-deploy FIXED.** Ignore step is now `git diff --quiet HEAD^ HEAD -- public api vercel.json`; a `git push` to main builds → promotes to **app.ejetheagency.com** on its own (no CLI). Commits that don't touch `public/`/`api/`/`vercel.json` (docs, factory) correctly skip Vercel.
 - **Spend rules LIVE** (Railway VERSION `2026-10-09-spend-rules-altavia-off`): serper **≤1000 searches/night**, paid search **only on ICP-passed companies**, **never re-search a pooled domain**, funnel email shows serper count + cost/shipped-lead. Manual Claude sessions = **web-fetch only, no paid APIs**.
 - **Altavia OFF** (archived, not deleted; 57 leads kept): no discovery/enrichment/spend/reports/login. Spend = **$0**.
-- **Golden 16/17** (`python3 -m factory.checks.golden_2uplatam`; grew by 2 rules this session). r10 (report size),
-  r11 (fit<60) and the new r16/r17 now PASS. The 1 FAIL is **r5: 10 cards were delivered on Thu Oct 9, an Ecuador
-  holiday** (Independencia de Guayaquil) by the old publish leak. They are in the client's hands + the ledger, so
-  the history stands; the root cause is fixed (only the gate dates cards, and only on business days), so r5 cannot
-  recur. **r10/r11 are scoped to cards that have not shipped yet** and report the legacy delivered counts honestly
-  (22 delivered cards sit below fit 60) — a delivered card cannot be re-scored into the past or recalled.
-- **`client_deliveries` ledger** = source of truth for client-facing counts (2uplatam = 41). **Nightly** on Railway `eje-factory` at **06:00 UTC**. **Staging** `2uplatam_staging` = hidden 167-lead clone; changes go there first.
+- **Golden 18/18 PASS** (`python3 -m factory.checks.golden_2uplatam`; grew to 18 rules). **r5 now PASSES** (zero cards
+  dated a non-business day; its one accepted exception, a card the client ACTED on, is listed by name when it exists).
+  New **r18** = no un-actioned card stays delivered on a non-business day, so the leak cannot silently re-stand; it
+  also counts out loud the **4 un-approved rows that still carry the Oct 9 date** (invisible to the client, not
+  delivered, left alone — flagged, not acted on). **r10/r11 are scoped to cards that have not shipped yet** and
+  report the legacy delivered counts honestly (13 delivered cards sit below fit 60, was 22 before the take-back) —
+  a delivered card the client acted on cannot be re-scored into the past or recalled.
+- **`client_deliveries` ledger** = source of truth for client-facing counts (2uplatam = 41). A delivery is removed
+  ONLY via `deliveries.revoke` (ledger snapshotted first, reason appended to `undelivered.jsonl`), and only for a
+  card the client never acted on. **Staging carries one planted `messages_sent` row** (`cea-expertos.com`,
+  `user_name='staging_test'`) as the fixture that keeps the r5 actioned-exception branch covered. **Nightly** on Railway `eje-factory` at **06:00 UTC**. **Staging** `2uplatam_staging` = hidden 167-lead clone; changes go there first.
 
 ## Known (not yet fixed)
 - **`fit.fit_score` understates fit, so the ranker leans on the hand/hybrid scores.** Three real defects found while

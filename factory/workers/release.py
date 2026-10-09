@@ -12,6 +12,9 @@
 #   REPORT = source_date = one business day. The ONLY way into a client's report is this gate.
 #   DELIVERED = source_date <= today. Frozen forever: a card the client has already seen never moves and never
 #            vanishes (it is in client_deliveries, which is what the Decisores count reads).
+#            ONE exception, operator 2026-10-09: a card dated by a BUG that the client NEVER ACTED ON can be
+#            taken back (undeliver / undeliver_date) — nothing of his is undone, and the lead is not burned on a
+#            day nobody worked. A card he acted on is never revocable, whatever put the date there.
 #
 # EVERY NIGHT, per client: return every undelivered dated card to the pool, rank the whole pool against the client's
 # CURRENT ICP, and build ONLY the next business day's report from the top N. Rules, all enforced below:
@@ -29,6 +32,8 @@
 #   python3 -m factory.workers.release <client>                  # assemble the next business day (dry-run preview)
 #   python3 -m factory.workers.release <client> --apply
 #   python3 -m factory.workers.release <client> --veto <lead_id> "reason"
+#   python3 -m factory.workers.release <client> --undeliver <lead_id> "reason" [--apply]
+#   python3 -m factory.workers.release <client> --undeliver-date <YYYY-MM-DD> "reason" [--apply]
 import datetime, re
 from factory.packages import db, calendar_bd as cal
 from factory.workers import tsa, deliveries
@@ -258,6 +263,68 @@ def veto(client_id, lead_id, reason="", by="operator"):
             "line": "vetoed %s (%s) — out of the report and the pool; re-assemble to backfill" % (lead_id, reason or "no reason given")}
 
 
+def undeliver(client_id, lead_id, reason="", by="operator", apply=False, t=None):
+    """Take back a card the client NEVER ACTED ON and return it to the pool (operator 2026-10-09).
+
+    A delivered card is normally frozen forever, and that stays true for every card the client USED: if he sent,
+    stepped, re-statused or filed it, he really received it and it keeps its date and its ledger row. The one
+    revocable case is a card that was dated by a BUG and sat untouched (the publish leak that dated cards the night
+    they were published put a report on the Oct 9 Ecuador holiday). Untouched means nothing is undone by taking it
+    back, and leaving it delivered would burn a real lead on a day nobody worked.
+
+    Un-delivering = out of the client's view (source_date NULL -> pool, invisible), out of the ledger (so Decisores
+    stops counting it) with the reason logged, and back in the ranked pool so the gate can ship it on a real
+    business day IF it still ranks. The card keeps approved=true: it is pool-eligible, not rejected."""
+    rows = db.select("leads", "id=eq.%s&client_id=eq.%s&select=%s" % (lead_id, client_id, LEAD_COLS))
+    if not rows:
+        return {"error": "no such lead for %s: %s" % (client_id, lead_id)}
+    r = rows[0]
+    today = datetime.date.today().isoformat()
+    sd = r.get("source_date") or ""
+    if not (sd and sd <= today):
+        return {"error": "%s is not delivered (source_date=%r) — nothing to take back" % (lead_id, sd)}
+    t = t or deliveries.touched(client_id)
+    if deliveries.is_actioned(r, t):
+        return {"error": "%s WAS ACTIONED by the client — a card he used stays delivered" % lead_id,
+                "lead_id": lead_id, "actioned": True}
+    ck = contact_key(r)
+    if not apply:
+        return {"client_id": client_id, "lead_id": lead_id, "was_date": sd, "contact_key": ck,
+                "undelivered": False, "applied": False, "reason": reason,
+                "line": "would un-deliver %s (dated %s, never actioned) -> pool" % (lead_id, sd)}
+    ld = _ld(r)
+    ld["source_date"] = ""
+    ld["undelivered"] = {"wasDate": sd, "reason": reason, "by": by,
+                         "at": datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    db.update("leads", "id=eq.%s&client_id=eq.%s" % (lead_id, client_id), {"source_date": None, "lead_data": ld})
+    removed = deliveries.revoke(client_id, ck, lead_id, reason) if ck else 0
+    return {"client_id": client_id, "lead_id": lead_id, "was_date": sd, "contact_key": ck,
+            "undelivered": True, "applied": True, "ledger_rows_removed": removed, "reason": reason,
+            "line": "un-delivered %s (was %s, never actioned) -> pool; ledger rows removed %d" % (lead_id, sd, removed)}
+
+
+def undeliver_date(client_id, date_iso, reason="", by="operator", apply=False):
+    """Take back every UN-ACTIONED card delivered on one date (the leak case: a whole report on a non-business
+    day). Cards the client acted on are listed and LEFT delivered. Backs the ledger up before touching it."""
+    rows = db.select_all("leads", "client_id=eq.%s&source_date=eq.%s&select=%s" % (client_id, date_iso, LEAD_COLS))
+    cards = [r for r in rows if _ld(r).get("approved")]        # only cards the client could actually see
+    t = deliveries.touched(client_id)
+    acted = [r["id"] for r in cards if deliveries.is_actioned(r, t)]
+    if apply and cards:
+        deliveries.backup_ledger(client_id)
+    done, errors = [], []
+    for r in cards:
+        if r["id"] in acted:
+            continue
+        res = undeliver(client_id, r["id"], reason=reason, by=by, apply=apply, t=t)
+        (errors if res.get("error") else done).append(res)
+    return {"client_id": client_id, "date": date_iso, "applied": bool(apply),
+            "cards_on_date": len(cards), "not_approved_on_date": len(rows) - len(cards),
+            "actioned_kept_delivered": acted, "undelivered": [d["lead_id"] for d in done], "errors": errors,
+            "line": "%s %s: %d client-visible cards, %d actioned (kept), %d un-delivered -> pool%s" % (
+                client_id, date_iso, len(cards), len(acted), len(done), "" if apply else "  (DRY RUN)")}
+
+
 def assemble_all(only=None, apply=True):
     """Assemble the next business day's report for every client with a daily volume (EJE's own pool + the library
     are not client reports; archived clients are OFF)."""
@@ -276,6 +343,16 @@ if __name__ == "__main__":
     if "--veto" in sys.argv:
         i = sys.argv.index("--veto")
         print(json.dumps(veto(cid, sys.argv[i + 1], sys.argv[i + 2] if len(sys.argv) > i + 2 else ""), indent=2))
+    elif "--undeliver-date" in sys.argv:
+        i = sys.argv.index("--undeliver-date")
+        reason = sys.argv[i + 2] if len(sys.argv) > i + 2 and not sys.argv[i + 2].startswith("--") else ""
+        res = undeliver_date(cid, sys.argv[i + 1], reason=reason, apply="--apply" in sys.argv)
+        print(json.dumps(res, indent=2, ensure_ascii=False)); print(res["line"])
+    elif "--undeliver" in sys.argv:
+        i = sys.argv.index("--undeliver")
+        reason = sys.argv[i + 2] if len(sys.argv) > i + 2 and not sys.argv[i + 2].startswith("--") else ""
+        res = undeliver(cid, sys.argv[i + 1], reason=reason, apply="--apply" in sys.argv)
+        print(json.dumps(res, indent=2, ensure_ascii=False)); print(res.get("line") or res.get("error"))
     else:
         res = assemble(cid, apply="--apply" in sys.argv)
         print(json.dumps(res, indent=2, ensure_ascii=False))

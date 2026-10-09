@@ -103,9 +103,37 @@ def r4_template_is_his_real_one():
 
 
 def r5_no_report_on_non_business_days(rows):
-    d = [r for r in rows if (r.get("lead_data") or {}).get("approved") and _shippable(r.get("lead_data") or {})]
-    bad = sorted({r["source_date"] for r in d if (r.get("source_date") or "") and not cal.is_business_day(r["source_date"], COUNTRY)})
-    return not bad, "none" if not bad else "deliverable leads on non-business days: %s" % bad
+    """No card sits in a report dated a day nobody works. ONE accepted exception (operator 2026-10-09): a card the
+    client ACTUALLY ACTED ON. The Oct 9 publish leak dated cards on the Ecuador holiday; the un-actioned ones were
+    taken back (release.undeliver_date) and are pooled again, but a card he used is really in his hands and keeps
+    its date. Those are listed by name here, never hidden behind a PASS."""
+    d = [r for r in rows if (r.get("lead_data") or {}).get("approved") and _shippable(r.get("lead_data") or {})
+         and (r.get("source_date") or "") and not cal.is_business_day(r["source_date"], COUNTRY)]
+    if not d:
+        return True, "none"
+    t = deliveries.touched(CLIENT)
+    kept = sorted("%s@%s" % (r["id"], r["source_date"]) for r in d if deliveries.is_actioned(r, t))
+    bad = sorted({r["source_date"] for r in d if not deliveries.is_actioned(r, t)})
+    return not bad, ("accepted exceptions (client acted on them, not recallable): %s" % kept if not bad
+                     else "un-actioned deliverable leads on non-business days: %s (take back with "
+                          "release.undeliver_date); accepted exceptions: %s" % (bad, kept or "none"))
+
+
+def r18_no_unactioned_card_stays_delivered_on_a_holiday(rows):
+    """The leak's own rule (operator 2026-10-09): a card delivered on a non-business day that the client never
+    touched must be back in the pool, not sitting in his history burning a real lead on a day nobody worked."""
+    dated = [r for r in rows if (r.get("source_date") or "") and not cal.is_business_day(r["source_date"], COUNTRY)]
+    visible = [r for r in dated if (r.get("lead_data") or {}).get("approved")]
+    # un-approved rows are invisible to the client (app.html demands approved), so they are not DELIVERED — but
+    # they still carry a holiday date, so they are counted out loud here instead of hiding behind the PASS.
+    hidden = len(dated) - len(visible)
+    if not visible:
+        return True, "0 client-visible cards dated a non-business day (%d un-approved rows still carry one, invisible to the client)" % hidden
+    t = deliveries.touched(CLIENT)
+    stuck = sorted(r["id"] for r in visible if not deliveries.is_actioned(r, t) and _shippable(r.get("lead_data") or {}))
+    acted = sorted(r["id"] for r in visible if deliveries.is_actioned(r, t))
+    return not stuck, "%d client-visible cards dated a non-business day: %d actioned (stay), %d un-actioned still delivered%s (+%d un-approved, invisible)" % (
+        len(visible), len(acted), len(stuck), "" if not stuck else " -> %s" % stuck, hidden)
 
 
 def r6_client_tabs_and_buttons_exist():
@@ -343,6 +371,8 @@ RULES = [
     ("next report == top N of the ranked pool (nothing inherited from an old night)", lambda rows: r16_next_report_is_top_of_pool(rows)),
     ("client screen: every report tab <= 20 cards, none beyond the next business day, pool invisible", lambda rows: r17_report_tabs_on_screen(rows)),
     ("client Decisores: sidebar badge == page header == ledger (one source)", lambda rows: r15_client_counts_single_source(rows)),
+    # NEW 2026-10-09 (the Oct 9 holiday leak taken back):
+    ("no un-actioned card stays delivered on a non-business day", lambda rows: r18_no_unactioned_card_stays_delivered_on_a_holiday(rows)),
     ("live deployed app.html matches repo (no stale screen)", lambda rows: r14_live_deploy_matches_repo()),
 ]
 

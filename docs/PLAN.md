@@ -37,6 +37,13 @@ client-report write; staging first. END every session by updating `SESSION_STATE
 ---
 
 ## DONE (do not redo)
+- **Oct 9 holiday leak TAKEN BACK (2026-10-09):** read-only audit first (none of the 10 cards had any action from
+  Fernando), then all 10 un-delivered: pooled (`source_date` NULL, invisible), ledger rows revoked with the reason
+  logged, `approved` kept so the gate re-ships them only if they rank (1 eligible now, 9 below the fit floor).
+  **Decisores 51 → 41.** New primitives: `release.undeliver` / `undeliver_date` (both REFUSE a card the client acted
+  on) + `deliveries.touched` / `is_actioned` / `backup_ledger` / `revoke`. Fixed in the same change: the
+  `"" <= today` bug that made the whole pool read as delivered and would have added 55 ledger rows that night.
+  Golden **18/18** (r5 PASS with a named-exception path; new r18). `test_gates` FAIL is pre-existing (lead_state).
 - **Release gate = just-in-time assembly (2026-10-09, queue item 1):** `release.py` rewritten from the pre-scheduling
   drip into the gate (pool / report / delivered; next business day only; top 20 of the ranked pool; fit floor 60;
   one person one card; non-uni company caps; never padded; operator veto + automatic backfill). `publish.py` now
