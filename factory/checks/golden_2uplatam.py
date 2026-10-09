@@ -365,6 +365,27 @@ def r19_unapproved_cards_hold_no_date(rows):
     return not bad, "%d un-approved cards hold a report date%s" % (len(bad), ": %s" % bad if bad else " (none, the invariant holds)")
 
 
+def r20_shipping_cards_clear_the_floor_under_the_scorer(rows):
+    """A card the client is about to receive must clear the fit floor under the REPAIRED SCORER too, not only
+    under the score stored on it (queue item 1). Stored scores are part hand-assigned, so without this rule a card
+    could ship on a human's 88 while the factory's own scorer reads it as a 53, and we would never notice. This is
+    the guarantee that survives even while the pool keeps its hand scores: whatever ships is defensible BOTH ways.
+    Scoped to cards not yet delivered; a delivered card is frozen and is never re-scored into the past."""
+    from factory.workers import fit, release as _rel
+    ic = (db.select("clients", "id=eq.%s&select=icp_config" % CLIENT) or [{}])[0].get("icp_config") or {}
+    t = _today_chile()
+    shipping = [r for r in rows if (r.get("lead_data") or {}).get("approved")
+                and (r.get("source_date") or "") and (r.get("source_date") or "") > t]
+    bad = []
+    for r in shipping:
+        ld = r.get("lead_data") or {}
+        computed = int(fit.fit_score_card(ld, ic))
+        if computed < _rel.FIT_FLOOR:
+            bad.append("%s(stored %s, scorer %d)" % (r["id"], ld.get("score"), computed))
+    return not bad, "%d cards shipping ahead; %d fail the floor under the scorer%s" % (
+        len(shipping), len(bad), (": %s" % bad) if bad else " (all defensible on both the stored and computed score)")
+
+
 RULES = [
     ("client view only shows delivered contacts", lambda rows: r1_only_delivered_contacts(rows)),
     ("Decisores tab == count of distinct delivered contacts (reads client_deliveries)", lambda rows: r2_decisores_from_ledger(rows)),
@@ -387,6 +408,8 @@ RULES = [
     # NEW 2026-10-09 (the Oct 9 holiday leak taken back):
     ("no un-actioned card stays delivered on a non-business day", lambda rows: r18_no_unactioned_card_stays_delivered_on_a_holiday(rows)),
     ("un-approved cards hold no report date", lambda rows: r19_unapproved_cards_hold_no_date(rows)),
+    # NEW 2026-10-09 (queue item 1, the fit repair):
+    ("cards shipping ahead clear the fit floor under the scorer too", lambda rows: r20_shipping_cards_clear_the_floor_under_the_scorer(rows)),
     ("live deployed app.html matches repo (no stale screen)", lambda rows: r14_live_deploy_matches_repo()),
 ]
 
