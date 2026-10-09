@@ -27,6 +27,10 @@ feedback loop that finds + repeats the high-yield routes per ICP. Everything bel
 5. **Speed:** read-only tasks **skip backup and staging** (nothing is being written). During the work, run **only
    the golden rules related to the change**; run the **full suite once before and once after**. **Reports under
    300 words.**
+6. **The operator's morning check, 10 minutes, every day.** Read the golden + health lines at the top of the funnel
+   email (queue item 0b puts them there); **open 5 cards** of the next report; **veto anything not worth sending**.
+   **If everything is green, no dev session that day for that client. If something is red, that one thing is the
+   day's only job.** The machine reports itself so the operator decides in minutes, not by digging.
 
 ---
 
@@ -46,6 +50,12 @@ No session ends without it.
    outsourcing-ec, wearedrew): invisible to the client today, but they hold a holiday date. **Fix or document the
    pre-existing `test_gates` failure** (it routes a complete lead to PARKED on `email_verified`); if it is a stale
    test rather than a real defect, say so in the test itself.
+0b. **Nightly review, automatic (the machine reports itself).** At the end of every nightly run, **the full golden
+   suite runs per client** and its result goes in the **first lines of the funnel email**: run status
+   (**OK / RUN DIED at step**), providers status, and per client: **cards shipped for the next business day, lowest
+   fit, pool days left, cost tonight vs the daily ceiling, golden X/Y with the NAME of any FAIL**. **Any FAIL or
+   RUN DIED also sends a separate alert email.** This is what principle 6 reads each morning, so it comes before
+   the feature work.
 1. **Fit repair** (the gate now depends on fit being true). **Geo:** fall back to the **domain / phone / address
    country** when `companies.country` is empty. **Seniority:** recognize **Decano, Rector, Vicerrector, Director/a,
    Gerente, Dueño/a, Fundador/a, CEO, Socio/a**. **Empty title on a one-person business:** use **owner signals from
@@ -67,6 +77,9 @@ No session ends without it.
    respondieron sin estado, cuéntanos qué dijeron." **The Seguimiento tab is INACTIVE in the client view today:
    turn it on only with this item**, as the client's **conversations board**, visible **once the first Respondió
    exists**, with an **empty-state line** explaining it. **No purposeless tab.**
+5b. **Hoy reads the DB,** not the legacy `reports-manifest` static files. **Must land BEFORE item 6:** the Unabase
+   purge **archives those static files**, so Hoy cannot still depend on them when that happens (purge first = a
+   client-facing Hoy reading files that are gone). **Golden: the Hoy count == the next-business-day report in the DB.**
 6. **Identity fix, then Unabase purge step 2.** `EJE_USER='scarlett'` is hard-coded at `app.html:1044`: stamp every
    write with the **real logged-in user**. Then the purge: archive legacy data, remove code refs, **rename the Vercel
    project `unabase-app`**, **keep the `app.ejetheagency.com` alias**. (Inventory in `SESSION_STATE.md`.)
@@ -81,9 +94,9 @@ No session ends without it.
 10. **Card-open logging (`lead_views`)** so **"opened" becomes knowable** (today it is not: there is no open log, so
     "did he open it" cannot be answered). Plus the **operator veto button in the app** (today CLI only).
 
-> Dropped from the queue in this rewrite: "Hoy reads the DB, not the legacy `reports-manifest` static files" and
-> "server endpoint for client counts + `icp_config` compartments". Neither is recorded as DONE; they are simply no
-> longer queued. Re-add them deliberately if they still matter.
+> **PARKED, not queued:** "server endpoint for client counts (service_role, no anon policy) + client-file
+> compartments (split `icp_config` into the 7 clean compartments)". Not recorded as DONE, just not scheduled.
+> Hard rule 8 (no anon read policies on client data) stands without it. Re-add deliberately if it matters.
 
 ---
 
@@ -99,14 +112,8 @@ Each idea gets a **one-line hypothesis and a cheap test before any build**. Noth
   from content**, and **meeting-booking offers** for clients who want it done for them.
 - **Weekly client note:** what improved in their reports, what they did, conversations count, and what we changed
   **because of their feedback**.
-- **Nightly review, two parts:**
-  - **(a) Automatic.** At the end of every nightly run, **the full golden suite runs per client** and its result goes
-    in the **first lines of the funnel email**: run status (**OK / RUN DIED at step**), providers status, and per
-    client: **cards shipped for the next business day, lowest fit, pool days left, cost tonight vs the daily ceiling,
-    golden X/Y with the NAME of any FAIL**. **Any FAIL or RUN DIED also sends a separate alert email.**
-  - **(b) Operator, 10 minutes each morning.** Read those lines; **open 5 cards** of the next report; **veto anything
-    not worth sending**. **If everything is green, no dev session that day for that client. If something is red,
-    that one thing is the day's only job.**
+
+(The nightly review is no longer future work: part (a) is **queue item 0b**, part (b) is **principle 6**.)
 
 ---
 
