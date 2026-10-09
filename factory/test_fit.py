@@ -114,6 +114,38 @@ def main():
     check("no title and no owner signal stays unscored on seniority",
           not fit.owner_signal("Juan Perez", {"name": "Acme Industrial", "domain": "acme.ec"}))
 
+    # --- PER-CLIENT decisor titles (icp_config.decisor_titles_extra), not the global scorer ---
+    # "Coordinador/a de Emprendimiento / Innovacion" decides for 2uplatam (a scale hub sold into university
+    # entrepreneurship programs). For another client the same title is a middle manager, so it lives in config.
+    UP = {"geo": "Ecuador", "prefer_female_decisor": True, "decisor_titles_extra": [
+        r"\bcoordinador[ao]?\b[^,;|]{0,24}\b(?:emprendimiento|innovacion)\b",
+        r"\b(?:jefe|jefa|director[ao]?)\b[^,;|]{0,24}\b(?:emprendimiento|innovacion)\b"]}
+
+    def cdt(t, ic=UP):
+        return fit._client_decisor_title(fit._strip_accents(t).lower(), ic)
+
+    for t in ("Coordinadora de Emprendimiento e Innovacion", "Coordinadora de Emprendimiento e Innovación",
+              "Coordinador de Innovacion Social", "Jefa de Emprendimiento", "Directora de Innovacion"):
+        check("client decisor title: %s" % t[:44], cdt(t))
+    check("accents do not change the client match",
+          cdt("Coordinadora de Emprendimiento e Innovación") == cdt("Coordinadora de Emprendimiento e Innovacion") is True)
+    check("the same title is NOT a decisor for a client without the config", not cdt("Coordinadora de Emprendimiento", IC))
+    check("client config lifts the card over the floor",
+          score({"domain": "u.edu.ec", "linkedin": "x"},
+                {"full_name": "Amparo Pilicita", "title": "Coordinadora de Emprendimiento e Innovacion"}, ic=UP) >= 60)
+    check("without the config the same card stays under the floor",
+          score({"domain": "u.edu.ec", "linkedin": "x"},
+                {"full_name": "Amparo Pilicita", "title": "Coordinadora de Emprendimiento e Innovacion"}, ic=IC) < 60)
+    # TEACHING IS NOT DECIDING, FOR ANY CLIENT: a config that tries to promote it is refused, not obeyed.
+    BAD = {"geo": "Ecuador", "decisor_titles_extra": [r"docente", r"\bdocente-investigador\b", r"profesor"]}
+    for t in ("Docente", "Docente-investigador de la Facultad", "Profesora titular"):
+        check("config cannot promote teaching: %s" % t[:40], not cdt(t, BAD))
+    check("a malformed client regex cannot break scoring",
+          not cdt("coordinador de emprendimiento", {"decisor_titles_extra": ["(unclosed["]}))
+    check("one client's config never raises another client's score",
+          score({"domain": "u.edu.ec"}, {"full_name": "X", "title": "Coordinadora de Emprendimiento"}, ic=IC) ==
+          score({"domain": "u.edu.ec"}, {"full_name": "X", "title": "Coordinadora de Emprendimiento"}, ic={"geo": "Ecuador", "prefer_female_decisor": True}))
+
     # --- the repair only ADDS credit: it must never lower a score (proved over the real pool, locked here) ---
     cases = [({"domain": "x.com.ec", "country": "Ecuador"}, {"full_name": "Ana", "title": "CEO"}),
              ({"domain": "x.com", "country": ""}, {"full_name": "Luis", "title": ""}),

@@ -56,12 +56,12 @@ No session ends without it.
    fit, pool days left, cost tonight vs the daily ceiling, golden X/Y with the NAME of any FAIL**. **Any FAIL or
    RUN DIED also sends a separate alert email.** This is what principle 6 reads each morning, so it comes before
    the feature work.
-1. **Fit repair** (the gate now depends on fit being true). **Geo:** fall back to the **domain / phone / address
-   country** when `companies.country` is empty. **Seniority:** recognize **Decano, Rector, Vicerrector, Director/a,
-   Gerente, Dueño/a, Fundador/a, CEO, Socio/a**. **Empty title on a one-person business:** use **owner signals from
-   the site** instead of scoring 0. **Recompute fit for the UNDELIVERED POOL ONLY** (a delivered card is never
-   re-scored into the past). **One score** used by the card, the ranker and golden r11. No second opinion computed
-   in the dark.
+1. ~~**Fit repair**~~ **DONE 2026-10-09** (see DONE below). Geo fallback, the owner/academic/per-client decisor
+   tiers, owner signals for empty titles, the pool re-scored, `min_universities_per_report`. **Its golden was
+   REPLACED** (operator): the old "the ranker's top 20 does not change character when fit is recomputed" could not
+   survive the repair it was guarding, because once the scorer is true the character SHOULD move. The two rules
+   that replace it: **no card under the floor ships** (r11 + r20, the second checked under the repaired scorer) and
+   **the university minimum is met on every report** (r21, from config, never satisfied by padding).
 2. **Name-step rule.** A decisor name counts **only next to a role word** on the company's **own site or LinkedIn**.
    Never from testimonials or client lists.
 3. **4x discovery for SMB ICPs.** Pool target = **2-3 report days** for small-business ICPs.
@@ -118,6 +118,21 @@ Each idea gets a **one-line hypothesis and a cheap test before any build**. Noth
 ---
 
 ## DONE (do not redo)
+- **Fit repair + the mix is now configured (2026-10-09, queue item 1):** geo falls back to ccTLD then phone dial
+  code (`companies.country` was empty for 28 of 29 pooled cards with a companies row); owner tier gained the
+  academic heads, the propietario class and "Socia"; **academic-authority tier** (Coordinador/a Academico/Carrera/
+  Programa, Jefe/a de Departamento, Director/a de Escuela/Carrera/Facultad) scores as decisor while **Docente and
+  Docente-investigador stay mid, globally, and no client config can promote teaching**; **per-client**
+  `icp_config.decisor_titles_extra` carries titles whose authority depends on the offer (2uplatam:
+  Coordinador/a de Emprendimiento / Innovacion); empty titles read the owner signal already in the card
+  (contactName parenthetical, own-site brief, eponymous company). `fit_score_card` is an ADAPTER onto `fit_score`,
+  so publish and the pool score one way. "titular" is owner in business Spanish but TENURE in academia, now
+  disambiguated. **Pool re-scored (78 cards); stored == computed.** **`min_universities_per_report` = 8 for
+  2uplatam**, enforced in the gate as a two-pass fill (best universities first, then best remaining by fit, never
+  padding below the floor). **Monday 2026-10-12 was LOCKED before the re-score** (`release.lock_report`) so the
+  report reviewed under the old scores ships as reviewed; the gate refuses to reassemble a locked day. Golden
+  **21/21** (r20 floor-under-the-scorer, r21 university minimum; r16 reconciles a locked report differently).
+  `factory/test_fit.py` pins every tier, both sides of the Director/a judgment, and the substring traps.
 - **Oct 9 holiday leak TAKEN BACK (2026-10-09):** read-only audit first (none of the 10 cards had any action from
   Fernando), then all 10 un-delivered: pooled (`source_date` NULL, invisible), ledger rows revoked with the reason
   logged, `approved` kept so the gate re-ships them only if they rank (1 eligible now, 9 below the fit floor).

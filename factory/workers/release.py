@@ -13,7 +13,7 @@
 #   DELIVERED = source_date <= today. Frozen forever: a card the client has already seen never moves and never
 #            vanishes (it is in client_deliveries, which is what the Decisores count reads).
 #            ONE exception, operator 2026-10-09: a card dated by a BUG that the client NEVER ACTED ON can be
-#            taken back (undeliver / undeliver_date) — nothing of his is undone, and the lead is not burned on a
+#            taken back (undeliver / undeliver_date): nothing of his is undone, and the lead is not burned on a
 #            day nobody worked. A card he acted on is never revocable, whatever put the date there.
 #
 # EVERY NIGHT, per client: return every undelivered dated card to the pool, rank the whole pool against the client's
@@ -117,6 +117,8 @@ def _why_not(r, delivered_keys, today):
     ld = _ld(r)
     if (r.get("status") or "none") != "none":
         return "already in the lifecycle (%s)" % r.get("status")
+    if ld.get("reportLocked"):
+        return "locked into the %s report" % (r.get("source_date") or "?")
     if ld.get("vetoed"):
         return "vetoed by operator"
     if not ld.get("approved"):
@@ -136,6 +138,17 @@ def _why_not(r, delivered_keys, today):
 def _config(client_id):
     ic = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
     return int(ic.get("ready_leads_per_day") or 20), ic.get("geo")
+
+
+def min_universities(client_id):
+    """Per-client floor on how many university cards a report must carry (icp_config.min_universities_per_report).
+
+    Why it exists (operator 2026-10-09): with the repaired scorer, SMB owner cards legitimately out-rank academic
+    decisors, and a pure fit ranking took 2uplatam's reports from 12 universities to 4. The university segment is
+    a deliberate bet (partnership play, several contacts per institution allowed), not a scoring accident, so the
+    MIX is configured instead of being whatever the ranking happens to produce. 0 = no minimum (every other client)."""
+    ic = ((db.select("clients", "id=eq.%s&select=icp_config" % client_id) or [{}])[0].get("icp_config") or {})
+    return int(ic.get("min_universities_per_report") or 0)
 
 
 def pool(client_id):
@@ -168,10 +181,25 @@ def assemble(client_id, target_date=None, apply=False):
     if not cal.is_business_day(target, country):
         return {"client_id": client_id, "error": "%s is not a business day in %s" % (target, country)}
 
-    # 1) UN-SCHEDULE: nothing keeps a future date. A report is assembled, never inherited.
+    # 0) A LOCKED REPORT IS FINAL. Normally a dated-but-undelivered report goes back to the pool every night and is
+    #    reassembled, which is the whole point of the gate. A lock is the operator saying "this one is settled, do
+    #    not reshuffle it": used when a scoring change lands and the imminent report must ship as reviewed.
+    #    The gate builds ONLY the next business day, so if that day is locked there is nothing to assemble tonight.
+    locked_on_target = [r for r in p["rows"] if (r.get("source_date") or "") == target and _ld(r).get("reportLocked")]
+    if locked_on_target:
+        return {"client_id": client_id, "target_date": target, "applied": False, "locked": True,
+                "shipped": len(locked_on_target), "target_size": per_day, "short": 0,
+                "lowest_fit": min([fit_of(r) for r in locked_on_target], default=None),
+                "highest_fit": max([fit_of(r) for r in locked_on_target], default=None),
+                "universities": sum(1 for r in locked_on_target if is_university(r)),
+                "line": "release %s %s: LOCKED (%d cards, reviewed and final), nothing reassembled" % (
+                    client_id, target, len(locked_on_target))}
+
+    # 1) UN-SCHEDULE: nothing keeps a future date. A report is assembled, never inherited. A LOCKED card keeps its
+    #    date (it is a settled report, not an inherited one) and is excluded from the pool by _why_not.
     returned = [r for r in p["rows"]
                 if (r.get("source_date") or "") > today and (r.get("source_date") or "") != HOLD_DATE
-                and not _ld(r).get("tsa_held")]
+                and not _ld(r).get("tsa_held") and not _ld(r).get("reportLocked")]
     if apply:
         for r in returned:
             _set_date(client_id, r, None)
@@ -185,28 +213,44 @@ def assemble(client_id, target_date=None, apply=False):
             k = company_key(r)
             overall[k] = overall.get(k, 0) + 1
 
-    # 3) FILL the target day from the top of the pool.
+    # 3) FILL the target day. TWO PASSES when the client sets a university minimum: the best UNIVERSITIES first
+    #    (up to the minimum), then the best of everything else. Within each pass it is still pure rank order, and
+    #    the fit floor + caps + one-person-one-card still decide every single pick. The minimum changes the MIX,
+    #    never the bar: if the pool cannot supply that many universities, the report carries fewer and is NOT
+    #    padded with anything below the floor (the funnel email already says SHORT out loud).
     picked, in_report_companies, seen_people, blocked = [], set(), set(p["delivered_keys"]), {}
-    for r in p["ranked"]:
-        if len(picked) >= per_day:
-            break
-        ck, k, uni = contact_key(r), company_key(r), is_university(r)
-        if ck and ck in seen_people:
-            blocked["one person = one card"] = blocked.get("one person = one card", 0) + 1
-            continue
-        if not uni and k:
-            if k in in_report_companies:
-                blocked["max 1 per company per report"] = blocked.get("max 1 per company per report", 0) + 1
+    min_uni = min_universities(client_id)
+
+    picked_ids = set()
+
+    def take(candidates, limit):
+        for r in candidates:
+            if len(picked) >= limit:
+                break
+            if r["id"] in picked_ids:       # already taken by the university pass; not a "blocked" card
                 continue
-            if overall.get(k, 0) >= 2:
-                blocked["max 2 per company overall"] = blocked.get("max 2 per company overall", 0) + 1
+            ck, k, uni = contact_key(r), company_key(r), is_university(r)
+            if ck and ck in seen_people:
+                blocked["one person = one card"] = blocked.get("one person = one card", 0) + 1
                 continue
-        picked.append(r)
-        if ck:
-            seen_people.add(ck)
-        if not uni and k:
-            in_report_companies.add(k)
-            overall[k] = overall.get(k, 0) + 1
+            if not uni and k:
+                if k in in_report_companies:
+                    blocked["max 1 per company per report"] = blocked.get("max 1 per company per report", 0) + 1
+                    continue
+                if overall.get(k, 0) >= 2:
+                    blocked["max 2 per company overall"] = blocked.get("max 2 per company overall", 0) + 1
+                    continue
+            picked.append(r)
+            picked_ids.add(r["id"])
+            if ck:
+                seen_people.add(ck)
+            if not uni and k:
+                in_report_companies.add(k)
+                overall[k] = overall.get(k, 0) + 1
+
+    if min_uni:
+        take([r for r in p["ranked"] if is_university(r)], min(min_uni, per_day))
+    take(p["ranked"], per_day)      # the rest of the day, best first, universities included on merit
     if apply:
         for r in picked:
             _set_date(client_id, r, target)
@@ -263,6 +307,26 @@ def veto(client_id, lead_id, reason="", by="operator"):
             "line": "vetoed %s (%s) — out of the report and the pool; re-assemble to backfill" % (lead_id, reason or "no reason given")}
 
 
+def lock_report(client_id, date_iso, by="operator", apply=False):
+    """Freeze one dated report so the nightly gate stops reassembling it (operator 2026-10-09).
+
+    Used when the scoring regime changes under an imminent report: Monday's 20 cards were reviewed under the old
+    scores and must ship as reviewed, while the re-scored pool feeds Tuesday onward. A locked card keeps its date,
+    is not returned to the pool, and cannot be picked for another day."""
+    rows = db.select_all("leads", "client_id=eq.%s&source_date=eq.%s&select=%s" % (client_id, date_iso, LEAD_COLS))
+    cards = [r for r in rows if _ld(r).get("approved")]
+    if apply:
+        now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        for r in cards:
+            ld = _ld(r)
+            ld["reportLocked"] = True
+            ld["reportLockedBy"] = by
+            ld["reportLockedAt"] = now
+            db.update("leads", "id=eq.%s&client_id=eq.%s" % (r["id"], client_id), {"lead_data": ld})
+    return {"client_id": client_id, "date": date_iso, "applied": bool(apply), "locked": len(cards),
+            "line": "%s %s: %d cards locked%s" % (client_id, date_iso, len(cards), "" if apply else "  (DRY RUN)")}
+
+
 def undeliver(client_id, lead_id, reason="", by="operator", apply=False, t=None):
     """Take back a card the client NEVER ACTED ON and return it to the pool (operator 2026-10-09).
 
@@ -282,10 +346,10 @@ def undeliver(client_id, lead_id, reason="", by="operator", apply=False, t=None)
     today = datetime.date.today().isoformat()
     sd = r.get("source_date") or ""
     if not (sd and sd <= today):
-        return {"error": "%s is not delivered (source_date=%r) — nothing to take back" % (lead_id, sd)}
+        return {"error": "%s is not delivered (source_date=%r), nothing to take back" % (lead_id, sd)}
     t = t or deliveries.touched(client_id)
     if deliveries.is_actioned(r, t):
-        return {"error": "%s WAS ACTIONED by the client — a card he used stays delivered" % lead_id,
+        return {"error": "%s WAS ACTIONED by the client: a card he used stays delivered" % lead_id,
                 "lead_id": lead_id, "actioned": True}
     ck = contact_key(r)
     if not apply:

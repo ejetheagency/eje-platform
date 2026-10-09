@@ -58,6 +58,34 @@ _MID = re.compile(r"director|gerente|head|jefe|lead|manager|encargad|coordinad",
 # an owner. Only the `titular` token is neutralized, and only when the title also says teacher, so a genuine owner
 # who happens to teach ("Dueño y profesor") still scores owner-level.
 _TEACHER = re.compile(r"\bdocente\b|\bprofesor[ae]?\b|\bcatedratic[ao]\b|\binvestigador[ae]?\b", re.I)
+# Bare teaching titles. A per-client decisor pattern that matches ANY of these is refused outright (see below),
+# which is how "Docente stays mid" survives contact with a client config file.
+_TEACHER_ONLY = ("docente", "docente-investigador", "docente investigador", "profesor", "profesora",
+                 "investigador", "investigadora", "catedratico", "profesora titular")
+
+
+def _client_decisor_title(title_n, ic):
+    """PER-CLIENT decisor titles, from `icp_config.decisor_titles_extra` (a list of regexes).
+
+    Why config and not the global scorer (operator 2026-10-09): "Coordinador/a de Emprendimiento / Innovacion" is a
+    real decisor for 2uplatam, whose offer is a scale hub sold INTO university entrepreneurship programs. For a
+    different client the same title is a middle manager. A title whose authority depends on the OFFER belongs to
+    that client's ICP, not to everyone's scorer. Each client's list is matched accent-insensitively, like the
+    built-in tiers. A bad regex in one client's config can never raise another client's scores.
+
+    TEACHING IS NOT DECIDING, FOR ANY CLIENT (operator), and that is enforced here rather than trusted: a client
+    pattern that would match a bare teaching title is SKIPPED, so no config can ever promote a Docente or a
+    Profesor. A title that carries teaching AND authority ("Docente y Coordinador de Emprendimiento") still
+    matches, because the pattern matches the authority half."""
+    for pat in ((ic or {}).get("decisor_titles_extra") or []):
+        try:
+            if any(re.search(pat, t, re.I) for t in _TEACHER_ONLY):
+                continue        # this pattern would promote teaching: refuse it, whatever the config says
+            if re.search(pat, title_n, re.I):
+                return True
+        except re.error:
+            continue    # a malformed client regex must never break scoring for that client, let alone others
+    return False
 
 # Country of operation, when companies.country is empty (it is empty for 28 of the 29 pooled cards that have a
 # companies row, so geo silently cost a correct Ecuador lead its 20 points). ccTLD + phone dial code, both free and
@@ -145,7 +173,9 @@ def fit_score(co, ct, signals, ic):
     # --- decisor seniority (owner-level is the best fit for owner-verifiable ICPs; academic heads decide too) ---
     title_n = _strip_accents(title)
     owner_src = re.sub(r"\btitular(?:es)?\b", " ", title_n) if _TEACHER.search(title_n) else title_n
-    if _ACADEMIC.search(title_n):
+    if _client_decisor_title(title_n, ic):
+        s += 40   # a decisor title THIS client recognizes (icp_config.decisor_titles_extra), not a global rule
+    elif _ACADEMIC.search(title_n):
         s += 40   # academic authority: holds the unit's budget and signs its partnerships
     elif _OWNER.search(owner_src):
         s += 40

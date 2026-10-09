@@ -125,7 +125,7 @@ def r18_no_unactioned_card_stays_delivered_on_a_holiday(rows):
     touched must be back in the pool, not sitting in his history burning a real lead on a day nobody worked."""
     dated = [r for r in rows if (r.get("source_date") or "") and not cal.is_business_day(r["source_date"], COUNTRY)]
     visible = [r for r in dated if (r.get("lead_data") or {}).get("approved")]
-    # un-approved rows are invisible to the client (app.html demands approved), so they are not DELIVERED — but
+    # un-approved rows are invisible to the client (app.html demands approved), so they are not DELIVERED, but
     # they still carry a holiday date, so they are counted out loud here instead of hiding behind the PASS.
     hidden = len(dated) - len(visible)
     if not visible:
@@ -310,6 +310,17 @@ def r16_next_report_is_top_of_pool(rows):
     plan = release.assemble(CLIENT, apply=False)
     if plan.get("error"):
         return False, "cannot re-derive the assembly: %s" % plan["error"]
+    if plan.get("locked"):
+        # A LOCKED report is settled on purpose and is NOT the top of the pool any more (that is the point of a
+        # lock: it was reviewed under the scores of the day it was built). What must still hold is that it is
+        # intact and every card in it clears the floor. r20 checks the floor under the current scorer; r21 checks
+        # the mix. Reconciliation against the ranker resumes the moment the lock expires.
+        locked = [r for r in _approved_shippable(rows) if (r.get("source_date") or "") == plan["target_date"]
+                  and (r.get("lead_data") or {}).get("reportLocked")]
+        under = [r["id"] for r in locked if _fit(r) < release.FIT_FLOOR]
+        return (len(locked) == plan["shipped"] and not under,
+                "next report %s is LOCKED: %d cards intact, %d under the floor%s" % (
+                    plan["target_date"], len(locked), len(under), (" -> %s" % under) if under else ""))
     want = {c["id"] for c in plan["cards"]}
     missing, extra = sorted(want - live), sorted(live - want)
     short = plan.get("short") or 0
@@ -386,6 +397,45 @@ def r20_shipping_cards_clear_the_floor_under_the_scorer(rows):
         len(shipping), len(bad), (": %s" % bad) if bad else " (all defensible on both the stored and computed score)")
 
 
+def r21_university_minimum_on_every_report(rows):
+    """THE MIX IS CONFIGURED, NOT ACCIDENTAL (operator 2026-10-09). This replaces item 1's old golden ("the top 20
+    does not change character when fit is recomputed"), which could not survive a scoring repair: with the scorer
+    fixed, SMB owner cards legitimately out-rank academic decisors, so the report's character SHOULD move unless
+    the mix is stated. It now is: icp_config.min_universities_per_report.
+
+    Checked on every report the client has not yet seen. Reports already delivered were built before the rule and
+    are reported honestly rather than retro-failed. The minimum NEVER licenses padding: if the pool genuinely has
+    no more eligible universities, a short mix is the truth and is named as pool-limited, not hidden by a PASS."""
+    from factory.workers import release
+    min_uni = release.min_universities(CLIENT)
+    if not min_uni:
+        return True, "no university minimum configured for this client"
+    t = _today_chile()
+    ahead, past = {}, {}
+    for r in _approved_shippable(rows):
+        sd = r.get("source_date") or ""
+        if not sd:
+            continue
+        (ahead if sd > t else past).setdefault(sd, []).append(r)
+    pool_unis = sum(1 for r in rows
+                    if (r.get("lead_data") or {}).get("approved") and not (r.get("source_date") or "")
+                    and _shippable(r.get("lead_data") or {}) and release.is_university(r)
+                    and _fit(r) >= release.FIT_FLOOR)
+    bad, pool_limited = [], []
+    for d, rs in sorted(ahead.items()):
+        n = sum(1 for r in rs if release.is_university(r))
+        if n >= min_uni:
+            continue
+        (pool_limited if pool_unis == 0 else bad).append("%s has %d/%d" % (d, n, min_uni))
+    hist = ", ".join("%s:%d" % (d, sum(1 for r in rs if release.is_university(r))) for d, rs in sorted(past.items()))
+    return not bad, "minimum %d; ahead=%s%s; delivered (built before the rule) %s" % (
+        min_uni,
+        ", ".join("%s:%d" % (d, sum(1 for r in rs if release.is_university(r))) for d, rs in sorted(ahead.items())) or "none",
+        ("; POOL-LIMITED (0 eligible universities left): %s" % pool_limited) if pool_limited else
+        ("; BELOW MINIMUM: %s" % bad if bad else ""),
+        hist or "none")
+
+
 RULES = [
     ("client view only shows delivered contacts", lambda rows: r1_only_delivered_contacts(rows)),
     ("Decisores tab == count of distinct delivered contacts (reads client_deliveries)", lambda rows: r2_decisores_from_ledger(rows)),
@@ -410,6 +460,7 @@ RULES = [
     ("un-approved cards hold no report date", lambda rows: r19_unapproved_cards_hold_no_date(rows)),
     # NEW 2026-10-09 (queue item 1, the fit repair):
     ("cards shipping ahead clear the fit floor under the scorer too", lambda rows: r20_shipping_cards_clear_the_floor_under_the_scorer(rows)),
+    ("university minimum met on every report not yet seen", lambda rows: r21_university_minimum_on_every_report(rows)),
     ("live deployed app.html matches repo (no stale screen)", lambda rows: r14_live_deploy_matches_repo()),
 ]
 
