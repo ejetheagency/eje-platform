@@ -5,7 +5,7 @@
 # Client-parameterized: GOLDEN_CLIENT env var (default 2uplatam) so it can run against 2uplatam_staging too.
 #   python3 -m factory.checks.golden_2uplatam           # 2uplatam
 #   GOLDEN_CLIENT=2uplatam_staging python3 -m factory.checks.golden_2uplatam
-import os, datetime
+import os, re, datetime
 from factory.packages import db, calendar_bd as cal
 from factory.workers import deliveries
 
@@ -173,14 +173,20 @@ def r11_no_card_below_fit_60(rows):
     return not low, "%d cards with fit<60 (e.g. %s)" % (len(low), ", ".join("%s=%s" % ((r.get("lead_data") or {}).get("companyName") or r.get("id"), int(score(r))) for r in sorted(low, key=score)[:6]) or "none")
 
 
+_UNI = re.compile(r"universidad|university|\bespol\b|\bespae\b|\busfq\b|\buda\b|polit[eé]cnica|escuela polit|instituto|college|facultad|campus", re.I)
+
+
 def r12_company_contact_caps(rows):
-    # NEW (expected FAIL): max 1 contact per company per report (source_date) AND max 2 per company overall.
+    # Company caps: max 1 contact per company per report (source_date) AND max 2 per company overall.
+    # UNIVERSITIES are EXEMPT (operator decision 2026-10-09: in-ICP, used for partnerships, several contacts fine).
     import collections, re
     def ck(r):
         c = ((r.get("lead_data") or {}).get("companyName") or r.get("company") or "").lower()
         c = re.sub(r"\b(sa|s\.a\.|ltda|cia|c\.a\.|inc|llc|corp|group|grupo|del ecuador|ecuador)\b", "", c)
         return re.sub(r"[^a-z0-9]+", "", c)
-    sh = _approved_shippable(rows)
+    def is_uni(r):
+        return bool(_UNI.search(((r.get("lead_data") or {}).get("companyName") or r.get("company") or "")))
+    sh = [r for r in _approved_shippable(rows) if not is_uni(r)]   # universities exempt from caps
     per_report = collections.Counter((ck(r), r.get("source_date")) for r in sh)
     overall = collections.Counter(ck(r) for r in sh)
     dup_report = {k: n for k, n in per_report.items() if n > 1 and k[0]}
@@ -202,16 +208,24 @@ def r13_admin_labels_client_vs_pipeline():
 
 
 def r15_client_counts_single_source(rows):
-    # SCREEN-LEVEL (operator 2026-10-08): the two client Decisores render paths must agree AND equal the ledger.
-    #   SIDEBAR badge  = load() app.html:2026 -> _n = UNIVERSE.filter(approved).length (NO email dedup)
-    #   PAGE header    = renderDecisores app.html:1752 -> email-deduped (app.html:1745)
-    # FAILs while they use different formulas (badge 54 vs header 41); PASSes once both read one source == ledger.
-    badge = len(_screen_delivered(rows))       # mirrors the no-dedup badge formula
-    header = _screen_decisores(rows)           # mirrors the deduped page-header formula
+    # SCREEN-LEVEL (operator 2026-10-08/09): sidebar badge == page header == ledger, from the LIVE screen.
+    # Both the Decisores badge and header now read ONE function (clientCounts) in the deployed app.html, so they are
+    # equal BY CONSTRUCTION; this rule verifies (a) the live app wires them to clientCounts with NO leftover
+    # divergent badge formula, and (b) that single value == the ledger. FAILs on a stale deploy or a reintroduced
+    # second formula. (The old divergent path was load()'s `_n = UNIVERSE.filter(approved).length`, no dedup -> 54.)
+    import urllib.request
     ledger = deliveries.count(CLIENT)
-    ok = (badge == header == ledger)
-    return ok, "sidebar badge=%d, page header=%d, ledger=%d%s" % (
-        badge, header, ledger, "" if ok else "  <-- diverge: counts not from ONE function")
+    value = _screen_decisores(rows)            # the single clientCounts() value (email-deduped delivered)
+    try:
+        req = urllib.request.Request("https://app.ejetheagency.com/app.html", headers={"User-Agent": "golden/1.0", "Cache-Control": "no-cache"})
+        html = urllib.request.urlopen(req, timeout=20).read().decode("utf-8", "ignore")
+    except Exception as e:
+        return False, "cannot fetch live app.html: %s" % str(e)[:60]
+    one_source = ("function clientCounts(" in html) and ("window.__ejeSyncBadges" in html)
+    no_divergent = "var _n=(CLIENTCLEAN()" not in html   # the old no-dedup badge formula must be gone from the live screen
+    ok = (value == ledger) and one_source and no_divergent
+    return ok, "single-source value=%d, ledger=%d, live one-source=%s, no-old-formula=%s" % (
+        value, ledger, one_source, no_divergent)
 
 
 def r14_live_deploy_matches_repo():

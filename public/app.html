@@ -831,6 +831,7 @@
     function go(v){
       document.querySelectorAll('.nav-item[data-view],.mob-item[data-view]').forEach(function(b){b.classList.toggle('on',b.dataset.view===v);});
       document.querySelectorAll('.view').forEach(function(s){s.classList.toggle('on',s.id==='view-'+v);});
+      if(window.__ejeSyncBadges) window.__ejeSyncBadges();   // ONE SOURCE: counts recompute on every view change (cleanup #2)
       try{localStorage.setItem('eje_view',v);}catch(e){}
       window.scrollTo({top:0,behavior:'smooth'});
     }
@@ -1497,16 +1498,8 @@
       var body=document.getElementById('hoy-list'); if(!body) return;
       if(!DATA||!DATA.leads){ body.innerHTML='<div class="tq-empty">Cargando reporte…</div>'; return; }
       // EJE: Hoy is a DAILY REPORT (leads whose send date is today), highest priority first. Older days live in Historial.
-      var rep=DATA.leads.slice(), dstr=DATA.date;
-      if(ISEJE){ var td=ejeTodayET(); rep=rep.filter(function(l){return (l.source_date||'')===td;}); dstr=td; }
-      else { var tdc=ejeTodayET(); rep=rep.filter(function(l){ var sd=l.source_date||'';
-        // DAILY REPORT SLA: exactly TODAY's dated batch (no carry-forward pile, no future) = 20/day, rolls at 8 AM.
-        // + TSA surface guard: a CLIENT never sees a lead without a named decisor AND an email. Non-negotiable.
-        return sd===tdc && _shippable(l); }); dstr=tdc; }
-      // Dedup by CONTACT (email), not domain (operator rule 2026-10-08): distinct enriched decisors at the SAME org
-      // each get their own card; a literal duplicate row for the same person (same email) still collapses. The _shippable
-      // filter above already guarantees every lead here has an email, so the email key is always present. Falls back to id/domain.
-      var _sk={}; rep=rep.filter(function(l){var k=((l.contactEmail||'').trim().toLowerCase())||l.id||decDom(l.website)||l.companyName; if(_sk[k])return false; _sk[k]=1; return true;});
+      // ONE SOURCE (cleanup #2): Hoy = today's delivered cards, person-deduped (one person = one card, channels merged).
+      var _cc=clientCounts(); var rep=_cc.hoy.slice(), dstr=_cc.today;
       rep.sort(function(a,b){return (b.score||0)-(a.score||0);});
       var sent=rep.filter(function(l){return statusOf(l)!=='none';}).length, pend=rep.length-sent;
       var sub=document.getElementById('hoy-sub');
@@ -1599,10 +1592,10 @@
     function renderReporte(){
       var host=document.getElementById('rep-host'); if(!host) return;
       if(!UNIVERSE||!UNIVERSE.length){ host.innerHTML='<div class="tq-empty" style="padding:14px 4px">Cargando reporte…</div>'; loadUniverse().then(function(){ if(document.getElementById('view-reporte')&&document.getElementById('view-reporte').classList.contains('on')) renderReporte(); }); return; }
-      var td=ejeTodayET(), byDate={};
-      UNIVERSE.forEach(function(l){ if(!l.approved) return; var d=l.source_date||''; if(!d||d<td) return; if(!(l.pitchEmailES||'').trim()) return; (byDate[d]=byDate[d]||[]).push(l); });
+      // ONE SOURCE (cleanup #2): person-deduped per date (one person = one card, channels merged).
+      var _cc=clientCounts(); var td=_cc.today, byDate=_cc.reporteByDate;
       var dates=Object.keys(byDate).sort();
-      var ctn=document.getElementById('rep-ct'); if(ctn) ctn.textContent=dates.reduce(function(a,d){return a+byDate[d].length;},0)||'';
+      var ctn=document.getElementById('rep-ct'); if(ctn) ctn.textContent=_cc.reporteCount||'';
       if(!dates.length){ host.innerHTML='<div class="seg-empty"><div class="t">Sin reportes listos</div>Los reportes de hoy y próximos días aparecen aquí cuando están armados. Mirá el pipeline en Ops.</div>'; return; }
       // one report at a time: a selector of dates, then that report's section below.
       var sel=(window.__repSel&&byDate[window.__repSel])?window.__repSel:dates[0];
@@ -1737,20 +1730,39 @@
     })();
     function toast(m){var t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},1800);}
     function norm2(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+    // ── ONE SOURCE for every client-facing count + card list (cleanup #2, 2026-10-09). Person = contactEmail
+    //    (lowercased) = the delivered-ledger key (client_deliveries): dedup collapses a person to ONE card and
+    //    merges channels as attributes (so no WA/IG/LinkedIn is lost). Decisores == ledger. Badges resync on every
+    //    view change (window.__ejeSyncBadges) so counts can never diverge between sidebar, header and greeting.
+    function _personKey(l){ return (((l&&l.contactEmail)||'').trim().toLowerCase())||(l&&(l._key||decDom(l.website)||l.id||l.companyName))||''; }
+    function _dedupPerson(list){ var seen={}, out=[]; (list||[]).forEach(function(l){ var k=_personKey(l);
+      if(k&&seen[k]){ var keep=seen[k]; ['whatsapp','instagramHandle','instagramKind','contactLinkedIn','linkedin','companyLinkedIn'].forEach(function(f){ if(!keep[f]&&l[f]) keep[f]=l[f]; }); return; }
+      if(k)seen[k]=l; out.push(l); }); return out; }
+    function _deliveredSet(){ var uni=((UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)||[])).filter(_deliveredToClient);
+      if(!ISEJE) uni=uni.filter(_shippable);                       // TSA: clients never see a lead without decisor+email
+      if(CLIENTCLEAN()) uni=uni.filter(function(l){return l.approved===true;});  // cliente ve SOLO lo entregado
+      return uni; }
+    function clientCounts(){ var td=ejeTodayET();
+      var decis=ISEJE?_deliveredSet():_dedupPerson(_deliveredSet());   // EJE keeps its own multi-decisor model
+      var hoy=_dedupPerson(_deliveredSet().filter(function(l){ return (l.source_date||'')===td && (ISEJE||_shippable(l)); }));
+      var repAll=_dedupPerson(((UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)||[])).filter(function(l){ return l.approved && (l.source_date||'')>=td && (l.pitchEmailES||'').trim(); }));
+      var byDate={}; repAll.forEach(function(l){ (byDate[l.source_date]=byDate[l.source_date]||[]).push(l); });
+      return {today:td, decisores:decis, hoy:hoy, reporteByDate:byDate, reporteCount:repAll.length, admin:!CLIENTCLEAN()}; }
+    window.__ejeSyncBadges=function(){ try{ var c=clientCounts();
+      document.querySelectorAll('.nav-item[data-view="decisores"] .ct,.mob-item[data-view="decisores"] .ct').forEach(function(e){e.textContent=c.decisores.length;});
+      var hc=document.getElementById('hoy-ct'); if(hc) hc.textContent=c.hoy.length||'';
+      var rc=document.getElementById('rep-ct'); if(rc) rc.textContent=c.reporteCount||'';
+      var gs=document.getElementById('greetSub'); if(gs) gs.textContent=(ISEJE?'EJE Outreach · ':'')+c.decisores.length+(c.admin?' decisores · pipeline':' decisores · cliente ve');
+    }catch(e){} };
     function render(){
-      var src=((UNIVERSE&&UNIVERSE.length)?UNIVERSE:((DATA&&DATA.leads)||[])).filter(_deliveredToClient);
-      if(!ISEJE) src=src.filter(_shippable);  // TSA: clients never see a lead without real website + email + decisor
-      if(CLIENTCLEAN()) src=src.filter(function(l){return l.approved===true;});  // cliente ve SOLO su reporte entregado, no la pool
-      // DELIVERED LEDGER (client_deliveries): a contact is delivered ONCE, ever. Decisores = distinct delivered
-      // contacts, so collapse duplicate contact rows to one card (matches the ledger count; 2uplatam = 41, not 54).
-      if(!ISEJE){ var _ddk={}; src=src.filter(function(l){ var k=(l.contactEmail||'').trim().toLowerCase()||l._key||decDom(l.website); if(k&&_ddk[k])return false; if(k)_ddk[k]=1; return true; }); }
+      var src=clientCounts().decisores;
       if(!src.length){return;}
       var si=document.getElementById('dec-search'); var q=norm2(si?si.value:'');
       var pairs=src.filter(function(l){ if(!q)return true;
         var hay=norm2((l.companyName||'')+' '+(l.contactName||'')+' '+(l.contactTitle||'')+' '+(l.country||'')+' '+(l.contactEmail||'')+' '+(l.companyEmail||'')+' '+(l.website||l.domain||'')+' '+(l.instagramHandle||'')+' '+(l.companyBrief||'')+' '+((l.additionalContacts||[]).map(function(c){return (c.name||c.contactName||'')+' '+(c.email||c.contactEmail||'');}).join(' ')));
         return hay.indexOf(q)>=0; });
       pairs.sort(function(a,b){return (b.score||0)-(a.score||0);});
-      subEl.textContent=(q?pairs.length+' de '+src.length:src.length+' decisores')+(DATA?' · lote '+esc(DATA.date):'');
+      subEl.textContent=(q?pairs.length+' de '+src.length:src.length+' decisores')+(CLIENTCLEAN()?' · cliente ve':' · pipeline')+(DATA?' · lote '+esc(DATA.date):'');
       listEl.innerHTML=pairs.map(function(l){var d=l._key||decDom(l.website);
         var ch=ISEJE?chLabel((cadOf(l)||{}).channel||'email'):(l.website?'sitio':(l.instagramHandle?'IG':'email'));
         return '<button class="dec-row" data-key="'+esc(d)+'">'
@@ -2021,10 +2033,8 @@
       if(EJE_CLIENT!=='eje_productoras'){
         loadStatus().then(function(){ return loadUniverse(); }).then(function(){
           DATA={date:new Date().toISOString().slice(0,10),leads:(UNIVERSE||[]).slice()};
-          var _n=(CLIENTCLEAN()?(UNIVERSE||[]).filter(function(l){return l.approved===true;}):(UNIVERSE||[])).length;
-          var gs=document.getElementById('greetSub'); if(gs) gs.textContent=(ISEJE?'EJE Outreach · ':'')+_n+' decisores en seguimiento';
           if(ISEJE){ var ap=document.querySelector('.autopilot'); if(ap) ap.style.display='none'; }
-          var dct=document.querySelector('.nav-item[data-view="decisores"] .ct'); if(dct) dct.textContent=_n;
+          if(window.__ejeSyncBadges) window.__ejeSyncBadges();   // ONE SOURCE: badge + greeting (cleanup #2), no separate _n
           render(); if(typeof renderAccion==='function') renderAccion(); if(typeof renderHoy==='function') renderHoy();
           if(typeof renderSeguimiento==='function'){var _sv=document.getElementById('view-seguimiento'); if(_sv&&_sv.classList.contains('on')) renderSeguimiento();}
         }).catch(function(){ if(subEl) subEl.textContent='No se pudo cargar.'; });
