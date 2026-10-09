@@ -71,14 +71,40 @@ def client_health(client_id, release=None, funnel_results=None, golden=None):
 
     if rel.get("error"):
         rep = "next report: ERROR %s" % rel["error"]
+    elif rel.get("locked"):
+        rep = "next report %s: LOCKED, %s cards, reviewed and final" % (
+            rel.get("target_date") or "?", _num(rel.get("shipped")))
     else:
         rep = "next report %s: %s/%s cards, lowest fit %s, pool covers %s days%s" % (
             rel.get("target_date") or "?", _num(rel.get("shipped")), _num(rel.get("target_size")),
             _num(rel.get("lowest_fit")), _num(rel.get("days_covered"), "%.1f"),
             "  <-- SHORT" if rel.get("short") else "")
     cost = "cost tonight $%s / ceiling $%s" % (_num(spend, "%.4f"), _num(cap, "%.2f"))
-    return {"client_id": client_id, "golden": g, "lines": ["  %s: %s" % (client_id, rep),
-                                                           "    %s | %s" % (cost, gtxt)],
+
+    # THE MIX IS YELLOW, NEVER RED (operator 2026-10-09). The university minimum changes the mix, never the bar:
+    # if fewer than the minimum clear the fit floor, the gate fills the day with the best remaining by fit, so the
+    # report is still 20 cards and still nothing under the floor. A thin mix is worth SEEING (it means university
+    # discovery is behind) but it is not a fault: nothing is broken, nothing shipped that should not have, and it
+    # must never trigger the alert email or cost the operator a dev session.
+    yellow = None
+    try:
+        from factory.workers import release as _rel
+        min_uni = _rel.min_universities(client_id)
+    except Exception:
+        min_uni = 0
+    uni_txt = ""
+    if min_uni:
+        n = rel.get("universities")
+        uni_txt = " | universities %s/%d" % (_num(n), min_uni)
+        if n is not None and n < min_uni:
+            yellow = "%s: universities %d/%d (mix below the minimum; filled to size by fit, nothing under the " \
+                     "floor). University discovery is behind, not the report." % (client_id, n, min_uni)
+            uni_txt += " YELLOW"
+
+    lines = ["  %s: %s%s" % (client_id, rep, uni_txt), "    %s | %s" % (cost, gtxt)]
+    if yellow:
+        lines.append("    yellow: " + yellow.split(": ", 1)[1])
+    return {"client_id": client_id, "golden": g, "lines": lines, "yellow": yellow,
             "red": bool(g["error"] or g["failed"] or rel.get("error"))}
 
 
@@ -96,17 +122,20 @@ def review(release=None, funnel_results=None, fatal=None, preflight_line=None, c
     lines = ["NIGHTLY REVIEW (read these lines; green = no dev session today)",
              "  status: " + status,
              "  providers: " + (preflight_line or "(no preflight line)")]
-    reds, per_client = [], []
+    reds, yellows, per_client = [], [], []
     for cid in clients:
         try:
             h = client_health(cid, release=release, funnel_results=funnel_results)
         except Exception as e:
             h = {"client_id": cid, "lines": ["  %s: review ERROR %s" % (cid, str(e)[:120])], "red": True,
+                 "yellow": None,
                  "golden": {"failed": [], "error": str(e)[:120], "available": True, "total": 0, "passed": 0}}
         per_client.append(h)
         lines += h["lines"]
         if h["red"]:
             reds.append(h)
+        if h.get("yellow"):
+            yellows.append(h["yellow"])
 
     red = bool(fatal or reds)
     alert_subject = alert_body = None
@@ -130,7 +159,8 @@ def review(release=None, funnel_results=None, fatal=None, preflight_line=None, c
                 detail.append("  golden could not run: %s" % h["golden"]["error"])
             detail.append("")
         alert_body = "\n".join(detail)
-    return {"lines": lines, "alert_subject": alert_subject, "alert_body": alert_body, "red": red}
+    return {"lines": lines, "alert_subject": alert_subject, "alert_body": alert_body, "red": red,
+            "yellow": yellows}       # yellow is informational: it never sets `red` and never sends an alert
 
 
 if __name__ == "__main__":

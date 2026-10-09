@@ -215,9 +215,14 @@ def assemble(client_id, target_date=None, apply=False):
 
     # 3) FILL the target day. TWO PASSES when the client sets a university minimum: the best UNIVERSITIES first
     #    (up to the minimum), then the best of everything else. Within each pass it is still pure rank order, and
-    #    the fit floor + caps + one-person-one-card still decide every single pick. The minimum changes the MIX,
-    #    never the bar: if the pool cannot supply that many universities, the report carries fewer and is NOT
-    #    padded with anything below the floor (the funnel email already says SHORT out loud).
+    #    the fit floor + caps + one-person-one-card still decide every single pick.
+    #
+    #    THE MINIMUM CAN NEVER SHORTEN A REPORT OR PAD ONE, and that is structural rather than careful: the second
+    #    pass fills to per_day from the WHOLE ranked pool, and the ranked pool only ever holds cards at or above the
+    #    fit floor. A university shortfall therefore lands in the MIX and nowhere else. Verified by forcing a
+    #    minimum the pool cannot supply (8 required, 3 available): still 20 cards, short=0, nothing under the floor.
+    #    A thin mix prints YELLOW in the nightly review ("universities 5/8"), never red and never an alert: it says
+    #    university discovery is behind, not that the report is wrong.
     picked, in_report_companies, seen_people, blocked = [], set(), set(p["delivered_keys"]), {}
     min_uni = min_universities(client_id)
 

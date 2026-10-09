@@ -91,6 +91,10 @@ No session ends without it.
 9. **Intelligence use.** **Weekly, per client:** which **roles, industries, channels and templates** get replies and
    conversations; **the ranker prioritizes similar leads**. **Across clients, aggregate patterns ONLY: one client's
    conversation data is never shown to another.**
+9b. **Report-lock expiry (small).** `release.lock_report` freezes a dated report so a scoring change cannot reshuffle
+   an imminent one (used for Monday 2026-10-12). **A lock on a PAST date must be ignored**, so a stale lock can
+   never stop a day from reassembling forever. Today it resolves itself (a locked day becomes delivered and freezes
+   anyway), which is why this is queued and not urgent.
 10. **Card-open logging (`lead_views`)** so **"opened" becomes knowable** (today it is not: there is no open log, so
     "did he open it" cannot be answered). Plus the **operator veto button in the app** (today CLI only).
 
