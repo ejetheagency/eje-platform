@@ -126,14 +126,53 @@ capped: **maximum 2 replacements per slot.** After the second replacement also f
 gap**: keep the best of the three, attach its full **attempt log** listing every method tried, and **show the gap
 in the report** rather than hiding it. Endless replacement is how a day disappears with nothing shipped.
 
+## Step 7b: FACT HUNT, before writing a single message
+
+Do this per company, as a research step, not as a writing step.
+
+- Look for the company's **OWN event content**: posada, fin de año, día de la familia, aniversario, inauguración,
+  as photos or video on **their** Facebook, Instagram, YouTube, LinkedIn page or site, **dated within the last 18
+  months**. Link it. For an event-video prospect this is the preferred fact, because it proves the event exists.
+- Second choice: **one specific first-party fact** (their own post or page). Not a news inference.
+- **Banned**: inferences dressed as facts ("la posada va a ser más grande", "si la plantilla está creciendo"),
+  **stacked facts (maximum ONE)**, news-scraped headline facts (investment amounts, job counts), invented numbers.
+- **The 1,000-companies test**: could this sentence be sent to a thousand companies by changing the name? If yes,
+  cut it. "Vi que están creciendo" fails. "Vi que el año pasado hicieron su posada el 13 de diciembre" passes.
+- Record the result per company as **Patrón A** (fact found, with link and date) or **Patrón B** (no qualifying
+  fact). Expect most companies to be B: that is the honest outcome, not a research failure.
+
+## Step 7c: message patterns (the copy rules)
+
+**Max 4 sentences.** The offer is **one plain line** ("hacemos foto, video y dron de eventos de planta"): no
+feature list, no brand-introduction paragraph, **never the sender's city** when it differs from the prospect's
+region. Lead with the edge, not with geography. Sound like a person: "Qué tal" / "Hola", short sentences, one
+casual aside allowed. Usted or tú **consistently per channel** (usted for email, tú for LinkedIn and WhatsApp).
+Use accents on names (Mónica, Raúl) unless a signature spells it otherwise.
+
+- **Door 1, Patrón A:** greeting + the one real observation + offer line + Patrón C question.
+- **Door 1, Patrón B:** honest cold open. *"Le escribo en frío, así que voy corto: hacemos foto, video y dron de
+  eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?"*
+- **Patrón C close:** a capacity question that can be answered with a no. **Never "¿te interesa?"**
+- **Doors 2+, Patrón H only:** *"Le escribí a <nombre> hace unos días sobre <tema> y no he tenido respuesta, lo
+  cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?"*
+  It must be **inclusive and never imply going over door 1's head**, and **never imply door 1 agreed to anything**.
+  Banned: "me permito escribirle a usted directo".
+- Doors 2+ **never repeat door 1's pitch** and never repeat the brand paragraph.
+
+## Step 7d: unknown plant size
+
+A company with no public headcount is allowed **only with a labeled proxy**: a press line ("más de X empleos"),
+**job-posting volume**, or plant area. The label must say it is a proxy, not a headcount. **With no proxy, replace
+the company.**
+
 ## Step 8: the self-selling layer (standard on every demo)
 
 1. Per company: **its own hook with source** and a **"Por qué ahora"** tied to a filmable or time-bound moment
    (plant opening, expansion, anniversary, hiring wave, a past posada or family day they posted publicly).
    No leftovers from a previous prospect's research.
-2. Per door: **its own message**. Local Spanish, short, human, slightly imperfect. Opens with the hook, carries the
-   offer in one line, ends with **one** capacity question. Usted for email, tú for LinkedIn and WhatsApp.
-   **Doors 2 and 3 cite door 1 by name**, so the name circulates inside the account.
+2. Per door: **its own message**, written to the patterns in step 7c (max 4 sentences, Patrón A or B on door 1,
+   Patrón H on doors 2+, Patrón C close). **Doors 2 and 3 name door 1**, so the name circulates inside the account
+   without ever implying that person agreed to anything.
 3. **"Ruta sugerida"** per account: order of doors and channels, each with a one-line reason.
 4. **Contextual coach bubbles**: by company size, by channel, by door type. Any number shown needs a public source
    link or the label **"estimado inicial, el sistema lo ajusta con tus respuestas"**. No invented statistics.

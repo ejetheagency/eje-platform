@@ -18,8 +18,8 @@
       "sector": "Autopartes / filtros y lubricantes",
       "tipo": "mediana industrial regia",
       "tamano": {
-        "valor": "70 años creando y distribuyendo autopartes a México, EUA y el mundo",
-        "nota": "no encontramos cifra pública de plantilla; lo verificable es su red de centros y su directorio de reclutamiento por plaza",
+        "valor": "proxy: directorio propio de reclutamiento con tres contactos distintos solo en Santa Catarina",
+        "nota": "PROXY ETIQUETADO, no cifra de plantilla: no hay número público. El volumen de reclutadores por plaza es lo verificable.",
         "fuente": "https://gonher.com.mx/contacto-rh/"
       },
       "matriz": {
@@ -79,7 +79,7 @@
         {
           "rol": "Gerente de Recursos Humanos",
           "nivel": "gerencia",
-          "nombre": "Monica Sanchez",
+          "nombre": "Mónica Sánchez",
           "titulo": "Gerente de Recursos Humanos en Grupo GONHER, Monterrey, 20 años en RR.HH., SHRM-SCP",
           "confianza": {
             "n": 1,
@@ -99,8 +99,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Posada de Santa Catarina",
-            "cuerpo": "Buen día, Monica.\n\nVi que tienen reclutamiento abierto en Santa Catarina en tres frentes a la vez. Si la plantilla está creciendo, la posada de diciembre va a ser más grande que la del año pasado.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\n¿Usted lleva el evento de fin de año?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Buen día, Mónica. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -118,7 +118,7 @@
         {
           "rol": "Gerente de Capital Humano",
           "nivel": "gerencia",
-          "nombre": "Raul Angel Padilla Loera",
+          "nombre": "Raúl Ángel Padilla Loera",
           "titulo": "Gerente de Capital Humano en Grupo Gonher, Monterrey; maestría en Psicología Laboral y Organizacional",
           "confianza": {
             "n": 1,
@@ -134,12 +134,12 @@
             "fuente": "https://gonher.com.mx/contacto-rh/",
             "nota": "patrón inferido del directorio publicado. OJO: el nombre viene de un directorio comercial que bloquea el acceso público, así que confirma puesto por teléfono antes de usarlo."
           },
-          "ruta_entrada": "Segunda gerencia de Capital Humano. La fuente del nombre no se puede abrir públicamente, así que vale menos que la de Monica Sanchez.",
+          "ruta_entrada": "Segunda gerencia de Capital Humano. La fuente del nombre no se puede abrir públicamente, así que vale menos que la de Mónica Sánchez.",
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Evento de fin de año",
-            "cuerpo": "Buen día.\n\nYa le escribí a Monica Sanchez, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales dentro de planta: protocolo de seguridad y entrega rápida del after movie.\n\n\n¿Quién está viendo el evento de fin de año este año?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, Raúl. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -176,8 +176,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Posada de Santa Catarina, video y foto",
-            "cuerpo": "Buen día.\n\nVi que tienen reclutamiento abierto en Santa Catarina en tres frentes a la vez. Si la plantilla está creciendo, la posada de diciembre va a ser más grande que la del año pasado.\n\nYa le escribí a Monica Sanchez, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\n¿Quién está viendo el evento de fin de año este año?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           }
         },
         {
@@ -202,8 +202,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Evento de fin de año del CEDIS",
-            "cuerpo": "Buen día.\n\nYa le escribí a Monica Sanchez, de Capital Humano, y me permito escribirle a usted directo.\n\n\nSomos REBRND, productora en CDMX con 13 años en foto, video y dron de eventos industriales: protocolo de seguridad para entrar a piso y entrega rápida del after movie.\n\n¿El evento de fin de año del CEDIS se organiza aparte del corporativo?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           }
         },
         {
@@ -226,8 +226,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Acceso y dron en planta",
-            "cuerpo": "Ya le escribí a Monica Sanchez, de Capital Humano.\n\nHola, soy Carlos de REBRND, productora de CDMX. Ya le escribí a reclutamiento de Santa Catarina por el tema del evento de fin de año.\n\nHacemos foto, video y dron dentro de planta con protocolo de seguridad.\n\n¿Con quién se autoriza el acceso y el vuelo de dron en el predio?"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Hola. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -258,7 +258,14 @@
           "correo inferido",
           "Un correo inferido se verifica antes de enviar: manda primero al publicado, y si rebota usa el inferido. Un rebote quema el dominio."
         ]
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     },
     {
       "id": "katcon",
@@ -348,8 +355,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Posada de la planta de Santa Catarina (At'n Karla Luna)",
-            "cuerpo": "Buen día.\n\nEste mensaje es para Karla Luna, de bienestar laboral.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Trabajamos dentro de planta: protocolo de seguridad, cuadrillas que no frenan la operación y entrega rápida del after movie.\n\nEstamos agendando las posadas de diciembre en Nuevo León.\n\n¿Quién está viendo el evento de fin de año de la planta?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Buen día, Karla. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -363,58 +370,6 @@
             "resultado": "karla.luna@katcon.com"
           },
           "_cuenta": "confirmado"
-        },
-        {
-          "rol": "Recursos Humanos planta Santa Catarina",
-          "nivel": "gerencia / jefatura",
-          "nombre": null,
-          "titulo": "por identificar (buzón de RR.HH. publicado)",
-          "confianza": {
-            "n": 1,
-            "fuentes": [
-              "https://katcon.com/contact/"
-            ]
-          },
-          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Katcon%20recursos%20humanos%20Santa%20Catarina",
-          "email": {
-            "estado": "buzón de área",
-            "valor": "rrhh@katcon.com",
-            "fuente": "https://katcon.com/contact/",
-            "nota": "buzón de RR.HH. publicado por la empresa en su página de contacto"
-          },
-          "ruta_entrada": "Correo de RR.HH. publicado, y en paralelo mensaje a su Facebook de reclutamiento, que es donde contestan rápido.",
-          "mensaje": {
-            "canal": "email",
-            "trato": "usted",
-            "asunto": "Posada de la planta de Santa Catarina",
-            "cuerpo": "Buen día.\n\nYa le escribí a Karla Fabiola, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Trabajamos dentro de planta: protocolo de seguridad, cuadrillas que no frenan la operación y entrega rápida del after movie.\n\nEstamos agendando las posadas de diciembre en Nuevo León y Santa Catarina nos queda en ruta.\n\n¿Quién está viendo el evento de fin de año de la planta?\n\nGracias.\nCarlos Chavarría · REBRND"
-          }
-        },
-        {
-          "rol": "Compras / registro de proveedores",
-          "nivel": "gerencia",
-          "nombre": null,
-          "titulo": "por identificar (buzón de proveedores publicado)",
-          "confianza": {
-            "n": 1,
-            "fuentes": [
-              "https://katcon.com/contact/"
-            ]
-          },
-          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Katcon%20compras%20purchasing",
-          "email": {
-            "estado": "buzón de área",
-            "valor": "potentialsuppliers@katcon.com",
-            "fuente": "https://katcon.com/contact/",
-            "nota": "buzón para proveedores potenciales, publicado por la empresa"
-          },
-          "ruta_entrada": "El alta de proveedor tarda, así que se abre ahora aunque la posada todavía no esté cerrada.",
-          "mensaje": {
-            "canal": "email",
-            "trato": "usted",
-            "asunto": "Alta como proveedor de servicios audiovisuales",
-            "cuerpo": "Buen día.\n\nYa le escribí a Karla Fabiola, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora audiovisual en CDMX con 13 años de operación y experiencia trabajando dentro de plantas industriales: foto, video y dron, con protocolo de seguridad.\n\n\n¿Qué documentación necesitan para darnos de alta?\n\nGracias.\nCarlos Chavarría · REBRND"
-          }
         },
         {
           "rol": "Katcon Santa Catarina, puesto por confirmar",
@@ -450,10 +405,62 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "¿Quién lleva los eventos de la planta?",
-            "cuerpo": "Buen día, Ramiro.\n\nYa le escribí a Karla Fabiola, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\n\n¿Me puede decir quién lo está viendo?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, Ramiro. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           },
           "_cuenta": "confirmado"
+        },
+        {
+          "rol": "Recursos Humanos planta Santa Catarina",
+          "nivel": "gerencia / jefatura",
+          "nombre": null,
+          "titulo": "por identificar (buzón de RR.HH. publicado)",
+          "confianza": {
+            "n": 1,
+            "fuentes": [
+              "https://katcon.com/contact/"
+            ]
+          },
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Katcon%20recursos%20humanos%20Santa%20Catarina",
+          "email": {
+            "estado": "buzón de área",
+            "valor": "rrhh@katcon.com",
+            "fuente": "https://katcon.com/contact/",
+            "nota": "buzón de RR.HH. publicado por la empresa en su página de contacto"
+          },
+          "ruta_entrada": "Correo de RR.HH. publicado, y en paralelo mensaje a su Facebook de reclutamiento, que es donde contestan rápido.",
+          "mensaje": {
+            "canal": "email",
+            "trato": "usted",
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+          }
+        },
+        {
+          "rol": "Compras / registro de proveedores",
+          "nivel": "gerencia",
+          "nombre": null,
+          "titulo": "por identificar (buzón de proveedores publicado)",
+          "confianza": {
+            "n": 1,
+            "fuentes": [
+              "https://katcon.com/contact/"
+            ]
+          },
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Katcon%20compras%20purchasing",
+          "email": {
+            "estado": "buzón de área",
+            "valor": "potentialsuppliers@katcon.com",
+            "fuente": "https://katcon.com/contact/",
+            "nota": "buzón para proveedores potenciales, publicado por la empresa"
+          },
+          "ruta_entrada": "El alta de proveedor tarda, así que se abre ahora aunque la posada todavía no esté cerrada.",
+          "mensaje": {
+            "canal": "email",
+            "trato": "usted",
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+          }
         }
       ],
       "ruta_sugerida": [
@@ -499,7 +506,14 @@
           "correo inferido",
           "Un correo inferido se verifica antes de enviar: manda primero al publicado, y si rebota usa el inferido. Un rebote quema el dominio."
         ]
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     },
     {
       "id": "ragasa",
@@ -508,9 +522,9 @@
       "sector": "Aceites y grasas comestibles para industria",
       "tipo": "mediana industrial regia",
       "tamano": {
-        "valor": "no encontramos cifra pública de plantilla",
-        "nota": "operación industrial con planta propia en Nuevo León; el tamaño exacto no está publicado",
-        "fuente": "https://anfaca.org.mx/directory-listing/ragasa-industrias/"
+        "valor": "proxy: 1,001 a 5,000 empleados según su propia página de empresa en LinkedIn",
+        "nota": "PROXY ETIQUETADO: rango declarado en su página de empresa, no cifra de la planta de Monterrey.",
+        "fuente": "https://mx.linkedin.com/company/ragasa-industrias"
       },
       "matriz": {
         "empresa": "Ragasa Industrias",
@@ -564,30 +578,43 @@
       "eventos_previos": [],
       "puertas": [
         {
-          "rol": "Contacto publicado en directorio de industria",
-          "nivel": "gerencia / jefatura",
-          "nombre": null,
-          "titulo": "contacto de Ragasa en el directorio ANFACA, apellido González según su correo",
+          "rol": "Operaciones de planta",
+          "nivel": "gerencia",
+          "nombre": "Carlos Jiménez Reyes",
+          "titulo": "Operaciones en Ragasa, Monterrey",
           "confianza": {
             "n": 1,
             "fuentes": [
-              "https://anfaca.org.mx/directory-listing/ragasa-industrias/"
+              "https://mx.linkedin.com/company/ragasa-industrias"
             ]
           },
-          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Ragasa%20recursos%20humanos%20Monterrey",
+          "linkedin_perfil": null,
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Carlos%20Jimenez%20Reyes",
           "email": {
-            "estado": "publicado",
-            "valor": "aagonzalez@ragasa.com.mx",
+            "estado": "patrón inferido",
+            "valor": "cjimenez@ragasa.com.mx",
             "fuente": "https://anfaca.org.mx/directory-listing/ragasa-industrias/",
-            "nota": "publicado en el directorio de ANFACA. Un segundo correo (gbrito@ragasa.com.mx) aparece en bases de datos comerciales que bloquean el acceso público, así que no lo usamos como fuente."
+            "nota": "patrón inferido del correo publicado aagonzalez@ragasa.com.mx. Verificar antes de enviar."
           },
-          "ruta_entrada": "Correo publicado en un directorio de industria, no en una base de datos de pago. Si no es el área correcta, pedir que te pasen a Capital Humano.",
+          "ruta_entrada": "Operaciones autoriza el acceso para grabar en planta de alimentos.",
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Posada de la planta de Monterrey",
-            "cuerpo": "Buen día.\n\nYa le escribí a Mayra Medina, de dirección, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, grabamos sin frenar la operación y entregamos el after movie rápido.\n\nEn planta de alimentos diciembre es temporada alta, así que las posadas se cierran con tiempo.\n\n¿Ya tienen proveedor para el evento de fin de año?\n\nGracias.\nCarlos Chavarría · REBRND"
-          }
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Buen día, Carlos. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+          },
+          "evidencia": {
+            "nombre": {
+              "url": "https://mx.linkedin.com/company/ragasa-industrias",
+              "que": "Operaciones en Ragasa, visible en resultados"
+            },
+            "patron": {
+              "url": "https://anfaca.org.mx/directory-listing/ragasa-industrias/",
+              "que": "correo publicado en directorio ANFACA = patrón [inicial][apellido]"
+            },
+            "resultado": "cjimenez@ragasa.com.mx"
+          },
+          "_cuenta": "confirmado"
         },
         {
           "rol": "Gerente de Transformación Organizacional",
@@ -612,8 +639,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Posada y cultura organizacional",
-            "cuerpo": "Buen día, Mayra.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales dentro de planta.\n\nEn temas de cultura y clima, el video del evento de fin de año es lo que la gente vuelve a ver todo el año, no solo el día de la posada.\n\n¿Ya tienen definido cómo van a documentar el evento de diciembre?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, Mayra. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -627,6 +654,32 @@
             "resultado": "mmedina@ragasa.com.mx"
           },
           "_cuenta": "confirmado"
+        },
+        {
+          "rol": "Contacto publicado en directorio de industria",
+          "nivel": "gerencia / jefatura",
+          "nombre": null,
+          "titulo": "contacto de Ragasa en el directorio ANFACA, apellido González según su correo",
+          "confianza": {
+            "n": 1,
+            "fuentes": [
+              "https://anfaca.org.mx/directory-listing/ragasa-industrias/"
+            ]
+          },
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Ragasa%20recursos%20humanos%20Monterrey",
+          "email": {
+            "estado": "publicado",
+            "valor": "aagonzalez@ragasa.com.mx",
+            "fuente": "https://anfaca.org.mx/directory-listing/ragasa-industrias/",
+            "nota": "publicado en el directorio de ANFACA. Un segundo correo (gbrito@ragasa.com.mx) aparece en bases de datos comerciales que bloquean el acceso público, así que no lo usamos como fuente."
+          },
+          "ruta_entrada": "Correo publicado en un directorio de industria, no en una base de datos de pago. Si no es el área correcta, pedir que te pasen a Capital Humano.",
+          "mensaje": {
+            "canal": "email",
+            "trato": "usted",
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+          }
         },
         {
           "rol": "Gerencia de planta Monterrey",
@@ -648,48 +701,9 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Acceso a planta para grabar",
-            "cuerpo": "Ya le escribí a Mayra Medina, de dirección.\n\nHola, soy Carlos de REBRND, productora de CDMX. Ya le escribí a RR.HH. por el evento de fin de año.\n\nHacemos foto, video y dron dentro de planta con protocolo de seguridad, y en planta de alimentos sabemos las reglas de inocuidad para grabar en área de proceso.\n\n¿Con quién se autoriza el acceso para grabar?"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Hola. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
-        },
-        {
-          "rol": "Operaciones de planta",
-          "nivel": "gerencia",
-          "nombre": "Carlos Jimenez Reyes",
-          "titulo": "Operaciones en Ragasa, Monterrey",
-          "confianza": {
-            "n": 1,
-            "fuentes": [
-              "https://mx.linkedin.com/company/ragasa-industrias"
-            ]
-          },
-          "linkedin_perfil": null,
-          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Carlos%20Jimenez%20Reyes",
-          "email": {
-            "estado": "patrón inferido",
-            "valor": "cjimenez@ragasa.com.mx",
-            "fuente": "https://anfaca.org.mx/directory-listing/ragasa-industrias/",
-            "nota": "patrón inferido del correo publicado aagonzalez@ragasa.com.mx. Verificar antes de enviar."
-          },
-          "ruta_entrada": "Operaciones autoriza el acceso para grabar en planta de alimentos.",
-          "mensaje": {
-            "canal": "email",
-            "trato": "usted",
-            "asunto": "Acceso a planta para grabar el evento",
-            "cuerpo": "Buen día, Carlos.\n\nYa le escribí a Mayra Medina, de dirección, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\nEn planta de alimentos conocemos las reglas de inocuidad para grabar en área de proceso.\n\n¿Con quién se autoriza el acceso para el evento de fin de año?\n\nGracias.\nCarlos Chavarría · REBRND"
-          },
-          "evidencia": {
-            "nombre": {
-              "url": "https://mx.linkedin.com/company/ragasa-industrias",
-              "que": "Operaciones en Ragasa, visible en resultados"
-            },
-            "patron": {
-              "url": "https://anfaca.org.mx/directory-listing/ragasa-industrias/",
-              "que": "correo publicado en directorio ANFACA = patrón [inicial][apellido]"
-            },
-            "resultado": "cjimenez@ragasa.com.mx"
-          },
-          "_cuenta": "confirmado"
         }
       ],
       "ruta_sugerida": [
@@ -719,7 +733,14 @@
           "correo inferido",
           "Un correo inferido se verifica antes de enviar: manda primero al publicado, y si rebota usa el inferido. Un rebote quema el dominio."
         ]
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     },
     {
       "id": "grupo-senda",
@@ -728,9 +749,9 @@
       "sector": "Transporte y servicios logísticos a industria",
       "tipo": "mediana industrial regia",
       "tamano": {
-        "valor": "operador de transporte con flota y terminales en el norte de México",
-        "nota": "no encontramos cifra pública de plantilla",
-        "fuente": "https://www.grupo-senda.com/en/contacto/"
+        "valor": "proxy: alrededor de 7,500 empleados según su ficha pública",
+        "nota": "PROXY ETIQUETADO: cifra de ficha pública del grupo, no de una sola terminal.",
+        "fuente": "https://en.wikipedia.org/wiki/Grupo_Senda"
       },
       "matriz": {
         "empresa": "Grupo Senda",
@@ -806,8 +827,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "La posada de este año, por terminal",
-            "cuerpo": "Buen día, Dulcinea.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\nEn operaciones con terminales el evento de fin de año suele partirse en varias sedes, y ahí es donde entra nuestra logística: cuadrillas simultáneas y un solo responsable.\n\n¿Cuántas sedes tendría que cubrir el evento de este año?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Buen día, Dulcinea. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -844,8 +865,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Evento de fin de año por terminal",
-            "cuerpo": "Buen día, Reynold.\n\nYa le escribí a Dulcinea Florencia, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto y video de eventos corporativos e industriales. Nuestra ventaja es la logística: cubrimos varias sedes en pocos días con cuadrillas distintas y entregamos rápido.\n\nEn operaciones con terminales, el evento de fin de año suele partirse en varias sedes.\n\n¿Quién lleva los eventos de fin de año para poder escribirle directo?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, Reynold. Le escribí a Dulcinea Florencia hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -880,8 +901,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Posadas por terminal, una sola productora",
-            "cuerpo": "Buen día.\n\nYa le escribí a Dulcinea Florencia, de Capital Humano, y me permito escribirle a usted directo.\n\n\nSomos REBRND, productora en CDMX. Hacemos foto, video y dron de eventos corporativos e industriales, y cuando el evento se parte en varias sedes lo cubrimos con cuadrillas simultáneas y un solo responsable.\n\n¿Cuántas terminales tendría que cubrir el evento de este año?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Dulcinea Florencia hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           }
         }
       ],
@@ -912,7 +933,14 @@
           "correo inferido",
           "Un correo inferido se verifica antes de enviar: manda primero al publicado, y si rebota usa el inferido. Un rebote quema el dominio."
         ]
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     },
     {
       "id": "zinc-nacional",
@@ -921,8 +949,8 @@
       "sector": "Química y metalurgia del zinc",
       "tipo": "mediana industrial regia",
       "tamano": {
-        "valor": "no encontramos cifra pública de plantilla",
-        "nota": "planta metalúrgica y química en Monterrey; tamaño no publicado",
+        "valor": "proxy: tres áreas con contacto propio publicado (ventas internacional, ventas México y compras del grupo)",
+        "nota": "PROXY ETIQUETADO, no cifra de plantilla: no hay número público para la planta de Monterrey.",
         "fuente": "https://www.zincnacional.com/contacto/"
       },
       "matriz": {
@@ -977,32 +1005,6 @@
       "eventos_previos": [],
       "puertas": [
         {
-          "rol": "Compras / proveedores del grupo",
-          "nivel": "gerencia",
-          "nombre": null,
-          "titulo": "por identificar (buzón de compras publicado)",
-          "confianza": {
-            "n": 1,
-            "fuentes": [
-              "https://www.zincnacional.com/contacto/"
-            ]
-          },
-          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Zinc%20Nacional%20compras%20proveedores",
-          "email": {
-            "estado": "buzón de área",
-            "valor": "compras_metalurgica@gpromax.com",
-            "fuente": "https://www.zincnacional.com/contacto/",
-            "nota": "buzón de compras publicado por la empresa; el dominio es el del grupo (Promax), no el de Zinc Nacional"
-          },
-          "ruta_entrada": "Alta de proveedor primero: es el único buzón donde un servicio nuevo entra sin referencia.",
-          "mensaje": {
-            "canal": "email",
-            "trato": "usted",
-            "asunto": "Alta como proveedor de servicios audiovisuales",
-            "cuerpo": "Buen día.\n\nYa le escribí a Marialba Ramírez, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora audiovisual en CDMX con 13 años de operación y experiencia dentro de plantas industriales: foto, video y dron, con protocolo de seguridad y documentación en regla.\n\nQueremos quedar dados de alta para los eventos de fin de año y el material de planta.\n\n¿Qué necesitan para registrarnos como proveedor?\n\nGracias.\nCarlos Chavarría · REBRND"
-          }
-        },
-        {
           "rol": "Recursos Humanos",
           "nivel": "gerencia / jefatura",
           "nombre": "Marialba Ramírez Duarte",
@@ -1025,8 +1027,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Guion para la llamada",
-            "cuerpo": "Buen día, busco a Marialba Ramírez, de Recursos Humanos.\n\nSoy Carlos Chavarría, de REBRND, productora audiovisual de CDMX. Hacemos foto, video y dron de eventos industriales dentro de planta.\n\nQuería preguntarle quién está viendo el evento de fin de año de la planta.\n\n¿Quién está viendo el evento de fin de año de la planta?"
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Qué tal. Marialba. Te escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1064,8 +1066,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Guion para la llamada",
-            "cuerpo": "Buen día, busco a Mirta Machado, de Capacitación y Desarrollo.\n\nYa le escribí a Marialba Ramírez, de Capital Humano.\n\nSoy Carlos Chavarría, de REBRND, productora audiovisual de CDMX. Hacemos foto, video y dron de eventos industriales dentro de planta.\n\nQuería preguntarle quién está viendo el evento de fin de año de la planta.\n\n¿Quién está viendo el evento de fin de año de la planta?"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Hola Mirta, le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1079,29 +1081,6 @@
             "resultado": "mmachado@zincnacional.com"
           },
           "_cuenta": "sin fecha"
-        },
-        {
-          "rol": "Recursos Humanos planta Monterrey",
-          "nivel": "gerencia / jefatura",
-          "nombre": null,
-          "titulo": "por identificar",
-          "confianza": {
-            "n": 0,
-            "fuentes": []
-          },
-          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Zinc%20Nacional%20recursos%20humanos",
-          "email": {
-            "estado": "no encontrado",
-            "valor": null,
-            "nota": "no hay correo de RR.HH. publicado; la vía es el conmutador o LinkedIn"
-          },
-          "ruta_entrada": "Conmutador +52 81 8376 5024 (línea de proveedores) para que te pasen a RR.HH., o LinkedIn de la empresa.",
-          "mensaje": {
-            "canal": "linkedin",
-            "trato": "tú",
-            "asunto": "Posada de la planta de Monterrey",
-            "cuerpo": "Hola, en REBRND hacemos foto, video y dron de eventos industriales, dentro de planta y con protocolo de seguridad.\n\nYa le escribí a Marialba Ramírez, de Capital Humano.\n\n\n¿Quién lleva el evento de fin de año de la planta?\n\nGracias, Carlos Chavarría"
-          }
         },
         {
           "rol": "Supply Chain / compras",
@@ -1126,8 +1105,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Alta como proveedor de servicios audiovisuales",
-            "cuerpo": "Buen día, Luis.\n\nYa le escribí a Marialba Ramírez, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\nQueremos quedar dados de alta como proveedor para los eventos de fin de año.\n\n¿Qué documentación necesitan?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, Luis. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1145,7 +1124,7 @@
         {
           "rol": "Compras",
           "nivel": "jefatura",
-          "nombre": "Jisela Martinez",
+          "nombre": "Jisela Martínez",
           "titulo": "Compradora en Zinc Nacional",
           "confianza": {
             "n": 1,
@@ -1165,8 +1144,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Alta de proveedor, documentación",
-            "cuerpo": "Buen día, Jisela.\n\nYa le escribí a Marialba Ramírez, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\n\n¿Me puede decir qué documentos necesitan para registrarnos?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, Jisela. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1180,6 +1159,55 @@
             "resultado": "jmartinez@zincnacional.com"
           },
           "_cuenta": "sin fecha"
+        },
+        {
+          "rol": "Compras / proveedores del grupo",
+          "nivel": "gerencia",
+          "nombre": null,
+          "titulo": "por identificar (buzón de compras publicado)",
+          "confianza": {
+            "n": 1,
+            "fuentes": [
+              "https://www.zincnacional.com/contacto/"
+            ]
+          },
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Zinc%20Nacional%20compras%20proveedores",
+          "email": {
+            "estado": "buzón de área",
+            "valor": "compras_metalurgica@gpromax.com",
+            "fuente": "https://www.zincnacional.com/contacto/",
+            "nota": "buzón de compras publicado por la empresa; el dominio es el del grupo (Promax), no el de Zinc Nacional"
+          },
+          "ruta_entrada": "Alta de proveedor primero: es el único buzón donde un servicio nuevo entra sin referencia.",
+          "mensaje": {
+            "canal": "email",
+            "trato": "usted",
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+          }
+        },
+        {
+          "rol": "Recursos Humanos planta Monterrey",
+          "nivel": "gerencia / jefatura",
+          "nombre": null,
+          "titulo": "por identificar",
+          "confianza": {
+            "n": 0,
+            "fuentes": []
+          },
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Zinc%20Nacional%20recursos%20humanos",
+          "email": {
+            "estado": "no encontrado",
+            "valor": null,
+            "nota": "no hay correo de RR.HH. publicado; la vía es el conmutador o LinkedIn"
+          },
+          "ruta_entrada": "Conmutador +52 81 8376 5024 (línea de proveedores) para que te pasen a RR.HH., o LinkedIn de la empresa.",
+          "mensaje": {
+            "canal": "linkedin",
+            "trato": "tú",
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Hola. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+          }
         }
       ],
       "ruta_sugerida": [
@@ -1226,7 +1254,14 @@
           "correo inferido",
           "Un correo inferido se verifica antes de enviar: manda primero al publicado, y si rebota usa el inferido. Un rebote quema el dominio."
         ]
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     },
     {
       "id": "viakable",
@@ -1235,9 +1270,9 @@
       "sector": "Conductores eléctricos y cables",
       "tipo": "división industrial de grupo regio",
       "tamano": {
-        "valor": "no encontramos cifra pública de plantilla de la planta",
-        "nota": "división de cables de Grupo Xignux, con planta en San Nicolás",
-        "fuente": "https://www.facebook.com/Viakable/"
+        "valor": "proxy: Grupo Xignux declara más de 30,000 personas; la planta de San Nicolás no publica cifra propia",
+        "nota": "PROXY ETIQUETADO del grupo, NO de la planta. El tamaño de la planta queda por confirmar.",
+        "fuente": "https://viakable.com/acerca-de/"
       },
       "matriz": {
         "empresa": "Grupo Xignux",
@@ -1313,8 +1348,8 @@
           "mensaje": {
             "canal": "linkedin",
             "trato": "tú",
-            "asunto": "La posada de la planta de San Nicolás",
-            "cuerpo": "Hola Patricio, vi que están contratando un Jefe de Bienestar y Recreación para la planta de San Nicolás.\n\nEn REBRND hacemos foto, video y dron de eventos industriales dentro de planta, con protocolo de seguridad y entrega rápida. Trabajamos justo con las áreas de bienestar.\n\n¿Quién va a llevar el evento de fin de año este año?\n\nGracias, Carlos Chavarría"
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Qué tal. Patricio. Te escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1351,8 +1386,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Evento de fin de año de la planta de San Nicolás",
-            "cuerpo": "Buen día.\n\nYa le escribí a Patricio Murga, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad y entregamos el after movie rápido.\n\nEstamos agendando las posadas de diciembre en Nuevo León.\n\n¿Quién lleva el evento de fin de año de la planta de San Nicolás?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Patricio Murga hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           }
         },
         {
@@ -1374,8 +1409,8 @@
           "mensaje": {
             "canal": "linkedin",
             "trato": "tú",
-            "asunto": "Posada de planta",
-            "cuerpo": "Hola, en REBRND hacemos foto, video y dron de eventos industriales dentro de planta, con protocolo de seguridad.\n\nYa le escribí a Patricio Murga, de Capital Humano.\n\n\n¿Tú llevas los eventos de la planta de San Nicolás o me puedes decir quién?\n\nGracias, Carlos"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Hola. Le escribí a Patricio Murga hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -1419,7 +1454,14 @@
           "correo inferido",
           "Un correo inferido se verifica antes de enviar: manda primero al publicado, y si rebota usa el inferido. Un rebote quema el dominio."
         ]
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     },
     {
       "id": "frisa",
@@ -1527,8 +1569,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "¿Quién lleva el evento de fin de año?",
-            "cuerpo": "Buen día, Diana.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\nEstamos agendando las posadas de diciembre en Nuevo León y FRISA cumple 55 años este año.\n\n¿Me podría decir quién está viendo el evento de fin de año de la planta?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Su posada del año pasado",
+            "cuerpo": "Buen día, Diana. Vi que el año pasado hicieron su posada el 13 de diciembre y hasta invitaron a sus proveedores. Nosotros hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
           },
           "_cuenta": "confirmado"
         },
@@ -1551,8 +1593,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Guion para la llamada al conmutador",
-            "cuerpo": "Buen día, busco al área de Capital Humano de la planta de Santa Catarina.\n\nYa le escribí a Diana Romero, de dirección.\n\nSoy Carlos Chavarría, de REBRND, productora audiovisual. Hacemos foto, video y dron de eventos industriales dentro de planta.\n\nQuería preguntar quién está viendo el evento de fin de año y los 55 años de FRISA, para mandarle la información a la persona correcta.\n\n¿Quién está viendo el evento de fin de año de la planta?"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Hola. Le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         },
         {
@@ -1576,8 +1618,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Alta como proveedor de servicios audiovisuales",
-            "cuerpo": "Buen día.\n\nYa le escribí a Diana Romero, de dirección, y me permito escribirle a usted directo.\n\nLlenamos el formulario de Conviértete en proveedor con los datos de REBRND, productora audiovisual en CDMX con 13 años de operación.\n\nTrabajamos dentro de plantas industriales con protocolo de seguridad y documentación en regla (fiscal e IMSS).\n\nQuedamos atentos al siguiente paso del registro.\n\nGracias.\nCarlos Chavarría · REBRND\n\n¿Quién está viendo el evento de fin de año de la planta?"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           }
         },
         {
@@ -1602,8 +1644,8 @@
           "mensaje": {
             "canal": "linkedin",
             "trato": "tú",
-            "asunto": "55 años de FRISA",
-            "cuerpo": "Hola Marcelo, vi la planta nueva de García y que este año FRISA cumple 55.\n\nYa le escribí a Diana Romero, de dirección.\n\nEn REBRND hacemos foto, video y dron dentro de plantas. Ya estoy en contacto con la planta por el tema del evento de fin de año.\n\n¿Van a documentar el aniversario de alguna forma especial?\n\nGracias, Carlos Chavarría"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Hola Marcelo, le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1657,7 +1699,14 @@
           "correo inferido",
           "Un correo inferido se verifica antes de enviar: manda primero al publicado, y si rebota usa el inferido. Un rebote quema el dominio."
         ]
-      ]
+      ],
+      "fact": {
+        "patron": "A",
+        "texto": "Vi que el año pasado hicieron su posada el 13 de diciembre y hasta invitaron a sus proveedores.",
+        "fuente": "https://www.threads.com/@lacaseteramx/post/DSQdMncCcGw/gracias-a-frisa-por-invitarnos-ayer-a-su-posada",
+        "fecha": "2025-12-14",
+        "nota": "post público de un proveedor que asistió, con fotos, no del canal propio de FRISA. Es un hecho fechado y específico, y así se etiqueta."
+      }
     },
     {
       "id": "grupo-abx",
@@ -1666,8 +1715,8 @@
       "sector": "Metalmecánica y acero procesado",
       "tipo": "mediana industrial regia",
       "tamano": {
-        "valor": "grupo metalmecánico con varias unidades (Absteel, ABINSA, ABTUBE) en el área de Monterrey",
-        "nota": "no encontramos cifra pública de plantilla",
+        "valor": "proxy: tres unidades de negocio con contacto propio (Absteel, ABINSA, ABTUBE)",
+        "nota": "PROXY ETIQUETADO, no cifra de plantilla: no hay número público.",
         "fuente": "http://grupoabix.com.mx/unidad.php?unidad=2"
       },
       "matriz": {
@@ -1725,33 +1774,6 @@
       "eventos_previos": [],
       "puertas": [
         {
-          "rol": "Reclutamiento Absteel Apodaca (RR.HH.)",
-          "nivel": "jefatura / reclutamiento",
-          "nombre": null,
-          "titulo": "reclutador(a) de Absteel Apodaca, apellido Cerda según su correo",
-          "confianza": {
-            "n": 1,
-            "fuentes": [
-              "https://www.facebook.com/reclutamientoabsteel/"
-            ]
-          },
-          "linkedin_perfil": null,
-          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Absteel%20Grupo%20ABX%20reclutamiento%20Apodaca",
-          "email": {
-            "estado": "publicado",
-            "valor": "rjcerda@grupoabx.com",
-            "fuente": "https://www.facebook.com/reclutamientoabsteel/",
-            "nota": "correo de reclutamiento publicado junto al teléfono +52 81 2202 4207"
-          },
-          "ruta_entrada": "Correo de reclutamiento publicado: llega a una persona, no a un buzón de marca.",
-          "mensaje": {
-            "canal": "email",
-            "trato": "usted",
-            "asunto": "Posada de la planta de Apodaca",
-            "cuerpo": "Buen día.\n\nVi que Absteel trae reclutamiento activo en la planta del Parque Industrial Monterrey.\n\nYa le escribí a Enrique Medina, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\n¿Quién está viendo el evento de fin de año de la planta?\n\nGracias.\nCarlos Chavarría · REBRND"
-          }
-        },
-        {
           "rol": "Coordinación de Reclutamiento",
           "nivel": "jefatura",
           "nombre": "Enrique Medina",
@@ -1774,8 +1796,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Evento de fin de año de la planta",
-            "cuerpo": "Buen día, Enrique.\n\nSomos REBRND, productora en CDMX. Hacemos foto, video y dron de eventos industriales dentro de planta, con protocolo de seguridad y entrega rápida.\n\nYa escribí a reclutamiento de Absteel por el tema del evento de fin de año.\n\n¿Usted lleva ese tema o me puede decir quién?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Buen día, Enrique. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1789,6 +1811,33 @@
             "resultado": "emedina@grupoabx.com"
           },
           "_cuenta": "sin fecha"
+        },
+        {
+          "rol": "Reclutamiento Absteel Apodaca (RR.HH.)",
+          "nivel": "jefatura / reclutamiento",
+          "nombre": null,
+          "titulo": "reclutador(a) de Absteel Apodaca, apellido Cerda según su correo",
+          "confianza": {
+            "n": 1,
+            "fuentes": [
+              "https://www.facebook.com/reclutamientoabsteel/"
+            ]
+          },
+          "linkedin_perfil": null,
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Absteel%20Grupo%20ABX%20reclutamiento%20Apodaca",
+          "email": {
+            "estado": "publicado",
+            "valor": "rjcerda@grupoabx.com",
+            "fuente": "https://www.facebook.com/reclutamientoabsteel/",
+            "nota": "correo de reclutamiento publicado junto al teléfono +52 81 2202 4207"
+          },
+          "ruta_entrada": "Correo de reclutamiento publicado: llega a una persona, no a un buzón de marca.",
+          "mensaje": {
+            "canal": "email",
+            "trato": "usted",
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día. Le escribí a Enrique Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+          }
         }
       ],
       "ruta_sugerida": [
@@ -1825,7 +1874,14 @@
         "Patrón [iniciales][apellido] aplicado al único segundo nombre localizado (Enrique Medina, coordinador de reclutamiento).",
         "El nombre de pila detrás de rjcerda@ no está publicado en bolsas, directorios ni páginas de evento, así que ese buzón no suma como persona con nombre.",
         "Resultado: 1 correo personal contable. Queda por debajo del objetivo de 2 y se reporta como hueco, no como completo."
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     },
     {
       "id": "copamex",
@@ -1834,8 +1890,8 @@
       "sector": "Papel y empaque industrial",
       "tipo": "mediana industrial regia",
       "tamano": {
-        "valor": "planta Monterrey (COINSA) y planta de corrugados en el área de Monterrey",
-        "nota": "no encontramos cifra pública de plantilla",
+        "valor": "proxy: tres plantas en el área de Monterrey, cada una con teléfono directo publicado",
+        "nota": "PROXY ETIQUETADO, no cifra de plantilla: no hay número público.",
         "fuente": "http://www.copamex.com/contacto.php"
       },
       "matriz": {
@@ -1916,8 +1972,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Posada de la planta de Monterrey",
-            "cuerpo": "Buen día, Arturo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\nEstamos agendando las posadas de diciembre en el área de Monterrey, y ustedes tienen varias plantas cerca.\n\n¿Quién está viendo el evento de fin de año de la planta?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Buen día, Arturo. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1935,7 +1991,7 @@
         {
           "rol": "Gerencia de Compras (corporativo)",
           "nivel": "gerencia",
-          "nombre": "Jaime Gutierrez",
+          "nombre": "Jaime Gutiérrez",
           "titulo": "Procurement Manager en Corporativo Copamex",
           "confianza": {
             "n": 1,
@@ -1966,15 +2022,15 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Alta como proveedor de servicios audiovisuales",
-            "cuerpo": "Buen día, Jaime.\n\nYa le escribí a Arturo Medina, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\nQueremos quedar dados de alta como proveedor para los eventos de fin de año de sus plantas del área de Monterrey.\n\n¿Qué documentación necesitan?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, Jaime. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           },
           "_cuenta": "confirmado"
         },
         {
           "rol": "Compras y tráfico, planta Reciclados",
           "nivel": "jefatura",
-          "nombre": "Jose Guadalupe Hermosillo Alvarez",
+          "nombre": "José Guadalupe Hermosillo Álvarez",
           "titulo": "Supervisor de compras y tráfico en Copamex Reciclados",
           "confianza": {
             "n": 1,
@@ -2005,8 +2061,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "Proveedor audiovisual para la planta",
-            "cuerpo": "Buen día.\n\nYa le escribí a Arturo Medina, de Capital Humano, y me permito escribirle a usted directo.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\n\n¿La planta contrata directo sus servicios de evento o todo pasa por corporativo?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, José. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           },
           "_cuenta": "confirmado"
         },
@@ -2032,8 +2088,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "Guion para la llamada a la planta",
-            "cuerpo": "Buen día, hablo a la planta de corrugados.\n\nYa le escribí a Arturo Medina, de Capital Humano.\n\nSoy Carlos Chavarría, de REBRND, productora audiovisual de CDMX. Hacemos foto, video y dron de eventos industriales dentro de planta.\n\n¿Me puede decir quién está viendo el evento de fin de año de esta planta?"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Hola. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -2074,7 +2130,14 @@
           "correo inferido",
           "Un correo inferido se verifica antes de enviar: manda primero al publicado, y si rebota usa el inferido. Un rebote quema el dominio."
         ]
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     },
     {
       "id": "gentherm",
@@ -2083,8 +2146,8 @@
       "sector": "Autopartes / sistemas térmicos para automotriz",
       "tipo": "mediana industrial (planta tier 1)",
       "tamano": {
-        "valor": "planta en Apodaca, Nuevo León, en crecimiento y contratando",
-        "nota": "no encontramos cifra pública de la plantilla de Apodaca. El tamaño de planta queda por confirmar.",
+        "valor": "proxy: más de 100 vacantes de operador publicadas a la vez, además de ingeniería, compras y supervisión",
+        "nota": "PROXY ETIQUETADO, no cifra de plantilla: no hay número público para la planta de Apodaca. El volumen de vacantes es lo que sí es verificable.",
         "fuente": "https://www.somosindustria.com/articulo/gentherm-repunta-crecimiento-y-requiere-personal/"
       },
       "matriz": {
@@ -2180,8 +2243,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "El evento de fin de año con la gente nueva",
-            "cuerpo": "Buen día, Francisco.\n\nVi la nota sobre el programa de desarrollo de talento de Gentherm y que la planta de Apodaca está contratando.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\n¿Quién lleva el evento de fin de año de la planta de Apodaca?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "¿Ya tienen quién cubra la posada?",
+            "cuerpo": "Buen día, Francisco. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
           }
         },
         {
@@ -2218,8 +2281,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "usted",
-            "asunto": "¿Quién lleva los eventos de la planta?",
-            "cuerpo": "Buen día, Manuel.\n\nEstoy buscando a quien lleve el evento de fin de año de la planta de Apodaca.\n\nSomos REBRND, productora en CDMX con 13 años haciendo foto, video y dron de eventos industriales. Entramos a planta con protocolo de seguridad, cuadrillas que saben moverse en piso y entrega rápida del after movie.\n\n¿Me podría decir quién lo está viendo, para no insistir en la misma bandeja?\n\nGracias.\nCarlos Chavarría · REBRND"
+            "asunto": "Seguimiento: cobertura de la posada",
+            "cuerpo": "Buen día, Manuel. Le escribí a Francisco de hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
           }
         }
       ],
@@ -2257,7 +2320,14 @@
         "Búsqueda \"@gentherm.com\" con CV, vacante, proveedores y prensa: sin correo publicado vivo.",
         "Patrón First.Last documentado por tres agregadores públicos y aplicado a dos personas con nombre de fuentes vivas (prensa industrial y perfil en resultados).",
         "Tamaño de la planta de Apodaca: no publicado."
-      ]
+      ],
+      "fact": {
+        "patron": "B",
+        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "fuente": null,
+        "fecha": null,
+        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+      }
     }
   ],
   "resumen_hoy": {

@@ -51,7 +51,7 @@ HTML = r"""<!doctype html>
   body{
     background:var(--paper); color:var(--ink);
     font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-    font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3,.serif{font-family:"Playfair Display",Georgia,serif; font-weight:600; letter-spacing:-.01em}
   .mono{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase}
@@ -99,9 +99,9 @@ HTML = r"""<!doctype html>
   .ctop{padding:16px 14px 14px; border-bottom:1px solid var(--line)}
   .cnum{color:var(--muted)}
   .ctop h2{font-size:20px; margin:4px 0 2px; line-height:1.2}
-  .meta{font-size:13.5px; color:var(--muted)}
+  .meta{font-size:15px; color:var(--muted)}
   .hook{background:var(--soft); border-left:3px solid var(--accent); padding:14px 16px; margin:14px 0 0; border-radius:0 8px 8px 0}
-  .hook p{margin:4px 0 8px; font-size:14.5px}
+  .hook p{margin:4px 0 8px; font-size:15px}
   .srcs{display:flex; flex-wrap:wrap; gap:8px}
   .src{font-size:11.5px; font-family:"JetBrains Mono",monospace; background:#fff; border:1px solid var(--line); border-radius:99px; padding:3px 9px; text-decoration:none}
   .timing{font-size:14px; margin:14px 0 0; padding-left:12px; border-left:2px solid var(--line); color:var(--ink)}
@@ -138,12 +138,12 @@ HTML = r"""<!doctype html>
   .badge.c3{background:rgba(31,122,77,.1); border-color:rgba(31,122,77,.4)}
   .badge.c1{background:rgba(138,106,31,.1); border-color:rgba(138,106,31,.4)}
   .badge.c0{color:var(--muted); border-style:dashed}
-  .route-in{font-size:13.5px; color:var(--muted); margin:8px 0 0}
+  .route-in{font-size:15px; color:var(--muted); margin:8px 0 0}
   .msg{background:#fbfbfa; border:1px solid var(--line); border-radius:10px; padding:14px; margin:12px 0 0}
   .msg .subj{font-size:13px; font-weight:600; margin-bottom:6px}
-  .msg pre{margin:0; white-space:pre-wrap; font-family:Inter,sans-serif; font-size:14px; line-height:1.6}
+  .msg pre{margin:0; white-space:pre-wrap; font-family:Inter,sans-serif; font-size:15px; line-height:1.6}
   .acts{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0}
-  .acts > *{flex:1 1 calc(50% - 4px); justify-content:center; min-height:42px}   /* dedos, no cursores */
+  .acts > *{flex:1 1 calc(50% - 4px); justify-content:center; min-height:44px; font-size:15px}  /* dedos, no cursores */
   button,.btn{
     font-family:Inter,sans-serif; font-size:13.5px; font-weight:500; cursor:pointer;
     border:1px solid var(--line); background:#fff; color:var(--ink);
@@ -160,7 +160,7 @@ HTML = r"""<!doctype html>
   /* coach */
   .coach{
     display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start;
-    background:var(--soft); border-radius:10px; padding:11px 13px; margin:12px 14px 0; font-size:13.5px;
+    background:var(--soft); border-radius:10px; padding:12px 13px; margin:12px 14px 0; font-size:15px;
   }
   .coach .k{font-family:"JetBrains Mono",monospace; font-size:10.5px; color:var(--accent); letter-spacing:.08em; padding-top:2px}
   .note{font-size:12.5px; color:var(--muted); font-style:italic}
@@ -195,6 +195,34 @@ HTML = r"""<!doctype html>
   .cchip.s{background:rgba(138,106,31,.12); color:var(--warn)}
   .cchip.x{background:rgba(11,11,13,.06); color:var(--muted)}
   .falta{color:#8a1f1f; background:rgba(138,31,31,.08); border:1px dashed rgba(138,31,31,.4); border-radius:6px; padding:2px 7px; font-size:12.5px}
+  /* tarjetas y puertas colapsables */
+  .cwrap > summary, .door > summary{list-style:none; cursor:pointer}
+  .cwrap > summary::-webkit-details-marker, .door > summary::-webkit-details-marker{display:none}
+  .csum{display:flex; gap:12px; align-items:center; padding:16px 14px; min-height:64px}
+  .csum .cs-n{font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--accent);
+    background:var(--soft); border-radius:8px; min-width:30px; height:30px; display:flex; align-items:center; justify-content:center}
+  .csum .cs-t{flex:1; display:flex; flex-direction:column; gap:2px}
+  .csum .cs-t b{font-family:"Playfair Display",serif; font-size:18px; font-weight:600}
+  .csum .cs-t em{font-style:normal; font-size:13px; color:var(--muted)}
+  .csum .cs-k{font-family:"JetBrains Mono",monospace; font-size:10.5px; color:var(--muted); white-space:nowrap}
+  .cwrap[open] > .csum{border-bottom:1px solid var(--line)}
+  .dsum{display:flex; flex-direction:column; gap:2px; padding:14px 0; min-height:44px}
+  .dsum b{font-size:16px}
+  .dsum em{font-style:normal; font-size:13.5px; color:var(--muted)}
+  .door[open] > .dsum{border-bottom:1px dashed var(--line); margin-bottom:8px}
+  .door{border-top:1px solid var(--line); padding:0 0 4px}
+  /* toggles de fuentes, coach y desglose */
+  .srcwrap summary, .morecoach summary, .more summary{cursor:pointer; font-family:"JetBrains Mono",monospace;
+    font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); padding:6px 0; min-height:30px}
+  .srcwrap .srcs{margin-top:6px}
+  .more .sub{margin-top:10px}
+  /* barra pegada abajo (solo teléfono) */
+  .stickybar{position:fixed; left:0; right:0; bottom:0; z-index:60; display:flex; gap:10px; align-items:center;
+    justify-content:space-between; padding:10px 14px; background:rgba(244,244,242,.97);
+    backdrop-filter:blur(10px); border-top:1px solid var(--line)}
+  .stickybar span{font-size:13.5px; color:var(--muted)}
+  .stickybar button{min-height:44px; font-size:15px; background:var(--accent); border-color:var(--accent); color:#fff}
+  body{padding-bottom:72px}
   .eviden{margin:8px 0 0; font-size:13px}
   .eviden summary{cursor:pointer; color:var(--accent); font-family:"JetBrains Mono",monospace; font-size:11px;
     letter-spacing:.06em; text-transform:uppercase; display:inline-block; padding:3px 0}
@@ -215,6 +243,12 @@ HTML = r"""<!doctype html>
 
   /* ---------- DESKTOP: everything above is the phone; this is the enhancement ---------- */
   @media (min-width:721px){
+    .stickybar{display:none}
+    body{padding-bottom:0}
+    .csum{pointer-events:none; padding:0; min-height:0; display:none}   /* en escritorio las tarjetas van abiertas */
+    .cwrap > .ctop{border-top:0}
+    .door > .dsum{display:none}
+    .door{padding:18px 0 4px}
     .wrap{padding:0 20px}
     .hrow{padding:16px 0 12px; gap:14px}
     .hrow h1{font-size:23px}
@@ -281,6 +315,11 @@ HTML = r"""<!doctype html>
   <section class="closing" id="closing-block"></section>
 
 </main>
+
+<div class="stickybar" id="stickybar">
+  <span id="sb-text"></span>
+  <button id="sb-next" onclick="nextCard()">Siguiente cuenta</button>
+</div>
 
 <footer class="wrap">
   <span id="footline"></span><br>
@@ -412,7 +451,9 @@ function render(){
       // follows the channel the message was written for.
       const canal = p.mensaje.canal;
       const waOnly = canal === "whatsapp";
-      return '<div class="door">'
+      return '<details class="door"'+(j===0?" open":"")+'><summary class="dsum">'
+        + '<b>'+esc(p.nombre || "por identificar")+'</b><em>'+esc((p.rol||"").split("(")[0].trim())+'</em>'
+        + '</summary>'
         + '<div class="dhead"><div>'
           + '<div class="dname'+(p.nombre?"":" unknown")+'">'+esc(p.nombre || "por identificar")+'</div>'
           + '<div class="drole">'+esc(p.rol)+(p.titulo ? " · " + esc(p.titulo) : "")
@@ -431,13 +472,18 @@ function render(){
           + '<button class="'+(sent?"on":"")+'" onclick="markSent(\''+emp.id+'\','+j+')">'+(sent?"Enviado ✓":"Marcar enviado")+'</button>'
           + '<button class="rep '+(rep?"on":"")+'" onclick="markReplied(\''+emp.id+'\','+j+')">'+(rep?"Respondió ✓":"Respondió")+'</button>'
         + '</div>'
-      + '</div>';
+      + '</details>';
     }).join("");
 
     const cDone = emp.puertas.some((p,j)=>state.sent[emp.id+":"+j]);
     const coach = coachFor(emp);
 
     return '<article class="card'+(cDone?" done":"")+'" id="card-'+emp.id+'">'
+      + '<details class="cwrap"'+(i===0?" open":"")+'><summary class="csum">'
+        + '<span class="cs-n">'+(i+1)+'</span>'
+        + '<span class="cs-t"><b>'+esc(emp.empresa)+'</b><em>'+esc(emp.ciudad)+' · '+esc((emp.sector||"").split("/")[0].trim())+'</em></span>'
+        + '<span class="cs-k">'+emp.puertas.length+' puertas</span>'
+      + '</summary>'
       + '<div class="ctop">'
         + '<div class="mono cnum">Cuenta '+(i+1)+' de '+DATA.empresas.length+'</div>'
         + '<h2>'+esc(emp.empresa)+'</h2>'
@@ -451,7 +497,9 @@ function render(){
         + '<div class="hook">'
           + '<div class="mono" style="color:var(--accent)">gancho · '+esc(emp.hook.tipo)+'</div>'
           + '<p>'+esc(emp.hook.texto)+'</p>'
-          + '<div class="srcs">'+emp.hook.fuentes.map(u=>'<a class="src" href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(host(u))+'</a>').join("")+'</div>'
+          + '<details class="srcwrap"><summary>Ver fuentes ('+emp.hook.fuentes.length+')</summary><div class="srcs">'
+            + emp.hook.fuentes.map(u=>'<a class="src" href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(host(u))+'</a>').join("")
+            + '</div></details>'
         + '</div>'
         + '<p class="timing"><b>Por qué ahora:</b> '+esc(emp.timing)+'</p>'
       + '</div>'
@@ -472,7 +520,13 @@ function render(){
       + '<div class="route"><h3>Ruta sugerida para esta cuenta</h3><ol>'
         + emp.ruta_sugerida.map(r=>'<li><span class="step">'+esc(r.paso)+'</span><span>'+esc(r.razon)+'</span></li>').join("")
       + '</ol></div>'
-      + (emp.coach||[]).map(c=>'<div class="coach"><span class="k">'+esc(c[0])+'</span><span>'+esc(c[1])+'</span></div>').join("")
+      + ((emp.coach||[]).length
+          ? '<div class="coach"><span class="k">'+esc(emp.coach[0][0])+'</span><span>'+esc(emp.coach[0][1])+'</span></div>'
+            + (emp.coach.length>1
+               ? '<details class="morecoach"><summary>'+(emp.coach.length-1)+' consejo'+(emp.coach.length>2?"s":"")+' más</summary>'
+                 + emp.coach.slice(1).map(c=>'<div class="coach"><span class="k">'+esc(c[0])+'</span><span>'+esc(c[1])+'</span></div>').join("")
+                 + '</details>' : '')
+          : '')
       + '<div class="doors">'+doors+'</div>'
       + ((emp.rutas_adicionales||[]).length
           ? '<div class="extra"><h3>Rutas adicionales (buzón de área, no cuentan como puerta)</h3><ul>'
@@ -480,10 +534,12 @@ function render(){
                 + esc(r.que) + ' <a class="src" href="'+esc(r.fuente)+'" target="_blank" rel="noopener">'+esc(host(r.fuente))+'</a></li>').join("")
             + '</ul><p class="note">Llegan a quien conteste, no a quien decide. Úsalas para que te reencaminen o para el alta de proveedor, nunca como primer mensaje.</p></div>'
           : '')
+      + '</details>'
     + '</article>';
   }).join("");
   updateBar();
   updateLearning();
+  expandForDesktop();
 }
 
 /* ---------- actions ---------- */
@@ -503,18 +559,22 @@ function markSent(id, j){ const k=id+":"+j; state.sent[k] = !state.sent[k]; func
   document.getElementById("today-block").innerHTML =
     '<h2>Lo que el sistema hizo hoy</h2>'
     + '<div class="stats">'
-      + stat(t.cuentas, "cuentas investigadas")
-      + stat(t.correos_personales, "correos personales que cuentan como ruta de venta")
-      + stat(t.correos_confirmados, "de esos, confirmados (fuente abrible y fechada)")
-      + stat(t.correos_sin_fecha, "de esos, sin fecha: verificar vigencia por teléfono")
-      + stat(t.fuentes_revisadas, "fuentes públicas revisadas y abiertas una por una")
+      + stat(t.cuentas, "cuentas")
+      + stat(t.correos_personales, "correos a una persona")
+      + stat(t.fuentes_revisadas, "fuentes revisadas")
+    + '</div>'
+    + '<details class="more"><summary>Ver el desglose</summary><div class="stats sub">'
+      + stat(t.correos_confirmados, "confirmados (fuente abrible y fechada)")
+      + stat(t.correos_sin_fecha, "sin fecha: verificar vigencia por teléfono")
+      + stat(t.correos_contexto || 0, "de dirección: contexto, no cuentan")
     + '</div>'
     + '<div class="disc"><span class="mono">descartados a propósito</span><ul>'
       + t.descartados.map(x=>'<li><b>'+esc(x.quien)+'</b> ('+esc(x.empresa)+'): '+esc(x.por)
           +' <a class="src" href="'+esc(x.fuente)+'" target="_blank" rel="noopener">'+esc(host(x.fuente))+'</a></li>').join("")
       + '</ul></div>'
     + '<p class="note">'+esc(t.nota_conteo||"")+'</p>'
-    + '<p class="note">Tiempo de investigación que te ahorra: ~'+t.horas_estimadas+' horas. '+esc(t.nota_horas)+'</p>';
+    + '<p class="note">Tiempo de investigación que te ahorra: ~'+t.horas_estimadas+' horas. '+esc(t.nota_horas)+'</p>'
+    + '</details>';
 }
 
 function renderClosing(){
@@ -532,9 +592,17 @@ function renderClosing(){
     + '<p class="refer">'+esc(c.referido)+'</p>';
 }
 
+// en escritorio todo abierto; en teléfono, una tarjeta y una puerta a la vez
+function expandForDesktop(){
+  if(window.matchMedia("(min-width:721px)").matches){
+    document.querySelectorAll(".cwrap, .door").forEach(x=>x.open=true);
+  }
+}
 render();
 renderToday();
-renderClosing(); }
+renderClosing();
+expandForDesktop();
+window.addEventListener("resize", expandForDesktop); }
 function markReplied(id, j){
   const k=id+":"+j;
   state.replied[k] = !state.replied[k];
@@ -545,18 +613,22 @@ function markReplied(id, j){
   document.getElementById("today-block").innerHTML =
     '<h2>Lo que el sistema hizo hoy</h2>'
     + '<div class="stats">'
-      + stat(t.cuentas, "cuentas investigadas")
-      + stat(t.correos_personales, "correos personales que cuentan como ruta de venta")
-      + stat(t.correos_confirmados, "de esos, confirmados (fuente abrible y fechada)")
-      + stat(t.correos_sin_fecha, "de esos, sin fecha: verificar vigencia por teléfono")
-      + stat(t.fuentes_revisadas, "fuentes públicas revisadas y abiertas una por una")
+      + stat(t.cuentas, "cuentas")
+      + stat(t.correos_personales, "correos a una persona")
+      + stat(t.fuentes_revisadas, "fuentes revisadas")
+    + '</div>'
+    + '<details class="more"><summary>Ver el desglose</summary><div class="stats sub">'
+      + stat(t.correos_confirmados, "confirmados (fuente abrible y fechada)")
+      + stat(t.correos_sin_fecha, "sin fecha: verificar vigencia por teléfono")
+      + stat(t.correos_contexto || 0, "de dirección: contexto, no cuentan")
     + '</div>'
     + '<div class="disc"><span class="mono">descartados a propósito</span><ul>'
       + t.descartados.map(x=>'<li><b>'+esc(x.quien)+'</b> ('+esc(x.empresa)+'): '+esc(x.por)
           +' <a class="src" href="'+esc(x.fuente)+'" target="_blank" rel="noopener">'+esc(host(x.fuente))+'</a></li>').join("")
       + '</ul></div>'
     + '<p class="note">'+esc(t.nota_conteo||"")+'</p>'
-    + '<p class="note">Tiempo de investigación que te ahorra: ~'+t.horas_estimadas+' horas. '+esc(t.nota_horas)+'</p>';
+    + '<p class="note">Tiempo de investigación que te ahorra: ~'+t.horas_estimadas+' horas. '+esc(t.nota_horas)+'</p>'
+    + '</details>';
 }
 
 function renderClosing(){
@@ -574,11 +646,31 @@ function renderClosing(){
     + '<p class="refer">'+esc(c.referido)+'</p>';
 }
 
+// en escritorio todo abierto; en teléfono, una tarjeta y una puerta a la vez
+function expandForDesktop(){
+  if(window.matchMedia("(min-width:721px)").matches){
+    document.querySelectorAll(".cwrap, .door").forEach(x=>x.open=true);
+  }
+}
 render();
 renderToday();
 renderClosing();
+expandForDesktop();
+window.addEventListener("resize", expandForDesktop);
 }
 
+function nextCard(){
+  const cards=[...document.querySelectorAll(".cwrap")];
+  const open=cards.findIndex(c=>c.open);
+  if(open>=0) cards[open].open=false;
+  const nxt=cards[Math.min(open+1,cards.length-1)];
+  if(nxt){ nxt.open=true; nxt.scrollIntoView({behavior:"smooth",block:"start"}); }
+}
+function updateSticky(){
+  const total=DATA.empresas.length;
+  const done=DATA.empresas.filter(e=>e.puertas.some((p,j)=>state.sent[e.id+":"+j])).length;
+  document.getElementById("sb-text").textContent = done+"/"+total+" cuentas · faltan ~"+Math.max(0,(total-done)*MIN_PER_CARD)+" min";
+}
 function updateBar(){
   const total = DATA.empresas.length;
   const done = DATA.empresas.filter(e => e.puertas.some((p,j)=>state.sent[e.id+":"+j])).length;
@@ -589,6 +681,7 @@ function updateBar(){
     ? "Tiempo estimado hoy: ~" + (total*MIN_PER_CARD) + " min"
     : (left === 0 ? "Listo por hoy. Las 10 cuentas quedaron trabajadas." : "Te faltan ~" + left + " min");
   document.getElementById("barcount").textContent = done + " de " + total + " cuentas trabajadas";
+  updateSticky();
 }
 
 function updateLearning(){
@@ -624,18 +717,22 @@ function renderToday(){
   document.getElementById("today-block").innerHTML =
     '<h2>Lo que el sistema hizo hoy</h2>'
     + '<div class="stats">'
-      + stat(t.cuentas, "cuentas investigadas")
-      + stat(t.correos_personales, "correos personales que cuentan como ruta de venta")
-      + stat(t.correos_confirmados, "de esos, confirmados (fuente abrible y fechada)")
-      + stat(t.correos_sin_fecha, "de esos, sin fecha: verificar vigencia por teléfono")
-      + stat(t.fuentes_revisadas, "fuentes públicas revisadas y abiertas una por una")
+      + stat(t.cuentas, "cuentas")
+      + stat(t.correos_personales, "correos a una persona")
+      + stat(t.fuentes_revisadas, "fuentes revisadas")
+    + '</div>'
+    + '<details class="more"><summary>Ver el desglose</summary><div class="stats sub">'
+      + stat(t.correos_confirmados, "confirmados (fuente abrible y fechada)")
+      + stat(t.correos_sin_fecha, "sin fecha: verificar vigencia por teléfono")
+      + stat(t.correos_contexto || 0, "de dirección: contexto, no cuentan")
     + '</div>'
     + '<div class="disc"><span class="mono">descartados a propósito</span><ul>'
       + t.descartados.map(x=>'<li><b>'+esc(x.quien)+'</b> ('+esc(x.empresa)+'): '+esc(x.por)
           +' <a class="src" href="'+esc(x.fuente)+'" target="_blank" rel="noopener">'+esc(host(x.fuente))+'</a></li>').join("")
       + '</ul></div>'
     + '<p class="note">'+esc(t.nota_conteo||"")+'</p>'
-    + '<p class="note">Tiempo de investigación que te ahorra: ~'+t.horas_estimadas+' horas. '+esc(t.nota_horas)+'</p>';
+    + '<p class="note">Tiempo de investigación que te ahorra: ~'+t.horas_estimadas+' horas. '+esc(t.nota_horas)+'</p>'
+    + '</details>';
 }
 
 function renderClosing(){
@@ -653,9 +750,17 @@ function renderClosing(){
     + '<p class="refer">'+esc(c.referido)+'</p>';
 }
 
+// en escritorio todo abierto; en teléfono, una tarjeta y una puerta a la vez
+function expandForDesktop(){
+  if(window.matchMedia("(min-width:721px)").matches){
+    document.querySelectorAll(".cwrap, .door").forEach(x=>x.open=true);
+  }
+}
 render();
 renderToday();
 renderClosing();
+expandForDesktop();
+window.addEventListener("resize", expandForDesktop);
 </script>
 </body>
 </html>
