@@ -143,15 +143,27 @@ Do this per company, as a research step, not as a writing step.
 
 ## Step 7c: message patterns (the copy rules)
 
+**REGISTER: always tú, never usted.** Every message, every channel, every door: *te escribo, tu área, ¿ya tienen
+quién lo cubra?, ¿eso lo ves tú?*. This is the default for **all demos and client messages** and changes only if a
+client's `config.json` overrides it. Do not switch register by channel.
+
 **Max 4 sentences.** The offer is **one plain line** ("hacemos foto, video y dron de eventos de planta"): no
 feature list, no brand-introduction paragraph, **never the sender's city** when it differs from the prospect's
 region. Lead with the edge, not with geography. Sound like a person: "Qué tal" / "Hola", short sentences, one
-casual aside allowed. Usted or tú **consistently per channel** (usted for email, tú for LinkedIn and WhatsApp).
-Use accents on names (Mónica, Raúl) unless a signature spells it otherwise.
+casual aside allowed. Use accents on names (Mónica, Raúl) unless a signature spells it otherwise.
 
 - **Door 1, Patrón A:** greeting + the one real observation + offer line + Patrón C question.
-- **Door 1, Patrón B:** honest cold open. *"Le escribo en frío, así que voy corto: hacemos foto, video y dron de
-  eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?"*
+- **Door 1, Patrón B:** honest cold open **plus ONE true why-them clause**:
+  *"Te escribo en frío porque vi que este año inauguraron la planta de Apodaca, y esas son de las fechas que vale
+  la pena tener bien grabadas."* The why-them line comes from a real company moment worth filming: anniversary
+  year, plant inauguration or expansion this year, a family-day or recognition program on their careers page, a
+  recent award. **One clause, plain words, no numbers, no inference about what it means for them.**
+- **Pure Patrón B** (cold open with no why-them line) only when nothing real survives the fact hunt, and
+  **never more than 2 of 10 companies**. More than two means the fact hunt was not actually run.
+- **NO TWO DOOR-1 MESSAGES MAY SHARE THEIR FIRST TWO SENTENCES.** Ten identical openers is a template, and the
+  prospect sees it immediately. **Vary the capacity close too**: "¿ya tienen quién lo cubra?", "¿eso lo ves tú o
+  alguien de comunicación?", "¿lo graban internamente o con alguien de fuera?", "¿ya está asignado o todavía lo
+  están viendo?", "¿lo arman ustedes o lo contratan?".
 - **Patrón C close:** a capacity question that can be answered with a no. **Never "¿te interesa?"**
 - **Doors 2+, Patrón H only:** *"Le escribí a <nombre> hace unos días sobre <tema> y no he tenido respuesta, lo
   cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?"*

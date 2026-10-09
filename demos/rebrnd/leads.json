@@ -98,9 +98,9 @@
           "ruta_entrada": "Es la gerente del área que decide la posada. El correo es inferido, así que el primer intento va al reclutador publicado y este queda como segundo tiro.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Buen día, Mónica. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+            "trato": "tú",
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Qué tal, Mónica. Te escribo en frío porque vi que traen reclutamiento abierto en Santa Catarina. Nosotros hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -137,9 +137,9 @@
           "ruta_entrada": "Segunda gerencia de Capital Humano. La fuente del nombre no se puede abrir públicamente, así que vale menos que la de Mónica Sánchez.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, Raúl. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal, Raúl. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -175,9 +175,9 @@
           "ruta_entrada": "Correo directo al reclutador de la plaza. Es RR.HH. de verdad, no un buzón genérico.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         },
         {
@@ -201,9 +201,9 @@
           "ruta_entrada": "Segundo contacto de RR.HH. en la misma plaza: si el primero no contesta, es la misma puerta por otro pasillo.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         },
         {
@@ -227,7 +227,7 @@
             "canal": "whatsapp",
             "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "cuerpo": "Qué tal. Le escribí a Mónica Sánchez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -354,9 +354,9 @@
           "ruta_entrada": "Correo personal inferido del patrón del dominio. Si rebota, el buzón rrhh@ queda como ruta adicional.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Buen día, Karla. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+            "trato": "tú",
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Hola, Karla. Te escribo en frío porque vi que tienen una página aparte solo para reclutamiento. Nosotros hacemos foto, video y dron de eventos de planta. ¿Eso lo ves tú o alguien de comunicación?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -404,9 +404,9 @@
           },
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, Ramiro. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola, Ramiro. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "_cuenta": "confirmado"
         },
@@ -431,9 +431,9 @@
           "ruta_entrada": "Correo de RR.HH. publicado, y en paralelo mensaje a su Facebook de reclutamiento, que es donde contestan rápido.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         },
         {
@@ -457,9 +457,9 @@
           "ruta_entrada": "El alta de proveedor tarda, así que se abre ahora aunque la posada todavía no esté cerrada.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola. Le escribí a Karla Fabiola hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -599,9 +599,9 @@
           "ruta_entrada": "Operaciones autoriza el acceso para grabar en planta de alimentos.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Buen día, Carlos. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola, Carlos. Te escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Quién lo está viendo este año?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -638,9 +638,9 @@
           "ruta_entrada": "Transformación organizacional es cultura y clima: es exactamente quien compra un after movie de posada. Fuente de prensa, no de LinkedIn.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, Mayra. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola, Mayra. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -676,9 +676,9 @@
           "ruta_entrada": "Correo publicado en un directorio de industria, no en una base de datos de pago. Si no es el área correcta, pedir que te pasen a Capital Humano.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola. Le escribí a Carlos Jiménez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         },
         {
@@ -826,9 +826,9 @@
           "ruta_entrada": "Es la directora del área que decide la posada, con nombre confirmado en prensa no-LinkedIn. Esta es la puerta 1 de la cuenta.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Buen día, Dulcinea. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal, Dulcinea. Te escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Está definido o todavía se puede proponer?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -864,9 +864,9 @@
           "ruta_entrada": "Es el contacto que la propia empresa publica: sirve para que te dirija al área que arma los eventos.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, Reynold. Le escribí a Dulcinea Florencia hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal, Reynold. Le escribí a Dulcinea Florencia hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -900,9 +900,9 @@
           "ruta_entrada": "Pedir el nombre a Reynold o al conmutador +52 81 8151 4400 y aplicar el patrón nombre.apellido.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Dulcinea Florencia hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal. Le escribí a Dulcinea Florencia hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -1027,8 +1027,8 @@
           "mensaje": {
             "canal": "whatsapp",
             "trato": "tú",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Qué tal. Marialba. Te escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos, REBRND"
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Qué tal, Marialba. Te escribo en frío porque vi que mantienen sus redes activas todo el año. Nosotros hacemos foto, video y dron de eventos de planta. ¿Ya tienen proveedor o sigue abierto?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1067,7 +1067,7 @@
             "canal": "whatsapp",
             "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola Mirta, le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "cuerpo": "Qué tal, Mirta. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1104,9 +1104,9 @@
           "ruta_entrada": "Supply chain es quien da de alta a un proveedor nuevo.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, Luis. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal, Luis. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1143,9 +1143,9 @@
           "ruta_entrada": "Segunda puerta de compras: quien tramita el alta en el día a día.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, Jisela. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal, Jisela. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1181,9 +1181,9 @@
           "ruta_entrada": "Alta de proveedor primero: es el único buzón donde un servicio nuevo entra sin referencia.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         },
         {
@@ -1206,7 +1206,7 @@
             "canal": "linkedin",
             "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "cuerpo": "Qué tal. Le escribí a Marialba Ramírez hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -1348,8 +1348,8 @@
           "mensaje": {
             "canal": "linkedin",
             "trato": "tú",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Qué tal. Patricio. Te escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos, REBRND"
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Qué tal, Patricio. Te escribo en frío porque vi que están buscando a alguien que lleve bienestar y recreación en la planta. Nosotros hacemos foto, video y dron de eventos de planta. ¿Lo graban internamente o con alguien de fuera?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1385,9 +1385,9 @@
           "ruta_entrada": "Buzón general para pedir el área de eventos internos, y conmutador verificado como respaldo.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Patricio Murga hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal. Le escribí a Patricio Murga hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         },
         {
@@ -1410,7 +1410,7 @@
             "canal": "linkedin",
             "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Patricio Murga hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "cuerpo": "Qué tal. Le escribí a Patricio Murga hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -1568,9 +1568,9 @@
           },
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Su posada del año pasado",
-            "cuerpo": "Buen día, Diana. Vi que el año pasado hicieron su posada el 13 de diciembre y hasta invitaron a sus proveedores. Nosotros hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola, Diana. Vi que el año pasado hicieron su posada el 13 de diciembre y hasta invitaron a sus proveedores. Nosotros hacemos foto, video y dron de eventos de planta. ¿Este año repiten proveedor o está abierto?\n\nCarlos, REBRND"
           },
           "_cuenta": "confirmado"
         },
@@ -1617,9 +1617,9 @@
           "ruta_entrada": "Llenar el formulario oficial Conviértete en proveedor: es el proceso que la propia empresa define como la entrada a Procurement.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola. Le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         },
         {
@@ -1645,7 +1645,7 @@
             "canal": "linkedin",
             "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola Marcelo, le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "cuerpo": "Hola, Marcelo. Le escribí a Diana Romero hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1795,9 +1795,9 @@
           "ruta_entrada": "Coordinador de reclutamiento con nombre: el correo es inferido del patrón del grupo, así que va como segundo tiro después del publicado.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Buen día, Enrique. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+            "trato": "tú",
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Hola, Enrique. Te escribo en frío porque vi que tienen una página de reclutamiento solo para la planta de Apodaca. Nosotros hacemos foto, video y dron de eventos de planta. ¿Ya está asignado o todavía lo están viendo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1834,9 +1834,9 @@
           "ruta_entrada": "Correo de reclutamiento publicado: llega a una persona, no a un buzón de marca.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día. Le escribí a Enrique Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola. Le escribí a Enrique Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -1971,9 +1971,9 @@
           "ruta_entrada": "Correo personal inferido. El teléfono de planta está verificado, así que confirma por ahí que siga en el puesto.",
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Buen día, Arturo. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+            "trato": "tú",
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Qué tal, Arturo. Te escribo en frío porque vi que tienen varias plantas aquí en el área. Nosotros hacemos foto, video y dron de eventos de planta. ¿Lo arman ustedes o lo contratan?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -2021,9 +2021,9 @@
           },
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, Jaime. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal, Jaime. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "_cuenta": "confirmado"
         },
@@ -2060,9 +2060,9 @@
           },
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, José. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Qué tal, José. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           },
           "_cuenta": "confirmado"
         },
@@ -2089,7 +2089,7 @@
             "canal": "whatsapp",
             "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Hola. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
+            "cuerpo": "Qué tal. Le escribí a Arturo Medina hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
@@ -2242,9 +2242,9 @@
           },
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Buen día, Francisco. Le escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos Chavarría · REBRND"
+            "trato": "tú",
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Hola, Francisco. Te escribo en frío porque vi que están buscando a alguien de capacitación y desarrollo para Apodaca. Nosotros hacemos foto, video y dron de eventos de planta. ¿Eso cae en tu área o en otra?\n\nCarlos, REBRND"
           }
         },
         {
@@ -2280,9 +2280,9 @@
           },
           "mensaje": {
             "canal": "email",
-            "trato": "usted",
+            "trato": "tú",
             "asunto": "Seguimiento: cobertura de la posada",
-            "cuerpo": "Buen día, Manuel. Le escribí a Francisco de hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Le escribo porque cae cerca de su área. ¿Con cuál de los dos sigo?\n\nCarlos Chavarría · REBRND"
+            "cuerpo": "Hola, Manuel. Le escribí a Francisco de hace unos días sobre la cobertura de la posada y no he tenido respuesta, lo cual es normal en estas fechas. Te escribo porque cae cerca de tu área. ¿Con cuál de los dos sigo?\n\nCarlos, REBRND"
           }
         }
       ],
