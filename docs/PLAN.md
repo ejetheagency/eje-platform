@@ -65,6 +65,10 @@ No session ends without it.
 2. **Name-step rule.** A decisor name counts **only next to a role word** on the company's **own site or LinkedIn**.
    Never from testimonials or client lists.
 3. **4x discovery for SMB ICPs.** Pool target = **2-3 report days** for small-business ICPs.
+3b. **Account research as a factory job.** Same logic as `.claude/skills/account-demo`, run **on demand per prospect
+   or per Cuentas client** instead of by hand: serper-capped, outputs the demo page AND the leads into the ledger.
+   This is the **engine for the Cuentas plan (USD 350)**. The skill already encodes the method, the counting rules
+   and the definition of done; this item is about running it unattended and landing the output in the DB.
 4. **BCC send logging.** The **Contactar** action adds BCC **contact+<client_id>@ejetheagency.com**; the nightly
    inbox job matches recipients against **`client_deliveries`** and logs the send with **full text**, stamped with
    the **real client**. The "what I sent" box becomes **optional, pre-filled from the BCC copy**.

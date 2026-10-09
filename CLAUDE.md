@@ -70,6 +70,13 @@ The `eje` workspace IS the system EJE sells. Its parts map to EJE's mechanic:
 
 **The authoritative EJE mechanic, real metrics, and voice live in `~/claude/eje-brand/BRAND.md` §1b. Read it before touching EJE copy or positioning.** Full pipeline state + ops in `~/claude/eje-leads/PIPELINE-CHECKPOINT.md`.
 
+## Prospect demos and account research
+**Any prospect demo or account research: use `.claude/skills/account-demo`; its targets are the definition of done.**
+(Hard targets: >=2 personal emails per company, >=20 total, 10/10 companies with >=1, >=1 named manager-level door.
+Only personal emails tied to a named non-contexto person count; area/program inboxes, sister-company inboxes and
+sales inboxes never do. Sources older than 2023 need newer confirmation; undated ones are "sin fecha, verificar
+vigencia" and a client report counts only confirmed.) Build with `python3 demos/_template/build.py <prospecto>`.
+
 ## Handy
 - Draft into a Gmail without the flaky claude.ai connector: `~/claude/eje-leads/scripts/eje-work-draft.py <batch.json>` (contact@ejetheagency.com) or `--personal`. Creds in `eje-leads/.env` (gitignored).
 - Company email is **contact@ejetheagency.com** (no second "o").
