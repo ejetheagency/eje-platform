@@ -1,62 +1,43 @@
-# SESSION_STATE — one page, start here (updated 2026-10-08)
+# SESSION_STATE — one page, start here (updated 2026-10-09)
 
 The single current-truth page. Read this + `docs/PLAN.md` queue, then work. Doctrine = `CLAUDE.md` GOAL block.
 
-## Current truth (live + working)
-- **Nightly** (Railway `eje-factory`, runs **06:00 UTC** = 2 AM Miami): honest net-new gate (`auto-approved tonight`, not the buffer), crash-still-emails (`RUN DIED at <step>`), budget reserve ($1.50 miner slice of the $3/day cap) + per-step spend trace, miner 90-min hard stop. Last deploy `dbd722c`.
-- **Spend rules (code written + tested 2026-10-08, NOT yet pushed → not live on Railway until deploy):** serper **≤1000 searches/night** (`config/budgets.json` → `provider_nightly_call_caps`, gated in `budget.can_spend`); the miner does **paid search ONLY on ICP-passed companies** and **never re-searches a domain already in the pool**; funnel email now shows **serper searches + cost per shipped lead** per client. Manual Claude sessions = **web-fetch only, no paid APIs** (CLAUDE.md SPEND RULES). **Deploy = commit + `git push origin main` to make it live** (not done this session, per instruction).
-- **Preflight**: real live probe of every provider; the funnel email's first line lists each OK/DOWN/OUT_OF_CREDITS/DISABLED. Current: **serper OK (refilled), places OK, MV OK (~9.4k), cheap-LLM OK; hunter/prospeo/apollo DISABLED** (out of credits / deprecated endpoints).
-- **Business-day calendar** (`config/holidays.json` + `calendar_bd.py`): release.py + reports skip weekends/holidays per client country (`icp_config.geo`). 2uplatam: **no report Oct 9-11, next report Mon Oct 12**.
-- **Golden checks** `factory/checks/golden_2uplatam.py`: **7/7 PASS** (client-parameterized, re-runnable).
-- **Staging** `2uplatam_staging`: hidden clone (profile + 167 leads + ledger), not visible to the client. Changes go here first.
-- **`client_deliveries` ledger** (new table, RLS on, service_role only): the source of truth for client-facing counts. A contact is delivered to a client **once, ever** (unique client_id+contact_key). 2uplatam backfilled = **41** (13 duplicates collapsed to first date). release.py never re-schedules a delivered contact; nightly `deliveries.sync_all()` records new ones; Decisores shows 41.
+## Live now (current truth, deployed + working)
+- **One source for client counts:** `clientCounts()` in `public/app.html` feeds every Decisores/Hoy/Reporte badge, page header and greeting; recomputes on every view change. **Decisores = 41.** **One person = one card** (dedup by `contactEmail` = ledger key; WA/IG/LinkedIn merged as attributes on the one card). Counts labeled **cliente ve** vs **pipeline**. (deployed `1e247ec`)
+- **Vercel git auto-deploy FIXED.** Ignore step is now `git diff --quiet HEAD^ HEAD -- public api vercel.json`; a `git push` to main builds → promotes to **app.ejetheagency.com** on its own (no CLI). Commits that don't touch `public/`/`api/`/`vercel.json` (docs, factory) correctly skip Vercel.
+- **Spend rules LIVE** (Railway VERSION `2026-10-09-spend-rules-altavia-off`): serper **≤1000 searches/night**, paid search **only on ICP-passed companies**, **never re-search a pooled domain**, funnel email shows serper count + cost/shipped-lead. Manual Claude sessions = **web-fetch only, no paid APIs**.
+- **Altavia OFF** (archived, not deleted; 57 leads kept): no discovery/enrichment/spend/reports/login. Spend = **$0**.
+- **Golden 13/15** (`python3 -m factory.checks.golden_2uplatam`). The 2 FAILs are known data issues below (r10 report size, r11 fit<60), fixed by **queue item 1**.
+- **`client_deliveries` ledger** = source of truth for client-facing counts (2uplatam = 41). **Nightly** on Railway `eje-factory` at **06:00 UTC**. **Staging** `2uplatam_staging` = hidden 167-lead clone; changes go there first.
 
-## Clients
-- **2uplatam (Fernando)** — LIVE, paying. ICP-v2 (B2B scale-hub). Buffer ends **Oct 16**; **next report Mon Oct 12**. Decisores = 41.
-- **Hobby** — PAUSED, no contact.
-- **Chatmuyo** — proposal sent, awaiting response.
-- **Altavia** — **OFF (archived 2026-10-08)**. `icp_config.archived=true` + `spend_policy=paused` (kept, not deleted; 57 leads retained). **Spend tonight = $0 is already guaranteed** by the deployed pause logic (`pool_floor` + `can_spend` skip paused non-paying clients) — verified $0, 0 rows today. The new archived skips in `reports.build_all`/`release.schedule_all`/`scheduler.tick`/`api/me.js` (no reports, no login/switcher) are **written but go live on deploy**. Reversible by clearing the flag.
+## Known (not yet fixed)
+- **Future report tabs Oct 12-15 are OLD pre-scheduled batches (≈25/22/23/23)** carrying padding and low-fit (<60) cards — this is golden r10 (size ≠ 20) + r11 (fit<60, 27 cards). **Fixed by queue item 1** (just-in-time assembly: build only the next business day from the top 20 of the ranked pool; Oct 13-15 back to pool; Monday rebuilt).
+- **Factory not yet proven to self-produce 20/day** — the deadline.
+- **Replies to 2uplatam not captured in-platform** — they sit in Fernando's inbox (not lost); import = queue item 7.
+- **`EJE_USER='scarlett'` hard-coded** (`app.html:1044`) stamps every write; sender identity wrong until queue item 5.
 
-## Account decisions (operator 2026-10-08, 2uplatam) — these shape the cleanup
-- **Universities are IN ICP, no cap, no % limit** (Fernando uses them for partnerships). Several contacts per university are fine. **Company caps apply ONLY to non-university companies: max 1 per report, max 2 overall.**
-- **Never the same PERSON twice: one contact = one card, whatever the channel.** Channels (email/WA/IG/LinkedIn) are attributes ON a card, never separate cards. (Today's admin bug: Efrén Avilés/ECOTEC and Xavier Ordeñana/ESPOL each render as two cards — one "Email · Nuevo", one "WA · Contactado".)
-- **Fit floor = 60.** Fernando gets **20 per business day**; if the gates leave a day short, the factory **refills to 20 with leads that pass**. Never pad with low-fit (<60) or unshippable cards.
+## Vercel cost
+Builds are already ~6s and install-free (no package.json/lockfile/node_modules). The $24.78 Build-CPU-Minutes = **`turbo` build machine × ~100 deploys** in 3 days. **Operator will switch turbo → standard manually.** Batch frontend pushes (non-Vercel commits already skip).
 
-## Count render paths (client view) — FIXED by cleanup #2 (2026-10-09, deployed `1e247ec`)
-`clientCounts()` is now the ONE source (app.html): Decisores/Hoy/Reporte + every badge, page header and greeting read it; counts recompute on every view change (`window.__ejeSyncBadges`, hooked in `go()`), which also fixes admin showing 0/blank. Person = `contactEmail` lowercased (= `client_deliveries` ledger key); dedup collapses a person to ONE card and MERGES channels (WA/IG/LinkedIn) as attributes. Reporte is now person-deduped too (Efrén Avilés/ECOTEC, Xavier Ordeñana/ESPOL appear once). Counts labeled **cliente ve** vs **pipeline**. Golden **r15 PASS** (screen-level: live one-source + value==ledger==41); **r14 PASS** (live==repo). Decisores sidebar badge now = **41**.
+## Decisions (standing)
+- **Universities IN ICP, no cap / no %.** Company caps apply **only to non-universities**: max 1 per report, max 2 overall.
+- **Fit floor = 60.** **20 per business day.** Never pad with low-fit/unshippable; a short day refills to 20 with passing leads.
+- **One person = one card**; channels are attributes on the card, never separate cards.
+- **Unabase / Scarlett are FORMER clients and must be purged** (inventory below; purge = queue item 6, only after item 5).
 
-## Deploys + Vercel (2026-10-09)
-- **Git auto-deploy FIXED.** Root cause: the project's Ignored Build Step was `git diff --quiet HEAD^ HEAD -- public vercel.json` → it canceled every commit that didn't touch `public/` or `vercel.json` (so `api/` + docs + factory never deployed). Changed to `-- public api vercel.json`. Proven: git push `50eb52f`/`1e247ec` built → READY → promoted to app.ejetheagency.com on their own (src=git, no CLI).
-- **Build cost finding (read-only):** builds are already fast (~6.6s avg) and install-free (no package.json/lockfile/node_modules; buildCommand/installCommand = None). The $24.78 Build-CPU-Minutes is from **build machine = `turbo` (fixed)** × high deploy volume (~100 deploys in 3 days). Fix = switch build machine to standard/basic + batch pushes (the Ignored Build Step already skips non-Vercel commits). NOT changed (read-only analysis).
-
-## Queue: PURGE UNABASE (former client) — Step 1 inventory done 2026-10-09, Step 2 awaits operator OK
-Former-client (UnaBase/Scarlett) footprint to archive (not delete) / rename:
-- **DB:** `eje_productoras` = **931** legacy productora leads (the UnaBase DB). `user_name='scarlett'` is stamped on messages_sent **2173/2319**, actions **1586/1644**, status_history **119/124**, sent_actuals **40/40** — because `EJE_USER='scarlett'` is HARD-CODED (app.html:1044); fixing that hardcode is in queue item 4 (Intelligence).
-- **Static:** 141 `public/*.json` legacy report files + `reports-manifest.json` (106 batches, client_id=None) + `public/campana-altcanal.html`.
-- **Active code:** app.html hardcoded greeting "Buen día, Scarlett." (1044/695; overwritten to "Buen día." for non-eje), Scarlett-signed templates (1219/1224/1235, unabase_default cadence), `scripts/reset-bounced-status.js` + `apply-bounced-recovery.js`. docs/: 15 files.
-- **External names:** Vercel project **`unabase-app`** (+ alias unabase-app.vercel.app) and local repo dir `~/claude/unabase-app` still say unabase. GitHub (`eje-platform`), Railway (`eje-factory`), Supabase (opaque ref) are already clean.
-- **Step 2 (after OK):** archive legacy data, remove code refs, rename Vercel project, confirm app.ejetheagency.com keeps working. Golden: zero "unabase"/"scarlett" in active code and in anything a client sees.
+## Unabase/Scarlett footprint (inventory 2026-10-09, for queue item 6)
+- **DB:** `eje_productoras` = **931** legacy productora leads. `user_name='scarlett'` stamped on messages_sent 2173/2319, actions 1586/1644, status_history 119/124, sent_actuals 40/40 (from the hard-code — depends on item 5).
+- **Static:** 141 `public/*.json` + `reports-manifest.json` (106 batches, client_id=None) + `public/campana-altcanal.html`.
+- **Active code:** app.html greeting + Scarlett templates (1219/1224/1235) + `scripts/reset-bounced-status.js`, `apply-bounced-recovery.js`.
+- **External names:** Vercel project `unabase-app` (+ `unabase-app.vercel.app`) and local dir `~/claude/unabase-app`. GitHub `eje-platform`, Railway `eje-factory`, Supabase (opaque) already clean.
 
 ## Hard rules (non-negotiable; enforced in CLAUDE.md)
 1. **One change per session.**
-2. **Golden checks before AND after; any new FAIL → auto-restore from backup + name the broken rule.**
+2. **Golden before AND after; any NEW fail → auto-restore from backup + name the broken rule.**
 3. **Backup first** (`report_guard <client>`) before any write to a client report.
 4. **Staging first** — test on `2uplatam_staging` before production.
-5. **Manual Claude sessions: web fetch only, no paid APIs.** (CLAUDE.md SPEND RULES.)
-6. **Paid search only on ICP-passed companies**, **never re-search a company already in the pool**, **serper ≤1000/night** — all enforced in code (`budget.py` + miner).
-7. **Client-facing counts come from `client_deliveries`.**
-8. **No anon read policies on client data** (ledger stays service_role; app reads counts via a server endpoint — queue item 5).
+5. **Manual Claude sessions: web fetch only, no paid APIs.**
+6. **Paid search only on ICP-passed companies; never re-search a pooled company; serper ≤1000/night** (enforced in code).
+7. **Client-facing counts come from `client_deliveries` via `clientCounts()`.**
+8. **No anon read policies on client data** (ledger stays service_role; app → server endpoint = queue item 9).
 9. **No em dashes, ever.**
-
-## Open problems (with evidence)
-- **Factory can't self-produce leads yet.** Evidence: Fernando's 40-mine returned 0 (serper was out; hunter/prospeo/apollo dead). Serper now refilled, but unproven end-to-end. Deadline: self-producing 2uplatam reports by **Wed Oct 14 night**.
-- **Decisor-NAME wall** (the real bottleneck, not email). Evidence: auto-extractor pulled "Tim Park"/"Jane Carten" from testimonials, not founders. Fix = queue item 6 (name only counts next to a role word on the company's own site/LinkedIn).
-- **Email deliverability wall on SMBs.** Evidence: AGREGO, Bioxnet, Human, David Cárdenas all catch-all/invalid in MV.
-- **Buffer runs out Oct 16.** Evidence: delivery schedule shows Oct 16 = 0 cards. No reports after unless the factory produces.
-- **App can't read `client_deliveries` (RLS).** Evidence: table is service_role-only; Decisores currently *derives* 41 by deduping delivered leads, kept in lockstep by release-dedup. Literal read needs queue item 5 (server endpoint, no anon policy).
-- **Where Fernando's sends land — TRACED 2026-10-08 (read-only).** His sends ARE recorded, in **two** tables, both `client_id=2uplatam`, both email-only so far:
-  - `messages_sent` (Send-button / cadence log, templated text): **36 rows** — Oct 7: 1, Oct 8: 35.
-  - `sent_actuals` (the "what you actually sent" editable textarea, the EDITED text): **40 rows** — Oct 7: 4, Oct 8: 36. Captures channel, company, situation (first 36 / upcoming 4), message_text (40/40 non-empty).
-  - **Why all "scarlett":** `EJE_USER` is **hard-coded** to `'scarlett'` at `public/app.html:1042` (leftover from the retired productora cockpit). EVERY workspace write (sent_actuals, messages_sent, status_history, notes, actions, seguimiento) is stamped `scarlett` regardless of who is logged in — so **sender identity is not captured** (not recoverable per-row).
-  - **NOT recorded at all = lost forever (flag):** (1) **Replies** to 2uplatam outreach — `reply_reconcile` runs EJE-only (agency inbox), not Fernando's mailbox; `engagement_events` replied for 2uplatam = **0**; only **1** reply was ever manually marked (`status_history`). (2) **Non-email sends** (WhatsApp/Instagram/LinkedIn) done outside the app — the in-app Send button would log them by channel, but all 40 rows are email, so anything sent directly in WhatsApp/IG/LinkedIn is uncaptured. (3) **Edits vs the template** are kept in `sent_actuals` but not diffed/analyzed.
-  - **Exception check:** the operator's reorder exception triggers only if SENDS are not recorded — they ARE (email, dual-logged), so item 2 stays the name-step rule. The real data-loss is REPLIES (lost daily); folded into queue item 4 (Intelligence). If the operator considers replies the "data that can't be recovered," elevate item 4.
