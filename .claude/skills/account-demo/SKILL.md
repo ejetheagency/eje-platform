@@ -158,8 +158,21 @@ casual aside allowed. Use accents on names (Mónica, Raúl) unless a signature s
   la pena tener bien grabadas."* The why-them line comes from a real company moment worth filming: anniversary
   year, plant inauguration or expansion this year, a family-day or recognition program on their careers page, a
   recent award. **One clause, plain words, no numbers, no inference about what it means for them.**
-- **Pure Patrón B** (cold open with no why-them line) only when nothing real survives the fact hunt, and
-  **never more than 2 of 10 companies**. More than two means the fact hunt was not actually run.
+
+- **THE "SO WHAT" TEST, applied to every why-them line.** Reading it, the recipient must think *"ah, that is why
+  he is writing me"*. True is not enough. "Tienen una página de reclutamiento", "mantienen sus redes activas" and
+  "traen reclutamiento abierto" are all true and all meaningless: they do not connect to why this company would
+  want its event filmed. If the line does not make that connection, it fails and gets cut.
+
+- **FALLBACK when no fact passes: the sender's own truth + an imagined scene**, framed as imagining and **never as
+  fact**: *"Trabajamos seguido dentro de plantas y me imagino que juntar a todo <empresa> en una posada es todo un
+  operativo."* The scene must be **specific to that company's real shape** (its number of plants, its shifts, its
+  business units, its plazas, its sector), never generic. A scene that would fit any company is the same template
+  failure in a different costume. This fallback is preferred over a weak fact.
+
+- **NO LOCALITY CLAIMS** ("aquí", "aquí en el área", "a la vuelta") unless the sender is actually local to the
+  prospect's region. Writing "aquí en el área" from another city is simply false and it is the kind of lie a
+  prospect catches instantly.
 - **NO TWO DOOR-1 MESSAGES MAY SHARE THEIR FIRST TWO SENTENCES.** Ten identical openers is a template, and the
   prospect sees it immediately. **Vary the capacity close too**: "¿ya tienen quién lo cubra?", "¿eso lo ves tú o
   alguien de comunicación?", "¿lo graban internamente o con alguien de fuera?", "¿ya está asignado o todavía lo

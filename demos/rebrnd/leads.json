@@ -100,7 +100,7 @@
             "canal": "email",
             "trato": "tú",
             "asunto": "Evento de fin de año",
-            "cuerpo": "Qué tal, Mónica. Te escribo en frío porque vi que traen reclutamiento abierto en Santa Catarina. Nosotros hacemos foto, video y dron de eventos de planta. ¿Este año ya tienen quién lo cubra, o todavía está abierto?\n\nCarlos, REBRND"
+            "cuerpo": "Qué tal, Mónica. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que juntar a todo Gonher en una posada es todo un operativo. Hacemos foto, video y dron de eso. ¿Este año ya tienen quién lo cubra?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -260,11 +260,11 @@
         ]
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "B + escena",
+        "texto": "Trabajamos seguido dentro de plantas y me imagino que juntar a todo Gonher en una posada es todo un operativo.",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
       }
     },
     {
@@ -356,7 +356,7 @@
             "canal": "email",
             "trato": "tú",
             "asunto": "Evento de fin de año",
-            "cuerpo": "Hola, Karla. Te escribo en frío porque vi que tienen una página aparte solo para reclutamiento. Nosotros hacemos foto, video y dron de eventos de planta. ¿Eso lo ves tú o alguien de comunicación?\n\nCarlos, REBRND"
+            "cuerpo": "Hola, Karla. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que juntar a producción y a la división de materiales avanzados en una sola posada no es cosa de un día. Hacemos foto, video y dron de eso. ¿Eso lo ves tú o alguien de comunicación?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -508,11 +508,11 @@
         ]
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "B + escena",
+        "texto": "Trabajamos seguido dentro de plantas y me imagino que juntar a producción y a la división de materiales avanzados en una sola posada no es cosa de un día.",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
       }
     },
     {
@@ -600,8 +600,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Hola, Carlos. Te escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Quién lo está viendo este año?\n\nCarlos, REBRND"
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Hola, Carlos. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que en planta de alimentos diciembre es temporada alta y la posada se agenda con pinzas. Hacemos foto, video y dron de eso. ¿Quién lo está viendo este año?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -735,11 +735,11 @@
         ]
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "B + escena",
+        "texto": "Trabajamos seguido dentro de plantas y me imagino que en planta de alimentos diciembre es temporada alta y la posada se agenda con pinzas.",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
       }
     },
     {
@@ -827,8 +827,8 @@
           "mensaje": {
             "canal": "email",
             "trato": "tú",
-            "asunto": "¿Ya tienen quién cubra la posada?",
-            "cuerpo": "Qué tal, Dulcinea. Te escribo en frío, así que voy corto: hacemos foto, video y dron de eventos de planta. ¿Está definido o todavía se puede proponer?\n\nCarlos, REBRND"
+            "asunto": "Evento de fin de año",
+            "cuerpo": "Qué tal, Dulcinea. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que con la operación corriendo todos los días, la posada no junta a todos al mismo tiempo. Hacemos foto, video y dron de eso. ¿Está definido o todavía se puede proponer?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -935,11 +935,11 @@
         ]
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "B + escena",
+        "texto": "Trabajamos seguido dentro de plantas y me imagino que con la operación corriendo todos los días, la posada no junta a todos al mismo tiempo.",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
       }
     },
     {
@@ -1028,7 +1028,7 @@
             "canal": "whatsapp",
             "trato": "tú",
             "asunto": "Evento de fin de año",
-            "cuerpo": "Qué tal, Marialba. Te escribo en frío porque vi que mantienen sus redes activas todo el año. Nosotros hacemos foto, video y dron de eventos de planta. ¿Ya tienen proveedor o sigue abierto?\n\nCarlos, REBRND"
+            "cuerpo": "Qué tal, Marialba. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que en una metalúrgica que no para, la posada termina haciéndose por turnos. Hacemos foto, video y dron de eso. ¿Ya tienen proveedor o sigue abierto?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1256,11 +1256,11 @@
         ]
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "B + escena",
+        "texto": "Trabajamos seguido dentro de plantas y me imagino que en una metalúrgica que no para, la posada termina haciéndose por turnos.",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
       }
     },
     {
@@ -1797,7 +1797,7 @@
             "canal": "email",
             "trato": "tú",
             "asunto": "Evento de fin de año",
-            "cuerpo": "Hola, Enrique. Te escribo en frío porque vi que tienen una página de reclutamiento solo para la planta de Apodaca. Nosotros hacemos foto, video y dron de eventos de planta. ¿Ya está asignado o todavía lo están viendo?\n\nCarlos, REBRND"
+            "cuerpo": "Hola, Enrique. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que con Absteel, ABINSA y ABTUBE por separado, la posada o es una sola grande o son tres chicas. Hacemos foto, video y dron de eso. ¿Ya está asignado o todavía lo están viendo?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -1876,11 +1876,11 @@
         "Resultado: 1 correo personal contable. Queda por debajo del objetivo de 2 y se reporta como hueco, no como completo."
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "B + escena",
+        "texto": "Trabajamos seguido dentro de plantas y me imagino que con Absteel, ABINSA y ABTUBE por separado, la posada o es una sola grande o son tres chicas.",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
       }
     },
     {
@@ -1973,7 +1973,7 @@
             "canal": "email",
             "trato": "tú",
             "asunto": "Evento de fin de año",
-            "cuerpo": "Qué tal, Arturo. Te escribo en frío porque vi que tienen varias plantas aquí en el área. Nosotros hacemos foto, video y dron de eventos de planta. ¿Lo arman ustedes o lo contratan?\n\nCarlos, REBRND"
+            "cuerpo": "Qué tal, Arturo. Te escribo en frío. Trabajamos seguido dentro de plantas y me imagino que con la corrugadora, la recicladora y el corporativo, la posada no cae en una sola sede. Hacemos foto, video y dron de eso. ¿Lo arman ustedes o lo contratan?\n\nCarlos, REBRND"
           },
           "evidencia": {
             "nombre": {
@@ -2132,11 +2132,11 @@
         ]
       ],
       "fact": {
-        "patron": "B",
-        "texto": "Sin hecho propio fechado en los últimos 18 meses: el primer mensaje abre en frío y lo dice.",
+        "patron": "B + escena",
+        "texto": "Trabajamos seguido dentro de plantas y me imagino que con la corrugadora, la recicladora y el corporativo, la posada no cae en una sola sede.",
         "fuente": null,
         "fecha": null,
-        "nota": "No encontramos contenido de evento propio (posada, día de la familia, aniversario) publicado por la empresa."
+        "nota": "Sin hecho propio que pase el test de 'y eso qué'. Se usa una escena IMAGINADA, marcada como tal, atada a la forma real de la empresa (plantas, unidades, turnos o sector). No se presenta como hecho."
       }
     },
     {
