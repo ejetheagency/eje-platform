@@ -28,7 +28,66 @@ def build(prospect):
            .replace("__ACCENT__", cfg["marca"]["accent"]).replace("__SOFT__", cfg["marca"]["soft"]))
     (base / "index.html").write_text(out, encoding="utf-8")
     assert "—" not in out, "em dash in output (global rule)"
+    publish_demo_client(prospect, cfg, data)
     return base / "index.html", len(out)
+
+
+def publish_demo_client(prospect, cfg, data):
+    """Publish the demo as a DEMO CLIENT the real app can load: public/demo-<prospect>.json.
+
+    Vercel serves only public/, so the data has to live there. The standalone page stays as a fallback.
+    ONE CARD PER COMPANY: the app keys cards by the website hostname (decDom), so one card per door would
+    collide on the same domain and mark two cards contacted at once. Door 1 is the card's contact; the other
+    doors ride inside the card for the Guia tab. No synthetic domains: inventing a URL to get a unique key
+    would be inventing data."""
+    import datetime
+    hoy = datetime.date.today().isoformat()
+    leads, guia_emp = [], []
+    for e in data["empresas"]:
+        P = e["puertas"]
+        ai = next((i for i, x in enumerate(P)
+                   if x.get("nombre") and "contexto" not in (x.get("nivel") or "").lower()), 0)
+        d1 = P[ai]
+        ch = e.get("canales") or {}
+        def chan(k):
+            c = ch.get(k) or {}
+            return c.get("valor") if c.get("estado") in ("verificado", "inferido") else ""
+        leads.append({
+            "_key": e["id"], "companyName": e["empresa"], "country": "México",
+            "industry": e.get("sector", ""), "website": chan("sitio") or e.get("sitio", ""),
+            "contactName": d1.get("nombre") or "", "contactTitle": d1.get("titulo") or d1.get("rol") or "",
+            "contactEmail": ((d1.get("email") or {}).get("valor") or ""),
+            "whatsapp": chan("whatsapp") or "", "instagramHandle": "",
+            "contactLinkedIn": chan("linkedin_empresa") or "",
+            "companyBrief": e["hook"]["texto"], "pitchEmailES": d1["mensaje"]["cuerpo"],
+            "logo": "", "score": "", "source_date": hoy, "approved": True,
+            "whyICP": e.get("timing", ""), "whyNow": [],
+            "sector": e.get("sector", ""), "ciudad": e.get("ciudad", ""),
+        })
+        guia_emp.append({
+            "id": e["id"], "empresa": e["empresa"], "ciudad": e.get("ciudad", ""),
+            "hook": e["hook"], "timing": e.get("timing", ""), "fact": e.get("fact"),
+            "ruta_sugerida": e.get("ruta_sugerida", []), "coach": e.get("coach", []),
+            "canales": ch, "rutas_adicionales": e.get("rutas_adicionales", []),
+            "intento_log": e.get("intento_log", []), "tamano": e.get("tamano", {}),
+            "puertas": [{"rol": x.get("rol"), "nivel": x.get("nivel"), "nombre": x.get("nombre"),
+                         "titulo": x.get("titulo"), "email": x.get("email"), "evidencia": x.get("evidencia"),
+                         "confianza": x.get("confianza"), "ruta_entrada": x.get("ruta_entrada"),
+                         "linkedin_busqueda": x.get("linkedin_busqueda"), "mensaje": x.get("mensaje"),
+                         "_cuenta": x.get("_cuenta")} for x in P],
+        })
+    payload = {
+        "client_id": "demo-" + prospect, "client_type": "demo", "prospecto": cfg.get("prospecto", prospect),
+        "generado": hoy, "leads": leads,
+        "guia": {"temporada_objetivo": cfg.get("temporada_objetivo"),
+                 "temporada_label": cfg.get("temporada_label"), "temporada_nota": cfg.get("temporada_nota"),
+                 "min_por_cuenta": cfg.get("min_por_cuenta", 2),
+                 "resumen_hoy": data.get("resumen_hoy", {}), "cierre": cfg.get("cierre", {}),
+                 "empresas": guia_emp},
+    }
+    out = ROOT / "public" / ("demo-" + prospect + ".json")
+    out.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return out
 
 
 HTML = r"""<!doctype html>

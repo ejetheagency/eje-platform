@@ -221,6 +221,27 @@ the company.**
    than the finds.
 8. **Closing block**: plan line, contact (email + WhatsApp from config), referral ask. No prices.
 
+## Step 8b: where the demo LIVES (the real app, not a page)
+
+A demo is a **demo client inside the real app**, on the same link and the same design system. A prospect who
+sees a one-off page sees a brochure; a prospect who sees his accounts inside the product sees the product.
+
+- Publish the accounts as `public/demo-<slug>.json` (`build.py` does this: `publish_demo_client`). ONE CARD PER
+  COMPANY, because the app keys cards by website hostname and two doors on one domain would collide. The extra
+  doors ride inside the card, never as synthetic domains (inventing a URL to win a unique key is inventing data).
+- The app opens it with `?demo=<slug>`, which stores `eje_ws=demo-<slug>`. A `demo-` workspace reads that static
+  JSON and **never touches Supabase**: nothing to authenticate against, nothing another client could leak into it,
+  and `canWrite()` stays false so a demo can never write.
+- The guidance extras (time bar, countdown, coach, "lo que el sistema hizo hoy", evidence toggles, closing block)
+  live in the **Guía** tab, built from the app's existing components and tokens only. Never add a palette, a font
+  or a layout of your own to `app.html`.
+- Everything demo-only sits behind `if(EJE_DEMO)`. **Declare the flag at script top level**, not inside the auth
+  gate's IIFE, or `load()` and `renderGuia()` will not see it (this cost a debugging cycle once).
+- Gate before committing: `node --check` every inline script, plus a screenshot diff proving the app with demo
+  OFF is **pixel-identical** to `main`, plus `golden_<client>` on the branch.
+- Work on a branch (`demo-mode`), never `main`. Vercel builds a preview URL; production stays untouched.
+- The standalone `demos/<slug>/index.html` is **fallback only**, for sending a file when no link will do.
+
 ## Step 9: verification before reporting (never skip)
 
 - **Every URL checked.** Bot-blocked ones (Facebook 400, LinkedIn 999, broker 403) opened in a real headless
