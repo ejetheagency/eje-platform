@@ -15,10 +15,29 @@ import json, pathlib, sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
+
+# Un hecho se muestra pelado, con su link. Lo que el hecho "significa" lo concluye quien lee: si se lo
+# escribimos nosotros, deja de ser dato verificable y pasa a ser opinión con cara de dato.
+INTERPRETA = ["así que", "asi que", "eso es", "eso significa", "lo que significa", "es decir",
+              "por lo que", "les sirve", "necesitan a", "quiere decir"]
+
+def check_hechos(data):
+    malos = []
+    for emp in data.get("empresas", []):
+        t = ((emp.get("hook") or {}).get("texto") or "").lower()
+        for m in INTERPRETA:
+            if m in t:
+                malos.append(f'{emp.get("id")}: "{m}"')
+        if emp.get("timing"):
+            malos.append(f'{emp.get("id")}: campo timing (interpretación, ya no se usa)')
+    if malos:
+        raise SystemExit("HECHO CON INTERPRETACIÓN (solo el hecho + su fuente):\n  " + "\n  ".join(malos))
+
 def build(prospect):
     base = ROOT / "demos" / prospect
     cfg = json.loads((base / "config.json").read_text(encoding="utf-8"))
     data = json.loads((base / "leads.json").read_text(encoding="utf-8"))
+    check_hechos(data)                      # falla el build si un hecho trae interpretación pegada
     data["_cfg"] = cfg                      # one payload: the page reads copy and brand from here
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     out = (HTML
@@ -61,12 +80,12 @@ def publish_demo_client(prospect, cfg, data):
             "contactLinkedIn": chan("linkedin_empresa") or "",
             "companyBrief": e["hook"]["texto"], "pitchEmailES": d1["mensaje"]["cuerpo"],
             "logo": "", "score": "", "source_date": hoy, "approved": True,
-            "whyICP": e.get("timing", ""), "whyNow": [],
+            "whyICP": "", "whyNow": [],   # el "por qué" lo concluye quien lee el hecho, no lo escribimos nosotros
             "sector": e.get("sector", ""), "ciudad": e.get("ciudad", ""),
         })
         guia_emp.append({
             "id": e["id"], "empresa": e["empresa"], "ciudad": e.get("ciudad", ""),
-            "hook": e["hook"], "timing": e.get("timing", ""), "fact": e.get("fact"),
+            "hook": e["hook"], "fact": e.get("fact"),
             "ruta_sugerida": e.get("ruta_sugerida", []), "coach": e.get("coach", []),
             "canales": ch, "rutas_adicionales": e.get("rutas_adicionales", []),
             "intento_log": e.get("intento_log", []), "tamano": e.get("tamano", {}),
@@ -78,6 +97,9 @@ def publish_demo_client(prospect, cfg, data):
         })
     payload = {
         "client_id": "demo-" + prospect, "client_type": "demo", "prospecto": cfg.get("prospecto", prospect),
+        # el saludo y el destinatario viven en config.json: editarlos a mano en el JSON publicado se perdía
+        # en el siguiente build
+        "saludo": cfg.get("saludo") or "", "demo_para": cfg.get("demo_para") or "",
         "generado": hoy, "leads": leads,
         "guia": {"temporada_objetivo": cfg.get("temporada_objetivo"),
                  "temporada_label": cfg.get("temporada_label"), "temporada_nota": cfg.get("temporada_nota"),
@@ -163,7 +185,6 @@ HTML = r"""<!doctype html>
   .hook p{margin:4px 0 8px; font-size:15px}
   .srcs{display:flex; flex-wrap:wrap; gap:8px}
   .src{font-size:11.5px; font-family:"JetBrains Mono",monospace; background:#fff; border:1px solid var(--line); border-radius:99px; padding:3px 9px; text-decoration:none}
-  .timing{font-size:14px; margin:14px 0 0; padding-left:12px; border-left:2px solid var(--line); color:var(--ink)}
 
   /* intel + channels */
   .intel{display:grid; grid-template-columns:1fr; gap:14px; padding:16px 14px; border-bottom:1px solid var(--line)}
@@ -560,7 +581,6 @@ function render(){
             + emp.hook.fuentes.map(u=>'<a class="src" href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(host(u))+'</a>').join("")
             + '</div></details>'
         + '</div>'
-        + '<p class="timing"><b>Por qué ahora:</b> '+esc(emp.timing)+'</p>'
       + '</div>'
       + '<div class="intel">'
         + '<div><span class="mono">matriz</span><p>'+esc(emp.matriz.empresa)+' · '+esc(emp.matriz.pais)+'</p></div>'

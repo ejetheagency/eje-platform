@@ -221,6 +221,24 @@ the company.**
    than the finds.
 8. **Closing block**: plan line, contact (email + WhatsApp from config), referral ask. No prices.
 
+## Step 8a: a shown fact is shown BARE (operator 2026-10-09, enforced in build.py)
+
+On every demo surface, an account's signal is **the plain fact plus its source link, and nothing else**. No
+"por qué ahora", no "lo que esto significa", no closing sentence that tells the reader what to conclude.
+
+Why: the prospect can click the link and check the fact. He cannot check our opinion, and an opinion sitting
+where a fact goes makes him doubt the facts too. "Tienen tres reclutadores publicados en Santa Catarina" is
+checkable in one click; "plantilla que crece es posada que crece" is us writing his sales pitch for him, and it
+reads as AI the moment he notices every card ends that way.
+
+- `hook.texto` = what the source shows. Dates and numbers welcome, conclusions never.
+- There is **no `timing` field**. It was an interpretation line and it is gone, not just un-rendered.
+- `build.py` **fails the build** (`check_hechos`) on a `timing` field or on an interpretation connective in a
+  fact: "así que", "eso es", "eso significa", "lo que significa", "es decir", "por lo que", "les sirve",
+  "necesitan a", "quiere decir".
+- This governs what is **displayed**. The message hook is a separate thing and keeps its own rules (Step 7c):
+  it comes from the client's voice template and is inserted before "entiendo que hacen eventos internos".
+
 ## Step 8b: where the demo LIVES (the real app, not a page)
 
 A demo is a **demo client inside the real app**, on the same link and the same design system. A prospect who

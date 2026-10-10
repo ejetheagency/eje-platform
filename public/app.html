@@ -2095,7 +2095,6 @@
             +esc((e.hook||{}).texto||'')
             +'<div style="margin-top:6px">'+((e.hook||{}).fuentes||[]).map(function(u){return '<a class="btn site" style="padding:1px 7px;font-size:11px;margin-right:6px" href="'+esc(u)+'" target="_blank" rel="noopener">fuente</a>';}).join('')+'</div>'
           +'</div>'
-          +'<div style="font-size:13.5px;margin-top:10px"><b>Por qué ahora:</b> '+esc(e.timing||'')+'</div>'
           +'<div style="font-size:12.5px;color:var(--ink-3);margin-top:8px"><b>Tamaño:</b> '+esc((e.tamano||{}).valor||'')+'</div>'
           +'<div style="margin-top:12px"><div style="font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:6px">Ruta sugerida</div>'
             +(e.ruta_sugerida||[]).map(function(r){return '<div style="font-size:13.5px;margin-bottom:5px"><b>'+esc(r.paso)+'</b> <span style="color:var(--ink-3)">'+esc(r.razon)+'</span></div>';}).join('')

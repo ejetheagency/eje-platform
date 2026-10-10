@@ -81,13 +81,12 @@
       },
       "hook": {
         "tipo": "contratación activa en Santa Catarina",
-        "texto": "Tienen reclutamiento abierto en Santa Catarina con tres contactos distintos publicados: zona Monterrey, CEDIS GONHERMEX y PROGONZA. Un corporativo que publica tres reclutadores en una plaza está moviendo plantilla, y plantilla que crece es posada que crece.",
+        "texto": "Tienen reclutamiento abierto en Santa Catarina con tres contactos de reclutamiento publicados: zona Monterrey, CEDIS GONHERMEX y PROGONZA.",
         "fecha": "2026-10-09",
         "fuentes": [
           "https://gonher.com.mx/contacto-rh/"
         ]
       },
-      "timing": "Están contratando en tres frentes en Santa Catarina al mismo tiempo, y la posada se arma con la plantilla que quede en diciembre.",
       "eventos_previos": [],
       "puertas": [
         {
@@ -335,7 +334,7 @@
       },
       "hook": {
         "tipo": "operación local con reclutamiento propio",
-        "texto": "Operan desde Santa Catarina con correo de RR.HH. publicado y una página de Facebook dedicada solo a reclutamiento. Son proveedor automotriz con división de materiales avanzados en la misma plaza.",
+        "texto": "Operan desde Santa Catarina, con correo de RR.HH. publicado y una página de Facebook dedicada a reclutamiento. Proveedor automotriz con división de materiales avanzados en la misma plaza.",
         "fecha": "2026-10-09",
         "fuentes": [
           "https://katcon.com/contact/",
@@ -343,7 +342,6 @@
           "https://katcon.com/about-us/"
         ]
       },
-      "timing": "RR.HH. tiene canal propio y activo, así que el mensaje de posada cae donde sí lo leen.",
       "eventos_previos": [],
       "puertas": [
         {
@@ -588,7 +586,6 @@
           "https://anfaca.org.mx/directory-listing/ragasa-industrias/"
         ]
       },
-      "timing": "Planta de alimentos: diciembre es temporada alta de producción, así que la posada se agenda temprano y con fecha fija.",
       "eventos_previos": [],
       "puertas": [
         {
@@ -808,14 +805,13 @@
       },
       "hook": {
         "tipo": "operador con plantilla distribuida en terminales",
-        "texto": "Operador de transporte con terminales y plantilla distribuida, con oficinas en el área de Monterrey. En este tipo de operación el evento de fin de año se hace por terminal, no en una sola sede.",
+        "texto": "Operador de transporte con terminales y plantilla distribuida, con oficinas en el área de Monterrey.",
         "fecha": "2026-10-09",
         "fuentes": [
           "https://www.grupo-senda.com/en/contacto/",
           "https://ocvmty.com.mx/en/directory/grupo-senda/"
         ]
       },
-      "timing": "Si el evento se parte por terminal, necesitan a alguien que cubra varias sedes en pocos días: eso es exactamente capacidad de respuesta.",
       "eventos_previos": [],
       "puertas": [
         {
@@ -1009,13 +1005,12 @@
       },
       "hook": {
         "tipo": "planta metalúrgica en la ciudad",
-        "texto": "Planta metalúrgica y química en pleno Monterrey, con buzón de compras del grupo publicado y presencia activa en Facebook y LinkedIn.",
+        "texto": "Planta metalúrgica y química en Monterrey, con buzón de compras del grupo publicado y presencia activa en Facebook y LinkedIn.",
         "fecha": "2026-10-09",
         "fuentes": [
           "https://www.zincnacional.com/contacto/"
         ]
       },
-      "timing": "Planta urbana con redes activas: el material de la posada les sirve también para marca empleadora.",
       "eventos_previos": [],
       "puertas": [
         {
@@ -1329,14 +1324,13 @@
       },
       "hook": {
         "tipo": "división de cables de un grupo regio",
-        "texto": "División de conductores eléctricos de Grupo Xignux, con planta en San Nicolás. Justo ahora tienen abierta una vacante de Jefe de Bienestar y Recreación para esa planta: están contratando a la persona que organiza los eventos del personal.",
+        "texto": "División de conductores eléctricos de Grupo Xignux, con planta en San Nicolás. Tienen abierta una vacante de Jefe de Bienestar y Recreación para esa planta.",
         "fecha": "2026-10-09",
         "fuentes": [
           "https://www.facebook.com/Viakable/",
           "https://viakable.com/acerca-de/"
         ]
       },
-      "timing": "Están contratando al Jefe de Bienestar y Recreación de la planta: el área que arma la posada se está reforzando justo ahora.",
       "eventos_previos": [],
       "puertas": [
         {
@@ -1540,7 +1534,6 @@
           "https://www.somosindustria.com/articulo/abre-frisa-planta-de-acero-en-nuevo-leon/"
         ]
       },
-      "timing": "Planta nueva en García más 55 aniversario: dos razones para filmar en el mismo año, y una no se repite.",
       "eventos_previos": [
         {
           "que": "Apertura de planta de acero en Nuevo León cubierta por prensa industrial",
@@ -1778,13 +1771,12 @@
       "hook": {
         "tipo": "reclutamiento activo con canal propio",
         "fecha": "2026-10-09",
-        "texto": "Absteel, la unidad metalmecánica del grupo en el Parque Industrial Monterrey de Apodaca, tiene página de reclutamiento propia y correo de reclutamiento publicado con nombre de persona. Es una planta que está contratando y que contesta.",
+        "texto": "Absteel, la unidad metalmecánica del grupo en el Parque Industrial Monterrey de Apodaca, tiene página de reclutamiento propia y correo de reclutamiento publicado a nombre de una persona.",
         "fuentes": [
           "https://www.facebook.com/reclutamientoabsteel/",
           "http://grupoabix.com.mx/unidad.php?unidad=2"
         ]
       },
-      "timing": "Planta en contratación con canal de reclutamiento propio: el mensaje de posada llega a alguien que revisa su bandeja todos los días.",
       "eventos_previos": [],
       "puertas": [
         {
@@ -1954,13 +1946,12 @@
       "hook": {
         "tipo": "planta de empaque en el área metropolitana",
         "fecha": "2026-10-09",
-        "texto": "Papel y empaque industrial con planta de corrugados y recicladora en el área de Monterrey, y corporativo en San Nicolás. Publican teléfonos por planta, así que cada sede se puede trabajar por separado.",
+        "texto": "Papel y empaque industrial con planta de corrugados y recicladora en el área de Monterrey, y corporativo en San Nicolás. Publican teléfonos por planta.",
         "fuentes": [
           "http://www.copamex.com/contacto.php",
           "https://mx.linkedin.com/company/copamex"
         ]
       },
-      "timing": "Varias plantas en la misma zona metropolitana: si una posada sale bien, las otras dos están a 20 minutos.",
       "eventos_previos": [],
       "puertas": [
         {
@@ -2207,13 +2198,12 @@
       "hook": {
         "tipo": "ola de contratación",
         "fecha": "2026-10-09",
-        "texto": "Gentherm repuntó crecimiento y está pidiendo personal para la planta de Apodaca, con vacantes abiertas incluso de coordinación de capacitación y desarrollo. Una planta que contrata en bloque llega a diciembre con mucha gente nueva que no se conoce entre sí.",
+        "texto": "Gentherm repuntó crecimiento y está pidiendo personal para la planta de Apodaca, con vacantes abiertas de coordinación de capacitación y desarrollo.",
         "fuentes": [
           "https://www.somosindustria.com/articulo/gentherm-repunta-crecimiento-y-requiere-personal/",
           "https://www.somosindustria.com/articulo/gentherm-desarrolla-a-su-talento-humano/"
         ]
       },
-      "timing": "Están contratando ahora y además invierten en desarrollo de talento: la posada de diciembre es la primera foto de todo ese equipo junto.",
       "eventos_previos": [
         {
           "que": "Nota de prensa industrial sobre su programa de desarrollo de talento humano",

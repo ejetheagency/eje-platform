@@ -1,26 +1,20 @@
 {
   "_comment": "TODO lo específico del prospecto vive aquí. Para un prospecto nuevo: copia esta carpeta a demos/<prospecto>/, cambia este archivo y leads.json, y corre: python3 demos/_template/build.py <prospecto>. Nunca inventes un valor: si falta, déjalo en null y la página muestra 'falta' en rojo.",
-
   "prospecto": "NOMBRE DEL PROSPECTO",
   "titulo": "Tu día en EJE · NOMBRE DEL PROSPECTO",
   "encabezado": "Tu día en EJE",
   "pie": "Demo preparada para NOMBRE · datos públicos al <fecha>",
-
   "marca": {
     "paper": "#f4f4f2",
     "ink": "#0b0b0d",
     "accent": "#4f5bd5",
     "soft": "#e9ebff"
   },
-
   "min_por_cuenta": 2,
-
   "temporada_objetivo": "2026-12-15",
   "temporada_label": "días para las posadas de mediados de diciembre",
   "temporada_nota": "Las empresas suelen cerrar proveedor de evento entre finales de octubre y mediados de noviembre, así que esta ventana es la buena.",
-
   "oferta_linea": "Una línea con la oferta del prospecto: qué hace, con qué ventaja operativa. Se usa como la frase de oferta dentro de cada mensaje.",
-
   "cierre": {
     "titulo": "¿Quieres esto cada mañana?",
     "linea": "El plan Cuentas te entrega de 3 a 5 decisores por empresa, con su ruta y su mensaje, todos los días. Tú solo abres, revisas y mandas.",
@@ -28,6 +22,7 @@
     "contacto_whatsapp": "https://wa.me/17867846899",
     "referido": "¿Conoces a alguien que venda a industria y le serviría esto? Preséntanos y te lo agradecemos."
   },
-
-  "_regla_precios": "NUNCA poner precios en la página. El precio se habla en la llamada."
+  "_regla_precios": "NUNCA poner precios en la página. El precio se habla en la llamada.",
+  "saludo": "Buen día, NOMBRE.",
+  "demo_para": "correo del prospecto a quien va dirigido el demo"
 }
