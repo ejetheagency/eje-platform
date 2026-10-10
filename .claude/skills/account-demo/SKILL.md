@@ -221,6 +221,45 @@ the company.**
    than the finds.
 8. **Closing block**: plan line, contact (email + WhatsApp from config), referral ask. No prices.
 
+## Step 8a: a shown fact is shown BARE (operator 2026-10-09, enforced in build.py)
+
+On every demo surface, an account's signal is **the plain fact plus its source link, and nothing else**. No
+"por qué ahora", no "lo que esto significa", no closing sentence that tells the reader what to conclude.
+
+Why: the prospect can click the link and check the fact. He cannot check our opinion, and an opinion sitting
+where a fact goes makes him doubt the facts too. "Tienen tres reclutadores publicados en Santa Catarina" is
+checkable in one click; "plantilla que crece es posada que crece" is us writing his sales pitch for him, and it
+reads as AI the moment he notices every card ends that way.
+
+- `hook.texto` = what the source shows. Dates and numbers welcome, conclusions never.
+- There is **no `timing` field**. It was an interpretation line and it is gone, not just un-rendered.
+- `build.py` **fails the build** (`check_hechos`) on a `timing` field or on an interpretation connective in a
+  fact: "así que", "eso es", "eso significa", "lo que significa", "es decir", "por lo que", "les sirve",
+  "necesitan a", "quiere decir".
+- This governs what is **displayed**. The message hook is a separate thing and keeps its own rules (Step 7c):
+  it comes from the client's voice template and is inserted before "entiendo que hacen eventos internos".
+
+## Step 8b: where the demo LIVES (the real app, not a page)
+
+A demo is a **demo client inside the real app**, on the same link and the same design system. A prospect who
+sees a one-off page sees a brochure; a prospect who sees his accounts inside the product sees the product.
+
+- Publish the accounts as `public/demo-<slug>.json` (`build.py` does this: `publish_demo_client`). ONE CARD PER
+  COMPANY, because the app keys cards by website hostname and two doors on one domain would collide. The extra
+  doors ride inside the card, never as synthetic domains (inventing a URL to win a unique key is inventing data).
+- The app opens it with `?demo=<slug>`, which stores `eje_ws=demo-<slug>`. A `demo-` workspace reads that static
+  JSON and **never touches Supabase**: nothing to authenticate against, nothing another client could leak into it,
+  and `canWrite()` stays false so a demo can never write.
+- The guidance extras (time bar, countdown, coach, "lo que el sistema hizo hoy", evidence toggles, closing block)
+  live in the **Guía** tab, built from the app's existing components and tokens only. Never add a palette, a font
+  or a layout of your own to `app.html`.
+- Everything demo-only sits behind `if(EJE_DEMO)`. **Declare the flag at script top level**, not inside the auth
+  gate's IIFE, or `load()` and `renderGuia()` will not see it (this cost a debugging cycle once).
+- Gate before committing: `node --check` every inline script, plus a screenshot diff proving the app with demo
+  OFF is **pixel-identical** to `main`, plus `golden_<client>` on the branch.
+- Work on a branch (`demo-mode`), never `main`. Vercel builds a preview URL; production stays untouched.
+- The standalone `demos/<slug>/index.html` is **fallback only**, for sending a file when no link will do.
+
 ## Step 9: verification before reporting (never skip)
 
 - **Every URL checked.** Bot-blocked ones (Facebook 400, LinkedIn 999, broker 403) opened in a real headless

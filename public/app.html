@@ -672,6 +672,7 @@
 
     <button class="nav-item on" data-view="home"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Home</button>
     <button class="nav-item" data-view="hoy"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15l2.5 2.5L15 13"/></svg>Hoy<span class="ct" id="hoy-ct"></span></button>
+    <button class="nav-item" data-view="guia" style="display:none"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M3 20h4M4 4h16v10H4z"/><path d="M8 8h8M8 11h5"/></svg>Guía</button>
     <button class="nav-item" data-view="reporte"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13l2 2 4-4"/></svg>Reporte<span class="ct" id="rep-ct"></span></button>
     <button class="nav-item" id="nav-ops" data-view="ops" style="display:none"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg>Ops</button>
     <button class="nav-item" data-view="tareas"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Tareas<span class="ct"></span></button>
@@ -734,6 +735,12 @@
       <div class="hoy-grid" id="hoy-list"></div>
     </section>
 
+    <!-- GUIA (demo clients only; hidden unless EJE_DEMO) -->
+    <section class="view" id="view-guia">
+      <div class="page-h">Guía</div><div class="page-sub" id="guia-sub">Cómo trabajar el día.</div>
+      <div id="guia-body"></div>
+    </section>
+
     <!-- REPORTE (the factory's precomputed pitch-ready leads; the app only READS) -->
     <section class="view" id="view-reporte">
       <div class="page-h">Reporte</div><div class="page-sub" id="rep-sub">Leads premium, verificados y listos para contactar.</div>
@@ -793,6 +800,7 @@
 
 <nav class="mobnav" aria-label="Navegación">
   <button class="mob-item on" data-view="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Home</button>
+  <button class="mob-item" data-view="guia" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M3 20h4M4 4h16v10H4z"/><path d="M8 8h8M8 11h5"/></svg>Guía</button>
   <button class="mob-item" data-view="hoy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15l2.5 2.5L15 13"/></svg>Hoy</button>
   <button class="mob-item" data-view="tareas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>Tareas</button>
   <button class="mob-item" data-view="decisores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>Decisores</button>
@@ -874,6 +882,25 @@
     });
   })();
 
+  // ── DEMO MODE. Declared at script top level ON PURPOSE: the auth gate below is an IIFE, and a var declared
+  // inside it is invisible to load() and renderGuia(). A demo client ("demo-<slug>") reads a published JSON from
+  // public/ and never touches Supabase, so there is nothing to authenticate against, nothing it could read from
+  // another client, and canWrite() stays false so it can never write either.
+  // LISTA BLANCA, no patrón: sin ella, ?demo=loquesea saltaba la pantalla de acceso para cualquier valor.
+  // Un slug que no esté aquí no existe, y además se limpia de localStorage para que un link viejo no deje
+  // la sesión atrapada en un cliente inventado.
+  var EJE_DEMOS={rebrnd:1};
+  (function(){ try{ var q=new URLSearchParams(location.search).get('demo');
+    if(q&&EJE_DEMOS[q]){ localStorage.setItem('eje_ws','demo-'+q); history.replaceState(null,'',location.pathname); } }catch(e){} })();
+  var EJE_DEMO=(function(){ try{
+    var w=localStorage.getItem('eje_ws')||'';
+    if(!/^demo-/.test(w)) return false;
+    if(EJE_DEMOS[w.replace(/^demo-/,'')]) return true;
+    localStorage.removeItem('eje_ws'); return false;
+  }catch(e){ return false; } })();
+  var EJE_DEMO_SLUG=EJE_DEMO?(localStorage.getItem('eje_ws')||'').replace(/^demo-/,''):'';
+  var DEMO=null;
+
   // ── auth gate: Supabase + Google (RLS-ready). Demo bypass until Google provider is enabled. ──
   (function(){
     var SB_URL='https://ogdsuztzhmnnjolilsuo.supabase.co';
@@ -882,7 +909,8 @@
     var sb=null; try{ if(window.supabase) sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,detectSessionInUrl:true}}); }catch(e){}
     window.__ejeSB=sb; // shared read-only client for status hydration
     function showApp(){ loginEl.style.display='none'; }
-    function showLogin(){ loginEl.style.display='flex'; }
+    function showLogin(){ if(EJE_DEMO){ loginEl.style.display='none'; return; } loginEl.style.display='flex'; }
+    if(EJE_DEMO){ showApp(); }   // demo link: pasa directo, sin login
     var gBtn=document.getElementById('googleBtn');
     if(gBtn) gBtn.addEventListener('click',function(){
       errEl.style.display='none';
@@ -1002,7 +1030,10 @@
         })
         .catch(function(){ window.__ejeAuthed=false; errEl.textContent='No se pudo verificar tu acceso. Reintentá.'; errEl.style.display='block'; showLogin(); });
     }
-    if(sb){
+    // Un demo no arranca la sesión: sin getSession, sin onAuthStateChange, sin token. No hay nada que
+    // autenticar y así tampoco hay forma de que una sesión vieja lo convierta en otro cliente.
+    if(EJE_DEMO){ /* sin auth */ }
+    else if(sb){
       sb.auth.getSession().then(function(r){ handleSession(r&&r.data&&r.data.session); }).catch(showLogin);
       sb.auth.onAuthStateChange(function(_e,session){ if(session) handleSession(session); });
     } else { showLogin(); }
@@ -2002,6 +2033,102 @@
       body.innerHTML='<div class="tq-empty">Cargando…</div>';
       Promise.resolve(typeof loadStatus==='function'?loadStatus():null).then(function(){ return typeof loadUniverse==='function'?loadUniverse():null; }).then(paint).catch(function(){ body.innerHTML='<div class="tq-empty">No se pudo cargar.</div>'; });
     }
+
+    // ── GUIA (demo clients only). Built from the app's own components (.card, .btn, .tq-empty, page-h/page-sub)
+    // and its tokens; it adds no palette and no fonts of its own. Renders nothing unless EJE_DEMO.
+    function renderGuia(){
+      var host=document.getElementById('guia-body'); if(!host||!EJE_DEMO||!DEMO) return;
+      var g=DEMO.guia||{}, t=g.resumen_hoy||{}, c=g.cierre||{};
+      function days(){ try{ var d=new Date(), x=new Date(g.temporada_objetivo+'T00:00:00');
+        return Math.max(0,Math.ceil((x-d)/86400000)); }catch(e){ return ''; } }
+      var total=(DEMO.leads||[]).length;
+      var done=(DEMO.leads||[]).filter(function(l){return statusOf(l)!=='none';}).length;
+      var pct=total?Math.round(done/total*100):0, mins=Math.max(0,(total-done)*(g.min_por_cuenta||2));
+      var sub=document.getElementById('guia-sub');
+      if(sub) sub.innerHTML='<b>'+done+'</b> de '+total+' cuentas trabajadas · te faltan ~'+mins+' min';
+
+      var h=[];
+      // barra de tiempo + countdown
+      h.push('<div class="card" style="padding:16px;margin-bottom:14px">'
+        +'<div style="display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--ink-2)">'
+          +'<span>Tiempo estimado hoy</span><span>'+done+'/'+total+' cuentas</span></div>'
+        +'<div style="height:6px;background:var(--sunken);border-radius:99px;overflow:hidden;margin:8px 0 0">'
+          +'<i style="display:block;height:100%;width:'+pct+'%;background:var(--cool);border-radius:99px"></i></div>'
+        +'<div style="margin-top:12px;display:flex;gap:12px;align-items:baseline">'
+          +'<b style="font-size:26px;color:var(--cool)">'+days()+'</b>'
+          +'<span style="font-size:13px;color:var(--ink-2)">'+esc(g.temporada_label||'')+'</span></div>'
+        +'<div style="font-size:13px;color:var(--ink-3);margin-top:6px">'+esc(g.temporada_nota||'')+'</div>'
+      +'</div>');
+
+      // lo que el sistema hizo hoy
+      function tile(n,l){ return '<div style="background:var(--sunken);border-radius:10px;padding:10px 12px">'
+        +'<b style="font-size:22px;color:var(--cool)">'+esc(n)+'</b>'
+        +'<div style="font-size:12px;color:var(--ink-3);margin-top:3px">'+esc(l)+'</div></div>'; }
+      h.push('<div class="card" style="padding:16px;margin-bottom:14px">'
+        +'<div style="font-weight:650;margin-bottom:10px">Lo que el sistema hizo hoy</div>'
+        +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">'
+          +tile(t.cuentas,'cuentas')+tile(t.correos_personales,'correos a una persona')
+          +tile(t.correos_confirmados,'confirmados')+tile(t.correos_sin_fecha,'sin fecha, verificar')
+          +tile(t.fuentes_revisadas,'fuentes revisadas')
+        +'</div>'
+        +'<details style="margin-top:12px"><summary style="cursor:pointer;font-size:12.5px;color:var(--cool)">Descartados a propósito</summary>'
+        +'<ul style="margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2)">'
+        +(t.descartados||[]).map(function(x){return '<li><b>'+esc(x.quien)+'</b> ('+esc(x.empresa)+'): '+esc(x.por)
+            +' <a class="btn site" style="padding:1px 7px;font-size:11px" href="'+esc(x.fuente)+'" target="_blank" rel="noopener">fuente</a></li>';}).join('')
+        +'</ul><div style="font-size:12.5px;color:var(--ink-3);margin-top:8px">'+esc(t.nota_conteo||'')+'</div>'
+        +'<div style="font-size:12.5px;color:var(--ink-3);margin-top:6px">'+esc(t.nota_horas||'')+'</div></details>'
+      +'</div>');
+
+      // una tarjeta por cuenta: ruta, coach, puertas con evidencia
+      (g.empresas||[]).forEach(function(e,i){
+        var puertas=(e.puertas||[]).map(function(d){
+          var em=d.email||{}, ev=d.evidencia||{};
+          var chip=em.valor?('<span class="btn" style="padding:2px 8px;font-size:11px">'+esc(em.estado)+' · '+esc(em.valor)+'</span>'):'<span class="btn" style="padding:2px 8px;font-size:11px;opacity:.6">correo: no encontrado</span>';
+          var cnt=d._cuenta?('<span class="btn" style="padding:2px 8px;font-size:11px;margin-left:6px">'+esc(d._cuenta)+'</span>'):'';
+          var evi=ev.resultado?('<details style="margin-top:6px"><summary style="cursor:pointer;font-size:11.5px;color:var(--cool)">Cómo lo encontramos</summary>'
+            +'<ul style="margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)">'
+            +'<li>Nombre: '+esc((ev.nombre||{}).que||'')+' <a href="'+esc((ev.nombre||{}).url||'#')+'" target="_blank" rel="noopener">fuente</a></li>'
+            +'<li>Patrón: '+esc((ev.patron||{}).que||'')+' <a href="'+esc((ev.patron||{}).url||'#')+'" target="_blank" rel="noopener">fuente</a></li>'
+            +'<li>Resultado: <code>'+esc(ev.resultado)+'</code></li></ul></details>'):'';
+          var nom=d.nombre?esc(d.nombre):'por identificar';
+          var open=d.nombre?' open':'';   // "por identificar" arranca colapsada
+          return '<details'+open+' style="border-top:1px solid var(--line);padding:10px 0">'
+            +'<summary style="cursor:pointer"><b style="font-size:14px">'+nom+'</b>'
+            +'<span style="font-size:12.5px;color:var(--ink-3)"> · '+esc(d.rol||'')+'</span></summary>'
+            +'<div style="font-size:13px;color:var(--ink-2);margin:6px 0">'+esc(d.ruta_entrada||'')+'</div>'
+            +chip+cnt+evi
+            +'<div style="background:var(--sunken);border-radius:10px;padding:12px;margin-top:8px;font-size:14px;white-space:pre-wrap">'+esc((d.mensaje||{}).cuerpo||'')+'</div>'
+          +'</details>';
+        }).join('');
+        h.push('<div class="card" style="padding:16px;margin-bottom:14px">'
+          +'<div style="font-weight:650;font-size:16px">'+(i+1)+'. '+esc(e.empresa)+'</div>'
+          +'<div style="font-size:12.5px;color:var(--ink-3);margin-bottom:8px">'+esc(e.ciudad||'')+'</div>'
+          +'<div style="background:var(--sunken);border-left:3px solid var(--cool);border-radius:0 10px 10px 0;padding:10px 12px;font-size:14px">'
+            +esc((e.hook||{}).texto||'')
+            +'<div style="margin-top:6px">'+((e.hook||{}).fuentes||[]).map(function(u){return '<a class="btn site" style="padding:1px 7px;font-size:11px;margin-right:6px" href="'+esc(u)+'" target="_blank" rel="noopener">fuente</a>';}).join('')+'</div>'
+          +'</div>'
+          +'<div style="font-size:12.5px;color:var(--ink-3);margin-top:8px"><b>Tamaño:</b> '+esc((e.tamano||{}).valor||'')+'</div>'
+          +'<div style="margin-top:12px"><div style="font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:6px">Ruta sugerida</div>'
+            +(e.ruta_sugerida||[]).map(function(r){return '<div style="font-size:13.5px;margin-bottom:5px"><b>'+esc(r.paso)+'</b> <span style="color:var(--ink-3)">'+esc(r.razon)+'</span></div>';}).join('')
+          +'</div>'
+          +((e.coach||[]).length?'<div style="background:var(--sunken);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:13.5px"><b style="color:var(--cool);font-size:11px;text-transform:uppercase">'+esc(e.coach[0][0])+'</b> '+esc(e.coach[0][1])+'</div>':'')
+          +'<div style="margin-top:10px">'+puertas+'</div>'
+        +'</div>');
+      });
+
+      // cierre
+      h.push('<div class="card" style="padding:18px;border-color:var(--cool)">'
+        +'<div style="font-weight:650;font-size:17px;margin-bottom:6px">'+esc(c.titulo||'')+'</div>'
+        +'<div style="font-size:14px;color:var(--ink-2);max-width:62ch">'+esc(c.linea||'')+'</div>'
+        +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">'
+          +'<a class="btn pri" href="mailto:'+esc(c.contacto_email||'')+'?subject='+encodeURIComponent('Plan Cuentas')+'">Escribir a Emiliano</a>'
+          +(c.contacto_whatsapp?'<a class="btn" href="'+esc(c.contacto_whatsapp)+'" target="_blank" rel="noopener">WhatsApp</a>':'')
+        +'</div>'
+        +'<div style="font-size:13px;color:var(--ink-3);margin-top:12px;max-width:62ch">'+esc(c.referido||'')+'</div>'
+      +'</div>');
+      host.innerHTML=h.join('');
+    }
+    document.querySelectorAll('[data-view="guia"]').forEach(function(el){el.addEventListener('click',function(){ if(typeof renderGuia==='function') renderGuia(); });});
     function renderHistorial(){
       var body=document.getElementById('hist-body'); if(!body)return;
       if(EJE_CLIENT!=='eje_productoras'){ return renderHistorialEje(body); }
@@ -2033,7 +2160,37 @@
       body.innerHTML='<div class="tq-empty">Cargando…</div>';
       fetch('./reports-manifest.json?v='+Date.now()).then(function(r){return r.json();}).then(function(m){MANIFEST=m;paint();}).catch(function(){body.innerHTML='<div class="tq-empty">No se pudo cargar.</div>';});
     }
+    if(EJE_DEMO){
+      // un demo abre SOLO su propio cliente: sin switcher, sin vistas de otros espacios
+      document.querySelectorAll('.ws, .ws-opt, .ws-switch').forEach(function(el){ el.style.display='none'; });
+      ['reporte','ops','historial','seguimiento'].forEach(function(v){
+        document.querySelectorAll('[data-view="'+v+'"]').forEach(function(el){ el.style.display='none'; }); });
+      // no hay sesión que cerrar en un demo: el botón solo llevaría a una pantalla de acceso que nunca vio
+      document.querySelectorAll('[onclick*="__ejeSignOut"]').forEach(function(el){
+        var row=el.closest('.set-row'); (row||el).style.display='none'; });
+    }
+    var _demoLanded=false;
     function load(){
+      // DEMO CLIENT: read the published JSON and stop. No Supabase, no other client's data.
+      if(EJE_DEMO){
+        fetch('./demo-'+EJE_DEMO_SLUG+'.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){
+          DEMO=d; UNIVERSE=(d.leads||[]).slice();
+          DATA={date:new Date().toISOString().slice(0,10),leads:UNIVERSE.slice()};
+          document.querySelectorAll('[data-view="guia"]').forEach(function(el){el.style.display='';});
+          // el demo se abre en Hoy, no en Home: Home mide actividad que un demo todavía no tiene, y arrancar
+          // en una pantalla de ceros vende lo contrario de lo que el demo prueba. Home sigue accesible.
+          var _g=document.getElementById('greet');
+          if(_g&&d.saludo) _g.textContent=d.saludo;
+
+          if(window.__ejeSyncBadges) window.__ejeSyncBadges();
+          render(); if(typeof renderHoy==='function') renderHoy(); if(typeof renderAccion==='function') renderAccion();
+          if(typeof renderGuia==='function') renderGuia();
+          // al final del tick: cualquier init posterior ya corrió y no nos devuelve a Home
+          if(!_demoLanded){ _demoLanded=true; setTimeout(function(){
+            var n=document.querySelector('.nav-item[data-view="hoy"]'); if(n) n.click(); },0); }
+        }).catch(function(){ if(subEl) subEl.textContent='No se pudo cargar el demo.'; });
+        return;
+      }
       // Non-default workspaces have no report manifest, load purely from Supabase.
       if(EJE_CLIENT!=='eje_productoras'){
         loadStatus().then(function(){ return loadUniverse(); }).then(function(){

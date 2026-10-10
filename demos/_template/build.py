@@ -15,10 +15,29 @@ import json, pathlib, sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
+
+# Un hecho se muestra pelado, con su link. Lo que el hecho "significa" lo concluye quien lee: si se lo
+# escribimos nosotros, deja de ser dato verificable y pasa a ser opinión con cara de dato.
+INTERPRETA = ["así que", "asi que", "eso es", "eso significa", "lo que significa", "es decir",
+              "por lo que", "les sirve", "necesitan a", "quiere decir"]
+
+def check_hechos(data):
+    malos = []
+    for emp in data.get("empresas", []):
+        t = ((emp.get("hook") or {}).get("texto") or "").lower()
+        for m in INTERPRETA:
+            if m in t:
+                malos.append(f'{emp.get("id")}: "{m}"')
+        if emp.get("timing"):
+            malos.append(f'{emp.get("id")}: campo timing (interpretación, ya no se usa)')
+    if malos:
+        raise SystemExit("HECHO CON INTERPRETACIÓN (solo el hecho + su fuente):\n  " + "\n  ".join(malos))
+
 def build(prospect):
     base = ROOT / "demos" / prospect
     cfg = json.loads((base / "config.json").read_text(encoding="utf-8"))
     data = json.loads((base / "leads.json").read_text(encoding="utf-8"))
+    check_hechos(data)                      # falla el build si un hecho trae interpretación pegada
     data["_cfg"] = cfg                      # one payload: the page reads copy and brand from here
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     out = (HTML
@@ -28,7 +47,69 @@ def build(prospect):
            .replace("__ACCENT__", cfg["marca"]["accent"]).replace("__SOFT__", cfg["marca"]["soft"]))
     (base / "index.html").write_text(out, encoding="utf-8")
     assert "—" not in out, "em dash in output (global rule)"
+    publish_demo_client(prospect, cfg, data)
     return base / "index.html", len(out)
+
+
+def publish_demo_client(prospect, cfg, data):
+    """Publish the demo as a DEMO CLIENT the real app can load: public/demo-<prospect>.json.
+
+    Vercel serves only public/, so the data has to live there. The standalone page stays as a fallback.
+    ONE CARD PER COMPANY: the app keys cards by the website hostname (decDom), so one card per door would
+    collide on the same domain and mark two cards contacted at once. Door 1 is the card's contact; the other
+    doors ride inside the card for the Guia tab. No synthetic domains: inventing a URL to get a unique key
+    would be inventing data."""
+    import datetime
+    hoy = datetime.date.today().isoformat()
+    leads, guia_emp = [], []
+    for e in data["empresas"]:
+        P = e["puertas"]
+        ai = next((i for i, x in enumerate(P)
+                   if x.get("nombre") and "contexto" not in (x.get("nivel") or "").lower()), 0)
+        d1 = P[ai]
+        ch = e.get("canales") or {}
+        def chan(k):
+            c = ch.get(k) or {}
+            return c.get("valor") if c.get("estado") in ("verificado", "inferido") else ""
+        leads.append({
+            "_key": e["id"], "companyName": e["empresa"], "country": "México",
+            "industry": e.get("sector", ""), "website": chan("sitio") or e.get("sitio", ""),
+            "contactName": d1.get("nombre") or "", "contactTitle": d1.get("titulo") or d1.get("rol") or "",
+            "contactEmail": ((d1.get("email") or {}).get("valor") or ""),
+            "whatsapp": chan("whatsapp") or "", "instagramHandle": "",
+            "contactLinkedIn": chan("linkedin_empresa") or "",
+            "companyBrief": e["hook"]["texto"], "pitchEmailES": d1["mensaje"]["cuerpo"],
+            "logo": "", "score": "", "source_date": hoy, "approved": True,
+            "whyICP": "", "whyNow": [],   # el "por qué" lo concluye quien lee el hecho, no lo escribimos nosotros
+            "sector": e.get("sector", ""), "ciudad": e.get("ciudad", ""),
+        })
+        guia_emp.append({
+            "id": e["id"], "empresa": e["empresa"], "ciudad": e.get("ciudad", ""),
+            "hook": e["hook"], "fact": e.get("fact"),
+            "ruta_sugerida": e.get("ruta_sugerida", []), "coach": e.get("coach", []),
+            "canales": ch, "rutas_adicionales": e.get("rutas_adicionales", []),
+            "intento_log": e.get("intento_log", []), "tamano": e.get("tamano", {}),
+            "puertas": [{"rol": x.get("rol"), "nivel": x.get("nivel"), "nombre": x.get("nombre"),
+                         "titulo": x.get("titulo"), "email": x.get("email"), "evidencia": x.get("evidencia"),
+                         "confianza": x.get("confianza"), "ruta_entrada": x.get("ruta_entrada"),
+                         "linkedin_busqueda": x.get("linkedin_busqueda"), "mensaje": x.get("mensaje"),
+                         "_cuenta": x.get("_cuenta")} for x in P],
+        })
+    payload = {
+        "client_id": "demo-" + prospect, "client_type": "demo", "prospecto": cfg.get("prospecto", prospect),
+        # el saludo y el destinatario viven en config.json: editarlos a mano en el JSON publicado se perdía
+        # en el siguiente build
+        "saludo": cfg.get("saludo") or "", "demo_para": cfg.get("demo_para") or "",
+        "generado": hoy, "leads": leads,
+        "guia": {"temporada_objetivo": cfg.get("temporada_objetivo"),
+                 "temporada_label": cfg.get("temporada_label"), "temporada_nota": cfg.get("temporada_nota"),
+                 "min_por_cuenta": cfg.get("min_por_cuenta", 2),
+                 "resumen_hoy": data.get("resumen_hoy", {}), "cierre": cfg.get("cierre", {}),
+                 "empresas": guia_emp},
+    }
+    out = ROOT / "public" / ("demo-" + prospect + ".json")
+    out.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return out
 
 
 HTML = r"""<!doctype html>
@@ -104,7 +185,6 @@ HTML = r"""<!doctype html>
   .hook p{margin:4px 0 8px; font-size:15px}
   .srcs{display:flex; flex-wrap:wrap; gap:8px}
   .src{font-size:11.5px; font-family:"JetBrains Mono",monospace; background:#fff; border:1px solid var(--line); border-radius:99px; padding:3px 9px; text-decoration:none}
-  .timing{font-size:14px; margin:14px 0 0; padding-left:12px; border-left:2px solid var(--line); color:var(--ink)}
 
   /* intel + channels */
   .intel{display:grid; grid-template-columns:1fr; gap:14px; padding:16px 14px; border-bottom:1px solid var(--line)}
@@ -501,7 +581,6 @@ function render(){
             + emp.hook.fuentes.map(u=>'<a class="src" href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(host(u))+'</a>').join("")
             + '</div></details>'
         + '</div>'
-        + '<p class="timing"><b>Por qué ahora:</b> '+esc(emp.timing)+'</p>'
       + '</div>'
       + '<div class="intel">'
         + '<div><span class="mono">matriz</span><p>'+esc(emp.matriz.empresa)+' · '+esc(emp.matriz.pais)+'</p></div>'

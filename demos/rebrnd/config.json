@@ -12,7 +12,7 @@
   "min_por_cuenta": 2,
   "temporada_objetivo": "2026-12-15",
   "temporada_label": "días para las posadas de mediados de diciembre",
-  "temporada_nota": "Las empresas suelen cerrar proveedor de evento entre finales de octubre y mediados de noviembre, así que esta ventana es la buena.",
+  "temporada_nota": "Las empresas suelen cerrar proveedor de evento entre finales de octubre y mediados de noviembre.",
   "oferta_linea": "Foto, video y dron de eventos corporativos e industriales, con respuesta inmediata, logística y experiencia en planta",
   "cierre": {
     "titulo": "¿Quieres esto cada mañana?",
@@ -38,5 +38,7 @@
       "texto": "Hola <nombre>, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. <hook>, entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
     }
   ],
-  "_regla_voz": "La voz la pone el cliente. El sistema solo rellena variables y, si un hook pasa el test de 'y eso qué', lo mete en la misma frase. Nunca escribe la voz ni varía los mensajes por variar."
+  "_regla_voz": "La voz la pone el cliente. El sistema solo rellena variables y, si un hook pasa el test de 'y eso qué', lo mete en la misma frase. Nunca escribe la voz ni varía los mensajes por variar.",
+  "saludo": "Buen día, Carlos.",
+  "demo_para": "krloschava14@gmail.com"
 }
