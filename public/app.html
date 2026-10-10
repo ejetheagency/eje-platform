@@ -316,6 +316,14 @@
   .ops-ctab th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);border:none}
   .ops-ctab .rd{font-weight:800;color:var(--ok)}
   .hoy-card{display:flex;flex-direction:column;gap:9px;background:var(--canvas);border:1px solid var(--line-2);border-radius:16px;padding:15px 15px 13px;cursor:pointer;text-align:left;box-shadow:var(--sh-sm);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;min-height:152px;font-family:inherit}
+  /* ── expediente de tarjeta, SOLO demo (las clases dm- no se emiten fuera de modo demo) ── */
+  .dm-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+  .dm-chip{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;letter-spacing:.01em;
+    padding:2px 7px;border-radius:999px;background:var(--sunken);color:var(--ink-2);border:1px solid var(--line)}
+  .dm-chip.on{background:color-mix(in srgb,var(--cool) 12%,transparent);color:var(--cool);border-color:transparent}
+  .dm-chip.mail{background:color-mix(in srgb,var(--ok) 13%,transparent);color:var(--ok);border-color:transparent}
+  .dm-who{font-size:11.5px;color:var(--ink-3);line-height:1.45;margin-top:1px}
+  .dm-who b{color:var(--ink-2);font-weight:600}
   .hoy-card:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--line-3)}
   .hoy-card.done{background:var(--panel);border-color:var(--line)}
   .hc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
@@ -1553,6 +1561,7 @@
           +'</button>';
       }).join('');
       body.querySelectorAll('.hoy-card').forEach(function(r){r.addEventListener('click',function(){var i=+r.dataset.hi;var ld=rep[i];if(!ld)return;openCardNav(ld,rep,i,'hoy');});});
+      if(EJE_DEMO&&window.__demoBrag) window.__demoBrag(body,rep);
     }
     // ══ SEGUIMIENTO — manual lead tracker (ISEJE only). Isolated tables tracked_leads / tracked_lead_notes.
     // Reminders computed live at render (no cron). Never touches the outreach pipeline. See docs/SEGUIMIENTO-PLAN.md. ══
@@ -2036,6 +2045,37 @@
 
     // ── GUIA (demo clients only). Built from the app's own components (.card, .btn, .tq-empty, page-h/page-sub)
     // and its tokens; it adds no palette and no fonts of its own. Renders nothing unless EJE_DEMO.
+    // Lo que la tarjeta de Hoy enseña en modo demo: cuánta gente real hay detrás de esa empresa y por dónde
+    // se le entra. No es decoración: cada chip es un dato que costó encontrarse, y un hueco se dice "0", no se
+    // esconde. Se inyecta DESPUÉS de renderHoy para no tocar el render de producción.
+    window.__demoBrag=function(body,rep){
+      if(!DEMO||!DEMO.guia) return;
+      var by={}; (DEMO.guia.empresas||[]).forEach(function(e){ by[e.id]=e; });
+      body.querySelectorAll('.hoy-card').forEach(function(card){
+        var ld=rep[+card.dataset.hi]; if(!ld) return;
+        var e=by[ld._demo]; if(!e||card.querySelector('.dm-chips')) return;
+        var ps=e.puertas||[], ch=e.canales||{};
+        var conNombre=ps.filter(function(x){return x.nombre;});
+        var correos=ps.filter(function(x){ var m=x.email||{}; return m.valor && /publicad|verificad|patrón|patron|inferid/i.test(m.estado||''); });
+        var perfiles=ps.filter(function(x){return x.linkedin_perfil;});
+        var c=[];
+        c.push('<span class="dm-chip on">'+conNombre.length+' decisor'+(conNombre.length===1?'':'es')+'</span>');
+        if(correos.length) c.push('<span class="dm-chip mail">'+correos.length+' correo'+(correos.length===1?'':'s')+'</span>');
+        if(perfiles.length) c.push('<span class="dm-chip">'+perfiles.length+' LinkedIn</span>');
+        var ig=(ch.instagram||{}); if(ig.handle) c.push('<span class="dm-chip">'+esc(ig.handle)+'</span>');
+        if((ch.linkedin_empresa||{}).valor) c.push('<span class="dm-chip">in empresa</span>');
+        if((ch.whatsapp||{}).valor) c.push('<span class="dm-chip">WhatsApp</span>');
+        if((ch.telefono||{}).valor) c.push('<span class="dm-chip">conmutador</span>');
+        var nombres=conNombre.slice(0,2).map(function(x){return '<b>'+esc(x.nombre)+'</b>';});
+        var resto=conNombre.length-nombres.length;
+        var who=nombres.length?('<div class="dm-who">'+nombres.join(' · ')+(resto>0?' <span>y '+resto+' más</span>':'')+'</div>'):'';
+        var wrap=document.createElement('div');
+        wrap.innerHTML='<div class="dm-chips">'+c.join('')+'</div>'+who;
+        var foot=card.querySelector('.hc-foot');
+        while(wrap.firstChild){ card.insertBefore(wrap.firstChild, foot); }
+      });
+    };
+
     function renderGuia(){
       var host=document.getElementById('guia-body'); if(!host||!EJE_DEMO||!DEMO) return;
       var g=DEMO.guia||{}, t=g.resumen_hoy||{}, c=g.cierre||{};
@@ -2096,6 +2136,8 @@
             +'<summary style="cursor:pointer"><b style="font-size:14px">'+nom+'</b>'
             +'<span style="font-size:12.5px;color:var(--ink-3)"> · '+esc(d.rol||'')+'</span></summary>'
             +'<div style="font-size:13px;color:var(--ink-2);margin:6px 0">'+esc(d.ruta_entrada||'')+'</div>'
+            +(d.nota_ubicacion?'<div style="font-size:12.5px;color:var(--warn);margin:-2px 0 6px">'+esc(d.nota_ubicacion)+'</div>':'')
+            +(d.linkedin_perfil?'<div style="margin-bottom:6px"><a class="btn site" style="padding:1px 8px;font-size:11px" href="'+esc(d.linkedin_perfil)+'" target="_blank" rel="noopener">perfil de LinkedIn</a></div>':'')
             +chip+cnt+evi
             +'<div style="background:var(--sunken);border-radius:10px;padding:12px;margin-top:8px;font-size:14px;white-space:pre-wrap">'+esc((d.mensaje||{}).cuerpo||'')+'</div>'
           +'</details>';

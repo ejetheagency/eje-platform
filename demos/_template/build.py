@@ -76,11 +76,13 @@ def publish_demo_client(prospect, cfg, data):
             "industry": e.get("sector", ""), "website": chan("sitio") or e.get("sitio", ""),
             "contactName": d1.get("nombre") or "", "contactTitle": d1.get("titulo") or d1.get("rol") or "",
             "contactEmail": ((d1.get("email") or {}).get("valor") or ""),
-            "whatsapp": chan("whatsapp") or "", "instagramHandle": "",
-            "contactLinkedIn": chan("linkedin_empresa") or "",
+            "whatsapp": chan("whatsapp") or "",
+            "instagramHandle": ((e.get("canales", {}).get("instagram") or {}).get("handle") or "").lstrip("@"),
+            "contactLinkedIn": (d1.get("linkedin_perfil") or ""),
+            "companyLinkedIn": chan("linkedin_empresa") or "",
             "companyBrief": e["hook"]["texto"], "pitchEmailES": d1["mensaje"]["cuerpo"],
             "logo": "", "score": "", "source_date": hoy, "approved": True,
-            "whyICP": "", "whyNow": [],   # el "por qué" lo concluye quien lee el hecho, no lo escribimos nosotros
+            "whyICP": "", "whyNow": [], "_demo": e["id"],   # el "por qué" lo concluye quien lee el hecho, no lo escribimos nosotros
             "sector": e.get("sector", ""), "ciudad": e.get("ciudad", ""),
         })
         guia_emp.append({
@@ -93,6 +95,7 @@ def publish_demo_client(prospect, cfg, data):
                          "titulo": x.get("titulo"), "email": x.get("email"), "evidencia": x.get("evidencia"),
                          "confianza": x.get("confianza"), "ruta_entrada": x.get("ruta_entrada"),
                          "linkedin_busqueda": x.get("linkedin_busqueda"), "mensaje": x.get("mensaje"),
+                         "linkedin_perfil": x.get("linkedin_perfil"), "nota_ubicacion": x.get("nota_ubicacion"),
                          "_cuenta": x.get("_cuenta")} for x in P],
         })
     payload = {

@@ -63,12 +63,16 @@
           "nota": "WhatsApp de reclutamiento zona Monterrey, publicado por la empresa"
         },
         "linkedin_empresa": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.linkedin.com/company/grupo-gonher/",
+          "nota": "página corporativa del grupo"
         },
         "instagram": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.instagram.com/grupogonher/",
+          "handle": "@grupogonher",
+          "nota": "cuenta corporativa, 'Soluciones que mueven al mundo'",
+          "fuente": "https://www.instagram.com/grupogonher/"
         },
         "facebook": {
           "estado": "no encontrado",
@@ -315,12 +319,16 @@
           "valor": null
         },
         "linkedin_empresa": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.linkedin.com/company/katcon",
+          "nota": "página global"
         },
         "instagram": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.instagram.com/katconglo/",
+          "handle": "@katconglo",
+          "nota": "cuenta global del grupo",
+          "fuente": "https://www.instagram.com/katconglo/"
         },
         "facebook": {
           "estado": "verificado",
@@ -562,12 +570,14 @@
           "valor": null
         },
         "linkedin_empresa": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://mx.linkedin.com/company/ragasa-industrias",
+          "nota": "página corporativa"
         },
         "instagram": {
           "estado": "no encontrado",
-          "valor": null
+          "valor": "",
+          "nota": "su sitio y su página corporativa no publican Instagram"
         },
         "facebook": {
           "estado": "no encontrado",
@@ -624,45 +634,6 @@
               "que": "correo publicado en directorio ANFACA = patrón [inicial][apellido]"
             },
             "resultado": "cjimenez@ragasa.com.mx"
-          },
-          "_cuenta": "confirmado"
-        },
-        {
-          "rol": "Gerente de Transformación Organizacional",
-          "nivel": "gerencia",
-          "nombre": "Mayra Medina Páez",
-          "titulo": "Gerente Transformación Organizacional en Ragasa; reconocida entre los líderes de RR.HH. más influyentes de México",
-          "confianza": {
-            "n": 1,
-            "fuentes": [
-              "https://www.rrhhdigital.mx/secciones/eventos/1468/Conoce-a-los-50-Lideres-Mas-Influyentes-de-Recursos-Humanos-en-Mexico"
-            ]
-          },
-          "linkedin_perfil": null,
-          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Mayra%20Medina%20Páez%20Ragasa",
-          "email": {
-            "estado": "patrón inferido",
-            "valor": "mmedina@ragasa.com.mx",
-            "fuente": "https://anfaca.org.mx/directory-listing/ragasa-industrias/",
-            "nota": "patrón inferido del correo publicado aagonzalez@ragasa.com.mx. Nombre y puesto confirmados en prensa de RR.HH. (fuente no LinkedIn)."
-          },
-          "ruta_entrada": "Transformación organizacional es cultura y clima: es exactamente quien compra un after movie de posada. Fuente de prensa, no de LinkedIn.",
-          "mensaje": {
-            "canal": "email",
-            "trato": "tú",
-            "asunto": "seguimiento, eventos internos",
-            "cuerpo": "Hola Mayra, aqui Carlos de @rebrnd. Le escribi a Carlos Jiménez hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
-          },
-          "evidencia": {
-            "nombre": {
-              "url": "https://www.rrhhdigital.mx/secciones/eventos/1468/Conoce-a-los-50-Lideres-Mas-Influyentes-de-Recursos-Humanos-en-Mexico",
-              "que": "Gerente Transformación Organizacional en Ragasa, prensa de RR.HH. (fuente no LinkedIn)"
-            },
-            "patron": {
-              "url": "https://anfaca.org.mx/directory-listing/ragasa-industrias/",
-              "que": "correo publicado aagonzalez@ragasa.com.mx = patrón [inicial][apellido]"
-            },
-            "resultado": "mmedina@ragasa.com.mx"
           },
           "_cuenta": "confirmado"
         },
@@ -787,12 +758,16 @@
           "valor": null
         },
         "linkedin_empresa": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://mx.linkedin.com/company/grupo-senda",
+          "nota": "página corporativa"
         },
         "instagram": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.instagram.com/gruposenda",
+          "handle": "@gruposenda",
+          "nota": "enlazada desde el pie de su propio sitio",
+          "fuente": "https://www.grupo-senda.com/"
         },
         "facebook": {
           "estado": "verificado",
@@ -817,10 +792,10 @@
         {
           "rol": "Dirección de Capital Humano",
           "nivel": "dirección de área RR.HH. (sí contrata eventos)",
-          "nombre": "Dulcinea Florencia Martínez",
-          "titulo": "Directora de Capital Humano en Grupo Senda; entró en 2013 como gerente de reclutamiento y selección",
+          "nombre": "Dulcinea Martínez Solís",
+          "titulo": "Directora de Capital Humano en Grupo Senda; participa como ponente en ERIAC Capital Humano",
           "confianza": {
-            "n": 1,
+            "n": 2,
             "fuentes": [
               "https://mexicoindustry.com/noticia/recibe-puesto-como-directora-de-capital-humano"
             ]
@@ -992,7 +967,8 @@
         },
         "instagram": {
           "estado": "no encontrado",
-          "valor": null
+          "valor": "",
+          "nota": "su sitio publica solo Facebook y LinkedIn"
         },
         "facebook": {
           "estado": "verificado",
@@ -1306,12 +1282,16 @@
           "valor": null
         },
         "linkedin_empresa": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.linkedin.com/company/viakable",
+          "nota": "página corporativa"
         },
         "instagram": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.instagram.com/somosviakable/",
+          "handle": "@somosviakable",
+          "nota": "cuenta de marca empleadora del grupo",
+          "fuente": "https://www.instagram.com/somosviakable/"
         },
         "facebook": {
           "estado": "verificado",
@@ -1337,10 +1317,11 @@
           "rol": "Dirección de Recursos Humanos",
           "nivel": "dirección de área RR.HH. (sí contrata eventos)",
           "nombre": "Patricio Murga",
-          "titulo": "Human Resources Director en Viakable",
+          "titulo": "Director de Recursos Humanos en Viakable (antes Gerente de Planeación y Desarrollo de Talento)",
           "confianza": {
-            "n": 1,
+            "n": 2,
             "fuentes": [
+              "https://theorg.com/org/viakable/teams/human-resources",
               "https://mx.linkedin.com/company/viakable"
             ]
           },
@@ -1511,9 +1492,11 @@
           "valor": "https://www.linkedin.com/company/frisa/"
         },
         "instagram": {
-          "estado": "no encontrado",
-          "valor": null,
-          "nota": "el icono de Instagram de su sitio lleva a LinkedIn"
+          "estado": "verificado",
+          "valor": "https://www.instagram.com/frisa.forjados/",
+          "handle": "@frisa.forjados",
+          "nota": "cuenta oficial con muy poca actividad: sirve para ubicar la marca, no para DM",
+          "fuente": "https://www.instagram.com/frisa.forjados/"
         },
         "facebook": {
           "estado": "verificado",
@@ -1751,12 +1734,14 @@
           "valor": null
         },
         "linkedin_empresa": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.linkedin.com/company/abinsa-acero",
+          "nota": "la página del grupo está bajo el nombre ABINSA, no ABX"
         },
         "instagram": {
           "estado": "no encontrado",
-          "valor": null
+          "valor": "",
+          "nota": "la unidad trabaja por Facebook de reclutamiento, no por Instagram"
         },
         "facebook": {
           "estado": "verificado",
@@ -1931,8 +1916,11 @@
           "valor": "https://mx.linkedin.com/company/copamex"
         },
         "instagram": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.instagram.com/copamex_oficial/",
+          "handle": "@copamex_oficial",
+          "nota": "'Somos el Gran Papel de México'",
+          "fuente": "https://www.instagram.com/copamex_oficial/"
         },
         "facebook": {
           "estado": "no encontrado",
@@ -1960,12 +1948,13 @@
           "nombre": "Arturo Medina",
           "titulo": "Gerente de Recursos Humanos en Copamex",
           "confianza": {
-            "n": 1,
+            "n": 2,
             "fuentes": [
-              "https://contactout.com/company/copamex-8776763"
+              "https://contactout.com/company/copamex-8776763",
+              "https://www.linkedin.com/in/arturo-medina-ab581377/"
             ]
           },
-          "linkedin_perfil": null,
+          "linkedin_perfil": "https://www.linkedin.com/in/arturo-medina-ab581377/",
           "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Arturo%20Medina",
           "email": {
             "estado": "patrón inferido",
@@ -1991,7 +1980,8 @@
             },
             "resultado": "arturo.medina@copamex.com"
           },
-          "_cuenta": "sin fecha"
+          "_cuenta": "sin fecha",
+          "nota_ubicacion": "Su perfil lo ubica en Ciudad Cuauhtémoc, Chihuahua, no en Monterrey: es RR.HH. de Copamex pero no necesariamente de la planta regia."
         },
         {
           "rol": "Gerencia de Compras (corporativo)",
@@ -2179,12 +2169,16 @@
           "valor": null
         },
         "linkedin_empresa": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.linkedin.com/company/gentherm",
+          "nota": "página corporativa global"
         },
         "instagram": {
-          "estado": "no encontrado",
-          "valor": null
+          "estado": "verificado",
+          "valor": "https://www.instagram.com/gentherminc/",
+          "handle": "@gentherminc",
+          "nota": "cuenta corporativa global, no de la planta de Apodaca",
+          "fuente": "https://www.instagram.com/gentherminc/"
         },
         "facebook": {
           "estado": "no encontrado",
@@ -2249,7 +2243,8 @@
             "trato": "tú",
             "asunto": "eventos internos",
             "cuerpo": "Hola Francisco, aqui Carlos de @rebrnd. Te escribo en frio ya que revise la compañia y tienen un perfil similar a clientes que tengo hoy. vi que estan armando el area de capacitacion, entiendo que hacen eventos internos y nosotros eventualmente podemos ayudar con eso. te envio mas info por aqui? o a alguien mas del equipo."
-          }
+          },
+          "nota_ubicacion": "Dirige RR.HH. de Gentherm México desde la planta de Celaya, Guanajuato. Sirve como autoridad, no como puerta local de Apodaca."
         },
         {
           "rol": "Gentherm Apodaca, puesto por confirmar",
@@ -2287,6 +2282,53 @@
             "trato": "tú",
             "asunto": "seguimiento, eventos internos",
             "cuerpo": "Hola Manuel, aqui Carlos de @rebrnd. Le escribi a Francisco de hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
+          }
+        },
+        {
+          "rol": "Recursos Humanos, planta Apodaca",
+          "nivel": "operativa",
+          "nombre": "Gisell García",
+          "titulo": "Recursos Humanos en Gentherm, Apodaca, Nuevo León",
+          "linkedin_perfil": "https://www.linkedin.com/in/gisell-garcia-29960b298/",
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Gisell%20Garcia%20Gentherm",
+          "confianza": {
+            "n": 1,
+            "fuentes": [
+              "https://www.linkedin.com/in/gisell-garcia-29960b298/"
+            ]
+          },
+          "ruta_entrada": "RR.HH. en la planta misma de Apodaca, no en el corporativo de Celaya.",
+          "email": {
+            "estado": "no encontrado",
+            "valor": "",
+            "nota": "sin correo publicado a su nombre; la vía es LinkedIn o el correo de reclutamiento de la planta"
+          },
+          "mensaje": {
+            "cuerpo": "Hola Gisell, aqui Carlos de @rebrnd. Le escribi a Francisco de la Hidalga hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area, ya que estas en la planta de Apodaca. sigo con el o contigo?"
+          }
+        },
+        {
+          "rol": "Reclutamiento, planta Apodaca",
+          "nivel": "operativa",
+          "nombre": "Ricardo Daniel Ramírez Rodríguez",
+          "titulo": "Más de 10 años en el área de Recursos Humanos de Gentherm, enfocado en Reclutamiento",
+          "linkedin_perfil": "https://www.linkedin.com/in/ricardoramirezmx/",
+          "linkedin_busqueda": "https://www.linkedin.com/search/results/people/?keywords=Ricardo%20Ramirez%20Gentherm",
+          "confianza": {
+            "n": 1,
+            "fuentes": [
+              "https://www.linkedin.com/in/ricardoramirezmx/"
+            ]
+          },
+          "ruta_entrada": "Diez años en RR.HH. de Gentherm: sabe quién arma la posada aunque no la arme él.",
+          "email": {
+            "estado": "publicado",
+            "valor": "federico.ramirez@gentherm.com",
+            "fuente": "https://www.somosindustria.com/articulo/gentherm-repunta-crecimiento-y-requiere-personal/",
+            "nota": "correo de reclutamiento de Gentherm publicado en prensa industrial. Verificar antes de enviar."
+          },
+          "mensaje": {
+            "cuerpo": "Hola Ricardo, aqui Carlos de @rebrnd. Le escribi a Francisco de la Hidalga hace unos dias sobre los eventos internos y no me ha respondido, normal. Te escribo porque cae mas cerca de tu area. sigo con el o contigo?"
           }
         }
       ],
