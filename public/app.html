@@ -2217,7 +2217,12 @@
       if(EJE_DEMO){
         fetch('./demo-'+EJE_DEMO_SLUG+'.json?v='+Date.now()).then(function(r){return r.json();}).then(function(d){
           DEMO=d; UNIVERSE=(d.leads||[]).slice();
-          DATA={date:new Date().toISOString().slice(0,10),leads:UNIVERSE.slice()};
+          // Un demo no caduca. Hoy filtra por source_date === hoy, así que un demo construido ayer amanece
+          // vacío y el prospecto abre el link a una pantalla en blanco. Se les pone la fecha de hoy al cargar:
+          // el reporte siempre está en Hoy, el día que sea que abra.
+          var _hoyDemo=(typeof ejeTodayET==='function')?ejeTodayET():new Date().toISOString().slice(0,10);
+          UNIVERSE.forEach(function(l){ l.source_date=_hoyDemo; });
+          DATA={date:_hoyDemo,leads:UNIVERSE.slice()};
           document.querySelectorAll('[data-view="guia"]').forEach(function(el){el.style.display='';});
           // el demo se abre en Hoy, no en Home: Home mide actividad que un demo todavía no tiene, y arrancar
           // en una pantalla de ceros vende lo contrario de lo que el demo prueba. Home sigue accesible.
