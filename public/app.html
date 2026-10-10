@@ -886,9 +886,18 @@
   // inside it is invisible to load() and renderGuia(). A demo client ("demo-<slug>") reads a published JSON from
   // public/ and never touches Supabase, so there is nothing to authenticate against, nothing it could read from
   // another client, and canWrite() stays false so it can never write either.
+  // LISTA BLANCA, no patrón: sin ella, ?demo=loquesea saltaba la pantalla de acceso para cualquier valor.
+  // Un slug que no esté aquí no existe, y además se limpia de localStorage para que un link viejo no deje
+  // la sesión atrapada en un cliente inventado.
+  var EJE_DEMOS={rebrnd:1};
   (function(){ try{ var q=new URLSearchParams(location.search).get('demo');
-    if(q){ localStorage.setItem('eje_ws','demo-'+q); history.replaceState(null,'',location.pathname); } }catch(e){} })();
-  var EJE_DEMO=(function(){try{return /^demo-/.test(localStorage.getItem('eje_ws')||'');}catch(e){return false;}})();
+    if(q&&EJE_DEMOS[q]){ localStorage.setItem('eje_ws','demo-'+q); history.replaceState(null,'',location.pathname); } }catch(e){} })();
+  var EJE_DEMO=(function(){ try{
+    var w=localStorage.getItem('eje_ws')||'';
+    if(!/^demo-/.test(w)) return false;
+    if(EJE_DEMOS[w.replace(/^demo-/,'')]) return true;
+    localStorage.removeItem('eje_ws'); return false;
+  }catch(e){ return false; } })();
   var EJE_DEMO_SLUG=EJE_DEMO?(localStorage.getItem('eje_ws')||'').replace(/^demo-/,''):'';
   var DEMO=null;
 
@@ -1021,7 +1030,10 @@
         })
         .catch(function(){ window.__ejeAuthed=false; errEl.textContent='No se pudo verificar tu acceso. Reintentá.'; errEl.style.display='block'; showLogin(); });
     }
-    if(sb){
+    // Un demo no arranca la sesión: sin getSession, sin onAuthStateChange, sin token. No hay nada que
+    // autenticar y así tampoco hay forma de que una sesión vieja lo convierta en otro cliente.
+    if(EJE_DEMO){ /* sin auth */ }
+    else if(sb){
       sb.auth.getSession().then(function(r){ handleSession(r&&r.data&&r.data.session); }).catch(showLogin);
       sb.auth.onAuthStateChange(function(_e,session){ if(session) handleSession(session); });
     } else { showLogin(); }
